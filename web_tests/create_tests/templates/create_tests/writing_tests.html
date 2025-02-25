@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% load static %}
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <title>МЭИ | уже не калькулятор</title>
+    <link rel="stylesheet" href='{% static "css/writing_tests.css" %}'>
+    <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.core.css">
+
+    <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
+    <script src="{% static 'js/writing_tests.js' %}"></script>
+    
+    <script src='https://unpkg.com/mathlive/dist/mathlive.min.js'></script>
+</head>
+    <body>
+        <div class="container">
+            <header class="shapka">
+                    <div class="dropdown">
+                        <button onclick="toggleMenu()">= Меню</button>
+                        <div class="dropdown-content" id="menu">
+                            <a href="#">Пункт 1</a>
+                            <a href="#">Пункт 2</a>
+                            <a href="#">Пункт 3</a>
+                        </div>
+                    </div>
+                <div class="name">
+                    Введите название теста и время на решение:
+                    <input type="text" name="name_test" id="testNameInput" placeholder="Название теста">
+                    <input type="text" name="time_solve" id="timeSolve" placeholder="Время на решение">
+                </div>
+            </header>
+            <div class="mainPart">
+                <div class="fullExpression" id="fullExpression1">
+                    <h4 id="count1">Задание №1:</h4>
+                    <div class="point-for-solve">
+                        <h5>Количество баллов за задание:  </h5>
+                        <input type="text" name="point_solve" id="point_solve1" placeholder="Балл"> 
+                    </div>
+                    <div class="expression">
+                        <math-field id="expr1" virtual-keyboard-mode="manual" name="user_expression" lang="ru" placeholder="Выражение"></math-field>
+                    </div>
+                    <div class="right-side">
+                        <math-field class="answer" id="ans1" virtual-keyboard-mode="manual" name="user_ans" placeholder="Ответ"></math-field>
+                        <input type="text" id="eps1" name="user_eps" placeholder="Точность" size="10">
+                        <input type="text" id="typ1" name="user_type" placeholder="Тип" size="10">
+                    </div>
+                </div>
+                <div class="butChange">
+                    <button type="button" class="add-btn">Добавить номер</button>
+                    <button type="button" class="del-btn">Удалить</button>
+                </div>
+                <a href="#popup"><button type="submit" class="save-btn">Сохранить</button></a>
+
+            </div>
+        </div>
+
+        <div id="popup" class="popup">
+            <a href="#header" class="popap_area"></a>
+            <div class="popup_body">
+                <div class="popup_content">
+                    <a href="#header" class="popup_close">X</a>
+                    <div class="popup_title">Вы уверены что хотите сохранить?</div>
+                    <div class="btn_option">
+                        <a href="#header"><button class="changeTest">Нет,продолжить составление</button></a>
+                        <div class="save">
+                            <form action="{% url 'create_test' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="name_test" id="hidden_name_test">
+                                <input type="hidden" name="time_solve" id="hidden_time_solve">
+                                <input type="hidden" name="point_solve" id="hidden_point_solve1">
+                                <input type="hidden" name="user_expression" id="hidden_expr1">
+                                <input type="hidden" name="user_ans" id="hidden_ans1">
+                                <input type="hidden" name="user_eps" id="hidden_eps1">
+                                <input type="hidden" name="user_type" id="hidden_typ1">
+                                <button type="submit" class="save-and-go-to-list">Да,вернуться к списку</button>
+                                <button type="submit" class="save-and-publ">Да,выложить в общий доступ</button>
+                            </form>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

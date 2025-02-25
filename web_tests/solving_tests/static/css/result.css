@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    background: #f9f9f9;
+    color: #333;
+}
+
+/* Шапка */
+header.shapka {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: #000; /* Черный фон */
+    color: #fff; /* Белый текст */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Кнопка меню */
+header.shapka .menu-btn {
+    font-size: 1rem;
+    padding: 8px 15px;
+    background: #fff;
+    color: #000;
+    border: 1px solid #333;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+header.shapka .menu-btn:hover {
+    background: #333;
+    color: #fff;
+}
+
+/* Название теста */
+header.shapka .Name h2 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.back_to_all {
+    display: flex;
+    justify-content: center; /* Центрирование по горизонтали */
+    margin: 20px 0; /* Отступ сверху и снизу */
+}
+
+.return-button {
+    padding: 10px 20px; /* Внутренние отступы */
+    font-size: 1rem; /* Размер текста */
+    font-weight: bold; /* Жирный текст */
+    color: white; /* Цвет текста */
+    background: #007bff; /* Синий фон */
+    border: none; /* Убираем границы */
+    border-radius: 5px; /* Скругленные углы */
+    cursor: pointer; /* Курсор указывает, что это кнопка */
+    transition: background 0.3s ease; /* Анимация на наведение */
+}
+
+.return-button:hover {
+    background: #0056b3; /* Темно-синий фон при наведении */
+}

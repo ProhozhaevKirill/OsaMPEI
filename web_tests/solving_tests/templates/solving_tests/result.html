@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <title> {{ test.name_slug_tests }} </title>
+    <link rel="stylesheet" href='{% static "css/result.css" %}'>
+    <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.core.css">
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src='https://unpkg.com/mathlive/dist/mathlive.min.js'></script>
+    <script src="{% static 'js/result.js' %}"></script>
+</head>
+
+<body>
+    <header class="shapka">
+        <div>
+            Меню
+        </div>
+
+        <div class="Name">
+            <h2 >{{ test.name_slug_tests }}</h2>
+        </div>
+    </header>
+
+    {% for ex in test.expressions.all %}
+        <h4 class="number">Номер {{forloop.counter}}.</h4>
+        <div class="express">
+            <p>
+
+                <li>$$ {{ ex.user_expression }} $$</li>
+            </p>
+        </div>
+        <hr>
+    {% endfor %}
+
+
+    <div class="result">
+        <h2>Вы получили {{result}} баллов, ваша оценка: {{score}}</h2>
+    </div>
+
+    <div class="back_to_all">
+        <a href="{% url 'list_test' %}">
+            <button class="return-button">Вернуться к списку заданий</button>
+        </a>
+    </div>
+</body>
+</html>

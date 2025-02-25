@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <title>Тестовые задания</title>
+    <link rel="stylesheet" href='{% static "css/test_selection.css" %}'>
+
+    <script src="{% static 'js/test_selection.js' %}"></script>
+    
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="shapka">
+        <div>
+            <h4>Меню</h4>
+        </div>
+        <div class="Name">
+            <h2>{{ test.name_tests }}</h2>
+        </div>
+    </header>
+
+    <div class="main">
+        <h2> Список всех тестов </h2>
+
+        <ul class="list-tests">
+            {% for name in tests %}
+            <div class="name_test">
+                <li>
+                    {{ forloop.counter }}
+                    <a href="{{name.name_slug_tests}}"> {{ name.name_tests }} </a>
+                </li>
+            </div>
+
+                <hr>
+            {% endfor %}
+        </ul>
+        
+        
+    </div>  
+</body>
+</html>

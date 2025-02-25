@@ -1,0 +1,107 @@
+/* Общий стиль страницы */
+body {
+    margin: 0;
+    background: #f9f9f9;
+    color: #333;
+}
+
+/* Шапка */
+header.shapka {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: #000; /* Черный фон */
+    color: #fff; /* Белый текст */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Кнопка меню */
+header.shapka .menu-btn {
+    font-size: 1rem;
+    padding: 8px 15px;
+    background: #fff;
+    color: #000;
+    border: 1px solid #333;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+header.shapka .menu-btn:hover {
+    background: #333;
+    color: #fff;
+}
+
+/* Название теста */
+header.shapka .Name h2 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+/* Таймер */
+header.shapka .Timer h2 {
+    font-size: 1.2rem;
+    margin: 0;
+    padding: 5px 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.list-expr li {
+    list-style-type: none;
+    display: list-item; /* Сделаем элемент списка видимым */
+    margin-bottom: 10px; /* Отступ снизу */
+    word-wrap: break-word; /* Автоматический перенос длинных слов */
+    white-space: normal; /* Разрешаем перенос строк */
+    line-height: 1.6; /* Межстрочный интервал */
+    word-break: break-word; /* Разрешаем перенос слов на новую строку */
+}
+
+/* Стиль для математических выражений */
+.math-field-container {
+    display: inline-block; /* Пытаемся удержать выражение в пределах строки */
+    max-width: 100%; /* Ограничиваем максимальную ширину */
+    overflow-wrap: break-word; /* Перенос длинных выражений */
+    word-wrap: break-word; /* Разрешаем перенос слов */
+}
+
+/* Для math-field */
+math-field.answer {
+    display: inline-block; /* Точно так же для math-field */
+    width: 400px;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: normal; /* Разрешаем перенос по строкам */
+    margin: 10px 0; /* Добавим отступы */
+}
+
+/* Для контейнера с выражениями */
+.container {
+    word-wrap: break-word; /* Переносим длинные строки */
+    word-break: break-word; /* Переносим слова, если нужно */
+    white-space: normal; /* Разрешаем перенос строк */
+}
+
+/* Кнопка завершения теста */
+button.send-and-go-to-list {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button.send-and-go-to-list:hover {
+    background: #555;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="shortcut icon" href="{% static 'favicon.ico' %}"> -->
+    <title>{{ name_test }}</title>
+    <link rel="stylesheet" href='{% static "css/some_test.css" %}'>
+    <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.core.css">
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
+    <script src='https://unpkg.com/mathlive/dist/mathlive.min.js'></script>
+    <script src="{% static 'js/some_test.js' %}"></script>
+
+    <script src='https://unpkg.com/mathlive/dist/mathlive.min.js'></script>
+</head>
+<body>
+
+<header class="shapka">
+    <div>
+        Меню
+    </div>
+
+    <div class="Name">
+        <h2>{{ test.name_slug_tests }}</h2>
+    </div>
+
+    <!-- Доделать таймер со временем на решение -->
+    <div class="Timer">
+        <h2> "Время" </h2>
+    </div>
+</header>
+
+<div>
+    <p>Последнее изменение: {{ test.time_last_change }}</p>
+</div>
+
+<ul class="list-expr">
+    {% for ex in test.expressions.all %}
+    Номер {{forloop.counter}}
+    <p><li> $$ {{ ex.user_expression }} $$ </li></p>
+    <div class="sec-info">
+        <p><li> $$ {{ ex.user_ans }} $$ </li></p>
+        <li>
+            {% if ex.user_eps == 0.0 %}
+            <p> Ответ точный </p>
+            {% else %}
+            <p> Точность: {{ ex.user_eps }} </p>
+            {% endif %}
+        </li>
+    </div>
+    {% endfor %}
+</ul>
+
+
+<div class="save">
+    <button>Редактировать</button>
+</div>
+
+</body>
+</html>

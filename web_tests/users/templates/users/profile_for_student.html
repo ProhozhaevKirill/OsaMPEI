@@ -1,0 +1,64 @@
+<!--{% load static %}-->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль студента</title>
+    <link rel="stylesheet" href="{% static 'css/profile_for_student.css' %}">
+
+</head>
+<body class="form-v10">
+    <div class="name">Личный кабинет</div>
+    <div class="page-content">
+        <div class="form-v10-content">
+            <form class="form-detail" action="#" method="post" id="myform">
+                <div class="form-left">
+                    <h2>Основные данные:</h2>
+                    <div class="form-group">
+                        <input type="text" name="first_name" id="first_name" class="input-text" placeholder="Имя" required="">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="last_name" id="last_name" class="input-text" placeholder="Фамилия" required="">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="middle_name" id="middle_name" class="input-text" placeholder="Отчество" required="">
+                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <input type="text" name="group" id="group" class="input-text" placeholder="Группа" required="">-->
+<!--                    </div>-->
+                    <div class="form-group">
+:wq
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" name="phone" id="phone" class="input-text" placeholder="Телефон" required="">
+                    </div>
+                </div>
+                <div class="form-right">
+                    <h2>Контактные данные</h2>
+                    <div class="form-group">
+                        <input type="text" name="address" id="address" class="input-text" placeholder="Адрес" required="">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="city" id="city" class="input-text" placeholder="Город" required="">
+                    </div>
+                    <div class="form-group">
+                        <select name="country" id="country">
+                            <option value="Russia">Россия</option>
+                            <option value="Kazakhstan">Казахстан</option>
+                            <option value="Belarus">Беларусь</option>
+                            <option value="Ukraine">Украина</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="zip" id="zip" class="input-text" placeholder="Почтовый индекс" required="">
+                    </div>
+                    <div class="form-row-last">
+                        <input type="submit" name="save" class="save-btn" value="Сохранить изменения">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

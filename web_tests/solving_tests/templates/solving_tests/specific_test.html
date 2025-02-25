@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <title>{{ test.name_slug_tests }}</title>
+    <link rel="stylesheet" href='{% static "css/specific_test.css" %}'>
+    <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.core.css">
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src='https://unpkg.com/mathlive/dist/mathlive.min.js'></script>
+    <script src="{% static 'js/specific_test.js' %}"></script>
+</head>
+
+<body>
+    <!-- Шапка -->
+    <header class="shapka">
+        <button class="menu-btn">Меню</button>
+        <div class="Name">
+            <h2>{{ test.name_tests }}</h2>
+        </div>
+        <div class="Timer">
+            <h2>{{ test.time_to_solution }} минут</h2>
+        </div>
+    </header>
+
+    <!-- Контент -->
+    <div class="list-expr">
+        <ul>
+            {% for ex in test.expressions.all %}
+                <h4 class="number">Номер {{ forloop.counter }}.</h4>
+                <div class="express">
+                    <p><li>$$ {{ ex.user_expression }} $$</li></p>
+                </div>
+                <div class="sec-info">
+                    <li>
+                        {% if ex.user_eps == 0.0 %}
+                            Дать точный ответ.
+                        {% else %}
+                            Дать ответ с точностью до {{ ex.user_eps }}.
+                        {% endif %}
+                    </li>
+                </div>
+
+                <math-field class="answer" id="math-field-{{ forloop.counter }}" placeholder="Ответ"></math-field>
+                <hr>
+            {% endfor %}
+        </ul>
+
+        <form action="{% url 'some_test_for_student' test.name_slug_tests %}" method="post" id="answerForm">
+            {% csrf_token %}
+            {% for ex in test.expressions.all %}
+                <input type="hidden" name="answer" id="hidden-answer-{{ forloop.counter }}">
+            {% endfor %}
+            <button type="submit" class="send-and-go-to-list" onclick="submitForm()">Завершить тест</button>
+        </form>
+    </div>
+</body>
+</html>

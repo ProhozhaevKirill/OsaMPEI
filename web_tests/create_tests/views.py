@@ -1,13 +1,12 @@
-import json
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.text import slugify
 from .models import AboutExpressions, AboutTest
-from django.shortcuts import render, get_object_or_404
+import json
+from django.http import JsonResponse
 
 
 def start_page(request):
     return render(request, 'create_tests/navigate.html')
-
 
 def create_test(request):
     if request.method == 'POST':
@@ -17,9 +16,11 @@ def create_test(request):
         points = json.loads(request.POST.get('point_solve', '[]'))
         expressions = json.loads(request.POST.get('user_expression', '[]'))
         answers = json.loads(request.POST.get('user_ans', '[]'))
+        boolAns = json.loads(request.POST.get('user_bool_ans', '[]'))
         epsilons = json.loads(request.POST.get('user_eps', '[]'))
         types = json.loads(request.POST.get('user_type', '[]'))
 
+        # Создание теста
         test_slug = slugify(test_name)
         new_test = AboutTest.objects.create(
             name_tests=test_name,
@@ -27,13 +28,22 @@ def create_test(request):
             name_slug_tests=test_slug,
         )
 
-        for expr, ans, eps, typ, point in zip(expressions, answers, epsilons, types, points):
+        # Создание выражений и добавление их в тест
+        for expr, ans, t_ans, eps, typ, point, bool_ans in zip(expressions, answers, boolAns, epsilons, types, points, boolAns):
+            # Определяем, есть ли варианты ответа
+
+            # Переписать точки с запятой, убрав их, дабы потом двоичный в десятичный и сравнивать инты в проверке
+            # Определять есть ли выбор по наличию чекбоксов мб или типо того, пока припроверке костыль с удалением точек с запятой
+            flag_select = True if ';' in bool_ans else False
+
             expression_instance = AboutExpressions.objects.create(
                 user_expression=expr,
                 user_ans=ans,
+                true_ans=t_ans,
                 user_eps=eps,
                 user_type=typ,
-                points_for_solve=point
+                points_for_solve=point,
+                exist_select=flag_select
             )
             new_test.expressions.add(expression_instance)
 
@@ -44,43 +54,33 @@ def create_test(request):
 
     return render(request, 'create_tests/writing_tests.html')
 
-
 def test_list(request):
     tests = AboutTest.objects.all()
     return render(request, 'create_tests/all_test_for_teach.html', {'tests': tests})
 
-
 def some_test(request, slug_name):
     test = AboutTest.objects.get(name_slug_tests=slug_name)
     expressions = test.expressions.all()
-
-    # Пронумеруем задания вручную
     numbered_expressions = [
         {"number": idx + 1, "expression": ex} for idx, ex in enumerate(expressions)
     ]
-
     return render(request, 'create_tests/some_test.html', {
         'test': test,
         'numbered_expressions': numbered_expressions
     })
 
+def delete_test(request, slug):
+    if request.method == "POST":
+        test = get_object_or_404(AboutTest, name_slug_tests=slug)
 
-def editing_test(request, id_test):
-    test = get_object_or_404(AboutTest, id_test=id_test)
+        # Удаляем связанные выражения
+        test.expressions.all().delete()
 
-    if request.method == 'POST':
-        test.name = request.POST.get('name_test', test.name)
-        test.save()
+        # Удаляем сам тест
+        test.delete()
 
-        # Пример обработки связанных вопросов
-        for question in test.questions.all():
-            new_text = request.POST.get(f'question_{question.id}')
-            if new_text:
-                question.text = new_text
-                question.save()
+        return JsonResponse({"success": True})
 
-        return redirect('test_list')  # После сохранения возвращаемся к списку тестов
+    return JsonResponse({"error": "Неверный метод запроса"}, status=400)
 
-    return render(request, 'create_tests/editing_tests.html', {
-        'test': test,
-    })
+

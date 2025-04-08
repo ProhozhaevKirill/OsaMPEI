@@ -386,12 +386,13 @@ expressions = np.array([
 # \tan^{-1}(x + \cot^{-1}(y)) + \frac{\sqrt{z}}{\ln(w)}
 
 # expr = '\frac45'
-expr = '\sqrt4'
+expr = '(\arcsin{\frac{34}{x^2}})* (\frac{34}{x^2}) - (\arcsin{\frac{34}{x^2}})* (\frac{34}{x^2}) + 1'
 obj = Tex2Sympy(expr)
 res = obj.get_result()
 print(res)
 
 if sp.simplify(res):
+    print(sp.simplify(res))
     print('OK!')
 else:
     print('NOT OK!')

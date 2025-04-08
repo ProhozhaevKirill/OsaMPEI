@@ -41,6 +41,7 @@ class GetLexeme:
 
         all_expr = all_expr.replace('$', '')
         all_expr = all_expr.replace('right)', ')').replace('left(', '(')
+        all_expr = all_expr.replace('displaylines', '')
 
         # Добавление фигурных скобок для случаев когда они не нужны в теховской нотации (sqrt4)
         i = 0
@@ -54,7 +55,7 @@ class GetLexeme:
                         if atom == 'sqrt' or atom == 'rect':
                             all_expr = all_expr[:i] + '{' + all_expr[i] + '}' + all_expr[i+1:]
                         if atom == 'frac':
-                            all_expr = all_expr[:i] + '{' + all_expr[i+1] + '}{' + all_expr[i+1] + '}' + all_expr[i+2:]
+                            all_expr = all_expr[:i] + '{' + all_expr[i] + '}{' + all_expr[i+1] + '}' + all_expr[i+2:]
             i += 1
 
         return all_expr
@@ -145,6 +146,7 @@ class Tex2Sympy(GetLexeme):
 
     # Обработка для дробей
     def frac_construct(self, unexpr):
+        # print(unexpr)
         unexpr = unexpr.replace('frac', '')
         unexpr = unexpr.replace('}{', ')/(')
         unexpr = unexpr.replace('{', '(')

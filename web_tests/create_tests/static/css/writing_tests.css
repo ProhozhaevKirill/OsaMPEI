@@ -1,139 +1,214 @@
-body{
+/* Общие настройки */
+body {
   margin: 0;
-  margin-top: 60px;
-  padding: 0;  
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: #f5f5f5;
 }
 
-header{
+/* Шапка */
+header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 60px;
-  background-color: black;
-  color: white;
+  height: 70px;
+  background: linear-gradient(135deg, #2c3e50, #34495e);
+  color: #ecf0f1;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-.shapka img{
-  height: 20px;
-  width: 20px;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    z-index: 1;
-}
-.dropdown-content a {
-    color: black;
-    padding: 10px;
-    text-decoration: none;
-    display: block;
-}
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-}
-
-.name{
-  margin: 5px;
-  margin-left: 260px;
-}
-
-.name input{
-  width: 200px;
-  height: 40px;
-  border-radius: 5px;
-}
-
-.mainPart {
-  width: 800px;
-  height: 200px;
-  margin: auto;
-  margin-top: 150px;
-  margin-bottom: 0;
-  left: 0;
-  right: 0;
+header .name {
+  font-size: 1.2rem;
   text-align: center;
 }
 
-.fullExpression {
-  position: relative;
+.header-expression {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px; /* Расстояние между номером задания и кнопкой */
 }
 
-.fullExpression h{
-  margin: 200px;
+.header-expression h4 {
+    margin: 0;
+    font-size: 1.2em;
 }
 
-.fullExpression .right-side{
-  margin-bottom: 50px;
+.header-expression .del-expr {
+    background-color: #3a5a72;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9em;
+    border-radius: 3px;
 }
 
-.point-for-solve {
-  margin-top: 10px;
+.header-expression {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Центрирование содержимого по горизонтали */
+    gap: 10px; /* Расстояние между номером задания и кнопкой */
+}
+
+.header-expression h4 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.header-expression .del-expr:hover {
+    background-color: #d32f2f;
+}
+
+header .name input {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.header-expression{
   display: flex;
-  justify-content: flex-start;
+}
+
+/* Основной контейнер */
+.mainPart {
+  width: 85%;
+  margin: 120px auto 0 auto; /* 85% ширины, центрируем */
+  text-align: center;
+  padding: 20px;
+}
+
+/* Блок задания (делаем выше за счёт padding/min-height) */
+.fullExpression {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 30px;           /* побольше отступы внутри */
+  min-height: 250px;       /* задание становится выше */
+}
+
+.fullExpression h4 {
+  font-size: 1.4rem;
+  color: #2c3e50;
+}
+
+/* Блок с баллами */
+.point-for-solve {
+  display: flex;
   align-items: center;
-  text-align: left;
+  justify-content: center;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.point-for-solve h5 {
+  margin: 0;
+  font-size: 1rem;
+  color: #2c3e50;
 }
 
 .point-for-solve input {
-  width: 60px;
-  height: 30px;
+  margin-left: 10px;
+  width: 80px;
+  height: 25px;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  margin-right: 5px;
-  border-width: 2px;
-  border-color: black;
+  padding: 5px;
+  font-size: 1rem;
 }
 
-.expression math-field{
-  align-items: center;
-  width: 98%;
-  height: 80px;
+math-field::part(text) {
+    font-family: Arial, sans-serif;
+    color: #000 !important;
+    font-style: normal !important;
+}
+
+.expression math-field {
+  width: 95%;
+  height: 115px; /* стало выше */
+  border: 2px solid #ddd;
   border-radius: 5px;
-  border-width: 2px;
-  border-color: black;
+  margin-bottom: 15px;
+  padding: 5px;
 }
 
-.right-side math-field{
-  align-items: center;
-  width: 50%;
+.right-side {
+  display: flex;
+  align-items: center;     /* выравниваем по вертикали */
+  justify-content: center; /* центрируем по горизонтали */
+  gap: 5px;               /* отступы между элементами */
+  min-height: 120px;       /* делаем сам блок повыше */
+}
+
+.right-side math-field {
+  flex: 0 0 77%;           /* пусть занимает 40% ширины контейнера */
+  min-height: 70px;       /* увеличенная высота поля */
+  border: 2px solid #ddd;
   border-radius: 5px;
-  height: 45px;
-  border-width: 2px;
-  border-color: black;
+  padding: 10px;
+  font-size: 1.1rem;
+  /* Перенос строк внутри math-field (может работать не во всех браузерах) */
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
-.right-side{
-  margin: 5px;
+.inputs-block {
+  display: flex;
+  flex-direction: column;     /* ставим инпуты друг над другом */
+  align-items: center;        /* по центру горизонтально */
+  justify-content: center;    /* по центру вертикально */
+  height: 125px;              /* высота подгоняется под math-field */
+  gap: 10px;                  /* отступ между двумя инпутами */
 }
 
-.right-side input{
-  width: 23%;
-  height: 43px;
+.inputs-block input[type="text"] {
+  width: 92%;    /* подберите ширину под свой вкус */
+  height: 28px;   /* высота под половину блока (с учётом gap) */
+  border: 2px solid #ddd;
   border-radius: 5px;
-  border-width: 2px;
-  border-color: black;
+  font-size: 1rem;
+  padding: 5px;
 }
 
-.butChange button{
-  padding: 15px 30px;
+.select-ans {
+  transform: scale(1.3);
+}
+
+.del-ans {
+  background: none;
+  border: none;
   font-size: 18px;
-  width: 200px;
+  cursor: pointer;
+  color: #ecf0f1;
+  transition: color 0.3s ease;
+  margin-left: 10px;  /* крестик уходит вправо, но мы центрируем остальное */
+}
+
+.del-ans:hover {
+  color: #c0392b;
+}
+
+/* Контейнер с кнопками */
+.butChange {
+  margin: 20px auto;
+  text-align: center;
+}
+
+.butChange button {
+  padding: 12px 24px;
+  font-size: 16px;
   margin: 10px;
-  background-color: black;
-  color: white;
+  background-color: #34495e;
+  color: #ecf0f1;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -141,27 +216,43 @@ header{
 }
 
 .butChange button:hover {
-  background-color: grey;
+  background-color: #3a5a72;
 }
 
-.save-btn{
-  padding: 15px 30px;
-  font-size: 18px;
-  width: 200px;
-  margin: 10px;
-  background-color: black;
-  color: white;
+/* Кнопка удаления задания */
+.del-expr {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #34495e;
+  color: #ecf0f1;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.save-btn button:hover {
-  background-color: grey;
+.save-btn{
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #34495e;
+  color: #ecf0f1;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
 
-.popup{
+.save-btn:hover{
+  background-color: #3a5a72;
+}
+
+.del-expr:hover {
+  background-color: #3a5a72;
+}
+
+/* Popup (пример, если используете) */
+.popup {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -170,68 +261,58 @@ header{
   left: 0;
   opacity: 0;
   visibility: hidden;
-  /* overflow-x: hidden; */
   overflow-y: auto;
-  transition: all, 0.8s ease 0s;
+  transition: all 0.8s ease;
 }
-
-.popup:target{
+.popup:target {
   opacity: 1;
   visibility: visible;
 }
-
-.popup:target .popup_content{
-  transform: translate(0px 0px);
+.popup:target .popup_content {
+  transform: translate(0px, 0px);
   opacity: 1;
 }
-
-.popap_area{
+.popap_area {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
 }
-
-.popup_body{
+.popup_body {
   min-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px 20px;
+  padding: 20px;
 }
-
-.popup_content{
+.popup_content {
   background-color: white;
   color: black;
   max-width: 500px;
   padding: 35px;
   border-radius: 5px;
   position: relative;
-  transition: all, 0.8s ease 0s;
+  transition: all 0.8s ease;
   opacity: 0;
   transform: translate(0px, -100%);
 }
-
-.popup_close{
+.popup_close {
   position: absolute;
   right: 10px;
   font-size: 20px;
   text-decoration: none;
   color: black;
 }
-
-.popup_title{
+.popup_title {
   text-align: center;
   font-size: 20px;
   padding: 20px;
 }
-
-.btn_option{
+.btn_option {
   display: inline-flex;
 }
-
-.btn_option button{
+.btn_option button {
   height: 45px;
   margin: 5px;
 }

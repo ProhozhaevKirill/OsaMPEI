@@ -9,5 +9,5 @@ urlpatterns = [
     path('<slug:slug_name>/', views.some_test_for_student, name='some_test_for_student'),
 
     # Маршрут для отображения результата
-    path('result/', views.show_result, name='show_result'),
+    path('<slug:slug_name>/result/', views.show_result, name='show_result'),
 ]

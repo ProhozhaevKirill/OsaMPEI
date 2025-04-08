@@ -32,6 +32,5 @@ def register_view(request):
     return render(request, 'users/registration.html', {'form': form})
 
 
-def profile_view(reqest):
-    return render(reqest, 'users/profile_for_student.html')
-
+def profile_view(request):
+    return render(request, 'users/profile_for_student.html')

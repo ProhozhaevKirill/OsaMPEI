@@ -1,16 +1,18 @@
 from django.db import models
-from django.utils import timezone
 from django.utils.text import slugify
-import pytz
 from unidecode import unidecode
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+
 
 class AboutExpressions(models.Model):
     user_expression = models.CharField(max_length=100, blank=False)
-    user_ans = models.CharField(max_length=50, blank=False)
+    user_ans = models.CharField(max_length=150, blank=False)
+    true_ans = models.CharField(max_length=15, default='1')
     points_for_solve = models.IntegerField(default=1, blank=False)
-    user_eps = models.FloatField(default=0.0, blank=True)
-    user_type = models.CharField(default='float', max_length=20, blank=True)  # Скорее всего стоит уточнить возможные значения
-    # time_create = models.DateTimeField(auto_now_add=True)
+    user_eps = models.CharField(max_length=150, default="0", blank=True)
+    user_type = models.CharField(default='float', max_length=20, blank=True)
+    exist_select = models.BooleanField(default=False)  # Добавлено поле для вариантов ответа
 
     def __str__(self):
         return self.user_expression
@@ -35,3 +37,8 @@ class AboutTest(models.Model):
         if not self.id:  # Проверка на создание нового объекта
             self.name_slug_tests = slugify(unidecode(self.name_tests))
         super().save(*args, **kwargs)
+
+
+@receiver(pre_delete, sender=AboutTest)
+def delete_related_expressions(sender, instance, **kwargs):
+    instance.expressions.clear()

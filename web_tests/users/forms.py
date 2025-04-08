@@ -5,15 +5,17 @@ from django.contrib.auth.models import User
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(required=True, label="Email")
+    role = forms.CharField()
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'email', 'role', 'password1', 'password2')
 
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
         self.fields['username'].label = "Имя пользователя"
         self.fields['email'].label = "Электронная почта"
+        self.fields['role'].label = "Роль для доступа"
         self.fields['password1'].label = "Пароль"
         self.fields['password2'].label = "Подтверждение пароля"
 

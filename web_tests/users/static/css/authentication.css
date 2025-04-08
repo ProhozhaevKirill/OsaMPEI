@@ -1,98 +1,85 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
     margin: 0;
-    padding: 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #f5f5f5;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     height: 100vh;
 }
 
+/* Контейнер авторизации */
 .poleForAut {
-    background: #ffffff;
-    padding: 20px 40px;
+    background: #fff;
+    border: 1px solid #ddd;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 500px;
     width: 100%;
-    max-width: 400px;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
+.poleForAut h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
 }
 
-.login,
-.password {
+.login, .password {
     margin-bottom: 20px;
 }
 
 label {
-    font-size: 14px;
-    color: black;
-    margin-bottom: 5px;
     display: block;
+    margin-bottom: 5px;
+    color: #34495e;
+    font-weight: bold;
 }
 
 input {
     width: 100%;
     padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
+    border: 2px solid #ddd;
     border-radius: 5px;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease;
+    font-size: 1rem;
 }
 
-input:focus {
-    border-color: #6c63ff;
-    outline: none;
-}
-
-button.logIn {
-    background: black;
-    color: white;
-    padding: 10px 20px;
+.logIn {
+    width: 100%;
+    padding: 12px;
     font-size: 16px;
+    background: #34495e;
+    color: #ecf0f1;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease;
 }
 
-button.logIn:hover {
-    background: grey;
+.logIn:hover {
+    background: #3a5a72;
 }
-
-button.logIn:active {
-    transform: translateY(1px);
-}
-
-.non_field_errors {
-    color: red;
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-
 
 .register-link {
-    margin-top: 20px;
     text-align: center;
-}
-
-.register-link p {
-    font-size: 14px;
-    color: #333;
+    margin-top: 20px;
 }
 
 .register-link a {
-    color: #6c63ff;
+    color: #34495e;
     text-decoration: none;
     font-weight: bold;
-    transition: color 0.3s ease;
 }
 
 .register-link a:hover {
-    color: #5146c6;
+    text-decoration: underline;
+}
+
+.errorlist {
+    color: #c0392b;
+    padding: 10px;
+    background: #fdd;
+    border: 1px solid #c0392b;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }

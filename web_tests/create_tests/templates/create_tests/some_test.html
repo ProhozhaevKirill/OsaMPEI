@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     {% load static %}
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="shortcut icon" href="{% static 'favicon.ico' %}"> -->
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
     <title>{{ name_test }}</title>
     <link rel="stylesheet" href='{% static "css/some_test.css" %}'>
     <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.core.css">
@@ -11,52 +11,57 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
+    <script src="{% static 'js/macros-mathJax.js' %}"></script>
     <script src='https://unpkg.com/mathlive/dist/mathlive.min.js'></script>
     <script src="{% static 'js/some_test.js' %}"></script>
-
-    <script src='https://unpkg.com/mathlive/dist/mathlive.min.js'></script>
 </head>
 <body>
 
 <header class="shapka">
-    <div>
-        Меню
+    <div class="container">
+        <button class="menu-btn" onclick="toggleMenu()">☰ Меню</button>
+        <div id="sidebar" class="sidebar">
+        </div>
     </div>
 
     <div class="Name">
-        <h2>{{ test.name_slug_tests }}</h2>
+        <h2>{{ test.name_test }}</h2>
     </div>
 
-    <!-- Доделать таймер со временем на решение -->
     <div class="Timer">
-        <h2> "Время" </h2>
+        <h2>Время на решение: {{ test.time_to_solution }}</h2>
     </div>
 </header>
 
-<div>
+<div class="last-change">
     <p>Последнее изменение: {{ test.time_last_change }}</p>
 </div>
 
-<ul class="list-expr">
-    {% for ex in test.expressions.all %}
-    Номер {{forloop.counter}}
-    <p><li> $$ {{ ex.user_expression }} $$ </li></p>
-    <div class="sec-info">
-        <p><li> $$ {{ ex.user_ans }} $$ </li></p>
+<div class="main-content">
+    <ul class="list-expr">
+        {% for ex in test.expressions.all %}
         <li>
-            {% if ex.user_eps == 0.0 %}
-            <p> Ответ точный </p>
-            {% else %}
-            <p> Точность: {{ ex.user_eps }} </p>
-            {% endif %}
+            <p>Номер {{ forloop.counter }}</p>
+            <p>$$ {{ ex.user_expression }} $$</p>
+            <div class="sec-info">
+                <p>Ответ: $$ {{ ex.user_ans }} $$</p>
+                <p>
+                    {% if ex.user_eps == 0.0 %}
+                    Ответ точный
+                    {% else %}
+                    Точность: {{ ex.user_eps }}
+                    {% endif %}
+                </p>
+            </div>
         </li>
+        {% endfor %}
+    </ul>
+
+    <div class="save">
+        <button>Опубликовать</button>
+        <button>Редактировать</button>
+        <button>Удалить</button>
     </div>
-    {% endfor %}
-</ul>
-
-
-<div class="save">
-    <button>Редактировать</button>
 </div>
 
 </body>

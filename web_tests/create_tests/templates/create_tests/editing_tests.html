@@ -16,8 +16,14 @@
     <body>
         <div class="container">
             <header class="shapka">
-                <div>
-                    <h4>Меню</h4>
+                <div class="container">
+                    <button class="menu-btn" onclick="toggleMenu()">☰ Меню</button>
+                    <div id="sidebar" class="sidebar">
+                        <a href="#">Главная</a>
+                        <a href="#">О нас</a>
+                        <a href="#">Услуги</a>
+                        <a href="#">Контакты</a>
+                    </div>
                 </div>
                 <div class="name">
                     <input type="text" name="name_test" id="testNameInput" value="{{ test.name_tests }}">
@@ -41,7 +47,7 @@
                     </div>
                 </div>
                 <div class="butChange">
-                    <button type="button" class="add-btn">Добавить номер</button>
+                    <button type="button" class="add-btn">Добавить</button>
                     <button type="button" class="del-btn">Удалить</button>
                 </div>
                 <a href="#popup"><button type="submit" class="save-btn">Сохранить</button></a>

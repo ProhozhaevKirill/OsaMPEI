@@ -3,11 +3,15 @@ from django.utils.text import slugify
 from .models import AboutExpressions, AboutTest
 import json
 from django.http import JsonResponse
+from .decorators import role_required
 
 
+@role_required(['teacher', 'admin'])
 def start_page(request):
     return render(request, 'create_tests/navigate.html')
 
+
+@role_required(['teacher', 'admin'])
 def create_test(request):
     if request.method == 'POST':
         test_name = request.POST.get('name_test')
@@ -54,10 +58,14 @@ def create_test(request):
 
     return render(request, 'create_tests/writing_tests.html')
 
+
+@role_required(['teacher', 'admin'])
 def test_list(request):
     tests = AboutTest.objects.all()
     return render(request, 'create_tests/all_test_for_teach.html', {'tests': tests})
 
+
+@role_required(['teacher', 'admin'])
 def some_test(request, slug_name):
     test = AboutTest.objects.get(name_slug_tests=slug_name)
     expressions = test.expressions.all()
@@ -69,6 +77,8 @@ def some_test(request, slug_name):
         'numbered_expressions': numbered_expressions
     })
 
+
+@role_required(['teacher', 'admin'])
 def delete_test(request, slug):
     if request.method == "POST":
         test = get_object_or_404(AboutTest, name_slug_tests=slug)

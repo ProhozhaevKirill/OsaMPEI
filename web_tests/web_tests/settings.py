@@ -59,7 +59,11 @@ ROOT_URLCONF = 'web_tests.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['create_tests', 'logic_of_expression', 'solving_tests', 'users', 'static'],
+        'DIRS': [BASE_DIR / "templates",
+                 'create_tests',
+                 'logic_of_expression',
+                 'solving_tests',
+                 'users', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -104,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'users.CustomUser'
 
 
 # Internationalization
@@ -116,6 +120,8 @@ USE_L10N = True
 USE_TZ = True
 
 TIME_ZONE = 'UTC'
+
+LOGIN_URL = ''
 
 
 # Static files (CSS, JavaScript, Images)

@@ -3,13 +3,16 @@ from create_tests.models import AboutExpressions, AboutTest
 from .models import StudentResult
 from logic_of_expression.check_sympy_expr import CheckAnswer
 import numpy as np
-import json
+from .decorators import role_required
 
 
+@role_required(['student', 'admin'])
 def list_test(request):
     tests = AboutTest.objects.all()
     return render(request, 'solving_tests/test_selection.html', {'tests': tests})
 
+
+@role_required(['student', 'admin'])
 def some_test_for_student(request, slug_name):
     test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
 
@@ -72,7 +75,7 @@ def some_test_for_student(request, slug_name):
     })
 
 
-
+@role_required(['student', 'admin'])
 def show_result(request, slug_name):
     test_result = request.session.get('test_result', None)
 
@@ -86,52 +89,3 @@ def show_result(request, slug_name):
         'slug_name': slug_name,
     })
 
-
-#
-# from django.http import HttpResponse
-# from django.shortcuts import render, get_object_or_404, redirect
-# from create_tests.models import AboutExpressions, AboutTest
-# from .models import StudentResult  # Модель для хранения результатов теста
-# import json
-#
-#
-# def list_test(request):
-#     tests = AboutTest.objects.all()
-#     return render(request, 'solving_tests/test_selection.html', {'tests': tests})
-#
-#
-# def some_test_for_student(request, slug_name):
-#     test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
-#
-#     if request.method == 'POST':
-#         # Получаем строку с ответами, отправленными через скрытое поле
-#         binary_answers = request.POST.get('binary_answers', '')
-#
-#         # Преобразуем строку в список (если ответы разделены точкой с запятой)
-#         answers = binary_answers.split(';')
-#
-#         # Сохранение ответов в базу данных
-#         for answer in answers:
-#             # Создаем объект результата для студента
-#             StudentResult.objects.create(test=test, answer_text=answer)
-#
-#         # Перенаправляем на страницу с результатами
-#         return redirect('test_completed')  # Можно перенаправить на страницу с результатами или завершением теста
-#
-#     # Если это GET-запрос, отображаем форму
-#     expressions = test.expressions.all()
-#     expressions_with_options = []
-#
-#     # Собираем все выражения с их возможными вариантами
-#     for ex in expressions:
-#         options = ex.user_ans.split(';') if ex.user_ans else []
-#         expressions_with_options.append({
-#             'expression': ex,
-#             'options': options,
-#             'exist_select': ex.exist_select,
-#         })
-#
-#     return render(request, 'solving_tests/specific_test.html', {
-#         'test': test,
-#         'expressions_with_options': expressions_with_options,
-#     })

@@ -5,8 +5,7 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вход в личный кабинет</title>
     <link rel="stylesheet" href='{% static "css/authentication.css" %}'>
-
-    <script src="{% static 'static/js/jquery-3.7.1.js' %}"></script>
+    <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
     <script src="{% static 'js/registration.js' %}"></script>
 </head>
 <body>
@@ -14,13 +13,14 @@
         <form method="post">
             {% csrf_token %}
             {{ form.non_field_errors }}
+
             <div class="login">
-                <label>Логин</label>
-                {{form.username}}
+                <label for="{{ form.email.id_for_label }}">Почта (ОСЭП)</label>
+                {{ form.email }}
             </div>
             <div class="password">
-                <label>Пароль</label>
-                {{form.password}}
+                <label for="{{ form.password.id_for_label }}">Пароль</label>
+                {{ form.password }}
             </div>
             <button type="submit" class="logIn">Войти</button>
         </form>
@@ -32,4 +32,3 @@
     </div>
 </body>
 </html>
-

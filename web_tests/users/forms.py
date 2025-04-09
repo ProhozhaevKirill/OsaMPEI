@@ -1,31 +1,50 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from .models import CustomUser
+from django.contrib.auth import authenticate
 
 
-class SignUpForm(UserCreationForm):
+class SignUpForm(forms.ModelForm):
     email = forms.EmailField(required=True, label="Email")
-    role = forms.CharField()
+    password1 = forms.CharField(label="Пароль", widget=forms.PasswordInput)
+    password2 = forms.CharField(label="Подтверждение пароля", widget=forms.PasswordInput)
 
     class Meta:
-        model = User
-        fields = ('username', 'email', 'role', 'password1', 'password2')
+        model = CustomUser  # Используем CustomUser, а не стандартный User
+        fields = ('email', 'password1', 'password2')
 
-    def __init__(self, *args, **kwargs):
-        super(SignUpForm, self).__init__(*args, **kwargs)
-        self.fields['username'].label = "Имя пользователя"
-        self.fields['email'].label = "Электронная почта"
-        self.fields['role'].label = "Роль для доступа"
-        self.fields['password1'].label = "Пароль"
-        self.fields['password2'].label = "Подтверждение пароля"
+    def save(self, commit=True):
+        user = super().save(commit=False)
+
+        user.set_password(self.cleaned_data["password1"])
+
+        if commit:
+            user.save()
+        return user
+
+
+class EmailAuthenticationForm(forms.Form):
+    email = forms.EmailField(label="Почта (ОСЭП)", required=True)
+    password = forms.CharField(widget=forms.PasswordInput, label="Пароль", required=True)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get("email")
+        password = cleaned_data.get("password")
+
+        if email and password:
+            # Попытка аутентификации с использованием почты
+            user = authenticate(username=email, password=password)  # Используем email как username
+            if user is None:
+                raise forms.ValidationError("Неверная почта или пароль.")
+        return cleaned_data
 
 
 class CustomAuthenticationForm(AuthenticationForm):
-    username = forms.CharField(
-        label="Логин",
-        widget=forms.TextInput(attrs={"placeholder": "Введите ваш логин"}),
-    )
+    email = forms.EmailField(label="Почта (ОСЭП)")
     password = forms.CharField(
         label="Пароль",
-        widget=forms.PasswordInput(attrs={"placeholder": "Введите ваш пароль"}),
+        widget=forms.PasswordInput(attrs={"placeholder": "Введите ваш пароль"})
     )
+

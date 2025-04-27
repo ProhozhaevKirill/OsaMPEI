@@ -5,83 +5,170 @@ body {
   background-color: #f5f5f5;
 }
 
-/* Шапка */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 70px;
-  background: linear-gradient(135deg, #2c3e50, #34495e);
-  color: #ecf0f1;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-header .name {
-  font-size: 1.2rem;
-  text-align: center;
-}
-
-.header-expression {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10px; /* Расстояние между номером задания и кнопкой */
-}
-
-.header-expression h4 {
-    margin: 0;
-    font-size: 1.2em;
-}
-
-.header-expression .del-expr {
-    background-color: #3a5a72;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 0.9em;
-    border-radius: 3px;
-}
-
-.header-expression {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Центрирование содержимого по горизонтали */
-    gap: 10px; /* Расстояние между номером задания и кнопкой */
-}
-
-.header-expression h4 {
-    margin: 0;
-    font-size: 1.2em;
-}
-
-.header-expression .del-expr:hover {
-    background-color: #d32f2f;
-}
-
-header .name input {
-  margin-left: 10px;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-.header-expression{
-  display: flex;
-}
-
 /* Основной контейнер */
 .mainPart {
   width: 85%;
   margin: 120px auto 0 auto; /* 85% ширины, центрируем */
   text-align: center;
   padding: 20px;
+}
+
+/* Обновлённый стиль для кнопки удаления задания */
+.del-expr {
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 15px;
+}
+
+.del-expr:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Улучшенный стиль для попапа */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.popup:target {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popup_content {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  width: 90%;
+  max-width: 500px;
+  padding: 30px;
+  position: relative;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.popup:target .popup_content {
+  transform: translateY(0);
+}
+
+.popup_close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 22px;
+  color: #7f8c8d;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.popup_close:hover {
+  color: #e74c3c;
+}
+
+/* Стили для полей в попапе */
+.test-header {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.test-header input {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+}
+
+.test-header input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52,152,219,0.2);
+  background-color: white;
+}
+
+/* Стили для кнопок в попапе */
+.btn_option {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.btn_option button {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.changeTest {
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.changeTest:hover {
+  background-color: #e0e0e0;
+}
+
+.save-and-go-to-list {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+}
+
+.save-and-go-to-list:hover {
+  background-color: #27ae60;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.popup_title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Анимация при открытии */
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.popup_content {
+  animation: popupFadeIn 0.4s ease forwards;
 }
 
 /* Блок задания (делаем выше за счёт padding/min-height) */

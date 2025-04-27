@@ -16,7 +16,26 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("cancelDelete").addEventListener("click", function () {
         hidePopup();
     });
+
+    document.querySelectorAll(".public-btn").forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+            deleteSlug = this.getAttribute("data-slug");
+            showPopup2();
+        });
+    });
+
+    document.getElementById("confirmPublic").addEventListener("click", function () {
+//    Добавить функцию, которая в бд к тестам подсасывает группы и из них студентов, для которых тест станет доступным
+        publicTest();
+    });
+
+    document.getElementById("cancelPublic").addEventListener("click", function () {
+        hidePopup2();
+    });
+
 });
+
 
 function showPopup() {
     document.getElementById("deletePopup").style.display = "block";
@@ -24,6 +43,14 @@ function showPopup() {
 
 function hidePopup() {
     document.getElementById("deletePopup").style.display = "none";
+}
+
+function showPopup2() {
+    document.getElementById("publicPopup").style.display = "block";
+}
+
+function hidePopup2() {
+    document.getElementById("publicPopup").style.display = "none";
 }
 
 function deleteTest() {

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8" />
+    <title>{% block title %} {% endblock %}</title>
+
+    <!-- Подключаем глобальные стили из core/static/css/global.css -->
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+
+    {% block extra_css %}
+    {% endblock %}  <!-- Здесь подключаются стили, специфичные для каждой страницы -->
+
+    <!-- Подключаем глобальные скрипты из core/static/js/global.js -->
+    <script src="{% static 'js/global.js' %}"></script>
+
+    {% block extra_js %}
+    {% endblock %}
+<body>
+
+    <nav id="sidebar" class="sidebar hidden">
+        <ul>
+          <li><a href="#">Главная</a></li>
+          <li><a href="#">О нас</a></li>
+          <li><a href="#">Услуги</a></li>
+          <li><a href="#">Контакты</a></li>
+        </ul>
+    </nav>
+
+  <!-- Шапка -->
+  <header class="topbar">
+      <div class="left">
+        <button id="menu-toggle" class="menu-btn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <span class="logo">АСТРА</span>
+      </div>
+    <div class="right">
+      <div class="profile-dropdown">
+        <img src="images/user-icon.png" class="profile-icon" id="profile-btn" alt="  Профиль" />
+        <div class="dropdown hidden" id="profile-menu">
+          <a href="#">Профиль</a>
+          <a href="#">Настройки</a>
+          <a href="#">Выход</a>
+        </div>
+      </div>
+    </div>
+  </header>
+    <!-- Основной контент -->
+    <main>
+        {% block content %}
+
+        {% endblock %}
+    </main>
+  </div>
+</body>
+</html>

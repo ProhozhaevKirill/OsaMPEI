@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from .models import CustomUser
+from .models import CustomUser, StudentData, TeacherData
 from django.contrib.auth import authenticate
 
 
@@ -11,8 +11,16 @@ class SignUpForm(forms.ModelForm):
     password2 = forms.CharField(label="Подтверждение пароля", widget=forms.PasswordInput)
 
     class Meta:
-        model = CustomUser  # Используем CustomUser, а не стандартный User
+        model = CustomUser
         fields = ('email', 'password1', 'password2')
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
+        if password1 != password2:
+            raise forms.ValidationError("Пароли не совпадают.")
+        return cleaned_data
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -48,3 +56,23 @@ class CustomAuthenticationForm(AuthenticationForm):
         widget=forms.PasswordInput(attrs={"placeholder": "Введите ваш пароль"})
     )
 
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = StudentData
+        fields = [
+            'first_name',
+            'last_name',
+            'middle_name',
+            'institute',
+            # 'direction',
+            # 'department',
+            'training_status',
+            'group',
+        ]
+        labels = {
+            'first_name': 'Имя',
+            'last_name': 'Фамилия',
+            'middle_name': 'Отчество',
+            'group': 'Группа',
+        }

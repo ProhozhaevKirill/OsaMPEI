@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.text import slugify
 from .models import AboutExpressions, AboutTest
+from users.models import StudentGroup, StudentInstitute
 import json
 from django.http import JsonResponse
 from .decorators import role_required
@@ -61,8 +62,16 @@ def create_test(request):
 
 @role_required(['teacher', 'admin'])
 def test_list(request):
+    group = StudentGroup.name
+    institute = StudentInstitute.name
     tests = AboutTest.objects.all()
-    return render(request, 'create_tests/all_test_for_teach.html', {'tests': tests})
+
+    print(group, institute)
+
+    return render(request, 'create_tests/all_test_for_teach.html',
+                  {'tests': tests,
+                   'institute': institute,
+                   'group': group})
 
 
 @role_required(['teacher', 'admin'])

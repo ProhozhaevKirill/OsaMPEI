@@ -1,40 +1,37 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-    {% load static %}
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
-    <title>{{ name_test }}</title>
-    <link rel="stylesheet" href='{% static "css/some_test.css" %}'>
-    <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.core.css">
+{% extends 'base.html' %}
 
+{% load static %}
+
+{% block title %}Список тестов{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static '/css/some_test.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.core.css">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static '/js/some_test.js' %}"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
     <script src="{% static 'js/macros-mathJax.js' %}"></script>
     <script src='https://unpkg.com/mathlive/dist/mathlive.min.js'></script>
-    <script src="{% static 'js/some_test.js' %}"></script>
-</head>
-<body>
+{% endblock %}
 
-<header class="shapka">
-    <div class="container">
-        <button class="menu-btn" onclick="toggleMenu()">☰ Меню</button>
-        <div id="sidebar" class="sidebar">
-        </div>
-    </div>
-
-    <div class="Name">
-        <h2>{{ test.name_test }}</h2>
-    </div>
-
-    <div class="Timer">
-        <h2>Время на решение: {{ test.time_to_solution }}</h2>
-    </div>
-</header>
-
-<div class="last-change">
-    <p>Последнее изменение: {{ test.time_last_change }}</p>
+{% block content %}
+<div class="inf">
+    <p>Общая информация:
+    </p>
+    <p> Время на решение: {{ test.time_to_solution }}</p>
+    <p> Последнее изменение: {{ test.time_last_change }}</p>
+    <p>Статус:
+        {% if ex.is_public == 1 %}
+            Опубликован
+        {% else %}
+            Не опубликован
+        {% endif %}
+    </p>
 </div>
 
 <div class="main-content">
@@ -57,12 +54,10 @@
         {% endfor %}
     </ul>
 
-    <div class="save">
-        <button>Опубликовать</button>
-        <button>Редактировать</button>
-        <button>Удалить</button>
+    <div class="actions">
+        <button class="public-btn">Опубликовать</button>
+        <button class="edit-btn">Редактировать</button>
+        <button class="delete-btn">Удалить</button>
     </div>
 </div>
-
-</body>
-</html>
+{% endblock %}

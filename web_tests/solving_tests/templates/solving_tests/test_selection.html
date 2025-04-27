@@ -1,26 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Список тестов{% endblock %}
+
+{% block extra_css %}
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
-    <title>Тестовые задания</title>
     <link rel="stylesheet" href='{% static "css/test_selection.css" %}'>
+{% endblock %}
 
+{% block extra_js %}
     <script src="{% static 'js/test_selection.js' %}"></script>
-    
-</head>
-<body>
-    <!-- Шапка -->
-    <header class="shapka">
-        <div>
-            <h4>Меню</h4>
-        </div>
-        <div class="Name">
-            <h2>{{ test.name_tests }}</h2>
-        </div>
-    </header>
+{% endblock %}
 
+{% block content %}
     <div class="main">
         <h2> Список всех тестов </h2>
 
@@ -36,8 +29,5 @@
                 <hr>
             {% endfor %}
         </ul>
-        
-        
-    </div>  
-</body>
-</html>
+    </div>
+{% endblock %}

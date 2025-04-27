@@ -74,6 +74,21 @@ body {
   margin-bottom: 20px;
 }
 
+.auth-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.auth-link a {
+    color: #34495e;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+}
+
 /* Адаптивность */
 @media (max-width: 600px) {
   .allPole {

@@ -1,62 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
-    <title>ОСА | Список тестов</title>
-    <link rel="stylesheet" href='{% static "css/all_test_for_teach.css" %}'>
-    <script src="{% static 'js/all_test_for_teach.js' %}"></script>
+{% extends 'base.html' %}
 
-</head>
-<body>
-    <header class="shapka">
-        <button class="menu-btn" onclick="toggleMenu()">☰ Меню</button>
-        <form action="" method="get" class="search-form">
-          <input name="s" type="search" placeholder="Искать здесь...">
-          <button type="submit">Поиск</button>
-        </form>
-    </header>
+{% load static %}
 
-    <div class="name">
-        <h2>Список всех тестов:</h2>
+{% block title %}Создание тестов{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static '/css/all_test_for_teach.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static '/js/all_test_for_teach.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="name">
+    <h2>Список тестов:</h2>
+</div>
+if
+<div class="main">
+    <ul class="list-tests">
+        {% for name in tests %}
+        <li class="test-item" data-slug="{{ name.name_slug_tests }}">
+            <span class="test-number">{{ forloop.counter }}.</span>
+            <a href="{{ name.name_slug_tests }}" class="test-name">{{ name.name_tests }}</a>
+            <div class="actions">
+                <button class="public-btn">Опубликовать</button>
+                <button class="edit-btn">Редактировать</button>
+                <button class="delete-btn" data-slug="{{ name.name_slug_tests }}">Удалить</button>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="add">
+    <a href="{% url 'create_test' %}"><button class="add-btn">Добавить новый тест</button></a>
+</div>
+
+<!-- POPUP окно для удаления -->
+<div id="deletePopup" class="deletePopup">
+    <div class="deletePopup-content">
+        <p>Вы уверены, что хотите удалить этот тест?</p>
+        <button id="confirmDelete">Удалить</button>
+        <button id="cancelDelete">Отмена</button>
     </div>
+</div>
 
-    <div class="main">
-
-        <ul class="list-tests">
-            {% for name in tests %}
-            <li class="test-item" data-slug="{{ name.name_slug_tests }}">
-                <span class="test-number">{{ forloop.counter }}.</span>
-                <a href="{{ name.name_slug_tests }}" class="test-name">{{ name.name_tests }}</a>
-                <div class="actions">
-                    <button class="public-btn">Опубликовать</button>
-                    <button class="edit-btn">Редактировать</button>
-                    <button class="delete-btn" data-slug="{{ name.name_slug_tests }}">Удалить</button>
+<!-- POPUP окно для публикации -->
+<div id="publicPopup" class="publicPopup">
+    <div class="publicPopup-content2">
+        <p>Выберите группы, для которых тест станет доступным.</p>
+        <ul>
+            {% for inst in institutes %}
+            <li>
+                <div class="alone-inst">
+                    <input type="checkbox" class="inst">
+                    <h3>{{ inst }}</h3>
+                    {% for gr in group %}
+                    <div class="alone-gr">
+                        <input class="group" type="checkbox">
+                        <h3>gr</h3>
+                    </div>
+                    {% endfor %}
                 </div>
             </li>
             {% endfor %}
         </ul>
+        <button id="confirmPublic">Опубликовать</button>
+        <button class="cancelPublic">Отмена</button>
     </div>
-
-    <div class="add">
-        <a href="{% url 'create_test' %}"><button class="add-btn">Добавить новый тест</button></a>
-    </div>
-
-    <!-- POPUP окно -->
-    <div id="deletePopup" class="popup">
-        <div class="popup-content">
-            <p>Вы уверены, что хотите удалить этот тест?</p>
-            <button id="confirmDelete">Удалить</button>
-            <button id="cancelDelete">Отмена</button>
-        </div>
-    </div>
-
-    <script>
-        function toggleMenu() {
-            let sidebar = document.getElementById('sidebar');
-            sidebar.style.display = (sidebar.style.display === 'block') ? 'none' : 'block';
-        }
-    </script>
-</body>
-</html>
+</div>
+{% endblock %}

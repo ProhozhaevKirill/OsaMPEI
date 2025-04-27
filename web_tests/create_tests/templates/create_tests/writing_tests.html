@@ -1,37 +1,28 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    {% load static %}
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Создание тестов{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static '/css/writing_tests.css' %}">
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
-    <title>ОСА | Создание теста</title>
-    <link rel="stylesheet" href='{% static "css/writing_tests.css" %}'>
-
-    <!-- MathLive (подключаем перед использованием в js) -->
     <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.css">
-    <script src="https://unpkg.com/mathlive"></script>
+{% endblock %}
 
-    <!-- Статика из внутренних файлов -->
+{% block extra_js %}
     <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
+    <script src="{% static '/js/writing_tests.js' %}"></script>
+    <script src="https://unpkg.com/mathlive"></script>
     <script src="{% static 'js/mathJax-rus.js' %}"></script>
+{% endblock %}
 
-    <!-- Основной JS (переместил вниз) -->
-</head>
-<body>
+{% block content %}
     <div class="container">
-        <header class="shapka">
-            <div class="name">
-                Введите название теста и время на решение:
-                <input type="text" name="name_test" id="testNameInput" placeholder="Название теста">
-                <input type="text" name="time_solve" id="timeSolve" placeholder="Время на решение">
-            </div>
-        </header>
         <div class="mainPart">
-            <!-- Пример первого задания -->
             <div class="fullExpression" id="fullExpression1">
                 <div class="header-expression">
                     <h4 id="count1">Задание №1:</h4>
-                    <!-- Кнопка удаления данного задания -->
                     <button type="button" class="del-expr">Удалить задание</button>
                 </div>
                 <div class="point-for-solve">
@@ -64,6 +55,14 @@
         <a href="#header" class="popap_area"></a>
         <div class="popup_body">
             <div class="popup_content">
+
+                <div class="test-header">
+                    Введите дополнительные сведения о тесте:
+                    <input type="text" name="name_test" id="testNameInput" placeholder="Название теста">
+                    <input type="text" name="time_solve" id="timeSolve" placeholder="Время на решение">
+                    <input type="text" name="num_attempts" id="num_attempts" placeholder="Количество попыток">
+                </div>
+
                 <a href="#header" class="popup_close">X</a>
                 <div class="popup_title">Вы уверены что хотите сохранить?</div>
                 <div class="btn_option">
@@ -86,8 +85,4 @@
             </div>
         </div>
     </div>
-
-
-    <script src="{% static 'js/writing_tests.js' %}"></script>
-</body>
-</html>
+{% endblock %}

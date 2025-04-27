@@ -13,7 +13,7 @@
     <div class="allPole">
         <div class="wOutName">
             <div class="poleForAut">
-                <form method="post">
+                <form method="POST">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
                     <div class="form-group">
@@ -32,10 +32,16 @@
                     </div>
 
                     <button type="submit" class="logIn">Зарегистрироваться</button>
-                    <a href="">Войти в аккаунт</a>
                 </form>
+
             </div>
         </div>
+
+        <div class="auth-link">
+            <p>Личный кабинет уже создан?</p>
+            <a href="{% url 'login_view' %}">Авторизоваться</a>
+        </div>
     </div>
+
 </body>
 </html>

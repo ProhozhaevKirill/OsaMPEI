@@ -1,39 +1,24 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Результаты{% endblock %}
+
+{% block extra_css %}
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
-    <title>{{ test.name_slug_tests }} | Результаты</title>
-
-    <!-- Стили -->
     <link rel="stylesheet" href="{% static 'css/result.css' %}">
+    <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.core.css">
+{% endblock %}
 
-    <!-- MathJax и Mathlive -->
+{% block extra_js %}
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.core.css">
     <script src="https://unpkg.com/mathlive/dist/mathlive.min.js"></script>
-
-    <!-- Ваш скрипт (если нужен) -->
     <script src="{% static 'js/result.js' %}"></script>
-</head>
-<body>
-    <!-- Шапка с градиентом -->
-    <header class="top-header">
-        <div class="header-content">
-            <button class="menu-btn">&#9776; Меню</button>
-            <h1 class="test-title">{{ test.name_slug_tests }}</h1>
-            <div class="timer-block">
-                <span id="timer">10:00</span>
-            </div>
-        </div>
-    </header>
+{% endblock %}
 
-    <!-- Основная часть страницы -->
+{% block content %}
     <main class="main-content">
-        <!-- Блок для отображения результатов -->
         <section class="results-section">
             <div class="results-card">
                 <h2>Результат</h2>
@@ -43,5 +28,4 @@
             </div>
         </section>
     </main>
-</body>
-</html>
+{% endblock %}

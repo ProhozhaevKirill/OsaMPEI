@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    {% load custom_filters %}
-    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
 
-    <title>{{ test.name_slug_tests }}</title>
+{% load static %}
 
+{% block title %}{{ test.name_slug_tests }}{% endblock %}
+
+{% block extra_css %}
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
     <link rel="stylesheet" href='{% static "css/specific_test.css" %}'>
     <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.css">
+{% endblock %}
 
+{% block extra_js %}
     <script src="https://unpkg.com/mathlive"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -18,19 +18,16 @@
 
     <script src="{% static 'js/macros-mathJax.js' %}"></script>
     <script src="{% static 'js/mathJax-rus.js' %}"></script>
-</head>
-<body>
-    <header class="shapka">
-        <div class="shapka-content">
-            <button class="menu-btn" onclick="toggleMenu()">☰ Меню</button>
-            <div class="Name">
-                <h2>{{ test.name_tests }}</h2>
-            </div>
-            <div class="Timer">
-                <h2>{{ test.time_to_solution }} минут</h2>
-            </div>
-        </div>
-    </header>
+{% endblock %}
+
+{% block content %}
+    <div class="Name">
+        <h2>{{ test.name_tests }}</h2>
+    </div>
+    <div class="Timer">
+        <h2>{{ test.time_to_solution }} минут</h2>
+    </div>
+
     <div class="list-expr">
         <ul>
             {% for ex in expressions_with_options %}
@@ -75,7 +72,4 @@
         <button type="submit" class="send-and-go-to-list" onclick="submitForm(event)">Завершить тест</button>
     </form>
 
-    <script src="{% static 'js/specific_test.js' %}"></script>
-
-</body>
-</html>
+{% endblock %}

@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="poleForAut">
-        <form method="post">
+        <form method="POST" action="{% url 'list_test' %}">
             {% csrf_token %}
             {{ form.non_field_errors }}
 

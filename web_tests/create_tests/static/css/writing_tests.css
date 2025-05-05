@@ -5,34 +5,210 @@ body {
   background-color: #f5f5f5;
 }
 
-/* Основной контейнер */
-.mainPart {
-  width: 85%;
-  margin: 120px auto 0 auto; /* 85% ширины, центрируем */
-  text-align: center;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
 }
 
-/* Обновлённый стиль для кнопки удаления задания */
+/* Основной контейнер */
+.mainPart {
+  width: 100%;
+  margin: 20px auto 0 auto;
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Блок задания */
+.fullExpression {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 25px;
+  padding: 25px;
+  position: relative;
+}
+
+.header-expression {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.task-header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.task-number h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.point-for-solve input {
+  width: 80px;
+  height: 36px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 12px;
+  font-size: 1rem;
+  text-align: center;
+}
+
 .del-expr {
-  padding: 8px 16px;
-  font-size: 14px;
-  background-color: #e74c3c;
+  background-color: #ff4444;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-left: 15px;
 }
 
 .del-expr:hover {
-  background-color: #c0392b;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  background-color: #cc0000;
+  transform: scale(1.05);
 }
 
-/* Улучшенный стиль для попапа */
+.expression math-field {
+  width: 100%;
+  height: 150px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 15px;
+  font-size: 1.1rem;
+  background: #f9f9f9;
+}
+
+/* Блок с ответами */
+.answers-container {
+  margin: 20px 0;
+}
+
+.answer-row {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 15px;
+}
+
+.answer-controls {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.answer-content {
+  display: flex;
+  flex-grow: 1;
+  gap: 15px;
+}
+
+.answer-content math-field {
+  flex: 1;
+  height: 50px;
+  min-height: 50px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  background: #f9f9f9;
+}
+
+.accuracy-field {
+  width: 120px;
+  height: 50px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 15px;
+  font-size: 1rem;
+  background: #f9f9f9;
+}
+
+.del-ans {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #ff4444;
+  transition: color 0.3s ease;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.del-ans:hover {
+  color: #cc0000;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Кнопка добавления ответа */
+.add-answer-footer {
+  margin-top: 15px;
+  text-align: left;
+}
+
+.btn-add-answer {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-add-answer:hover {
+  background-color: #3d8b40;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Кнопки внизу страницы */
+.butChange {
+  margin: 30px auto;
+  text-align: center;
+}
+
+.add-btn, .save-btn {
+  padding: 12px 28px;
+  font-size: 16px;
+  margin: 0 12px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.add-btn:hover, .save-btn:hover {
+  background-color: #0b7dda;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* Стили для попапа */
 .popup {
   position: fixed;
   top: 0;
@@ -58,9 +234,9 @@ body {
 .popup_content {
   background: white;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   width: 90%;
-  max-width: 500px;
+  max-width: 600px;
   padding: 30px;
   position: relative;
   transform: translateY(20px);
@@ -75,54 +251,86 @@ body {
   position: absolute;
   top: 15px;
   right: 15px;
-  font-size: 22px;
+  font-size: 24px;
   color: #7f8c8d;
   text-decoration: none;
   transition: color 0.3s ease;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 
 .popup_close:hover {
   color: #e74c3c;
+  background: #f5f5f5;
 }
 
-/* Стили для полей в попапе */
 .test-header {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
   margin-bottom: 25px;
+  text-align: center;
 }
 
-.test-header input {
-  padding: 12px 15px;
+.wide-input {
+  width: 100%;
+  padding: 14px 18px;
   border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 15px;
+  border-radius: 8px;
+  font-size: 16px;
   transition: all 0.3s ease;
+  background-color: #f9f9f9;
+  margin-bottom: 15px;
+}
+
+.wide-input:focus {
+  outline: none;
+  border-color: #2196F3;
+  box-shadow: 0 0 0 3px rgba(33,150,243,0.1);
+}
+
+.time-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.time-input {
+  width: 80px;
+  padding: 14px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
   background-color: #f9f9f9;
 }
 
-.test-header input:focus {
-  outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52,152,219,0.2);
-  background-color: white;
+.time-inputs span {
+  font-size: 18px;
+  color: #555;
 }
 
-/* Стили для кнопок в попапе */
 .btn_option {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .btn_option button {
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-size: 14px;
+  height: 48px;
+  margin: 0 5px;
+  border-radius: 8px;
+  font-size: 15px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  padding: 0 25px;
 }
 
 .changeTest {
@@ -136,270 +344,21 @@ body {
 }
 
 .save-and-go-to-list {
-  background-color: #2ecc71;
+  background-color: #4CAF50;
   color: white;
   border: none;
 }
 
 .save-and-go-to-list:hover {
-  background-color: #27ae60;
+  background-color: #3d8b40;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
 .popup_title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
-  color: #2c3e50;
-  margin-bottom: 20px;
+  color: #333;
   text-align: center;
-}
-
-/* Анимация при открытии */
-@keyframes popupFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.popup_content {
-  animation: popupFadeIn 0.4s ease forwards;
-}
-
-/* Блок задания (делаем выше за счёт padding/min-height) */
-.fullExpression {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  padding: 30px;           /* побольше отступы внутри */
-  min-height: 250px;       /* задание становится выше */
-}
-
-.fullExpression h4 {
-  font-size: 1.4rem;
-  color: #2c3e50;
-}
-
-/* Блок с баллами */
-.point-for-solve {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 15px;
-  margin-top: 15px;
-}
-
-.point-for-solve h5 {
-  margin: 0;
-  font-size: 1rem;
-  color: #2c3e50;
-}
-
-.point-for-solve input {
-  margin-left: 10px;
-  width: 80px;
-  height: 25px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 5px;
-  font-size: 1rem;
-}
-
-math-field::part(text) {
-    font-family: Arial, sans-serif;
-    color: #000 !important;
-    font-style: normal !important;
-}
-
-.expression math-field {
-  width: 95%;
-  height: 115px; /* стало выше */
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 15px;
-  padding: 5px;
-}
-
-.right-side {
-  display: flex;
-  align-items: center;     /* выравниваем по вертикали */
-  justify-content: center; /* центрируем по горизонтали */
-  gap: 5px;               /* отступы между элементами */
-  min-height: 120px;       /* делаем сам блок повыше */
-}
-
-.right-side math-field {
-  flex: 0 0 77%;           /* пусть занимает 40% ширины контейнера */
-  min-height: 70px;       /* увеличенная высота поля */
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 1.1rem;
-  /* Перенос строк внутри math-field (может работать не во всех браузерах) */
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-}
-
-.inputs-block {
-  display: flex;
-  flex-direction: column;     /* ставим инпуты друг над другом */
-  align-items: center;        /* по центру горизонтально */
-  justify-content: center;    /* по центру вертикально */
-  height: 125px;              /* высота подгоняется под math-field */
-  gap: 10px;                  /* отступ между двумя инпутами */
-}
-
-.inputs-block input[type="text"] {
-  width: 92%;    /* подберите ширину под свой вкус */
-  height: 28px;   /* высота под половину блока (с учётом gap) */
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  font-size: 1rem;
-  padding: 5px;
-}
-
-.select-ans {
-  transform: scale(1.3);
-}
-
-.del-ans {
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  color: #ecf0f1;
-  transition: color 0.3s ease;
-  margin-left: 10px;  /* крестик уходит вправо, но мы центрируем остальное */
-}
-
-.del-ans:hover {
-  color: #c0392b;
-}
-
-/* Контейнер с кнопками */
-.butChange {
-  margin: 20px auto;
-  text-align: center;
-}
-
-.butChange button {
-  padding: 12px 24px;
-  font-size: 16px;
-  margin: 10px;
-  background-color: #34495e;
-  color: #ecf0f1;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.butChange button:hover {
-  background-color: #3a5a72;
-}
-
-/* Кнопка удаления задания */
-.del-expr {
-  padding: 12px 24px;
-  font-size: 16px;
-  background-color: #34495e;
-  color: #ecf0f1;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.save-btn{
-  padding: 12px 24px;
-  font-size: 16px;
-  background-color: #34495e;
-  color: #ecf0f1;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 10px;
-}
-
-.save-btn:hover{
-  background-color: #3a5a72;
-}
-
-.del-expr:hover {
-  background-color: #3a5a72;
-}
-
-/* Popup (пример, если используете) */
-.popup {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.7);
-  top: 0;
-  left: 0;
-  opacity: 0;
-  visibility: hidden;
-  overflow-y: auto;
-  transition: all 0.8s ease;
-}
-.popup:target {
-  opacity: 1;
-  visibility: visible;
-}
-.popup:target .popup_content {
-  transform: translate(0px, 0px);
-  opacity: 1;
-}
-.popap_area {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-}
-.popup_body {
-  min-height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-.popup_content {
-  background-color: white;
-  color: black;
-  max-width: 500px;
-  padding: 35px;
-  border-radius: 5px;
-  position: relative;
-  transition: all 0.8s ease;
-  opacity: 0;
-  transform: translate(0px, -100%);
-}
-.popup_close {
-  position: absolute;
-  right: 10px;
-  font-size: 20px;
-  text-decoration: none;
-  color: black;
-}
-.popup_title {
-  text-align: center;
-  font-size: 20px;
-  padding: 20px;
-}
-.btn_option {
-  display: inline-flex;
-}
-.btn_option button {
-  height: 45px;
-  margin: 5px;
+  margin: 20px 0;
 }

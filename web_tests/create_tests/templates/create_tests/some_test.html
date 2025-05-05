@@ -21,9 +21,11 @@
 
 {% block content %}
 <div class="inf">
-    <p>Общая информация:
+    <p style="text-align: center; color: black">Общая информация:
     </p>
+    <p> Описание: {{ test.description }}</p>
     <p> Время на решение: {{ test.time_to_solution }}</p>
+    <p> Количество попыток: {{test.num_of_attempts}} </p>
     <p> Последнее изменение: {{ test.time_last_change }}</p>
     <p>Статус:
         {% if ex.is_public == 1 %}

@@ -1,58 +1,67 @@
+:root {
+    --primary-color: #4a6fa5;
+    --primary-hover: #3a5a8a;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --text-light: #ffffff;
+    --text-dark: #212529;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --border-radius: 8px;
+}
+
 body {
   margin: 0;
-  padding: 0;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background-color: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  height: 100vh;
 }
 
-.personal-image {
-  text-align: center;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-.personal-image input[type="file"] {
-  display: none;
+
+/* Шапка */
+.app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    box-shadow: var(--shadow-md);
+    z-index: 1000;
 }
-.personal-figure {
-  text-align: center;
-  position: relative;
-  width: 150px;
-  height: 150px;
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
-.personal-avatar {
-  cursor: pointer;
-  width: 150px;
-  height: 150px;
-  box-sizing: border-box;
-  border-radius: 5%;
-  border: 2px solid transparent;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
-  transition: all ease-in-out .3s;
-}
-.personal-avatar:hover {
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
-}
-.personal-figcaption {
-  cursor: pointer;
-  position: absolute;
-  top: 0px;
-  width: inherit;
-  height: inherit;
-  border-radius: 5%;
-  opacity: 0;
-  background-color: rgba(0, 0, 0, 0);
-  transition: all ease-in-out .3s;
-}
-.personal-figcaption:hover {
-  opacity: 1;
-  background-color: rgba(0, 0, 0, .5);
-}
-.personal-figcaption > img {
-  margin-top: 32.5px;
-  width: 50px;
-  height: 50px;
+
+/* Логотип */
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .page-content {
@@ -97,11 +106,6 @@ form.form-detail {
   max-width: 450px;
 }
 
-h2 {
-  text-align: center;
-  color: #2c3e50;
-  margin-bottom: 15px;
-}
 
 .form-group {
   margin-bottom: 20px;
@@ -132,12 +136,13 @@ h2 {
   width: 100%;
 }
 
+/* Кнопка регистрации */
 .save-btn {
   width: 100%;
   padding: 12px;
   font-size: 16px;
-  background: #34495e;
-  color: #ecf0f1;
+  background-color: var(--primary-color);
+  color: var(--text-light);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -145,7 +150,7 @@ h2 {
 }
 
 .save-btn:hover {
-  background: #3a5a72;
+  background: var(--primary-hover);
 }
 
 /* Адаптив для мобильных устройств */

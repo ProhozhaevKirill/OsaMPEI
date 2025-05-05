@@ -2,92 +2,132 @@
 body {
   margin: 0;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background-color: #f5f5f5;
-  color: #2c3e50;
   line-height: 1.6;
 }
 
-/* Шапка */
-/* Шапка */
-header.shapka {
+/* Основная структура страницы */
+.page-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Левая панель (15% ширины) */
+.left-sidebar {
+    width: 12%;
+    background: #f8f9fa;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 70px;
-    background: linear-gradient(135deg, #2c3e50, #34495e);
-    color: #ecf0f1;
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* Блок с таймером */
+.sidebar-timer {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Навигация по заданиям */
+.navigation-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 50px;
+}
+
+.task-number {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e9ecef;
+    color: #495057;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
 }
 
-.shapka-content {
+.task-number:hover {
+    background: #dee2e6;
+}
+
+.task-number.answered {
+    background: #4caf50;
+    color: white;
+}
+
+.task-number.current {
+    box-shadow: 0 0 0 2px #55d6e7;
+}
+
+/* Основной контент (85% ширины) */
+.main-content {
+    width: 80%;
+    margin-left: 15%;
+    padding: 20px 40px;
+}
+
+/* Заголовок теста */
+.test-title {
+    color: black;
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+/* Сдвиг цифр в колонку */
+.task-number {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 20px;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: 5px 0;
+    border-radius: 50%;
+    background: #f5f5f5;
+    color: #555;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
 }
 
-header.shapka .menu-btn {
-    background: none;
-    border: none;
-    color: #ecf0f1;
-    font-size: 1.5rem;
-    cursor: pointer;
-    margin-right: auto; /* Перемещает кнопку меню влево */
+/* Стилизация для:hover состояния */
+.task-number:hover {
+    background: #e0e0e0;
 }
 
-header.shapka .Name {
-    text-align: center;
-    flex-grow: 1; /* Центрирует название теста */
-}
-
-header.shapka .Name h2 {
-    font-size: 1.5rem;
-    margin: 0;
-}
-
-header.shapka .Timer {
-    margin-left: auto; /* Перемещает таймер вправо */
-}
-
-header.shapka .Timer h2 {
-    font-size: 1.5rem;
-    margin: 0;
-}
-/* Основной контент */
+/* Сдвигаем основной контент правее */
 .list-expr {
-  margin-top: 90px;
-  padding: 20px;
-  max-width: 60%;
-  margin-left: auto;
-  margin-right: auto;
+    margin-top: 20px;
 }
 
 .list-expr ul {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 .list-expr .number {
-  font-size: 1.2rem;
-  color: #34495e;
-  margin-bottom: 10px;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    margin-top: 40px;
 }
 
 .list-expr .express {
-
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .list-expr .express p {
@@ -129,25 +169,23 @@ header.shapka .Timer h2 {
 
 /* Поле для ввода ответа */
 .list-expr .sec-info {
-  margin-top: 15px;
-  padding-top: 15px;
   border-top: 1px solid #eee;
 }
 
 .list-expr .sec-info li {
   font-size: 1rem;
   color: #7f8c8d;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 math-field.answer {
-  width: 98.5%;
+  width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 1rem;
   background: #fff;
-  margin-top: 10px;
+  margin-bottom: 70px;
 }
 
 /* Кнопка отправки формы */
@@ -159,7 +197,7 @@ math-field.answer {
 
 #answerForm button {
   padding: 12px 24px;
-  background: #2c3e50;
+  background: #4a6fa5;
   color: white;
   border: none;
   border-radius: 5px;
@@ -169,7 +207,7 @@ math-field.answer {
 }
 
 #answerForm button:hover {
-  background-color: #2980b9;
+  background-color: #3a5a8a;
 }
 
 /* Адаптивность */

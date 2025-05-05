@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Профиль студента</title>
+  <link rel="stylesheet" href="{% static 'css/reg_form_student.css' %}">
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <span class="logo-icon">
+                    <img src="{% static 'images/logo.png' %}" alt="" style="width: 40px; height: 40px;">
+                </span>
+                <h2><span class="logo-text">АСТРА</span></h2>
+            </div>
+        </div>
+    </header>
+    <div class="page-content">
+        <div class="name">Заполните личные данные</div>
+        <div class="form-v10-content">
+          <form class="form-detail" action="{% url 'form_registration' %}" method="POST" id="myform">
+            {% csrf_token %}
+
+            <div class="form-left">
+              <div class="form-group">
+                <input type="text" name="first_name" id="first_name" class="input-text"
+                       placeholder="Имя" value="{{ request.user.studentdata.first_name|default:'' }}" required>
+              </div>
+              <div class="form-group">
+                <input type="text" name="last_name" id="last_name" class="input-text"
+                       placeholder="Фамилия" value="{{ request.user.studentdata.last_name|default:'' }}" required>
+              </div>
+              <div class="form-group">
+                <input type="text" name="middle_name" id="middle_name" class="input-text"
+                       placeholder="Отчество" value="{{ request.user.studentdata.middle_name|default:'' }}">
+              </div>
+                <div class="form-group">
+                    <select name="institute" id="institute" class="input-text" aria-label="Выберите институт" required>
+                        {% for institute in institutes %}
+                            <option value="{{ institute.id }}" {% if request.user.studentdata.institute.id == institute.id %} selected{% endif %}>
+                                {{ institute.name }} {{ institute.short_name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+              <div class="form-group">
+                <input type="text" name="group" id="group" class="input-text"
+                       placeholder="Группа" value="{{ request.user.studentdata.group.name|default:'' }}" required>
+                        {{ messages.non_field_errors }}
+              </div>
+
+              <button type="submit" class="save-btn">Сохранить</button>
+            </div>
+          </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -33,8 +33,15 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
+# class Subject(models.Model):
+#     name_subj = models.CharField(max_length=100, default="Другое")
+#
+#     def __str__(self):
+#         return self.name_subj
+
+
 class StudentInstitute(models.Model):
-    name = models.CharField(max_length=256, unique=True)
+    name = models.CharField(max_length=70, unique=True)
 
     def __str__(self):
         return self.name
@@ -68,6 +75,8 @@ class StudentData(models.Model):
     middle_name = models.CharField(max_length=50, blank=True)
 
     training_status = models.BooleanField(default=True)
+    count_solve = models.IntegerField(default=0)
+    perc_of_correct_ans = models.CharField(max_length=5, default="0")
 
     institute = models.ForeignKey(StudentInstitute, on_delete=models.PROTECT)
     # direction = models.ForeignKey(StudentDirection, on_delete=models.PROTECT)
@@ -89,5 +98,4 @@ class TeacherData(models.Model):
     middle_name = models.CharField(max_length=50)
 
     data_map = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-
 

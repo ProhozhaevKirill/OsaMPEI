@@ -2,32 +2,114 @@
 
 {% load static %}
 
-{% block title %}Список тестов{% endblock %}
+{% block title %}Доступные тесты{% endblock %}
 
 {% block extra_css %}
-    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
-    <link rel="stylesheet" href='{% static "css/test_selection.css" %}'>
+    <link rel="stylesheet" href="{% static 'css/test_selection.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}
 
 {% block extra_js %}
-    <script src="{% static 'js/test_selection.js' %}"></script>
+    <script src="{% static 'js/test_selection.js' %}" defer></script>
 {% endblock %}
 
 {% block content %}
-    <div class="main">
-        <h2> Список всех тестов </h2>
-
-        <ul class="list-tests">
-            {% for name in tests %}
-            <div class="name_test">
-                <li>
-                    {{ forloop.counter }}
-                    <a href="{{name.name_slug_tests}}"> {{ name.name_tests }} </a>
-                </li>
+<div class="test-selection-container">
+    <div class="page-header">
+        <h1><i class="fas fa-tasks"></i> Доступные тесты</h1>
+        <div class="search-filter">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="testSearch" placeholder="Поиск тестов...">
             </div>
-
-                <hr>
-            {% endfor %}
-        </ul>
+            <div class="filter-box">
+                <select id="testFilter">
+                    <option value="all">Все тесты</option>
+                    <option value="uncompleted">Не пройденные</option>
+                    <option value="completed">Пройденные</option>
+                    <option value="new">Новые</option>
+                </select>
+            </div>
+        </div>
     </div>
+
+    <div class="tests-grid">
+        {% for test in tests %}
+        <div class="test-card" data-id="{{ test.id }}" data-completed="{% if test.completed %}true{% else %}false{% endif %}" data-new="{% if test.is_new %}true{% else %}false{% endif %}">
+            <div class="test-header">
+                <div class="test-status">
+                    {% if test.completed %}
+                    <span class="badge completed"><i class="fas fa-check-circle"></i> Пройден</span>
+                    {% elif test.is_new %}
+                    <span class="badge new"><i class="fas fa-star"></i> Новый</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="test-body">
+                <h3 class="test-title">
+                    <a href="{{ test.name_slug_tests }}">{{ test.name_tests }}</a>
+                </h3>
+                {% if test.description %}
+                <p class="test-description">{{ test.description|truncatechars:150 }}</p>
+                {% endif %}
+                <div class="test-meta">
+                    <span><i class="far fa-clock"></i> {{ test.time_to_solution }} мин</span>
+                    <span><i class="fas fa-redo"></i> {% if test.num_of_attempts == 0 %}Количество попыток не ограниченно{% else %}попыток: {{ test.num_of_attempts }}{% endif %}</span>
+                </div>
+            </div>
+            <div class="test-footer">
+                <a href="{{ test.name_slug_tests }}" class="btn start-btn">
+                    {% if test.completed %}
+                    <i class="fas fa-redo"></i> Повторить
+                    {% else %}
+                    <i class="fas fa-play"></i> Начать
+                    {% endif %}
+                </a>
+                <button class="btn info-btn" data-test-id="{{ test.id }}">
+                    <i class="fas fa-info-circle"></i> Подробнее
+                </button>
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-state">
+            <i class="fas fa-tasks fa-3x"></i>
+            <h3>Нет доступных тестов</h3>
+            <p>В настоящее время для вас нет доступных тестов.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Модальное окно с информацией о тесте -->
+    <div id="testInfoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-info-circle"></i> Информация о тесте</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4 id="modalTestTitle"></h4>
+                <p id="modalTestDescription"></p>
+                <div class="modal-meta">
+                    <div class="meta-item">
+                        <i class="far fa-clock"></i>
+                        <span id="modalTestTime"></span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fas fa-redo"></i>
+                        <span id="modalTestAttempts"></span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="far fa-calendar-alt"></i>
+                        <span id="modalTestDeadline"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary close-modal">Закрыть</button>
+                <a href="{{ test.name_slug_tests }}" class="btn btn-primary" id="modalStartBtn">Начать тест</a>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay"></div>
+</div>
 {% endblock %}

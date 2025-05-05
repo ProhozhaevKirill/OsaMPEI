@@ -2,59 +2,143 @@
 <html lang="ru">
 <head>
     {% load static %}
-
-    <meta charset="UTF-8" />
-    <title>{% block title %} {% endblock %}</title>
-
-    <!-- Подключаем глобальные стили из core/static/css/global.css -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}АСТРА - Платформа тестирования{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/global.css' %}">
-
-    {% block extra_css %}
-    {% endblock %}  <!-- Здесь подключаются стили, специфичные для каждой страницы -->
-
-    <!-- Подключаем глобальные скрипты из core/static/js/global.js -->
-    <script src="{% static 'js/global.js' %}"></script>
-
-    {% block extra_js %}
-    {% endblock %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+    <script src="{% static 'js/global.js' %}" defer></script>
+    {% block extra_js %}{% endblock %}
+</head>
 <body>
+<header class="app-header">
+    <div class="header-container">
+        <div class="header-brand">
+            <span class="logo-icon">
+                <img src="{% static 'images/logo.png' %}" alt="" style="width: 40px; height: 40px;">
+            </span>
+            <h2><span class="logo-text">АСТРА</span></h2>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
 
-    <nav id="sidebar" class="sidebar hidden">
-        <ul>
-          <li><a href="#">Главная</a></li>
-          <li><a href="#">О нас</a></li>
-          <li><a href="#">Услуги</a></li>
-          <li><a href="#">Контакты</a></li>
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="/account/" class="nav-link active">
+                        <i class="fas fa-home"></i>
+                        <span>Главная</span>
+                    </a>
+                </li>
+                {% if users.role == "teacher" %}
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-tasks"></i>
+                            <span>Тесты</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-book"></i>
+                            <span>Материалы</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a href="/TestsSolving/" class="nav-link">
+                            <i class="fas fa-tasks"></i>
+                            <span>Тесты</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/material/" class="nav-link">
+                            <i class="fas fa-book"></i>
+                            <span>Материалы</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        <div class="user-controls">
+            <div class="notifications-dropdown">
+                <div class="notifications-menu hidden" id="notificationsMenu"></div>
+            </div>
+
+            <div class="profile-dropdown">
+                <button class="profile-btn" id="profileBtn">
+                    <div class="avatar"><i class="fas fa-user"></i></div>
+                    <span class="username">{{ user.get_full_name }}</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="profile-menu hidden" id="profileMenu">
+                    <div class="profile-info">
+                        <div class="avatar large"><i class="fas fa-user"></i></div>
+                        <div class="user-details">
+                            <h4>{{ user.get_full_name }}</h4>
+                            <small>{% if user.is_staff %}Преподаватель{% else %}Студент{% endif %}</small>
+                        </div>
+                    </div>
+                    <div class="menu-links">
+                        <a href="/account/" class="menu-link">
+                            <i class="fas fa-user"></i>
+                            <span>Мой профиль</span>
+                        </a>
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Настройки</span>
+                        </a>
+                        <a href="#" class="menu-link">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Помощь</span>
+                        </a>
+                        <div class="divider"></div>
+                        <a href="{% url 'logout' %}" class="menu-link logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Выйти</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="app-main">
+    {% block content %}{% endblock %}
+</main>
+
+<div class="mobile-menu hidden" id="mobileMenu">
+    <div class="mobile-menu-header">
+        <div class="avatar"><i class="fas fa-user"></i></div>
+        <span class="username">{{ user.get_full_name }}</span>
+        <button class="close-menu-btn" id="closeMenuBtn"><i class="fas fa-times"></i></button>
+    </div>
+    <nav class="mobile-nav">
+        <ul class="mobile-nav-list">
+            <li>
+                <a href="/account/" class="mobile-nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span>Главная</span>
+                </a>
+            </li>
+            {% if user.is_staff %}
+                <li><a href="#" class="mobile-nav-link"><i class="fas fa-tasks"></i><span>Тесты</span></a></li>
+                <li><a href="#" class="mobile-nav-link"><i class="fas fa-chart-bar"></i><span>Результаты</span></a></li>
+                <li><a href="#" class="mobile-nav-link"><i class="fas fa-book"></i><span>Материалы</span></a></li>
+            {% else %}
+                <li><a href="/TestsSolving/" class="mobile-nav-link"><i class="fas fa-tasks"></i><span>Тесты</span></a></li>
+                <li><a href="#" class="mobile-nav-link"><i class="fas fa-chart-bar"></i><span>Результаты</span></a></li>
+                <li><a href="/material/" class="mobile-nav-link"><i class="fas fa-book"></i><span>Материалы</span></a></li>
+            {% endif %}
+            <li><a href="#" class="mobile-nav-link"><i class="fas fa-cog"></i><span>Настройки</span></a></li>
+            <li><a href="{% url 'logout' %}" class="mobile-nav-link"><i class="fas fa-sign-out-alt"></i><span>Выйти</span></a></li>
         </ul>
     </nav>
+</div>
 
-  <!-- Шапка -->
-  <header class="topbar">
-      <div class="left">
-        <button id="menu-toggle" class="menu-btn">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        <span class="logo">АСТРА</span>
-      </div>
-    <div class="right">
-      <div class="profile-dropdown">
-        <img src="images/user-icon.png" class="profile-icon" id="profile-btn" alt="  Профиль" />
-        <div class="dropdown hidden" id="profile-menu">
-          <a href="#">Профиль</a>
-          <a href="#">Настройки</a>
-          <a href="#">Выход</a>
-        </div>
-      </div>
-    </div>
-  </header>
-    <!-- Основной контент -->
-    <main>
-        {% block content %}
-
-        {% endblock %}
-    </main>
-  </div>
+<div class="mobile-overlay hidden" id="mobileOverlay"></div>
 </body>
 </html>

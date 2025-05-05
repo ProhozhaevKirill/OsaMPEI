@@ -15,7 +15,7 @@ class CheckAnswer:
     def compare_answer(self):
 
         if self.is_choice:
-            if int(self.teach_ans, base=10) == int(self.stud_ans, base=10):
+            if self.teach_ans == self.stud_ans:
                 return 1
             return 0
         else:

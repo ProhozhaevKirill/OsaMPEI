@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}АСТРА - личный кабинет преподавателя {% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/teacher_account.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/teacher_account.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Основной контент -->
+    <div class="dashboard-container">
+        <!-- Основная область -->
+        <main class="main-content">
+            <section class="welcome-section">
+                <h1 class="welcome-title">Добро пожаловать, {{teacher_data.first_name}} {{teacher_data.last_name}}</h1>
+                <h3 class="second-inf"> {{teacher_data.institute}} </h3>
+                <h3 class="second-inf"> Кафедра: {{teacher_data.department}} </h3>
+            </section>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon tests">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-title">Созданных тестов</div>
+                        <div class="stat-value">{{ teacher_data.created_tests_count }}</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon results">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-title">Активных тестов</div>
+                        <div class="stat-value">{{ teacher_data.active_tests_count }}</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon time">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-title">Студентов в системе</div>
+                        <div class="stat-value">{{ teacher_data.students_count }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <section>
+                <h2 class="section-title">
+                    <i class="fas fa-chart-bar"></i> Последние созданные тесты
+                </h2>
+
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Предмет</th>
+                            <th>Название теста</th>
+                            <th>Дата создания</th>
+                            <th>Статус</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for test in teacher_tests %}
+                        <tr>
+                            <td>{{ test.subject }}</td>
+                            <td>{{ test.test_name }}</td>
+                            <td>{{ test.creation_date }}</td>
+                            <td>
+                                {% if test.is_active %}
+                                <span class="badge badge-success"> Активен </span>
+                                {% else %}
+                                <span class="badge badge-warning"> Не активен </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <button class="btn btn-outline btn-sm">Редактировать</button>
+                                <button class="btn btn-outline btn-sm">Результаты</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+{% endblock %}

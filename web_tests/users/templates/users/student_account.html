@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}АСТРА - личный кабинет {% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/student_account.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/student_account.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Основной контент -->
+    <div class="dashboard-container">
+        <!-- Основная область -->
+        <main class="main-content">
+            <section class="welcome-section">
+                <h1 class="welcome-title">Добро пожаловать, {{student_data.first_name}} {{student_data.last_name}}</h1>
+                <h3 class="second-inf"> {{student_data.institute}} </h3>
+                <h3 class="second-inf"> Группа: {{student_data.group}} </h3>
+            </section>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon tests">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-title">Активных тестов</div>
+                        <div class="stat-value">5</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon results">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-title">Пройденных тестов</div>
+                        <div class="stat-value">{{ student_date.count_solve }}</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon time">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-title">Успеваемость</div>
+                        <div class="stat-value">{{ students_data.perc_of_correct_ans }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <section>
+                <h2 class="section-title">
+                    <i class="fas fa-chart-bar"></i> Последние результаты
+                </h2>
+
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Предмет</th>
+                            <th>Название</th>
+                            <th>Оценка</th>
+                            <th>Статус</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for test in about_tests %}
+                        <tr>
+                            <td>{{ test.subj }}</td>
+                            <td>{{ test.name_tests }}</td>
+                            <td>{{ test.type_of_result }}</td>
+                            <!--Здесь должна быть проверка на колличество решений                            -->
+                            <td>
+                                {% if test.num_of_attempts == 1 %}
+                                <span class="badge badge-success"> Завершено </span>
+                                {% else %}
+                                <span class="badge badge-success"> Осталось n попыток </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+{% endblock %}

@@ -1,29 +1,27 @@
-// Инициализация всех math-field
-document.querySelectorAll('math-field').forEach(field => {
-    MathLive.makeMathField(field);
-});
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("answerForm");
 
-// Функция для сбора ответов из чекбоксов и полей math-field
-function collectAnswers() {
-    const answers = [];
+    form.addEventListener("submit", function (e) {
+        const results = [];
+        const questions = document.querySelectorAll(".question-card");
 
-    // Сбор ответов для полей math-field
-    document.querySelectorAll('math-field').forEach(field => {
-        answers.push(field.getValue());
+        questions.forEach((questionCard) => {
+            const checkboxes = questionCard.querySelectorAll('input[type="checkbox"]');
+
+            if (checkboxes.length > 0) {
+                // Есть checkbox — собрать выбранные
+                const selected = Array.from(checkboxes)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value);
+                results.push(selected.join(";"));
+            } else {
+                // Нет checkbox — значит свободный ответ, берём из math-field
+                const mathField = questionCard.querySelector("math-field");
+                results.push(mathField ? mathField.getValue().trim() : "");
+            }
+        });
+
+        // Сохраняем как JSON-строку в скрытое поле
+        document.getElementById("binaryAnswers").value = JSON.stringify(results);
     });
-
-    // Сбор состояний чекбоксов в виде бинарной строки
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    const binaryStr = Array.from(checkboxes).map(cb => cb.checked ? '1' : '0').join('');
-    answers.push(binaryStr);
-
-    return answers.join('; ');
-}
-
-// Функция для отправки формы
-function submitForm(event) {
-    event.preventDefault();
-    const answersStr = collectAnswers();
-    document.getElementById('binary-answers').value = answersStr;
-    document.getElementById('answerForm').submit();
-}
+});

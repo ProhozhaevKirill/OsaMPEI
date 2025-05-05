@@ -270,90 +270,94 @@ class Tex2Sympy(GetLexeme):
 
 
 # -----------------------------------------------------------------------------------------------------------------
-expressions = np.array([
-    # Смешанные с основной разработки
-    r'1 - \sqrt[3]{56} - \frac{4-1}{5-1}',
-    r'1 - \frac{\frac{4}{2}-1}{5-1} - \sqrt{\sqrt[5]{66} * 56} + \sqrt{34}',
-    r'1 - \sqrt{\sqrt[5]{66} * 56} + \sqrt{34}',
-    r'\sqrt{\sqrt[5]{66} * 56}',
-    r'\sqrt[4]{44} + \frac{12}{3}',
-    r'1 + \sqrt[3]{\frac{4}{5}} - 5',
-    r'\sqrt{((66))**(1/5) * 56}',
-    r'\frac{1}{\frac{2}{3}}',
-    r'\sqrt{1-2\sin(x)+\sin(x)^2}',
+# expressions = np.array([
+    # По-моему не рабочее говно
+    # r'7\ln5',
+    
+    
+    # # Смешанные с основной разработки
+    # r'1 - \sqrt[3]{56} - \frac{4-1}{5-1}',
+    # r'1 - \frac{\frac{4}{2}-1}{5-1} - \sqrt{\sqrt[5]{66} * 56} + \sqrt{34}',
+    # r'1 - \sqrt{\sqrt[5]{66} * 56} + \sqrt{34}',
+    # r'\sqrt{\sqrt[5]{66} * 56}',
+    # r'\sqrt[4]{44} + \frac{12}{3}',
+    # r'1 + \sqrt[3]{\frac{4}{5}} - 5',
+    # r'\sqrt{((66))**(1/5) * 56}',
+    # r'\frac{1}{\frac{2}{3}}',
+    # r'\sqrt{1-2\sin(x)+\sin(x)^2}',
+    #
+    # # Простые базовые выражения
+    # r"x + y - z",
+    # r"x^2 + 2*x*y + y^2",
+    # r"sin(x) + cos(y)",
+    # r"tan(x) - \frac{1}{cot(y)}",
+    # r"\sqrt{x^2 + y^2}",
+    # r"log(x) + ln(y)",
+    # r"e^{x+y} + \frac{1}{e^{z}}",
+    # r"\frac{x}{y} + \frac{z}{w}",
+    # r"\sqrt{\frac{x^2}{y^2}}",
+    # r"x! + y! - z!",
+    #
+    # # Сложные вложенные выражения
+    # r"\frac{\sin(x)}{\cos(y)} + \tan(z)",
+    # r"\sqrt{e^{x^2 + y^2}}",
+    # r"\frac{\ln(x)}{\sqrt{y + z}}",
+    # r"\frac{\sqrt{\sin(x) + \cos(y)}}{z}",
+    # r"\sqrt{x + \frac{1}{y + z}}",
+    # r"\frac{\sqrt{x^2 + y^2}}{z^2}",
+    # r"e^{\frac{\ln(x)}{\sqrt{y}}}",
+    # r"\sin(\sqrt{x + \cos(y)}) + z",
+    # r"\tan^{-1}(x) + \cot^{-1}(y)",
+    # r"\frac{\sqrt{x}}{\log(y) + e^z}",
+    #
+    # # Еще больше конструкций с тегами
+    # r"\frac{\sqrt{\sin(x)}}{\cos^2(y)}",
+    # r"\sqrt{\frac{x}{\ln(y)}} + e^z",
+    # r"x + \frac{\sqrt{y}}{z + \ln(w)}",
+    # r"\frac{\frac{x}{\sqrt{y}}}{\sqrt{z}}",
+    # r"x^3 + \frac{\sqrt{y + z}}{e^w}",
+    # r"\ln(\sqrt{x^2 + y^2 + z^2})",
+    # r"x + \sqrt{\frac{y}{\sqrt{z}}}",
+    # r"\sin(x) + \cos(\ln(y)) + \tan(z)",
+    # r"\frac{\ln(x + \sqrt{y})}{e^z}",
+    # r"x + \frac{\sqrt{y}}{\sqrt{z}} - \ln(w)",
+    #
+    # # Еще более сложные конструкции
+    # r"x + \frac{\sin(y)}{\cos(z + \sqrt{w})}",
+    # r"x^2 + \frac{\sqrt{\ln(y)}}{\tan(z)}",
+    # r"x + y - z + \sqrt{w + e^{x - y}} - 2y",
+    # r"\frac{\sqrt{x + \ln(y)}}{\cos(z)}",
+    # r"x + \frac{\sin(y)}{\sqrt{z}} - \ln(w)",
+    # r"\sqrt{x + \frac{\tan(y)}{\cos(z)}}",
+    # r"\frac{\sqrt{\sin(x)}}{\tan(y + \ln(z))}",
+    # r"\frac{x}{y + \frac{z}{w}}",
+    # r"\tan^{-1}(\frac{x}{y}) + \cot^{-1}(z)",
+    # r"x^2 + y^2 - \sqrt{z^2 + w^2}",
+    #
+    # # Дополнительные усложненные проверки
+    # r"\tan^{-1}(x + \sqrt{y}) + \cot^{-1}(\frac{z}{w})",  # Вложенные функции внутри аргументов
+    # r"\sqrt{\ln(\sqrt{x + y})} + \frac{1}{\tan(z)}",  # Вложенные корни и логарифмы
+    # r"\sin(\tan^{-1}(\frac{x}{y})) + \cos(\cot^{-1}(z))",  # Аргументы функций внутри других функций
+    # r"\sqrt{\frac{\ln(x + \sqrt{y})}{\tan(z)}} + \frac{1}{\cos(w)}",  # Несколько вложенных операций
+    # r"\ln(\sqrt{x}) + \frac{\tan(y)}{\cos(\sqrt{z})}",  # Вложенные корни в тригонометрических функциях
+    # r"\frac{\tan^{-1}(x)}{\sqrt{\cot^{-1}(y) + z}}",  # Обратные функции внутри знаменателя
+    # r"x + \sqrt{\frac{\sin(y)}{\ln(z + w)}}",  # Сложные комбинации вложений
+    # # r"\tan^{-1}(x + \cot^{-1}(y)) + \frac{\sqrt{z}}{\ln(w)}",  # Вложенные функции и дроби
+    # r"\sqrt{x + \frac{\tan(y)}{\cos(z)}}",  # Вложенные тригонометрические функции
+    # r"x + \frac{\tan^{-1}(y)}{\cot^{-1}(z + \sqrt{w})}",  # Аргументы с корнями и обратными функциями
+    # r"x + \frac{\sqrt{\tan(y)}}{\cos(\ln(z + w))}",  # Вложенные логарифмы и тригонометрические функции
+    # r"x^2 + y^2 - \sqrt{\tan^{-1}(z^2) + \cot^{-1}(w^2)}",  # Обратные функции внутри корня
+    # r"\frac{\ln(x + \sqrt{y})}{\tan(z)} + \frac{\sqrt{w}}{\cos(v)}",  # Сложные дроби и вложенные выражения
+    # r"x + \tan^{-1}(\frac{y}{\sqrt{z}}) - \cot^{-1}(w)",  # Вложенные дроби в обратных функциях
+    # r"x + \sqrt{\frac{\tan(y)}{\cos(\ln(z))}}",  # Вложенные логарифмы в тригонометрических функциях
+    # r"\frac{\tan^{-1}(\frac{x}{y})}{\cot^{-1}(z)} + \sqrt{w + \ln(v)}",  # Сложные дроби и вложенные корни
+    # r"x + \frac{\sin(y)}{\sqrt{\tan^{-1}(z + \ln(w))}}",  # Аргументы в сложных функциях
+    # r"x + \tan^{-1}(\frac{\sqrt{y}}{\cos(z)}) + \cot^{-1}(w)",  # Вложенные дроби и тригонометрические функции
+    # r"x^3 + \sqrt{\tan^{-1}(\frac{y}{z}) + \cot^{-1}(w)}",  # Обратные функции внутри корня
+    # r"x + \frac{\tan(y)}{\cos(\ln(z + \sqrt{w}))} - \cot^{-1}(v)",  # Сложные вложения с дробями
 
-    # Простые базовые выражения
-    r"x + y - z",
-    r"x^2 + 2*x*y + y^2",
-    r"sin(x) + cos(y)",
-    r"tan(x) - \frac{1}{cot(y)}",
-    r"\sqrt{x^2 + y^2}",
-    r"log(x) + ln(y)",
-    r"e^{x+y} + \frac{1}{e^{z}}",
-    r"\frac{x}{y} + \frac{z}{w}",
-    r"\sqrt{\frac{x^2}{y^2}}",
-    r"x! + y! - z!",
-
-    # Сложные вложенные выражения
-    r"\frac{\sin(x)}{\cos(y)} + \tan(z)",
-    r"\sqrt{e^{x^2 + y^2}}",
-    r"\frac{\ln(x)}{\sqrt{y + z}}",
-    r"\frac{\sqrt{\sin(x) + \cos(y)}}{z}",
-    r"\sqrt{x + \frac{1}{y + z}}",
-    r"\frac{\sqrt{x^2 + y^2}}{z^2}",
-    r"e^{\frac{\ln(x)}{\sqrt{y}}}",
-    r"\sin(\sqrt{x + \cos(y)}) + z",
-    r"\tan^{-1}(x) + \cot^{-1}(y)",
-    r"\frac{\sqrt{x}}{\log(y) + e^z}",
-
-    # Еще больше конструкций с тегами
-    r"\frac{\sqrt{\sin(x)}}{\cos^2(y)}",
-    r"\sqrt{\frac{x}{\ln(y)}} + e^z",
-    r"x + \frac{\sqrt{y}}{z + \ln(w)}",
-    r"\frac{\frac{x}{\sqrt{y}}}{\sqrt{z}}",
-    r"x^3 + \frac{\sqrt{y + z}}{e^w}",
-    r"\ln(\sqrt{x^2 + y^2 + z^2})",
-    r"x + \sqrt{\frac{y}{\sqrt{z}}}",
-    r"\sin(x) + \cos(\ln(y)) + \tan(z)",
-    r"\frac{\ln(x + \sqrt{y})}{e^z}",
-    r"x + \frac{\sqrt{y}}{\sqrt{z}} - \ln(w)",
-
-    # Еще более сложные конструкции
-    r"x + \frac{\sin(y)}{\cos(z + \sqrt{w})}",
-    r"x^2 + \frac{\sqrt{\ln(y)}}{\tan(z)}",
-    r"x + y - z + \sqrt{w + e^{x - y}} - 2y",
-    r"\frac{\sqrt{x + \ln(y)}}{\cos(z)}",
-    r"x + \frac{\sin(y)}{\sqrt{z}} - \ln(w)",
-    r"\sqrt{x + \frac{\tan(y)}{\cos(z)}}",
-    r"\frac{\sqrt{\sin(x)}}{\tan(y + \ln(z))}",
-    r"\frac{x}{y + \frac{z}{w}}",
-    r"\tan^{-1}(\frac{x}{y}) + \cot^{-1}(z)",
-    r"x^2 + y^2 - \sqrt{z^2 + w^2}",
-
-    # Дополнительные усложненные проверки
-    r"\tan^{-1}(x + \sqrt{y}) + \cot^{-1}(\frac{z}{w})",  # Вложенные функции внутри аргументов
-    r"\sqrt{\ln(\sqrt{x + y})} + \frac{1}{\tan(z)}",  # Вложенные корни и логарифмы
-    r"\sin(\tan^{-1}(\frac{x}{y})) + \cos(\cot^{-1}(z))",  # Аргументы функций внутри других функций
-    r"\sqrt{\frac{\ln(x + \sqrt{y})}{\tan(z)}} + \frac{1}{\cos(w)}",  # Несколько вложенных операций
-    r"\ln(\sqrt{x}) + \frac{\tan(y)}{\cos(\sqrt{z})}",  # Вложенные корни в тригонометрических функциях
-    r"\frac{\tan^{-1}(x)}{\sqrt{\cot^{-1}(y) + z}}",  # Обратные функции внутри знаменателя
-    r"x + \sqrt{\frac{\sin(y)}{\ln(z + w)}}",  # Сложные комбинации вложений
-    # r"\tan^{-1}(x + \cot^{-1}(y)) + \frac{\sqrt{z}}{\ln(w)}",  # Вложенные функции и дроби
-    r"\sqrt{x + \frac{\tan(y)}{\cos(z)}}",  # Вложенные тригонометрические функции
-    r"x + \frac{\tan^{-1}(y)}{\cot^{-1}(z + \sqrt{w})}",  # Аргументы с корнями и обратными функциями
-    r"x + \frac{\sqrt{\tan(y)}}{\cos(\ln(z + w))}",  # Вложенные логарифмы и тригонометрические функции
-    r"x^2 + y^2 - \sqrt{\tan^{-1}(z^2) + \cot^{-1}(w^2)}",  # Обратные функции внутри корня
-    r"\frac{\ln(x + \sqrt{y})}{\tan(z)} + \frac{\sqrt{w}}{\cos(v)}",  # Сложные дроби и вложенные выражения
-    r"x + \tan^{-1}(\frac{y}{\sqrt{z}}) - \cot^{-1}(w)",  # Вложенные дроби в обратных функциях
-    r"x + \sqrt{\frac{\tan(y)}{\cos(\ln(z))}}",  # Вложенные логарифмы в тригонометрических функциях
-    r"\frac{\tan^{-1}(\frac{x}{y})}{\cot^{-1}(z)} + \sqrt{w + \ln(v)}",  # Сложные дроби и вложенные корни
-    r"x + \frac{\sin(y)}{\sqrt{\tan^{-1}(z + \ln(w))}}",  # Аргументы в сложных функциях
-    r"x + \tan^{-1}(\frac{\sqrt{y}}{\cos(z)}) + \cot^{-1}(w)",  # Вложенные дроби и тригонометрические функции
-    r"x^3 + \sqrt{\tan^{-1}(\frac{y}{z}) + \cot^{-1}(w)}",  # Обратные функции внутри корня
-    r"x + \frac{\tan(y)}{\cos(\ln(z + \sqrt{w}))} - \cot^{-1}(v)",  # Сложные вложения с дробями
-
-])
-
+# ])
+#
 # numOfFalse = np.array([])
 # for i, primerExpr in enumerate(expressions):
 #     print('-------------------------------------------------------------')
@@ -386,13 +390,13 @@ expressions = np.array([
 # \tan^{-1}(x + \cot^{-1}(y)) + \frac{\sqrt{z}}{\ln(w)}
 
 # expr = '\frac45'
-expr = '(\arcsin{\frac{34}{x^2}})* (\frac{34}{x^2}) - (\arcsin{\frac{34}{x^2}})* (\frac{34}{x^2}) + 1'
-obj = Tex2Sympy(expr)
-res = obj.get_result()
-print(res)
-
-if sp.simplify(res):
-    print(sp.simplify(res))
-    print('OK!')
-else:
-    print('NOT OK!')
+# expr = '(\arcsin{\frac{34}{x^2}})* (\frac{34}{x^2}) - (\arcsin{\frac{34}{x^2}})* (\frac{34}{x^2}) + 1'
+# obj = Tex2Sympy(expr)
+# res = obj.get_result()
+# print(res)
+#
+# if sp.simplify(res):
+#     print(sp.simplify(res))
+#     print('OK!')
+# else:
+#     print('NOT OK!')

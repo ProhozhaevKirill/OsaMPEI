@@ -1,6 +1,9 @@
 import re
 import numpy as np
 
+# from web_tests.logic_of_expression.test_t_to_s_ver2 import primerExpr
+
+
 class GetLexeme:
     PER = 'abcdefghijklmnopqrstuvwxyz'
     DIGIT = '.1234567890'
@@ -260,3 +263,9 @@ class Tex2Sympy(GetLexeme):
         expression = self.sq_for_math_func(expression)
         expression = self.addit_mult(expression)
         return expression
+
+
+primerExpr = '7\ln{5}'
+obj2 = Tex2Sympy(primerExpr)
+res = obj2.get_result()
+print(res)

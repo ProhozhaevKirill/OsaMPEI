@@ -1,4 +1,23 @@
-/* Общие настройки */
+:root {
+    --primary-color: #4a6fa5;
+    --primary-hover: #3a5a8a;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --text-light: #ffffff;
+    --text-dark: #212529;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --border-radius: 8px;
+}
+
 body {
   margin: 0;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -7,6 +26,42 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Шапка */
+.app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    box-shadow: var(--shadow-md);
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Логотип */
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 /* Контейнер страницы */
@@ -52,8 +107,8 @@ body {
   width: 100%;
   padding: 12px;
   font-size: 16px;
-  background: #34495e;
-  color: #ecf0f1;
+  background-color: var(--primary-color);
+  color: var(--text-light);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -61,7 +116,7 @@ body {
 }
 
 .logIn:hover {
-  background: #3a5a72;
+  background: var(--primary-hover);
 }
 
 /* Ошибки формы */

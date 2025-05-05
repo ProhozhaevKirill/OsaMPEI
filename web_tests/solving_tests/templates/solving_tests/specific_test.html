@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
 {% block title %}{{ test.name_slug_tests }}{% endblock %}
@@ -13,63 +12,94 @@
 {% block extra_js %}
     <script src="https://unpkg.com/mathlive"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src='https://unpkg.com/mathlive/dist/mathlive.min.js'></script>
 
+    <script src="{% static 'js/specific_test.js' %}"></script>
     <script src="{% static 'js/macros-mathJax.js' %}"></script>
     <script src="{% static 'js/mathJax-rus.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-    <div class="Name">
-        <h2>{{ test.name_tests }}</h2>
-    </div>
-    <div class="Timer">
-        <h2>{{ test.time_to_solution }} минут</h2>
-    </div>
+    <div class="page-container">
+        <!-- Левая панель (15%) -->
+        <div class="left-sidebar">
+            <div class="content-left">
+                <!-- Таймер -->
+                <div class="sidebar-timer">
+                    <h4>До окончания</h4>
+                    <div class="">{{ test.time_to_solution }}</div>
 
-    <div class="list-expr">
-        <ul>
-            {% for ex in expressions_with_options %}
-                <h4 class="number">Номер {{ forloop.counter }}.</h4>
-                <div class="express">
-                    <p><li>$$ {{ ex.expression.user_expression }} $$</li></p>
+                    <div class="navigation-sidebar">
+                        {% for ex in expressions_with_options %}
+                            <a class="task-number" href="#task-{{ forloop.counter }}">{{ forloop.counter }}</a>
+                        {% endfor %}
+                    </div>
                 </div>
-                {% if ex.exist_select %}
-                    <div class="options">
-                        <p>Выберите правильный вариант:</p>
-                        <ul>
-                            {% for option in ex.options %}
-                                <li>
-                                    <label>
-                                        <input type="checkbox" name="answer_{{ forloop.counter }}" value="{{ option.strip }}">
-                                        $$ {{ option.strip }} $$
-                                    </label>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% else %}
-                    <div class="sec-info">
-                        <li>
-                            {% if ex.expression.user_eps == '0' or ex.expression.user_eps == '0.0' %}
-                                Дать точный ответ.
+            </div>
+        </div>
+
+        <!-- Основной контент (85%) -->
+        <div class="main-content">
+            <h1 class="test-title">{{ test.name_tests }}</h1>
+
+            <div class="list-expr">
+                <ul>
+                    {% for ex in expressions_with_options %}
+                        <!-- Обёртка вопроса для JS -->
+                        <div class="question-card" data-question="{{ forloop.counter }}">
+                            <h4 class="number">Номер {{ forloop.counter }}.</h4>
+                            <div class="express" id="task-{{ forloop.counter }}">
+                                <p><li>$$ {{ ex.expression.user_expression }} $$</li></p>
+                            </div>
+                            {% if ex.exist_select %}
+                                <div class="options">
+                                    <p>Выберите правильный вариант:</p>
+                                    <ul>
+                                        {% for option in ex.options %}
+                                            <li>
+                                                <label>
+                                                    <input type="checkbox"
+                                                           name="answer_{{ forloop.counter }}"
+                                                           value="{{ option.strip }}">
+                                                    $$ {{ option.strip }} $$
+                                                </label>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
                             {% else %}
-                                Дать ответ с точностью до {{ ex.expression.user_eps }}.
+                                <div class="sec-info">
+                                    <li>
+                                        {% if ex.expression.user_eps == '0' or ex.expression.user_eps == '0.0' %}
+                                            Дать точный ответ.
+                                        {% else %}
+                                            Дать ответ с точностью до {{ ex.expression.user_eps }}.
+                                        {% endif %}
+                                    </li>
+                                </div>
+                                <math-field class="answer"
+                                            name="answer_{{ forloop.counter }}"
+                                            id="math-field-{{ forloop.counter }}"
+                                            placeholder="Ответ"></math-field>
                             {% endif %}
-                        </li>
-                    </div>
-                    <math-field class="answer" name="answer_{{ forloop.counter }}" id="math-field-{{ forloop.counter }}" placeholder="Ответ"></math-field>
-                {% endif %}
-                <hr>
-            {% endfor %}
-        </ul>
+                            <hr>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <form id="answerForm"
+      action="{% url 'some_test_for_student' test.name_slug_tests %}"
+      method="post"
+      data-total="{{ expressions_with_options|length }}">
+  {% csrf_token %}
+  <input type="hidden" name="binaryAnswers" id="binaryAnswers">
+  <button type="submit">Завершить тест</button>
+</form>
+
+
+        </div>
     </div>
-
-    <form action="{% url 'some_test_for_student' test.name_slug_tests %}" method="post" id="answerForm">
-        {% csrf_token %}
-        <input type="hidden" name="binary_answers" id="binary-answers">
-        <button type="submit" class="send-and-go-to-list" onclick="submitForm(event)">Завершить тест</button>
-    </form>
-
 {% endblock %}

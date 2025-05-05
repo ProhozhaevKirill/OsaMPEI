@@ -10,7 +10,19 @@
     <script src="{% static 'js/registration.js' %}"></script>
 </head>
 <body>
+    <header class="app-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <span class="logo-icon">
+                    <img src="{% static 'images/logo.png' %}" alt="" style="width: 40px; height: 40px;">
+                </span>
+                <h2><span class="logo-text">АСТРА</span></h2>
+            </div>
+        </div>
+    </header>
+
     <div class="allPole">
+        <h2>Регистрация</h2>
         <div class="wOutName">
             <div class="poleForAut">
                 <form method="POST">
@@ -18,7 +30,7 @@
                     {{ form.non_field_errors }}
                     <div class="form-group">
                         <label>Почта (ОСЭП)</label>
-                        {{ form.email }}
+                        {{form.email}}
                     </div>
 
                     <div class="form-group">

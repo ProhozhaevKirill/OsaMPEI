@@ -1,67 +1,83 @@
+import json                # <- Добавьте эту строку
 from django.shortcuts import render, get_object_or_404, redirect
 from create_tests.models import AboutExpressions, AboutTest
 from .models import StudentResult
 from logic_of_expression.check_sympy_expr import CheckAnswer
 import numpy as np
 from .decorators import role_required
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 @role_required(['student', 'admin'])
 def list_test(request):
     tests = AboutTest.objects.all()
     return render(request, 'solving_tests/test_selection.html', {'tests': tests})
 
 
+@login_required
 @role_required(['student', 'admin'])
 def some_test_for_student(request, slug_name):
     test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
 
     if request.method == 'POST':
-        binary_answers = request.POST.get('binary_answers', '')
-        student_answers = binary_answers.split(';')
+        # 1) Распаковываем JSON-строку
+        raw = request.POST.get('binaryAnswers', '[]')
+        try:
+            student_answers = json.loads(raw)
+        except json.JSONDecodeError:
+            student_answers = []
 
-        right_answers = [ex.user_ans for ex in test.expressions.all()]
-        is_choice = [ex.exist_select for ex in test.expressions.all()]
-        var_true_ans = [ex.true_ans for ex in test.expressions.all()]
-        points = [ex.points_for_solve for ex in test.expressions.all()]
-        all_p = np.sum(points)
+        # 2) Гарантируем длину
+        expressions = list(test.expressions.all())
+        n = len(expressions)
+        if len(student_answers) < n:
+            student_answers += [''] * (n - len(student_answers))
+        elif len(student_answers) > n:
+            student_answers = student_answers[:n]
 
+        # 3) Собираем данные для проверки
+        right_answers = [ex.user_ans for ex in expressions]
+        is_choice     = [ex.exist_select for ex in expressions]
+        var_true_ans  = [ex.true_ans for ex in expressions]
+        points        = [ex.points_for_solve for ex in expressions]
+        all_p         = np.sum(points)
+
+        # 4) Считаем результат
         result_score = 0
-        for i in range(len(right_answers)):
+        for i, ex in enumerate(expressions):
+            user_ans = student_answers[i]
             if is_choice[i]:
-                var_true_ans[i] = var_true_ans[i].replace(';', '')
-                res = CheckAnswer(var_true_ans[i], student_answers[i], is_choice[i]).compare_answer()
+                # user_ans — список выбранных вариантов
+                ua = ''.join(user_ans)
+                va = var_true_ans[i].replace(';', '')
+                res = CheckAnswer(va, ua, True).compare_answer()
             else:
-                res = CheckAnswer(right_answers[i], student_answers[i], is_choice[i]).compare_answer()
+                # user_ans — строка из math-field
+                res = CheckAnswer(right_answers[i], user_ans, False).compare_answer()
             result_score += res * points[i]
 
-        # Вычисляем процент и оценку
+        # 5) Оценка
         score_in_pr = result_score / all_p * 100
         if score_in_pr >= 80:
-            score = 5
-        elif 60 <= score_in_pr < 80:
-            score = 4
-        elif 35 <= score_in_pr < 60:
-            score = 3
+            grade = 5
+        elif score_in_pr >= 60:
+            grade = 4
+        elif score_in_pr >= 35:
+            grade = 3
         else:
-            score = 2
+            grade = 2
 
-        # Сохраняем результаты в сессии
         request.session['test_result'] = {
             'result': result_score,
-            'score': score,
+            'score': grade,
             'test_name': test.name_tests,
         }
-
-        # Редирект на страницу с результатами
         return redirect('show_result', slug_name=slug_name)
 
-    # Если запрос GET, отображаем тест
-    expressions = test.expressions.all()
-
-    # Формируем список выражений с вариантами ответа
+    # GET
     expressions_with_options = []
-    for ex in expressions:
+    for ex in test.expressions.all():
         options = ex.user_ans.split(';') if ex.user_ans else []
         expressions_with_options.append({
             'expression': ex,
@@ -75,17 +91,15 @@ def some_test_for_student(request, slug_name):
     })
 
 
+@login_required
 @role_required(['student', 'admin'])
 def show_result(request, slug_name):
-    test_result = request.session.get('test_result', None)
-
+    test_result = request.session.get('test_result')
     if not test_result:
         return redirect('list_test')
-
     return render(request, 'solving_tests/result.html', {
         'test_name': test_result['test_name'],
         'result': test_result['result'],
         'score': test_result['score'],
         'slug_name': slug_name,
     })
-

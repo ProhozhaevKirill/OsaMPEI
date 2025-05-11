@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'solving_tests/header.html' %}
 
 {% load static %}
 
@@ -49,11 +49,13 @@
                 <h3 class="test-title">
                     <a href="{{ test.name_slug_tests }}">{{ test.name_tests }}</a>
                 </h3>
+                <h5>Предмет: {{ test.subj }}</h5>
+
                 {% if test.description %}
-                <p class="test-description">{{ test.description|truncatechars:150 }}</p>
+                    <p class="test-description">{{ test.description|truncatechars:150 }}</p>
                 {% endif %}
                 <div class="test-meta">
-                    <span><i class="far fa-clock"></i> {{ test.time_to_solution }} мин</span>
+                    <span><i class="far fa-clock"></i> Время: {{ test.time_to_solution }}</span>
                     <span><i class="fas fa-redo"></i> {% if test.num_of_attempts == 0 %}Количество попыток не ограниченно{% else %}попыток: {{ test.num_of_attempts }}{% endif %}</span>
                 </div>
             </div>

@@ -112,12 +112,6 @@
     box-shadow: var(--shadow-md);
 }
 
-.test-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 15px 0;
-}
 
 .test-number {
     font-size: 1.2rem;
@@ -162,7 +156,6 @@
 }
 
 .test-title {
-    margin: 0 0 10px;
     font-size: 1.2rem;
 }
 
@@ -179,7 +172,7 @@
 .test-description {
     color: var(--secondary-color);
     font-size: 0.9rem;
-    margin: 0 0 15px;
+    margin: 10px 0px 15px;
 }
 
 .test-meta {

@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}АСТРА - Платформа тестирования{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     {% block extra_css %}{% endblock %}
-    <script src="{% static 'js/global.js' %}" defer></script>
+    <script src="{% static 'js/header.js' %}" defer></script>
     {% block extra_js %}{% endblock %}
 </head>
 <body>
@@ -26,26 +26,13 @@
 
         <nav class="main-nav">
             <ul class="nav-list">
-                <li class="nav-item">
-                    <a href="/account/" class="nav-link active">
-                        <i class="fas fa-home"></i>
-                        <span>Главная</span>
-                    </a>
-                </li>
-                {% if users.role == "teacher" %}
+                {% if user.role == "student" %}
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-tasks"></i>
-                            <span>Тесты</span>
+                        <a href="/Home/" class="nav-link active">
+                            <i class="fas fa-home"></i>
+                            <span>Главная</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-book"></i>
-                            <span>Материалы</span>
-                        </a>
-                    </li>
-                {% else %}
                     <li class="nav-item">
                         <a href="/TestsSolving/" class="nav-link">
                             <i class="fas fa-tasks"></i>
@@ -78,28 +65,50 @@
                         <div class="avatar large"><i class="fas fa-user"></i></div>
                         <div class="user-details">
                             <h4>{{ user.get_full_name }}</h4>
-                            <small>{% if user.is_staff %}Преподаватель{% else %}Студент{% endif %}</small>
+                            <small>{% if user.role == 'teacher' %}Преподаватель{% else %}Студент{% endif %}</small>
                         </div>
                     </div>
-                    <div class="menu-links">
-                        <a href="/account/" class="menu-link">
-                            <i class="fas fa-user"></i>
-                            <span>Мой профиль</span>
-                        </a>
-                        <a href="#" class="menu-link">
-                            <i class="fas fa-cog"></i>
-                            <span>Настройки</span>
-                        </a>
-                        <a href="#" class="menu-link">
-                            <i class="fas fa-question-circle"></i>
-                            <span>Помощь</span>
-                        </a>
-                        <div class="divider"></div>
-                        <a href="{% url 'logout' %}" class="menu-link logout">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span>Выйти</span>
-                        </a>
-                    </div>
+                    {% if user.role == 'teacher' %}
+                        <div class="menu-links">
+                            <a href="/data/" class="menu-link">
+                                <i class="fas fa-user"></i>
+                                <span>Мой профиль</span>
+                            </a>
+                            <a href="#" class="menu-link">
+                                <i class="fas fa-cog"></i>
+                                <span>Настройки</span>
+                            </a>
+                            <a href="#" class="menu-link">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Помощь</span>
+                            </a>
+                            <div class="divider"></div>
+                            <a href="{% url 'logout' %}" class="menu-link logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Выйти</span>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="menu-links">
+                            <a href="/data/" class="menu-link">
+                                <i class="fas fa-user"></i>
+                                <span>Мой профиль</span>
+                            </a>
+                            <a href="#" class="menu-link">
+                                <i class="fas fa-cog"></i>
+                                <span>Настройки</span>
+                            </a>
+                            <a href="#" class="menu-link">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Помощь</span>
+                            </a>
+                            <div class="divider"></div>
+                            <a href="{% url 'logout' %}" class="menu-link logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Выйти</span>
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

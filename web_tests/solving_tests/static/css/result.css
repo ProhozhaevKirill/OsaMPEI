@@ -92,15 +92,15 @@ body {
     display: inline-block;
     margin-top: 20px;
     padding: 12px 24px;
-    background-color: #55d6e7;
-    color: black;
+    background-color: #4a6fa5;
+    color: white;
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
 .return-link:hover {
-    background-color: #60c2dc;
+    background-color: #3a5a8a;
 }
 
 /* Адаптивность */

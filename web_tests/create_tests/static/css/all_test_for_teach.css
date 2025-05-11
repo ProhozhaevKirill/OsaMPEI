@@ -54,7 +54,6 @@ a {
     padding: 8px 16px;
     border: none;
     border-radius: var(--border-radius);
-    font-size: 14px;
     font-weight: 500;
     cursor: pointer;
     transition: var(--transition);
@@ -130,8 +129,13 @@ a {
 }
 
 .btn-unpublish {
-    background-color: var(--warning-color);
-    color: #212529;
+    background-color: #4a6fa5;
+    color: white;
+    size: 150px;
+}
+
+.btn-unpublish:hover {
+  background-color: var(--warning-color)
 }
 
 .btn-edit {
@@ -147,6 +151,12 @@ a {
     margin-bottom: 30px;
     padding-bottom: 15px;
     border-bottom: 1px solid #e0e0e0;
+}
+
+.test-subj{
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-right: 8px;
 }
 
 .header h1 {
@@ -376,7 +386,7 @@ a {
     max-height: 90vh;
     overflow-y: auto;
     width: 90%;
-    max-width: 600px;
+    max-width: 700px;
 }
 
 .modal.wide {
@@ -624,3 +634,4 @@ a {
         flex-direction: column;
     }
 }
+

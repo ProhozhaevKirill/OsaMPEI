@@ -1,0 +1,98 @@
+{% extends 'solving_tests/header.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <link rel="stylesheet" href='{% static "css/student_data.css" %}'>
+{% endblock %}
+
+{% block extra_js %}
+
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h1 class="profile-title">
+        {% if is_student %}Профиль студента{% else %}Профиль преподавателя{% endif %}
+    </h1>
+
+    <form method="POST" class="profile-form">
+        {% csrf_token %}
+
+        <div class="form-section">
+            <h2>Основные данные</h2>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" value="{{ user.email }}" required>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2>Личные данные</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Фамилия</label>
+                    <input type="text" name="last_name" value="{{ data.last_name }}" required>
+                </div>
+                <div class="form-group">
+                    <label>Имя</label>
+                    <input type="text" name="first_name" value="{{ data.first_name }}" required>
+                </div>
+                <div class="form-group">
+                    <label>Отчество</label>
+                    <input type="text" name="middle_name" value="{{ data.middle_name }}">
+                </div>
+            </div>
+        </div>
+
+        {% if is_student %}
+        <div class="form-section">
+            <h2>Учебные данные</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Институт</label>
+                    <select name="institute" required>
+                        {% for institute in institutes %}
+                        <option value="{{ institute.id }}"
+                                {% if data.institute.id == institute.id %}selected{% endif %}>
+                            {{ institute.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Группа</label>
+                    <select name="group" required>
+                        {% for group in groups %}
+                        <option value="{{ group.id }}"
+                                {% if data.group.id == group.id %}selected{% endif %}>
+                            {{ group.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-label">Статус:</span>
+                    <span class="stat-value">
+                        {% if data.training_status %}Обучается{% else %}Не обучается{% endif %}
+                    </span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Решено задач:</span>
+                    <span class="stat-value">{{ data.count_solve }}</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Процент верных:</span>
+                    <span class="stat-value">{{ data.perc_of_correct_ans }}%</span>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <button type="submit" class="save-btn">Сохранить изменения</button>
+    </form>
+</div>
+{% endblock %}

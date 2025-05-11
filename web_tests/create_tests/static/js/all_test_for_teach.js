@@ -1,55 +1,43 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Элементы модальных окон
+    // Modal elements and handlers (keep existing)
     const deleteModal = document.getElementById('deleteModal');
     const publishModal = document.getElementById('publishModal');
     const modalOverlay = document.querySelector('.modal-overlay');
     const closeModalButtons = document.querySelectorAll('.close-modal');
-    
-    // Элементы для удаления теста
+
+    // Test deletion handlers (keep existing)
     const deleteButtons = document.querySelectorAll('.delete-btn');
     const confirmDeleteBtn = document.querySelector('.confirm-delete');
     const cancelDeleteBtn = document.querySelector('.cancel-delete');
     let currentTestSlug = null;
-    
-    // Элементы для публикации теста
+
+    // Test publication handlers
     const publishButtons = document.querySelectorAll('.publish-btn');
-    const unpublishButtons = document.querySelectorAll('.unpublish-btn');
     const confirmPublishBtn = document.querySelector('.confirm-publish');
     const cancelPublishBtn = document.querySelector('.cancel-publish');
-    const testAvailability = document.getElementById('testAvailability');
-    const groupsSection = document.getElementById('groupsSection');
-    
-    // Поиск и фильтрация
-    const testSearch = document.getElementById('testSearch');
-    const testFilter = document.getElementById('testFilter');
-    const groupSearch = document.getElementById('groupSearch');
-    const instituteFilter = document.getElementById('instituteFilter');
-    
-    // Институты и группы
-    const instituteCards = document.querySelectorAll('.institute-card');
-    const toggleButtons = document.querySelectorAll('.btn-toggle');
-    
-    // Функции для работы с модальными окнами
+
+    // Modal functions (keep existing)
     function openModal(modal) {
         modal.classList.add('active');
         modalOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
-    
+
     function closeModal(modal) {
         modal.classList.remove('active');
         modalOverlay.classList.remove('active');
         document.body.style.overflow = '';
     }
-    
-    // Обработчики для модального окна удаления
+
+    // Delete test handlers (keep existing)
     deleteButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
             currentTestSlug = this.getAttribute('data-slug');
             openModal(deleteModal);
         });
     });
-    
+
     confirmDeleteBtn.addEventListener('click', function() {
         if (currentTestSlug) {
             fetch(`/delete-test/${currentTestSlug}/`, {
@@ -62,204 +50,155 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    location.reload();
+                    window.location.reload();
                 } else {
-                    alert('Ошибка: ' + data.error);
+                    showError(deleteModal, data.error);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Произошла ошибка при удалении теста');
+                showError(deleteModal, 'Произошла ошибка при удалении теста');
             });
         }
-        closeModal(deleteModal);
     });
-    
+
     cancelDeleteBtn.addEventListener('click', function() {
         closeModal(deleteModal);
     });
-    
-    // Обработчики для модального окна публикации
+
+    // Fixed publish test handlers
     publishButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
             currentTestSlug = this.getAttribute('data-slug');
             openModal(publishModal);
+            // Don't clear checkboxes here - let backend handle previously selected groups
         });
     });
-    
-    unpublishButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            currentTestSlug = this.getAttribute('data-slug');
-            if (confirm('Вы уверены, что хотите снять тест с публикации? Студенты больше не смогут его проходить.')) {
-                fetch(`/unpublish-test/${currentTestSlug}/`, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': getCookie('csrftoken'),
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        location.reload();
-                    } else {
-                        alert('Ошибка: ' + data.error);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Произошла ошибка при снятии теста с публикации');
+
+    // Improved group selection and institute toggle
+    function initializeGroupSelection() {
+        // Make entire institute header clickable
+        document.querySelectorAll('.institute-header').forEach(header => {
+            header.style.cursor = 'pointer';
+
+            header.addEventListener('click', function(e) {
+                // Don't trigger if clicking on checkbox or label
+                if (e.target.classList.contains('group-checkbox') ||
+                    e.target.tagName === 'LABEL' ||
+                    e.target.tagName === 'INPUT') {
+                    return;
+                }
+
+                const card = this.closest('.institute-card');
+                const toggleBtn = this.querySelector('.btn-toggle');
+                toggleGroups(card, toggleBtn);
+            });
+
+            // Keep button click handler
+            const toggleBtn = header.querySelector('.btn-toggle');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const card = this.closest('.institute-card');
+                    toggleGroups(card, this);
                 });
             }
         });
-    });
-    
-    testAvailability.addEventListener('change', function() {
-        if (this.value === 'selected') {
-            groupsSection.style.display = 'block';
-        } else {
-            groupsSection.style.display = 'none';
-        }
-    });
-    
-    confirmPublishBtn.addEventListener('click', function() {
-        if (!currentTestSlug) return;
-        
-        const timeLimit = document.getElementById('testTimeLimit').value;
-        const attempts = document.getElementById('testAttempts').value;
-        const startDate = document.getElementById('testStartDate').value;
-        const endDate = document.getElementById('testEndDate').value;
-        const availableToAll = testAvailability.value === 'all';
-        
-        let selectedGroups = [];
-        if (!availableToAll) {
-            document.querySelectorAll('.group-checkbox:checked').forEach(checkbox => {
-                selectedGroups.push(checkbox.value);
-            });
-            
-            if (selectedGroups.length === 0) {
-                alert('Выберите хотя бы одну группу для публикации теста');
-                return;
+
+        // Fix checkbox IDs and labels
+        document.querySelectorAll('.group-item').forEach(item => {
+            const checkbox = item.querySelector('.group-checkbox');
+            const label = item.querySelector('.form-check-label');
+            if (checkbox && label) {
+                const groupId = checkbox.value;
+                checkbox.id = `group-${groupId}`;
+                label.htmlFor = `group-${groupId}`;
             }
+        });
+
+        // Proper group selection handling
+        document.querySelectorAll('.group-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Update visual state if needed
+                this.closest('.group-item').classList.toggle('selected', this.checked);
+            });
+        });
+    }
+
+    // Initialize group selection when publish modal opens
+    publishModal.addEventListener('click', function() {
+        initializeGroupSelection();
+    }, { once: true });
+
+    // Improved publish confirmation
+    confirmPublishBtn.addEventListener('click', function() {
+        const selectedGroups = Array.from(document.querySelectorAll('.group-checkbox:checked'));
+        const selectedGroupIds = selectedGroups.map(checkbox => checkbox.value);
+
+        if (!currentTestSlug) {
+            showError(publishModal, 'Не выбран тест для публикации');
+            return;
         }
-        
-        const data = {
-            time_limit: timeLimit,
-            attempts: attempts,
-            start_date: startDate,
-            end_date: endDate,
-            available_to_all: availableToAll,
-            groups: selectedGroups
-        };
-        
+
+        if (selectedGroupIds.length === 0) {
+            showError(publishModal, 'Выберите хотя бы одну группу');
+            return;
+        }
+
         fetch(`/publish-test/${currentTestSlug}/`, {
             method: 'POST',
             headers: {
                 'X-CSRFToken': getCookie('csrftoken'),
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({
+                groups: selectedGroupIds,
+                action: 'publish'
+            })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.success) {
-                location.reload();
+                window.location.reload();
             } else {
-                alert('Ошибка: ' + data.error);
+                showError(publishModal, data.error || 'Ошибка публикации теста');
             }
         })
         .catch(error => {
-            console.error('Error:', error);
-            alert('Произошла ошибка при публикации теста');
+            console.error('Publish error:', error);
+            showError(publishModal, 'Произошла ошибка при публикации теста');
         });
-        
-        closeModal(publishModal);
     });
-    
+
     cancelPublishBtn.addEventListener('click', function() {
         closeModal(publishModal);
     });
-    
-    // Обработчики закрытия модальных окон
-    closeModalButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const modal = this.closest('.modal');
-            closeModal(modal);
-        });
-    });
-    
-    modalOverlay.addEventListener('click', function() {
-        document.querySelectorAll('.modal.active').forEach(modal => {
-            closeModal(modal);
-        });
-    });
-    
-    // Обработчики для институтов и групп
-    toggleButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const card = this.closest('.institute-card');
-            card.classList.toggle('active');
-        });
-    });
-    
-    // Поиск тестов
-    testSearch.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase();
-        const filterValue = testFilter.value;
-        
-        document.querySelectorAll('.test-card').forEach(card => {
-            const title = card.querySelector('.test-title a').textContent.toLowerCase();
-            const isPublished = card.getAttribute('data-published') === 'true';
-            
-            const matchesSearch = title.includes(searchTerm);
-            let matchesFilter = true;
-            
-            if (filterValue === 'published' && !isPublished) {
-                matchesFilter = false;
-            } else if (filterValue === 'unpublished' && isPublished) {
-                matchesFilter = false;
-            }
-            
-            if (matchesSearch && matchesFilter) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    });
-    
-    // Фильтрация тестов
-    testFilter.addEventListener('change', function() {
-        testSearch.dispatchEvent(new Event('input'));
-    });
-    
-    // Поиск групп
-    groupSearch.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase();
-        const instituteId = instituteFilter.value;
-        
-        document.querySelectorAll('.group-item').forEach(item => {
-            const groupName = item.querySelector('.form-check-label').textContent.toLowerCase();
-            const instituteCard = item.closest('.institute-card');
-            const currentInstituteId = instituteCard.getAttribute('data-id');
-            
-            const matchesSearch = groupName.includes(searchTerm);
-            const matchesInstitute = instituteId === 'all' || currentInstituteId === instituteId;
-            
-            if (matchesSearch && matchesInstitute) {
-                item.style.display = 'flex';
-            } else {
-                item.style.display = 'none';
-            }
-        });
-    });
-    
-    // Фильтрация по институтам
-    instituteFilter.addEventListener('change', function() {
-        groupSearch.dispatchEvent(new Event('input'));
-    });
-    
-    // Функция для получения CSRF-токена
+
+    // Helper functions
+    function toggleGroups(card, toggleBtn) {
+        card.classList.toggle('active');
+        const icon = toggleBtn.querySelector('i');
+        icon.classList.toggle('fa-chevron-down');
+        icon.classList.toggle('fa-chevron-up');
+    }
+
+    function showError(modal, message) {
+        const oldErrors = modal.querySelectorAll('.alert-error');
+        oldErrors.forEach(error => error.remove());
+
+        const errorElement = document.createElement('div');
+        errorElement.className = 'alert-error';
+        errorElement.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+        modal.querySelector('.modal-body').prepend(errorElement);
+    }
+
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -274,4 +213,34 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return cookieValue;
     }
+
+    // Test filtering (keep existing)
+    const filterSelect = document.getElementById('testFilter');
+    const testCards = document.querySelectorAll('.test-card');
+
+    filterSelect.addEventListener('change', function() {
+        const selectedValue = this.value;
+        testCards.forEach(card => {
+            const isPublished = card.getAttribute('data-published') === 'true';
+            card.classList.toggle('hidden',
+                (selectedValue === 'published' && !isPublished) ||
+                (selectedValue === 'unpublished' && isPublished) ||
+                (selectedValue === 'draft' && isPublished)
+            );
+        });
+    });
+
+    // Close modal handlers (keep existing)
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const modal = this.closest('.modal');
+            closeModal(modal);
+        });
+    });
+
+    modalOverlay.addEventListener('click', function() {
+        document.querySelectorAll('.modal.active').forEach(modal => {
+            closeModal(modal);
+        });
+    });
 });

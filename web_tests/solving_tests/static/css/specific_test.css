@@ -8,15 +8,12 @@ body {
 /* Основная структура страницы */
 .page-container {
     display: flex;
-    min-height: 100vh;
 }
 
 /* Левая панель (15% ширины) */
 .left-sidebar {
     width: 12%;
-    background: #f8f9fa;
     padding: 20px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
     position: fixed;
     height: 100vh;
     overflow-y: auto;

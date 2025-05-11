@@ -1,7 +1,5 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from sympy.physics.units import current
-
 from .forms import SignUpForm, EmailAuthenticationForm
 from .models import WhiteList, CustomUser, StudentData, TeacherData, StudentGroup, StudentInstitute
 from create_tests.models import AboutTest
@@ -24,10 +22,10 @@ def login_view(request):
                 user = CustomUser.objects.get(pk=user.pk)
                 if hasattr(user, 'role'):
                     if user.role == 'student':
-                        return redirect('account/')
+                        return redirect('Home/')
                     elif user.role == 'teacher':
                         return redirect('TestsCreate/listTests/')
-                return redirect('account/')  # Дефолтный редирект
+                return redirect('Home/')  # Дефолтный редирект
             else:
                 form.add_error(None, 'Неверный email или пароль.')
         return render(request, 'users/authentication.html', {'form': form})
@@ -148,6 +146,14 @@ def account_view(request):
 
 
 @login_required
+@role_required(['teacher', 'admin'])
+def account_view2(request):
+    # teacher_data = request.user.teacherdata
+
+    return render(request, 'users/teacher_account.html')
+
+
+@login_required
 @role_required(['student', 'admin'])
 def student_profile_view(request):
     try:
@@ -219,6 +225,81 @@ def student_profile_view(request):
         'student_data': student_data,
         'institutes': institutes
     })
+
+
+def data(request):
+    user = request.user
+    context = {}
+
+    # Получаем или создаем связанные данные с дефолтными значениями
+    if user.role == 'student':
+        # Получаем первый институт как дефолтный
+        default_institute = StudentInstitute.objects.first()
+        default_group = StudentGroup.objects.first()
+
+        data, created = StudentData.objects.get_or_create(
+            data_map=user,
+            defaults={
+                'first_name': '',
+                'last_name': '',
+                'middle_name': '',
+                'institute': default_institute,
+                'group': default_group,
+                'training_status': True,
+                'count_solve': 0,
+                'perc_of_correct_ans': "0"
+            }
+        )
+    else:
+        data, created = TeacherData.objects.get_or_create(
+            data_map=user,
+            defaults={
+                'first_name': '',
+                'last_name': '',
+                'middle_name': ''
+            }
+        )
+
+    if request.method == 'POST':
+        # Обработка основных данных пользователя
+        user.email = request.POST.get('email', user.email)
+
+        # Обработка данных в зависимости от роли
+        if user.role == 'student':
+            data.first_name = request.POST.get('first_name', '')
+            data.last_name = request.POST.get('last_name', '')
+            data.middle_name = request.POST.get('middle_name', '')
+
+            institute_id = request.POST.get('institute')
+            if institute_id:
+                data.institute = StudentInstitute.objects.get(id=institute_id)
+
+            group_id = request.POST.get('group')
+            if group_id:
+                data.group = StudentGroup.objects.get(id=group_id)
+        else:
+            data.first_name = request.POST.get('first_name', '')
+            data.last_name = request.POST.get('last_name', '')
+            data.middle_name = request.POST.get('middle_name', '')
+
+        # Сохраняем изменения
+        user.save()
+        data.save()
+        return redirect('data')
+
+    # Подготовка контекста
+    context['user'] = user
+    context['data'] = data
+    context['is_student'] = user.role == 'student'
+
+    if user.role == 'student':
+        context['institutes'] = StudentInstitute.objects.all()
+        context['groups'] = StudentGroup.objects.all()
+
+    return render(request, 'users/student_data.html', context)
+
+# def data(request):
+#     return render(request, 'users/student_data.html')
 
 
 @login_required

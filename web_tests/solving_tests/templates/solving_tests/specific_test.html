@@ -1,4 +1,5 @@
-{% extends 'base.html' %}
+{% extends 'solving_tests/header.html' %}
+
 {% load static %}
 
 {% block title %}{{ test.name_slug_tests }}{% endblock %}
@@ -27,9 +28,10 @@
         <div class="left-sidebar">
             <div class="content-left">
                 <!-- Таймер -->
-                <div class="sidebar-timer">
-                    <h4>До окончания</h4>
-                    <div class="">{{ test.time_to_solution }}</div>
+                    <div class="sidebar-timer">
+                        <h4>До окончания</h4>
+                        <div id="timer">{{ test.time_to_solution }}</div>
+                    </div>
 
                     <div class="navigation-sidebar">
                         {% for ex in expressions_with_options %}

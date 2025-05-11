@@ -51,13 +51,7 @@ ROOT_URLCONF = 'web_tests.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            BASE_DIR / 'core/templates',  # Путь к общим шаблонам
-            BASE_DIR / 'create_tests/templates',  # Шаблоны для приложения create_tests
-            BASE_DIR / 'solving_tests/templates',  # Шаблоны для приложения solving_tests
-            BASE_DIR / 'users/templates',  # Шаблоны для приложения users
-            BASE_DIR / 'web_tests/templates',  # Шаблоны для web_tests
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,14 +116,15 @@ LOGIN_URL = ''
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'core/static',  # Статические файлы для core
-    BASE_DIR / 'create_tests/static',  # Статические файлы для create_tests
-    BASE_DIR / 'solving_tests/static',  # Статические файлы для solving_tests
-    BASE_DIR / 'users/static',  # Статические файлы для users
-    BASE_DIR / 'static',  # Статические файлы для web_tests
-]
+# STATICFILES_DIRS = [
+#     BASE_DIR / 'core/static',  # Статические файлы для core
+#     BASE_DIR / 'create_tests/static',  # Статические файлы для create_tests
+#     BASE_DIR / 'solving_tests/static',  # Статические файлы для solving_tests
+#     BASE_DIR / 'users/static',  # Статические файлы для users
+#     BASE_DIR / 'static',  # Статические файлы для web_tests
+# ]
 
 # Для production:
 # STATIC_ROOT = BASE_DIR / 'staticfiles'

@@ -25,3 +25,33 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("binaryAnswers").value = JSON.stringify(results);
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const timerElement = document.getElementById('timer');
+    const timeRemaining = timerElement.textContent.trim();  // Получаем начальное время
+
+    // Преобразуем время в объект Date
+    const [hours, minutes, seconds] = timeRemaining.split(':').map(num => parseInt(num));
+    let remainingTimeInSeconds = hours * 3600 + minutes * 60 + seconds;
+
+    function updateTimer() {
+        // Считаем оставшееся время
+        if (remainingTimeInSeconds <= 0) {
+            clearInterval(timerInterval);
+            timerElement.textContent = "Время вышло!";
+            return;
+        }
+
+        remainingTimeInSeconds--;
+
+        const h = Math.floor(remainingTimeInSeconds / 3600);
+        const m = Math.floor((remainingTimeInSeconds % 3600) / 60);
+        const s = remainingTimeInSeconds % 60;
+
+        // Обновляем текст таймера
+        timerElement.textContent = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    // Запуск таймера, обновление каждую секунду
+    const timerInterval = setInterval(updateTimer, 1000);
+});

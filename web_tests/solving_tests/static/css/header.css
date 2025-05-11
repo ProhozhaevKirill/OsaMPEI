@@ -1,0 +1,529 @@
+:root {
+    --primary-color: #4a6fa5;
+    --primary-hover: #3a5a8a;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --text-light: #ffffff;
+    --text-dark: #212529;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --border-radius: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: #f5f7fa;
+    padding-top: 70px;
+}
+
+/* Шапка */
+.app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    box-shadow: var(--shadow-md);
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    max-width: 95%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Логотип */
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 1.5rem;
+    gap: 10px;
+    transition: var(--transition);
+}
+
+.logo-link:hover {
+    opacity: 0.9;
+}
+
+.logo-icon {
+    font-size: 3rem;
+    color: #ffd700;
+}
+
+.logo-text {
+    size 500px;
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Основное меню */
+.main-nav {
+    flex-grow: 1;
+    margin: 0 30px;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: 5px;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    gap: 8px;
+    font-weight: 500;
+}
+
+.nav-link i {
+    font-size: 1.1rem;
+}
+
+.nav-link:hover, .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 3px;
+    background-color: var(--text-light);
+    border-radius: 3px;
+}
+
+/* Элементы пользователя */
+.user-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Уведомления */
+.notifications-dropdown {
+    position: relative;
+}
+
+.notifications-btn {
+    position: relative;
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.notifications-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background-color: var(--danger-color);
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.notifications-menu {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    width: 350px;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: var(--transition);
+}
+
+.notifications-dropdown.active .notifications-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.notifications-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.notifications-header h4 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.mark-all-read {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.notifications-list {
+    padding: 0;
+}
+
+.notification-item {
+    display: flex;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: var(--text-dark);
+    transition: var(--transition);
+    border-bottom: 1px solid var(--border-color);
+    gap: 12px;
+}
+
+.notification-item:hover {
+    background-color: #f8f9fa;
+}
+
+.notification-item.unread {
+    background-color: #f8f9fa;
+}
+
+.notification-icon {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-content p {
+    margin-bottom: 3px;
+    font-size: 0.9rem;
+}
+
+.notification-content small {
+    color: var(--secondary-color);
+    font-size: 0.8rem;
+}
+
+.notifications-footer {
+    padding: 10px 15px;
+    text-align: center;
+}
+
+.notifications-footer a {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+/* Профиль пользователя */
+.profile-dropdown {
+    position: relative;
+}
+
+.profile-btn {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    gap: 10px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    transition: var(--transition);
+}
+
+.profile-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.avatar.large {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+}
+
+.username {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.profile-menu {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    width: 280px;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: var(--transition);
+}
+
+.profile-dropdown.active .profile-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    gap: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.user-details h4 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.user-details small {
+    color: var(--secondary-color);
+    font-size: 0.8rem;
+}
+
+.menu-links {
+    padding: 10px 0;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: var(--text-dark);
+    transition: var(--transition);
+    gap: 10px;
+}
+
+.menu-link:hover {
+    background-color: #f8f9fa;
+    color: var(--primary-color);
+}
+
+.menu-link i {
+    width: 20px;
+    text-align: center;
+}
+
+.divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 10px 0;
+}
+
+.menu-link.logout {
+    color: var(--danger-color);
+}
+
+/* Основное содержимое */
+.app-main {
+    min-height: calc(100vh - 70px);
+    padding: 20px;
+    max-width: 95%;
+    margin: 0 auto;
+}
+
+/* Мобильное меню */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100vh;
+    background-color: white;
+    z-index: 1002;
+    transition: var(--transition);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-menu.active {
+    left: 0;
+}
+
+.mobile-menu-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    gap: 15px;
+}
+
+.close-menu-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.mobile-nav {
+    padding: 20px 0;
+}
+
+.mobile-nav-list {
+    list-style: none;
+}
+
+.mobile-nav-list li {
+    margin-bottom: 5px;
+}
+
+.mobile-nav-link {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: var(--text-dark);
+    gap: 15px;
+    transition: var(--transition);
+}
+
+.mobile-nav-link:hover, .mobile-nav-link.active {
+    background-color: #f8f9fa;
+    color: var(--primary-color);
+}
+
+.mobile-nav-link i {
+    width: 20px;
+    text-align: center;
+}
+
+.mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+
+.mobile-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .main-nav {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .header-container {
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 768px) {
+    .username {
+        display: none;
+    }
+
+    .profile-btn {
+        padding: 5px;
+    }
+
+    .notifications-menu {
+        width: 280px;
+    }
+}
+
+/* Утилиты */
+.hidden {
+    display: none !important;
+}

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'create_tests/header.html' %}
 
 {% load static %}
 
@@ -31,7 +31,7 @@
                         <i class="fas fa-tasks"></i>
                     </div>
                     <div class="stat-info">
-                        <div class="stat-title">Созданных тестов</div>
+                        <div class="stat-title">Созданные тесты</div>
                         <div class="stat-value">{{ teacher_data.created_tests_count }}</div>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                         <i class="fas fa-check-circle"></i>
                     </div>
                     <div class="stat-info">
-                        <div class="stat-title">Активных тестов</div>
+                        <div class="stat-title">Черновики</div>
                         <div class="stat-value">{{ teacher_data.active_tests_count }}</div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                         <i class="fas fa-users"></i>
                     </div>
                     <div class="stat-info">
-                        <div class="stat-title">Студентов в системе</div>
+                        <div class="stat-title">Успеваемость студентов</div>
                         <div class="stat-value">{{ teacher_data.students_count }}</div>
                     </div>
                 </div>

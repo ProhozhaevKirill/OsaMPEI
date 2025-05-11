@@ -64,11 +64,12 @@ body {
 }
 
 .del-expr {
-  background-color: #ff4444;
+  background-color: lightslategray;
   color: white;
   border: none;
   border-radius: 6px;
-  width: 36px;
+  width: 165px;
+  gap: 8px;
   height: 36px;
   display: flex;
   align-items: center;
@@ -82,15 +83,19 @@ body {
   transform: scale(1.05);
 }
 
+/* Стиль для поля ввода math-field */
 .expression math-field {
   width: 100%;
-  height: 150px;
+  height: 150px; /* Фиксированная высота */
   border: 2px solid #e0e0e0;
   border-radius: 8px;
-  margin-bottom: 20px;
   padding: 15px;
   font-size: 1.1rem;
   background: #f9f9f9;
+  display: block;
+  align-items: center; /* Вертикальное выравнивание */
+  box-sizing: border-box; /* Учитываем padding в расчете ширины и высоты */
+  resize: none; /* Убираем возможность изменения размера */
 }
 
 /* Блок с ответами */
@@ -100,57 +105,74 @@ body {
 
 .answer-row {
   display: flex;
-  align-items: stretch;
   margin-bottom: 15px;
+  width: 100%;
 }
 
-.answer-controls {
+.answer-wrapper {
+  width: 100%;
   display: flex;
-  align-items: center;
-  margin-right: 15px;
+  flex-direction: column;
+}
+
+.answer-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
 }
 
 .answer-content {
   display: flex;
-  flex-grow: 1;
+  width: 100%;
   gap: 15px;
 }
 
-.answer-content math-field {
-  flex: 1;
-  height: 50px;
-  min-height: 50px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 10px 15px;
-  font-size: 1rem;
-  background: #f9f9f9;
+.answer-field {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0.8rem;
+    background-color: #fdfdfd;
+    min-height: 50px;
+    flex: 0 0 80%;
+    width: 100%;
+    height: 110px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 1.1rem;
+    background: #f9f9f9;
+    display: block;
+    align-items: center;
+    box-sizing: border-box;
+    resize: none;
 }
 
-.accuracy-field {
-  width: 120px;
+.meta-fields {
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.accuracy-field,
+.type-field {
+  width: 100%;
   height: 50px;
   border: 1px solid #ddd;
   border-radius: 6px;
   padding: 0 15px;
   font-size: 1rem;
   background: #f9f9f9;
+  box-sizing: border-box;
 }
 
 .del-ans {
   background: none;
   border: none;
-  font-size: 18px;
+  font-size: 1.2rem;
   cursor: pointer;
   color: #ff4444;
-  transition: color 0.3s ease;
-  margin-left: 10px;
-  display: flex;
-  align-items: center;
-}
-
-.del-ans:hover {
-  color: #cc0000;
+  align-self: flex-start;
 }
 
 .hidden {
@@ -164,7 +186,7 @@ body {
 }
 
 .btn-add-answer {
-  background-color: #4CAF50;
+  background-color: lightslategray;
   color: white;
   border: none;
   border-radius: 6px;
@@ -193,7 +215,7 @@ body {
   padding: 12px 28px;
   font-size: 16px;
   margin: 0 12px;
-  background-color: #2196F3;
+  background-color: #4a6fa5;
   color: white;
   border: none;
   border-radius: 6px;
@@ -203,7 +225,7 @@ body {
 }
 
 .add-btn:hover, .save-btn:hover {
-  background-color: #0b7dda;
+  background-color: #3a5a8a;
   transform: translateY(-2px);
   box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
@@ -302,7 +324,7 @@ body {
 }
 
 .time-input {
-  width: 80px;
+  width: 142px;
   padding: 14px;
   text-align: center;
   border: 1px solid #ddd;
@@ -314,6 +336,11 @@ body {
 .time-inputs span {
   font-size: 18px;
   color: #555;
+}
+
+.input-error {
+    border: 2px solid red;
+    background-color: #ffe6e6;
 }
 
 .btn_option {
@@ -362,3 +389,85 @@ body {
   text-align: center;
   margin: 20px 0;
 }
+
+.answers-container {
+    border-radius: 12px;
+    margin-top: 1rem;
+}
+
+.answer-row {
+    margin-bottom: 1rem;
+}
+
+.answer-wrapper {
+    background-color: white;
+    transition: box-shadow 0.3s ease;
+    border-radius: 5px;
+    padding: 5px 0 5px 0;
+}
+
+.answer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.select-ans {
+    margin-right: 0.5rem;
+}
+
+.correct-label {
+    color: green;
+    font-weight: 600;
+    margin-right: auto;
+}
+
+.del-ans {
+    background-color: #ffe5e5;
+    border: none;
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    color: #a00;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.del-ans:hover {
+    background-color: #ffc1c1;
+}
+
+.answer-content {
+    display: flex;
+    align-items: center;
+}
+
+.answer-field {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0.8rem;
+    background-color: #fdfdfd;
+    min-height: 50px;
+    flex: 0 0 83.5%;
+}
+
+.meta-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    flex: 0 0 15%;
+}
+
+.accuracy-field,
+.type-field {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 10px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+

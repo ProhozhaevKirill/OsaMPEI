@@ -1,6 +1,6 @@
 import json                # <- Добавьте эту строку
 from django.shortcuts import render, get_object_or_404, redirect
-from create_tests.models import AboutExpressions, AboutTest
+from create_tests.models import AboutExpressions, AboutTest, PublishedGroup
 from .models import StudentResult
 from logic_of_expression.check_sympy_expr import CheckAnswer
 import numpy as np
@@ -11,8 +11,14 @@ from django.contrib.auth.decorators import login_required
 @login_required
 @role_required(['student', 'admin'])
 def list_test(request):
+    published_info = PublishedGroup.objects.all()
+    # for i in published_info:
+    #     print(i.group_name_id)
+    # print(published_info.group_name_id())
+
     tests = AboutTest.objects.all()
-    return render(request, 'solving_tests/test_selection.html', {'tests': tests})
+    return render(request, 'solving_tests/test_selection.html', {'tests': tests,
+                                                                                    'published_info': published_info})
 
 
 @login_required
@@ -38,10 +44,10 @@ def some_test_for_student(request, slug_name):
 
         # 3) Собираем данные для проверки
         right_answers = [ex.user_ans for ex in expressions]
-        is_choice     = [ex.exist_select for ex in expressions]
-        var_true_ans  = [ex.true_ans for ex in expressions]
-        points        = [ex.points_for_solve for ex in expressions]
-        all_p         = np.sum(points)
+        is_choice = [ex.exist_select for ex in expressions]
+        var_true_ans = [ex.true_ans for ex in expressions]
+        points = [ex.points_for_solve for ex in expressions]
+        all_p = np.sum(points)
 
         # 4) Считаем результат
         result_score = 0

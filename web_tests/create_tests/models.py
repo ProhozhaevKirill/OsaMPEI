@@ -5,7 +5,7 @@ from django.utils.text import slugify
 from unidecode import unidecode
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
-from users.models import StudentGroup
+from users.models import StudentGroup, TeacherData
 from datetime import timedelta
 
 
@@ -15,6 +15,7 @@ class AboutExpressions(models.Model):
     true_ans = models.CharField(max_length=15, default='1')
     points_for_solve = models.IntegerField(default=1, blank=False)
     user_eps = models.CharField(max_length=150, default="0", blank=True)
+    user_type = models.CharField(max_length=150, default="float", blank=True)
     exist_select = models.BooleanField(default=False)
 
     def __str__(self):
@@ -39,6 +40,8 @@ class AboutTest(models.Model):
     num_of_attempts = models.IntegerField(blank=True, default=1)  # Количество попыток для решения
     type_of_result = models.IntegerField(blank=True, default=1)  # Тип возвращаемого результата
     description = models.CharField(max_length=150, default="", blank=True)
+    is_published = models.IntegerField(default=0)
+    is_done = models.IntegerField(default=1)
     subj = models.ForeignKey(Subjects,
                              on_delete=models.PROTECT,
                              default=1)
@@ -60,7 +63,7 @@ class AboutTest(models.Model):
 class PublishedGroup(models.Model):
     group_name = ForeignKey(StudentGroup, on_delete=models.PROTECT)
     test_name = ForeignKey(AboutTest, on_delete=models.PROTECT)
-    is_published = models.BooleanField(default=False)
+    teacher_name = ForeignKey(TeacherData, on_delete=models.PROTECT)
 
 
 @receiver(pre_delete, sender=AboutTest)

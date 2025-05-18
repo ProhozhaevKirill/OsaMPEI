@@ -19,7 +19,7 @@
     <div class="header">
         <h1><i class="fas fa-tasks"></i> Управление тестами</h1>
         <div class="actions">
-            <a href="{% url 'create_test' %}" class="btn btn-primary">
+            <a href="{% url 'create_tests:create_test' %}" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Создать тест
             </a>
         </div>
@@ -47,9 +47,10 @@
                 <li class="test-card" data-slug="{{ test.name_slug_tests }}" data-published="{% if test.is_published %}true{% else %}false{% endif %}">
                     <div class="test-main">
                         <div class="test-info">
-                            <span class="test-subj">{{ forloop.counter }}. {{ test.subj }}.</span>
-                            <span class="test-number">{{ test.name_tests }}.</span>
-
+                            <div class="base_info">
+                                <span class="test-subj">{{ forloop.counter }}. {{ test.name_tests }}.</span>
+                                <span class="test-number">Предмет: {{ test.subj }}.</span>
+                            </div>
                             <div class="test-meta">
                                 <span><i class="far fa-calendar-alt"></i> Создан: {{ test.created_at|date:"d.m.Y" }}</span>
                                 <span><i class="fas fa-users"></i>
@@ -67,18 +68,34 @@
                             </div>
                         </div>
                         <div class="test-actions">
-<!--                            Добавить обработку шаблонами на видимость button-->
-                            <button class="btn btn-watch watch-btn" data-slug="{{ test.name_slug_tests }}">
-                                <a href="{{ test.name_slug_tests }}"><i class="fa-solid fa-eye"></i> Посмотреть </a>
-                            </button>
+                            <a href="{% url 'create_tests:some_test' test.name_slug_tests %}" class="btn btn-watch">
+                                <i class="fa-solid fa-eye"></i> Посмотреть
+                            </a>
                             {% if not test.is_published %}
-                                <button class="btn btn-publish publish-btn" data-slug="{{ test.name_slug_tests }}">
+                                <button class="btn btn-publish publish-btn"
+                                        data-slug="{{ test.name_slug_tests }}"
+                                        data-url="{% url 'create_tests:publish_test' test.name_slug_tests %}">
                                     <i class="fas fa-share-square"></i> Опубликовать
                                 </button>
-                            {% endif %}
-                            <button class="btn btn-danger delete-btn" data-slug="{{ test.name_slug_tests }}">
-                                <i class="fas fa-trash-alt"></i> Удалить
-                            </button>
+
+                                <button class="btn btn-danger delete-btn"
+                                        data-slug="{{ test.name_slug_tests }}"
+                                        data-url="{% url 'create_tests:delete_test' test.name_slug_tests %}">
+                                    <i class="fas fa-trash-alt"></i> Удалить
+                                </button>
+                                <a href="{% url 'create_tests:edit_test' test.name_slug_tests %}" class="btn btn-edit">
+                                    <i class="fas fa-edit"></i> Редактировать
+                                </a>
+                                {% else %}
+                                    <button class="btn btn-unpublish unpublish-btn"
+                                            data-url="{% url 'create_tests:unpublish_test' test.name_slug_tests %}">
+                                        <i class="fa-solid fa-eye-slash"></i> Снять с публикации
+                                    </button>
+                                    <div class="edit-disabled-notice">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <span>Изменения недоступны</span>
+                                    </div>
+                                {% endif %}
                         </div>
                     </div>
                     {% if test.description %}

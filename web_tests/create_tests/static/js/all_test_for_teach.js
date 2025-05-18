@@ -1,22 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Modal elements and handlers (keep existing)
+    // Элементы модальных окон
     const deleteModal = document.getElementById('deleteModal');
     const publishModal = document.getElementById('publishModal');
     const modalOverlay = document.querySelector('.modal-overlay');
     const closeModalButtons = document.querySelectorAll('.close-modal');
 
-    // Test deletion handlers (keep existing)
+    // Элементы управления
     const deleteButtons = document.querySelectorAll('.delete-btn');
+    const unpublishButtons = document.querySelectorAll('.unpublish-btn');
+    const publishButtons = document.querySelectorAll('.publish-btn');
     const confirmDeleteBtn = document.querySelector('.confirm-delete');
     const cancelDeleteBtn = document.querySelector('.cancel-delete');
-    let currentTestSlug = null;
-
-    // Test publication handlers
-    const publishButtons = document.querySelectorAll('.publish-btn');
     const confirmPublishBtn = document.querySelector('.confirm-publish');
     const cancelPublishBtn = document.querySelector('.cancel-publish');
 
-    // Modal functions (keep existing)
+    let currentTestSlug = null;
+
+    // Функции управления модальными окнами
     function openModal(modal) {
         modal.classList.add('active');
         modalOverlay.classList.add('active');
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = '';
     }
 
-    // Delete test handlers (keep existing)
+    // Обработчики удаления теста
     deleteButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -40,19 +40,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     confirmDeleteBtn.addEventListener('click', function() {
         if (currentTestSlug) {
-            fetch(`/delete-test/${currentTestSlug}/`, {
+            const deleteUrl = document.querySelector(`.delete-btn[data-slug="${currentTestSlug}"]`).dataset.url;
+
+            fetch(deleteUrl, {
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': getCookie('csrftoken'),
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) throw new Error('Ошибка сети');
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
                     window.location.reload();
                 } else {
-                    showError(deleteModal, data.error);
+                    showError(deleteModal, data.error || 'Ошибка при удалении теста');
                 }
             })
             .catch(error => {
@@ -62,80 +67,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    cancelDeleteBtn.addEventListener('click', function() {
-        closeModal(deleteModal);
-    });
+    cancelDeleteBtn.addEventListener('click', () => closeModal(deleteModal));
 
-    // Fixed publish test handlers
+    // Обработчики публикации теста
     publishButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
             currentTestSlug = this.getAttribute('data-slug');
             openModal(publishModal);
-            // Don't clear checkboxes here - let backend handle previously selected groups
         });
     });
 
-    // Improved group selection and institute toggle
-    function initializeGroupSelection() {
-        // Make entire institute header clickable
-        document.querySelectorAll('.institute-header').forEach(header => {
-            header.style.cursor = 'pointer';
-
-            header.addEventListener('click', function(e) {
-                // Don't trigger if clicking on checkbox or label
-                if (e.target.classList.contains('group-checkbox') ||
-                    e.target.tagName === 'LABEL' ||
-                    e.target.tagName === 'INPUT') {
-                    return;
-                }
-
-                const card = this.closest('.institute-card');
-                const toggleBtn = this.querySelector('.btn-toggle');
-                toggleGroups(card, toggleBtn);
-            });
-
-            // Keep button click handler
-            const toggleBtn = header.querySelector('.btn-toggle');
-            if (toggleBtn) {
-                toggleBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const card = this.closest('.institute-card');
-                    toggleGroups(card, this);
-                });
-            }
-        });
-
-        // Fix checkbox IDs and labels
-        document.querySelectorAll('.group-item').forEach(item => {
-            const checkbox = item.querySelector('.group-checkbox');
-            const label = item.querySelector('.form-check-label');
-            if (checkbox && label) {
-                const groupId = checkbox.value;
-                checkbox.id = `group-${groupId}`;
-                label.htmlFor = `group-${groupId}`;
-            }
-        });
-
-        // Proper group selection handling
-        document.querySelectorAll('.group-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('click', function(e) {
-                e.stopPropagation();
-                // Update visual state if needed
-                this.closest('.group-item').classList.toggle('selected', this.checked);
-            });
-        });
-    }
-
-    // Initialize group selection when publish modal opens
-    publishModal.addEventListener('click', function() {
-        initializeGroupSelection();
-    }, { once: true });
-
-    // Improved publish confirmation
     confirmPublishBtn.addEventListener('click', function() {
         const selectedGroups = Array.from(document.querySelectorAll('.group-checkbox:checked'));
         const selectedGroupIds = selectedGroups.map(checkbox => checkbox.value);
+        const publishUrl = document.querySelector(`.publish-btn[data-slug="${currentTestSlug}"]`).dataset.url;
 
         if (!currentTestSlug) {
             showError(publishModal, 'Не выбран тест для публикации');
@@ -147,21 +93,16 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        fetch(`/publish-test/${currentTestSlug}/`, {
+        fetch(publishUrl, {
             method: 'POST',
             headers: {
                 'X-CSRFToken': getCookie('csrftoken'),
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                groups: selectedGroupIds,
-                action: 'publish'
-            })
+            body: JSON.stringify({ groups: selectedGroupIds })
         })
         .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
             return response.json();
         })
         .then(data => {
@@ -177,11 +118,79 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    cancelPublishBtn.addEventListener('click', function() {
-        closeModal(publishModal);
+    cancelPublishBtn.addEventListener('click', () => closeModal(publishModal));
+
+    // Обработчики снятия с публикации
+    unpublishButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const url = this.dataset.url;
+
+            if (confirm("Вы уверены, что хотите снять тест с публикации?")) {
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'),
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.reload();
+                    } else {
+                        alert('Ошибка: ' + data.error);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        });
     });
 
-    // Helper functions
+    // Инициализация выбора групп
+    function initializeGroupSelection() {
+        document.querySelectorAll('.institute-header').forEach(header => {
+            header.style.cursor = 'pointer';
+
+            header.addEventListener('click', function(e) {
+                if (e.target.classList.contains('group-checkbox') ||
+                    e.target.tagName === 'LABEL' ||
+                    e.target.tagName === 'INPUT') return;
+
+                const card = this.closest('.institute-card');
+                const toggleBtn = this.querySelector('.btn-toggle');
+                toggleGroups(card, toggleBtn);
+            });
+
+            const toggleBtn = header.querySelector('.btn-toggle');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const card = this.closest('.institute-card');
+                    toggleGroups(card, this);
+                });
+            }
+        });
+
+        document.querySelectorAll('.group-item').forEach(item => {
+            const checkbox = item.querySelector('.group-checkbox');
+            const label = item.querySelector('.form-check-label');
+            if (checkbox && label) {
+                const groupId = checkbox.value;
+                checkbox.id = `group-${groupId}`;
+                label.htmlFor = `group-${groupId}`;
+            }
+        });
+
+        document.querySelectorAll('.group-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.closest('.group-item').classList.toggle('selected', this.checked);
+            });
+        });
+    }
+
+    // Вспомогательные функции
     function toggleGroups(card, toggleBtn) {
         card.classList.toggle('active');
         const icon = toggleBtn.querySelector('i');
@@ -214,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return cookieValue;
     }
 
-    // Test filtering (keep existing)
+    // Фильтрация тестов
     const filterSelect = document.getElementById('testFilter');
     const testCards = document.querySelectorAll('.test-card');
 
@@ -230,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Close modal handlers (keep existing)
+    // Закрытие модальных окон
     closeModalButtons.forEach(button => {
         button.addEventListener('click', function() {
             const modal = this.closest('.modal');
@@ -238,9 +247,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    modalOverlay.addEventListener('click', function() {
-        document.querySelectorAll('.modal.active').forEach(modal => {
-            closeModal(modal);
-        });
+    modalOverlay.addEventListener('click', () => {
+        document.querySelectorAll('.modal.active').forEach(modal => closeModal(modal));
     });
+
+    // Инициализация при открытии модального окна публикации
+    publishModal.addEventListener('click', () => initializeGroupSelection(), { once: true });
 });

@@ -38,6 +38,10 @@ a {
     color: white;
 }
 
+.base_info {
+    display: grid;
+}
+
 .btn-watch{
     background-color: #4a6fa5
 }
@@ -139,8 +143,12 @@ a {
 }
 
 .btn-edit {
-    background-color: var(--info-color);
+    background-color: #4a6fa5;
     color: white;
+}
+
+.btn-edit:hover{
+    background-color: #ffc107;
 }
 
 /* Заголовок */
@@ -292,7 +300,6 @@ a {
 }
 
 .test-actions {
-    display: flex;
     gap: 10px;
     flex-wrap: wrap;
     justify-content: flex-end;
@@ -515,6 +522,21 @@ a {
     color: var(--secondary-color);
 }
 
+.after_published {
+    background-color: #ffe6e6;
+    border: 2px solid #cc0000;
+    color: #990000;
+    padding: 0 5px 0 5px;
+    border-radius: 8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    user-select: none;
+}
+
+
 .btn-toggle {
     background: none;
     border: none;
@@ -617,11 +639,6 @@ a {
         align-items: flex-start;
     }
     
-    .test-actions {
-        width: 100%;
-        justify-content: flex-start;
-    }
-    
     .modal-footer {
         flex-direction: column;
     }
@@ -635,3 +652,56 @@ a {
     }
 }
 
+.edit-disabled-notice {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 0px 17px;
+    border-radius: var(--border-radius);
+    border: 2px solid #f5c6cb;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: inherit;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    min-height: 36px;
+}
+
+.edit-disabled-notice i {
+    color: #dc3545;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.edit-disabled-notice span {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    line-height: 1.4;
+}
+
+.btn {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+}
+
+.btn i {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .edit-disabled-notice {
+        margin-left: 0;
+        margin-top: 10px;
+        width: 100%;
+        justify-content: center;
+    }
+}

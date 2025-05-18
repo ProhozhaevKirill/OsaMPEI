@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Список тестов{% endblock %}
+{% block title %}{{ test.name_tests }}{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static '/css/some_test.css' %}">
@@ -17,6 +17,8 @@
     <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
     <script src="{% static 'js/macros-mathJax.js' %}"></script>
     <script src='https://unpkg.com/mathlive/dist/mathlive.min.js'></script>
+    <!-- Добавьте этот скрипт для работы кнопок -->
+    <script src="{% static 'js/all_test_for_teach.js' %}" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -45,10 +47,10 @@
             <div class="sec-info">
                 <p>Ответ: $$ {{ ex.user_ans }} $$</p>
                 <p>
-                    {% if ex.user_eps == 0.0 %}
-                    Ответ точный
+                    {% if ex.user_eps == '0' %}
+                        Ответ точный
                     {% else %}
-                    Точность: {{ ex.user_eps }}
+                        Точность: {{ ex.user_eps }}
                     {% endif %}
                 </p>
             </div>
@@ -57,9 +59,90 @@
     </ul>
 
     <div class="actions">
-        <button class="public-btn">Опубликовать</button>
-        <button class="edit-btn">Редактировать</button>
-        <button class="delete-btn">Удалить</button>
+        <button class="btn btn-publish publish-btn" data-slug="{{ test.name_slug_tests }}">Опубликовать</button>
+        <button class="btn btn-edit edit-btn" data-slug="{{ test.name_slug_tests }}">Редактировать</button>
+        <button class="btn btn-danger delete-btn" data-slug="{{ test.name_slug_tests }}">Удалить</button>
     </div>
 </div>
+
+<!-- Модальное окно подтверждения удаления -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-exclamation-triangle"></i> Подтверждение удаления </h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>Вы уверены, что хотите удалить этот тест? Это действие нельзя отменить.</p>
+            <p class="warning-text"><i class="fas fa-exclamation-circle"></i> Все результаты студентов по этому тесту также будут удалены!</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary cancel-delete">Отмена</button>
+            <button class="btn btn-danger confirm-delete">Удалить</button>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно публикации теста -->
+<div id="publishModal" class="modal">
+    <div class="modal-content wide">
+        <div class="modal-header">
+            <h3><i class="fas fa-share-square"></i> Настройки публикации теста</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div id="groupsSection" class="groups-section">
+                <div class="search-filter-row">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="groupSearch" placeholder="Поиск групп...">
+                    </div>
+                </div>
+
+                <div class="groups-container">
+                    <div class="institutes-list">
+                        {% for institute in institutes %}
+                        <div class="institute-card" data-id="{{ institute.id }}">
+                            <div class="institute-header">
+                                <div class="institute-info">
+                                    <span class="full-name">{{ institute.name }}</span>
+                                </div>
+                                <div class="institute-actions">
+                                    <span class="groups-count">групп: {{ institute.studentgroup_set.all.count }}</span>
+                                    <button class="btn btn-toggle">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="groups-list">
+                                {% for all_groups in institute.studentgroup_set.all %}
+                                <div class="group-item">
+                                    <div class="form-check">
+                                        <input type="checkbox" name="groups" class="form-check-input group-checkbox"
+                                               id="group-{{ all_groups.id }}" value="{{ all_groups.id }}">
+
+                                        <label class="form-check-label" for="group-{{ all_groups.id }}">
+                                            {{ all_groups.name }}
+                                            <span class="students-count">(студентов: {{ all_groups.students.count }})</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary cancel-publish">Отмена</button>
+            <button class="btn btn-primary confirm-publish">
+                <i class="fas fa-share-square"></i> Опубликовать тест
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay"></div>
 {% endblock %}

@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}АСТРА - личный кабинет {% endblock %}
+{% block title %}АСТРА - Личный кабинет{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/student_account.css' %}">
@@ -14,15 +14,14 @@
 {% endblock %}
 
 {% block content %}
+<div class="dashboard-container">
+    <main class="main-content">
 
-    <!-- Основной контент -->
-    <div class="dashboard-container">
-        <!-- Основная область -->
-        <main class="main-content">
+        {% if is_student %}
             <section class="welcome-section">
-                <h1 class="welcome-title">Добро пожаловать, {{student_data.first_name}} {{student_data.last_name}}</h1>
-                <h3 class="second-inf"> {{student_data.institute}} </h3>
-                <h3 class="second-inf"> Группа: {{student_data.group}} </h3>
+                <h1 class="welcome-title">Добро пожаловать, {{ student_data.first_name }} {{ student_data.last_name }}</h1>
+                <h3 class="second-inf">{{ student_data.institute }}</h3>
+                <h3 class="second-inf">Группа: {{ student_data.group }}</h3>
             </section>
 
             <div class="stats-grid">
@@ -32,7 +31,7 @@
                     </div>
                     <div class="stat-info">
                         <div class="stat-title">Активных тестов</div>
-                        <div class="stat-value">5</div>
+                        <div class="stat-value">{{ about_tests|length }}</div>
                     </div>
                 </div>
 
@@ -42,7 +41,7 @@
                     </div>
                     <div class="stat-info">
                         <div class="stat-title">Пройденных тестов</div>
-                        <div class="stat-value">{{ student_date.count_solve }}</div>
+                        <div class="stat-value">{{ student_data.count_solve|default:"0" }}</div>
                     </div>
                 </div>
 
@@ -52,45 +51,64 @@
                     </div>
                     <div class="stat-info">
                         <div class="stat-title">Успеваемость</div>
-                        <div class="stat-value">{{ students_data.perc_of_correct_ans }}</div>
+                        <div class="stat-value">{{ student_data.perc_of_correct_ans|default:"0" }}%</div>
                     </div>
                 </div>
             </div>
 
             <section>
                 <h2 class="section-title">
-                    <i class="fas fa-chart-bar"></i> Последние результаты
+                    <i class="fas fa-chart-bar"></i> Доступные тесты
                 </h2>
 
-                <table class="results-table">
-                    <thead>
-                        <tr>
-                            <th>Предмет</th>
-                            <th>Название</th>
-                            <th>Оценка</th>
-                            <th>Статус</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for test in about_tests %}
-                        <tr>
-                            <td>{{ test.subj }}</td>
-                            <td>{{ test.name_tests }}</td>
-                            <td>{{ test.type_of_result }}</td>
-                            <!--Здесь должна быть проверка на колличество решений                            -->
-                            <td>
-                                {% if test.num_of_attempts == 1 %}
-                                <span class="badge badge-success"> Завершено </span>
-                                {% else %}
-                                <span class="badge badge-success"> Осталось n попыток </span>
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                {% if about_tests %}
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Предмет</th>
+                                <th>Название</th>
+                                <th>Оценка</th>
+                                <th>Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for test in about_tests %}
+                                <tr>
+                                    <td>{{ test.test.subj }}</td>
+                                    <td>{{ test.test.name_tests }}</td>
+                                    <td>{{ test.type_of_result|default:"—" }}</td>
+                                    <td>
+                                        {% if test.num_of_attempts == 1 %}
+                                            <span class="badge badge-success">Завершено</span>
+                                        {% elif test.count_of_tries %}
+                                            {% if test.remaining_attempts == 0 %}
+                                                <span class="badge badge-secondary">Попытки исчерпаны</span>
+                                            {% elif test.remaining_attempts == test.num_of_attempts %}
+                                                <span class="badge badge-info">Доступен</span>
+                                            {% else %}
+                                                <span class="badge badge-warning">Осталось {{ test.remaining_attempts }} попыток</span>
+                                            {% endif %}
+                                        {% else %}
+                                            <span class="badge badge-info">Доступен</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>Нет доступных тестов.</p>
+                {% endif %}
             </section>
-        </main>
-    </div>
+        {% else %}
+            <h2>Профиль преподавателя</h2>
+            {% if teacher_data %}
+                <p>{{ teacher_data.first_name }} {{ teacher_data.last_name }}</p>
+            {% else %}
+                <p>Данные не найдены.</p>
+            {% endif %}
+        {% endif %}
 
+    </main>
+</div>
 {% endblock %}

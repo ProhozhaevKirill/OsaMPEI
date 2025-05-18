@@ -109,10 +109,11 @@
             <div class="btn_option">
                 <a href="#header"><button class="changeTest">Нет, продолжить составление</button></a>
                 <div class="save">
-                    <form action="{% url 'create_test' %}" method="POST" id="testForm">
+                    <form action="{% url 'create_tests:create_test' %}" method="POST" id="testForm">
                         {% csrf_token %}
                         <input type="hidden" name="name_test" id="hidden_name_test">
                         <input type="hidden" name="time_solve" id="hidden_time_solve">
+                        <input type="hidden" name="num_attempts" id="hidden_num_attempts">
                         <input type="hidden" name="subj_test" id="hidden_subj_test">
                         <input type="hidden" name="description_test" id="hidden_description_test">
                         <input type="hidden" name="point_solve" id="hidden_point_solve1">

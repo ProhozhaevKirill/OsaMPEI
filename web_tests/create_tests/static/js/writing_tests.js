@@ -162,6 +162,7 @@ $(document).ready(function() {
         $('#hidden_name_test').val($('#testNameInput').val());
         $('#hidden_description_test').val($('#description_test').val());
         $('#hidden_subj_test').val($('#subj_test').val());
+        $('#hidden_num_attempts').val($('#num_attempts').val());
 
         // Время в формате HH:MM:SS
         const h = String(parseInt($('#hours').val() || '0')).padStart(2,'0');

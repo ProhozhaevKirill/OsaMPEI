@@ -62,28 +62,13 @@ body {
     gap: 15px;
 }
 
-.logo-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: var(--text-light);
-    font-weight: 600;
-    font-size: 1.5rem;
-    gap: 10px;
-    transition: var(--transition);
-}
-
-.logo-link:hover {
-    opacity: 0.9;
-}
-
 .logo-icon {
     font-size: 3rem;
     color: #ffd700;
 }
 
 .logo-text {
-    size 500px;
+    font-size: 1.5rem;
 }
 
 .mobile-menu-btn {
@@ -151,145 +136,12 @@ body {
     gap: 15px;
 }
 
-/* Уведомления */
-.notifications-dropdown {
-    position: relative;
-}
-
-.notifications-btn {
-    position: relative;
-    background: none;
-    border: none;
-    color: var(--text-light);
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 50%;
-    transition: var(--transition);
-}
-
-.notifications-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.badge {
-    position: absolute;
-    top: -2px;
-    right: -2px;
-    background-color: var(--danger-color);
-    color: white;
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
-    font-size: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-}
-
-.notifications-menu {
-    position: absolute;
-    right: 0;
-    top: 50px;
-    width: 350px;
-    max-height: 400px;
-    overflow-y: auto;
-    background-color: white;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-lg);
-    z-index: 1001;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: var(--transition);
-}
-
-.notifications-dropdown.active .notifications-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.notifications-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.notifications-header h4 {
-    margin: 0;
-    font-size: 1rem;
-}
-
-.mark-all-read {
-    background: none;
-    border: none;
-    color: var(--primary-color);
-    font-size: 0.8rem;
-    cursor: pointer;
-}
-
-.notifications-list {
-    padding: 0;
-}
-
-.notification-item {
-    display: flex;
-    padding: 12px 15px;
-    text-decoration: none;
-    color: var(--text-dark);
-    transition: var(--transition);
-    border-bottom: 1px solid var(--border-color);
-    gap: 12px;
-}
-
-.notification-item:hover {
-    background-color: #f8f9fa;
-}
-
-.notification-item.unread {
-    background-color: #f8f9fa;
-}
-
-.notification-icon {
-    font-size: 1.2rem;
-    color: var(--primary-color);
-}
-
-.notification-content {
-    flex: 1;
-}
-
-.notification-content p {
-    margin-bottom: 3px;
-    font-size: 0.9rem;
-}
-
-.notification-content small {
-    color: var(--secondary-color);
-    font-size: 0.8rem;
-}
-
-.notifications-footer {
-    padding: 10px 15px;
-    text-align: center;
-}
-
-.notifications-footer a {
-    color: var(--primary-color);
-    font-size: 0.9rem;
-    text-decoration: none;
-}
-
 /* Профиль пользователя */
 .profile-dropdown {
     position: relative;
 }
 
-.profile-btn {
+.profile-btn button{
     display: flex;
     align-items: center;
     background: none;
@@ -397,10 +249,6 @@ body {
     margin: 10px 0;
 }
 
-.menu-link.logout {
-    color: var(--danger-color);
-}
-
 /* Основное содержимое */
 .app-main {
     min-height: calc(100vh - 70px);
@@ -434,6 +282,30 @@ body {
     color: white;
     gap: 15px;
 }
+
+
+.logout-btn {
+    background: #ff4757;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.logout-btn i {
+    font-size: 16px;
+}
+
+.logout-btn:hover {
+    background-color: #d32f2f;
+}
+
 
 .close-menu-btn {
     background: none;
@@ -517,13 +389,74 @@ body {
     .profile-btn {
         padding: 5px;
     }
-
-    .notifications-menu {
-        width: 280px;
-    }
 }
 
 /* Утилиты */
 .hidden {
     display: none !important;
+}
+
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #ff5e62, #ff9966);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(255, 94, 98, 0.2);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.logout-btn:hover {
+    background: linear-gradient(135deg, #ff4757, #ff7b54);
+    box-shadow: 0 6px 8px rgba(255, 94, 98, 0.3);
+    transform: translateY(-2px);
+}
+
+.logout-btn:active {
+    transform: translateY(0);
+}
+
+.logout-btn i {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.logout-btn:hover i {
+    transform: translateX(-3px);
+}
+
+.logout-svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transform: translateX(5px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover .logout-svg {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Для мобильного меню */
+.mobile-nav-list .logout-btn {
+    margin: 10px 20px;
+    width: calc(100% - 40px);
 }

@@ -73,6 +73,29 @@ body {
     transition: var(--transition);
 }
 
+.nav-link.active, .mobile-nav-link.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    position: relative;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 3px;
+    background-color: var(--text-light);
+    border-radius: 3px;
+}
+
+.mobile-nav-link.active {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
 .logo-link:hover {
     opacity: 0.9;
 }
@@ -397,8 +420,62 @@ body {
     margin: 10px 0;
 }
 
-.menu-link.logout {
-    color: var(--danger-color);
+.logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #ff5e62, #ff9966);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(255, 94, 98, 0.2);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.logout-btn:hover {
+    background: linear-gradient(135deg, #ff4757, #ff7b54);
+    box-shadow: 0 6px 8px rgba(255, 94, 98, 0.3);
+    transform: translateY(-2px);
+}
+
+.logout-btn:active {
+    transform: translateY(0);
+}
+
+.logout-btn i {
+    font-size: 14px;
+    transition: transform 0.3s ease;
+}
+
+.logout-btn:hover i {
+    transform: translateX(-3px);
+}
+
+.logout-svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transform: translateX(5px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover .logout-svg {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 /* Основное содержимое */

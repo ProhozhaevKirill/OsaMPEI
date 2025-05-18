@@ -2,10 +2,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from .forms import SignUpForm, EmailAuthenticationForm
 from .models import WhiteList, CustomUser, StudentData, TeacherData, StudentGroup, StudentInstitute
-from create_tests.models import AboutTest
+from create_tests.models import AboutTest, PublishedGroup
+from solving_tests.models import StudentResult
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .decorators import role_required
+from django.contrib.auth import logout as auth_logout
 
 
 def login_view(request):
@@ -48,7 +50,7 @@ def register_view(request):
 
             user = form.save(commit=False)
 
-            if WhiteList.objects.filter(teacherMail=email).exists():
+            if WhiteList.objects.filter(teacher_mail=email).exists():
                 user.role = 'teacher'
             else:
                 user.role = 'student'
@@ -130,19 +132,98 @@ def form_registration(request):
 @login_required
 @role_required(['student', 'admin'])
 def account_view(request):
-    current_user = request.user
-    about_tests = AboutTest.objects.all()
+    user = request.user
+    context = {
+        'current_user': user,
+        'is_student': user.role == 'student',
+    }
 
-    try:
-        student_data = current_user.studentdata
-    except StudentData.DoesNotExist:
-        student_data = None
+    if user.role == 'student':
+        # Получаем данные студента или None, если не создано
+        try:
+            student_data = user.studentdata
+        except StudentData.DoesNotExist:
+            student_data = None
 
-    return render(request, 'users/student_account.html', {
-        'current_user': current_user,
-        'student_data': student_data,
-        'about_tests': about_tests
-    })
+        # Получаем все институты и группы для выбора
+        institutes = StudentInstitute.objects.all()
+        groups = StudentGroup.objects.all()
+
+        # Получаем опубликованные тесты для группы студента
+        if student_data and student_data.group:
+            published_tests = AboutTest.objects.filter(
+                publishedgroup__group_name=student_data.group
+            ).distinct()
+        else:
+            published_tests = AboutTest.objects.none()
+
+        # Результаты студента по опубликованным тестам
+        student_results = StudentResult.objects.filter(
+            student=user,
+            test__in=published_tests
+        ).order_by('-id')
+
+        # Добавляем поле remaining_attempts для каждого результата
+        for result in student_results:
+            result.remaining_attempts = max(result.num_of_attempts - result.count_of_tries, 0)
+
+        context.update({
+            'student_data': student_data,
+            'institutes': institutes,
+            'groups': groups,
+            'about_tests': student_results,
+        })
+    else:
+        # Для админа или других ролей - просто передаем данные профиля
+        context['teacher_data'] = getattr(user, 'teacherdata', None)
+
+    if request.method == 'POST':
+        # Обработка обновления профиля
+        user.email = request.POST.get('email', user.email)
+
+        if user.role == 'student':
+            if student_data is None:
+                # Создаем, если не существует
+                default_institute = StudentInstitute.objects.first()
+                default_group = StudentGroup.objects.first()
+                student_data = StudentData.objects.create(
+                    data_map=user,
+                    first_name='',
+                    last_name='',
+                    middle_name='',
+                    institute=default_institute,
+                    group=default_group,
+                    training_status=True,
+                    count_solve=0,
+                    perc_of_correct_ans="0"
+                )
+
+            student_data.first_name = request.POST.get('first_name', student_data.first_name)
+            student_data.last_name = request.POST.get('last_name', student_data.last_name)
+            student_data.middle_name = request.POST.get('middle_name', student_data.middle_name)
+
+            institute_id = request.POST.get('institute')
+            if institute_id:
+                student_data.institute = StudentInstitute.objects.get(id=institute_id)
+
+            group_id = request.POST.get('group')
+            if group_id:
+                student_data.group = StudentGroup.objects.get(id=group_id)
+
+            student_data.save()
+        else:
+            # Для учителей (если нужно)
+            teacher_data = getattr(user, 'teacherdata', None)
+            if teacher_data:
+                teacher_data.first_name = request.POST.get('first_name', teacher_data.first_name)
+                teacher_data.last_name = request.POST.get('last_name', teacher_data.last_name)
+                teacher_data.middle_name = request.POST.get('middle_name', teacher_data.middle_name)
+                teacher_data.save()
+
+        user.save()
+        return redirect('account_view')
+
+    return render(request, 'users/student_account.html', context)
 
 
 @login_required
@@ -219,7 +300,7 @@ def student_profile_view(request):
             # Логирование ошибки
             import logging
             logger = logging.getLogger(__name__)
-            logger.error(f"Error updating student profile: {str(e)}")
+            logger.error(f"Ошибка обновления данных пользователей: {str(e)}")
 
     return render(request, 'users/student_profile.html', {
         'student_data': student_data,
@@ -227,13 +308,13 @@ def student_profile_view(request):
     })
 
 
+@login_required
+@role_required(['student', 'admin'])
 def data(request):
     user = request.user
     context = {}
 
-    # Получаем или создаем связанные данные с дефолтными значениями
     if user.role == 'student':
-        # Получаем первый институт как дефолтный
         default_institute = StudentInstitute.objects.first()
         default_group = StudentGroup.objects.first()
 
@@ -261,10 +342,8 @@ def data(request):
         )
 
     if request.method == 'POST':
-        # Обработка основных данных пользователя
         user.email = request.POST.get('email', user.email)
 
-        # Обработка данных в зависимости от роли
         if user.role == 'student':
             data.first_name = request.POST.get('first_name', '')
             data.last_name = request.POST.get('last_name', '')
@@ -282,7 +361,6 @@ def data(request):
             data.last_name = request.POST.get('last_name', '')
             data.middle_name = request.POST.get('middle_name', '')
 
-        # Сохраняем изменения
         user.save()
         data.save()
         return redirect('data')
@@ -296,10 +374,14 @@ def data(request):
         context['institutes'] = StudentInstitute.objects.all()
         context['groups'] = StudentGroup.objects.all()
 
-    return render(request, 'users/student_data.html', context)
+        student_group = data.group
+        about_tests = AboutTest.objects.filter(
+            publishedgroup__group_name=student_group,
+            is_published=1
+        ).distinct()
+        context['about_tests'] = about_tests
 
-# def data(request):
-#     return render(request, 'users/student_data.html')
+    return render(request, 'users/student_data.html', context)
 
 
 @login_required
@@ -307,3 +389,11 @@ def data(request):
 def material_view(request):
     return render(request, 'users/material.html')
 
+
+@login_required
+def logout_view(request):
+    auth_logout(request)
+    request.session.flush()
+    response = redirect('/')
+    response.delete_cookie('sessionid')
+    return response

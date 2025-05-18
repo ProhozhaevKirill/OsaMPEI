@@ -1,6 +1,8 @@
-import json                # <- Добавьте эту строку
+import json
+from django.contrib.auth import logout
 from django.shortcuts import render, get_object_or_404, redirect
 from create_tests.models import AboutExpressions, AboutTest, PublishedGroup
+from users.models import StudentGroup, StudentData
 from .models import StudentResult
 from logic_of_expression.check_sympy_expr import CheckAnswer
 import numpy as np
@@ -11,15 +13,20 @@ from django.contrib.auth.decorators import login_required
 @login_required
 @role_required(['student', 'admin'])
 def list_test(request):
-    published_info = PublishedGroup.objects.all()
-    # for i in published_info:
-    #     print(i.group_name_id)
-    # print(published_info.group_name_id())
+    user = request.user
 
-    tests = AboutTest.objects.all()
-    return render(request, 'solving_tests/test_selection.html', {'tests': tests,
-                                                                                    'published_info': published_info})
+    try:
+        student = StudentData.objects.get(data_map=request.user)
+        student_group = student.group
+        published_tests = AboutTest.objects.filter(
+            publishedgroup__group_name=student_group
+        ).distinct()
+    except StudentData.DoesNotExist:
+        published_tests = []
 
+    return render(request, 'solving_tests/test_selection.html', {
+        'tests': published_tests  # Убедитесь, что переменная передаётся
+    })
 
 @login_required
 @role_required(['student', 'admin'])
@@ -79,7 +86,8 @@ def some_test_for_student(request, slug_name):
             'score': grade,
             'test_name': test.name_tests,
         }
-        return redirect('show_result', slug_name=slug_name)
+
+        return redirect('solving_tests:show_result', slug_name=slug_name)
 
     # GET
     expressions_with_options = []
@@ -96,7 +104,6 @@ def some_test_for_student(request, slug_name):
         'expressions_with_options': expressions_with_options,
     })
 
-
 @login_required
 @role_required(['student', 'admin'])
 def show_result(request, slug_name):
@@ -109,3 +116,4 @@ def show_result(request, slug_name):
         'score': test_result['score'],
         'slug_name': slug_name,
     })
+

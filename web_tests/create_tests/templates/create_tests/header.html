@@ -28,13 +28,13 @@
             <ul class="nav-list">
                 {% if user.role == 'teacher' %}
                     <li class="nav-item">
-                        <a href="/personaInf/" class="nav-link active">
+                        <a href="/personaInf/" class="nav-link {% if request.path == '/personaInf/' %}active{% endif %}">
                             <i class="fas fa-home"></i>
                             <span>Главная</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/TestsCreate/listTests/" class="nav-link">
+                        <a href="/TestsCreate/listTests/" class="nav-link {% if '/TestsCreate/listTests/' in request.path %}active{% endif %}">
                             <i class="fas fa-tasks"></i>
                             <span>Тесты</span>
                         </a>
@@ -76,31 +76,13 @@
                                 <i class="fas fa-question-circle"></i>
                                 <span>Помощь</span>
                             </a>
-                            <div class="divider"></div>
-                            <a href="{% url 'logout' %}" class="menu-link logout">
-                                <i class="fas fa-sign-out-alt"></i>
-                                <span>Выйти</span>
-                            </a>
-                        </div>
-                    {% else %}
-                        <div class="menu-links">
-                            <a href="/personaInf/" class="menu-link">
-                                <i class="fas fa-user"></i>
-                                <span>Мой профиль</span>
-                            </a>
-                            <a href="#" class="menu-link">
-                                <i class="fas fa-cog"></i>
-                                <span>Настройки</span>
-                            </a>
-                            <a href="#" class="menu-link">
-                                <i class="fas fa-question-circle"></i>
-                                <span>Помощь</span>
-                            </a>
-                            <div class="divider"></div>
-                            <a href="{% url 'logout' %}" class="menu-link logout">
-                                <i class="fas fa-sign-out-alt"></i>
-                                <span>Выйти</span>
-                            </a>
+                            <form action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="logout-btn">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Выйти</span>
+                                </button>
+                            </form>
                         </div>
                     {% endif %}
                 </div>
@@ -122,22 +104,37 @@
     <nav class="mobile-nav">
         <ul class="mobile-nav-list">
             <li>
-                <a href="/personaInf/" class="mobile-nav-link active">
+                <a href="/personaInf/" class="mobile-nav-link {% if request.path == '/personaInf/' %}active{% endif %}">
                     <i class="fas fa-home"></i>
                     <span>Главная</span>
                 </a>
             </li>
             {% if user.is_staff %}
-                <li><a href="#" class="mobile-nav-link"><i class="fas fa-tasks"></i><span>Тесты</span></a></li>
-                <li><a href="#" class="mobile-nav-link"><i class="fas fa-chart-bar"></i><span>Результаты</span></a></li>
-                <li><a href="#" class="mobile-nav-link"><i class="fas fa-book"></i><span>Материалы</span></a></li>
-            {% else %}
-                <li><a href="/TestsSolving/" class="mobile-nav-link"><i class="fas fa-tasks"></i><span>Тесты</span></a></li>
-                <li><a href="#" class="mobile-nav-link"><i class="fas fa-chart-bar"></i><span>Результаты</span></a></li>
-                <li><a href="/material/" class="mobile-nav-link"><i class="fas fa-book"></i><span>Материалы</span></a></li>
+                <li>
+                    <a href="/TestsCreate/listTests/" class="mobile-nav-link {% if '/TestsCreate/listTests/' in request.path %}active{% endif %}">
+                        <i class="fas fa-tasks"></i>
+                        <span>Тесты</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="mobile-nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Результаты</span>
+                    </a>
+                </li>
             {% endif %}
-            <li><a href="#" class="mobile-nav-link"><i class="fas fa-cog"></i><span>Настройки</span></a></li>
-            <li><a href="{% url 'logout' %}" class="mobile-nav-link"><i class="fas fa-sign-out-alt"></i><span>Выйти</span></a></li>
+            <li>
+                <a href="#" class="mobile-nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Настройки</span>
+                </a>
+            </li>
+            <li>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Выйти</button>
+                </form>
+            </li>
         </ul>
     </nav>
 </div>

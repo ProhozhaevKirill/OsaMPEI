@@ -1,14 +1,16 @@
 from django.db import models
-from create_tests.models import AboutExpressions
+from create_tests.models import AboutExpressions, AboutTest
 import datetime
-# from users.models import CustomUser
+from users.models import CustomUser
 
 
 class StudentResult(models.Model):
-    # student = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    resultPoints = models.FloatField(max_length=255)
-    allResAnswer = models.CharField(max_length=255, blank=True)
-    teacherExpressions = models.ManyToManyField(AboutExpressions)
+    student = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    test = models.ForeignKey(AboutTest, on_delete=models.CASCADE)  # Связь с тестом
+    attempt_number = models.PositiveIntegerField(default=1)  # Какая это попытка
+    result_points = models.FloatField()
+    res_answer = models.CharField(max_length=255, blank=True)
+    teacher_expressions = models.ManyToManyField(AboutExpressions)
 
-    def __str__(self):
-        return self.allResAnswer
+    class Meta:
+        unique_together = ('student', 'test', 'attempt_number')

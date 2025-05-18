@@ -47,7 +47,7 @@
             </div>
             <div class="test-body">
                 <h3 class="test-title">
-                    <a href="{{ test.name_slug_tests }}">{{ test.name_tests }}</a>
+                    <a href="{% url 'solving_tests:some_test_for_student' slug_name=test.name_slug_tests %}">{{ test.name_tests }}</a>
                 </h3>
                 <h5>Предмет: {{ test.subj }}</h5>
 
@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="test-footer">
-                <a href="{{ test.name_slug_tests }}" class="btn start-btn">
+                <a href="{% url 'solving_tests:some_test_for_student' slug_name=test.name_slug_tests %}" class="btn start-btn">
                     {% if test.completed %}
                     <i class="fas fa-redo"></i> Повторить
                     {% else %}
@@ -108,7 +108,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary close-modal">Закрыть</button>
-                <a href="{{ test.name_slug_tests }}" class="btn btn-primary" id="modalStartBtn">Начать тест</a>
+                <a href="#" class="btn btn-primary" id="modalStartBtn">Начать тест</a>
             </div>
         </div>
     </div>

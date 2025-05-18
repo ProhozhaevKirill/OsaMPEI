@@ -93,7 +93,7 @@
             </div>
 
             <form id="answerForm"
-      action="{% url 'some_test_for_student' test.name_slug_tests %}"
+      action="{% url 'solving_tests:some_test_for_student' test.name_slug_tests %}"
       method="post"
       data-total="{{ expressions_with_options|length }}">
   {% csrf_token %}

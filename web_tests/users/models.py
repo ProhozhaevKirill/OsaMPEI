@@ -86,7 +86,7 @@ class StudentData(models.Model):
 
 
 class WhiteList(models.Model):
-    teacherMail = models.EmailField(unique=True)
+    teacher_mail = models.EmailField(unique=True)
 
     def __str__(self):
         return self.teacherMail

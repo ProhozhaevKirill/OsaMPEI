@@ -264,8 +264,3 @@ class Tex2Sympy(GetLexeme):
         expression = self.addit_mult(expression)
         return expression
 
-
-primerExpr = '7\ln{5}'
-obj2 = Tex2Sympy(primerExpr)
-res = obj2.get_result()
-print(res)

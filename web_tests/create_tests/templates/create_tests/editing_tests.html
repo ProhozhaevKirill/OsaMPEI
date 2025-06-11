@@ -1,27 +1,26 @@
 {% extends 'create_tests/header.html' %}
 {% load static %}
 
-{% block title %}Создание тестов{% endblock %}
+{% block title %}Редактирование теста{% endblock %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/editing_tests.css' %}">
-<link rel="shortcut icon" href="{% static 'favicon.ico' %}">
-<link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/writing_tests.css' %}">
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/jquery-3.7.1.js' %}"></script>
-<script src="{% static 'js/editing_tests.js' %}"></script>
-<script src="https://unpkg.com/mathlive"></script>
-<script src="{% static 'js/mathJax-rus.js' %}"></script>
+    <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
+    <script src="{% static 'js/editing_tests.js' %}"></script>
+    <script src="https://unpkg.com/mathlive"></script>
+    <script src="{% static 'js/mathJax-rus.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="mainPart">
-
-        {% for expr in expressions %}
+        {% for expr in expressions_data %}
         <div class="fullExpression" id="fullExpression{{ forloop.counter }}">
             <div class="header-expression">
                 <div class="task-header-left">
@@ -29,7 +28,7 @@
                         <h3 id="count{{ forloop.counter }}">Задание №{{ forloop.counter }}.</h3>
                     </div>
                     <div class="point-for-solve">
-                        <input type="text" name="point_solve_{{ forloop.counter }}" id="point_solve{{ forloop.counter }}" value="{{ expr.points_for_solve }}">
+                        <input type="text" name="point_solve" id="point_solve{{ forloop.counter }}" value="{{ expr.points_for_solve }}" placeholder="Баллы">
                     </div>
                 </div>
                 <button type="button" class="btn btn-icon del-expr" title="Удалить задание">
@@ -38,7 +37,7 @@
             </div>
 
             <div class="expression">
-                <math-field id="expr{{ forloop.counter }}" virtual-keyboard-mode="manual" name="user_expression_{{ forloop.counter }}" lang="ru">{{ expr.user_expression }}</math-field>
+                <math-field id="expr{{ forloop.counter }}" virtual-keyboard-mode="manual" name="user_expression" lang="ru" placeholder="Задание">{{ expr.user_expression }}</math-field>
             </div>
 
             <div class="answers-container">
@@ -46,31 +45,41 @@
                 <div class="answer-row">
                     <div class="answer-wrapper">
                         <div class="answer-header">
-                            <input type="checkbox" class="select-ans" name="exist_select_{{ forloop.parentloop.counter }}" {% if ans.exist_select %}checked{% endif %}>
-                            <button class="del-ans">Удалить вариант ответа</button>
+                            <input type="checkbox" class="select-ans {% if expr.answers|length == 1 %}hidden{% endif %}" {% if ans.is_correct %}checked{% endif %}>
+                            <button class="del-ans {% if expr.answers|length == 1 %}hidden{% endif %}">Удалить вариант ответа.</button>
                         </div>
                         <div class="answer-content">
-                            <math-field class="answer-field" name="user_ans_{{ forloop.parentloop.counter }}">{{ ans.user_ans }}</math-field>
+                            <math-field class="answer-field" placeholder="Ответ">{{ ans.user_ans }}</math-field>
                             <div class="meta-fields">
-                                <input type="text" class="accuracy-field" name="user_eps_{{ forloop.parentloop.counter }}" value="{{ ans.user_eps }}">
-                                <input type="text" class="type-field" name="user_type_{{ forloop.parentloop.counter }}" value="{{ ans.user_type }}">
+                                <input type="text" class="accuracy-field" placeholder="Точность" value="{{ ans.user_eps }}">
+                                <select name="user_type" class="type-field" id="type-select" required>
+                                    <option value="" disabled>Тип ответа</option>
+                                    {% for t in all_types_answer %}
+                                        <option value="{{ t.id }}" {% if t.id == ans.user_type_id %}selected{% endif %}>{{ t.name }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
                 {% empty %}
-                <!-- Если нет вариантов, показываем один пустой -->
+                <!-- Если нет ответов, создаем один пустой -->
                 <div class="answer-row">
                     <div class="answer-wrapper">
                         <div class="answer-header">
-                            <input type="checkbox" class="select-ans" name="exist_select_{{ forloop.counter }}">
-                            <button class="del-ans">Удалить вариант ответа</button>
+                            <input type="checkbox" class="select-ans hidden">
+                            <button class="del-ans hidden">Удалить вариант ответа.</button>
                         </div>
                         <div class="answer-content">
-                            <math-field class="answer-field" name="user_ans_{{ forloop.counter }}"></math-field>
+                            <math-field class="answer-field" placeholder="Ответ"></math-field>
                             <div class="meta-fields">
-                                <input type="text" class="accuracy-field" name="user_eps_{{ forloop.counter }}">
-                                <input type="text" class="type-field" name="user_type_{{ forloop.counter }}">
+                                <input type="text" class="accuracy-field" placeholder="Точность">
+                                <select name="user_type" class="type-field" id="type-select" required>
+                                    <option value="" disabled selected hidden>Тип ответа</option>
+                                    {% for t in all_types_answer %}
+                                        <option value="{{ t.id }}">{{ t.name }}</option>
+                                    {% endfor %}
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -79,7 +88,57 @@
             </div>
 
             <div class="add-answer-footer">
-                <button type="button" class="btn-add-answer">
+                <button class="btn-add-answer">
+                    <i class="fas fa-plus-circle"></i> Добавить вариант ответа
+                </button>
+            </div>
+        </div>
+        {% empty %}
+        <!-- Если нет заданий, создаем одно пустое -->
+        <div class="fullExpression" id="fullExpression1">
+            <div class="header-expression">
+                <div class="task-header-left">
+                    <div class="task-number">
+                        <h3 id="count1">Задание №1.</h3>
+                    </div>
+                    <div class="point-for-solve">
+                        <input type="text" name="point_solve" id="point_solve1" placeholder="Баллы">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-icon del-expr" title="Удалить задание">
+                    Удалить задание <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+
+            <div class="expression">
+                <math-field id="expr1" virtual-keyboard-mode="manual" name="user_expression" lang="ru" placeholder="Задание"></math-field>
+            </div>
+
+            <div class="answers-container">
+                <div class="answer-row">
+                    <div class="answer-wrapper">
+                        <div class="answer-header">
+                            <input type="checkbox" class="select-ans hidden">
+                            <button class="del-ans hidden">Удалить вариант ответа.</button>
+                        </div>
+                        <div class="answer-content">
+                            <math-field class="answer-field" placeholder="Ответ"></math-field>
+                            <div class="meta-fields">
+                                <input type="text" class="accuracy-field" placeholder="Точность">
+                                <select name="user_type" class="type-field" id="type-select" required>
+                                    <option value="" disabled selected hidden>Тип ответа</option>
+                                    {% for t in all_types_answer %}
+                                        <option value="{{ t.id }}">{{ t.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="add-answer-footer">
+                <button class="btn-add-answer">
                     <i class="fas fa-plus-circle"></i> Добавить вариант ответа
                 </button>
             </div>
@@ -101,48 +160,45 @@
             <div class="test-header">
                 <h3>Заполните перед сохранением</h3>
                 <div class="centered-inputs">
-                    <select name="subj_test" id="subj_test" class="wide-input" required>
-                        <option value="" disabled selected>Выберите предмет</option>
+                    <select name="subj_test" id="subj_test" class="wide-input">
+                        <option value="" disabled>Выберите предмет</option>
                         {% for subj in all_subj %}
-                        <option value="{{ subj.id }}" {% if test.subj.id == subj.id %}selected{% endif %}>{{ subj.name }}</option>
+                            <option value="{{ subj.id }}" {% if test.subj.id == subj.id %}selected{% endif %}>{{ subj.name }}</option>
                         {% endfor %}
                     </select>
 
-                    <input type="text" name="name_test" id="testNameInput" value="{{ test.name_tests }}" class="wide-input" required>
+                    <input type="text" name="name_test" id="testNameInput" placeholder="Название теста" class="wide-input" value="{{ test.name_tests }}">
+                    <div class="time-inputs">
+                        <input type="number" id="hours" placeholder="Часы" min="0" class="time-input" value="{{ hours }}">
+                        <span>:</span>
+                        <input type="number" id="minutes" placeholder="Минуты" min="0" max="59" class="time-input" value="{{ minutes }}">
+                        <span>:</span>
+                        <input type="number" id="seconds" placeholder="Секунды" min="0" max="59" class="time-input" value="{{ seconds }}">
+                    </div>
 
-                    <input type="number" id="hours" value="{{ hours }}" min="0" max="99" class="time-input" required>
-                    <input type="number" id="minutes" value="{{ minutes }}" min="0" max="59" class="time-input" required>
-                    <input type="number" id="seconds" value="{{ seconds }}" min="0" max="59" class="time-input" required>
-
-                    <input type="text" name="num_attempts" id="num_attempts" value="{{ test.num_of_attempts }}" class="wide-input" required>
-                    <input type="text" name="description_test" id="description_test" value="{{ test.description }}" class="wide-input">
+                    <input type="text" name="num_attempts" id="num_attempts" placeholder="Количество попыток" class="wide-input" value="{{ test.num_of_attempts }}">
+                    <input type="text" name="description_test" id="description_test" placeholder="Описание теста" class="wide-input" value="{{ test.description }}">
                 </div>
             </div>
 
             <a href="#header" class="popup_close">X</a>
-            <div class="popup_title">Вы уверены, что хотите сохранить?</div>
+            <div class="popup_title">Вы уверенны, что хотите сохранить?</div>
             <div class="btn_option">
                 <a href="#header"><button class="changeTest">Нет, продолжить составление</button></a>
                 <div class="save">
-                    <form action="{% url 'create_tests:edit_test' test.name_slug_tests %}" method="POST" id="testForm" novalidate>
+                    <form action="{% url 'create_tests:edit_test' test.name_slug_tests %}" method="POST" id="testForm">
                         {% csrf_token %}
-
-                        <!-- Скрытые поля для динамических данных -->
-                        <input type="hidden" name="test_id" value="{{ test.id }}">
-                        <input type="hidden" name="expressions_json" id="expressions_json">
-                        <input type="hidden" name="points_json" id="points_json">
-                        <input type="hidden" name="answers_json" id="answers_json">
-                        <input type="hidden" name="epsilons_json" id="epsilons_json">
-                        <input type="hidden" name="types_json" id="types_json">
-                        <input type="hidden" name="bool_answers_json" id="bool_answers_json">
-
-                        <!-- Остальные скрытые поля -->
                         <input type="hidden" name="name_test" id="hidden_name_test">
                         <input type="hidden" name="time_solve" id="hidden_time_solve">
                         <input type="hidden" name="num_attempts" id="hidden_num_attempts">
                         <input type="hidden" name="subj_test" id="hidden_subj_test">
                         <input type="hidden" name="description_test" id="hidden_description_test">
-
+                        <input type="hidden" name="point_solve" id="hidden_point_solve1">
+                        <input type="hidden" name="user_expression" id="hidden_expr1">
+                        <input type="hidden" name="user_ans" id="hidden_ans1">
+                        <input type="hidden" name="user_eps" id="hidden_eps1">
+                        <input type="hidden" name="user_type" id="hidden_type1">
+                        <input type="hidden" name="user_bool_ans" id="hidden_bool_ans1">
                         <button type="submit" class="save-and-go-to-list">Да, вернуться к списку</button>
                     </form>
                 </div>
@@ -150,5 +206,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}

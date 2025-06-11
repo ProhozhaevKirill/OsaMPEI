@@ -9,13 +9,27 @@ from users.models import StudentGroup, TeacherData
 from datetime import timedelta
 
 
+class TypeAnswer(models.Model):
+    TYPE_CHOICES = [
+        (1, "Целые"),
+        (2, "Нецелые"),
+        (3, "Строки"),
+    ]
+
+    type_code = models.IntegerField(choices=TYPE_CHOICES, unique=True)
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+
 class AboutExpressions(models.Model):
     user_expression = models.CharField(max_length=100, blank=False)
     user_ans = models.CharField(max_length=150, blank=False)
     true_ans = models.CharField(max_length=15, default='1')
     points_for_solve = models.IntegerField(default=1, blank=False)
     user_eps = models.CharField(max_length=150, default="0", blank=True)
-    user_type = models.CharField(max_length=150, default="float", blank=True)
+    user_type = models.ForeignKey(TypeAnswer, on_delete=models.SET_NULL, null=True)
     exist_select = models.BooleanField(default=False)
 
     def __str__(self):
@@ -42,6 +56,7 @@ class AboutTest(models.Model):
     description = models.CharField(max_length=150, default="", blank=True)
     is_published = models.IntegerField(default=0)
     is_done = models.IntegerField(default=1)
+    is_draft = models.BooleanField(default=False)
     subj = models.ForeignKey(Subjects,
                              on_delete=models.PROTECT,
                              default=1)

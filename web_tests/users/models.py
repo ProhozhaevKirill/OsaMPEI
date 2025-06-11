@@ -96,6 +96,7 @@ class TeacherData(models.Model):
     first_name = models.CharField(max_length=50, blank=False)
     last_name = models.CharField(max_length=50, blank=False)
     middle_name = models.CharField(max_length=50)
+    institute = models.ForeignKey(StudentInstitute, default=6, on_delete=models.PROTECT)
 
     data_map = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 

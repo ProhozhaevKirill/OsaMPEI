@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     MathfieldElement.locale = 'ru';
 
     // Инициализация MathLive-полей
@@ -16,19 +16,18 @@ $(document).ready(function() {
         const answers = expression.find('.answer-row');
         const showControls = answers.length > 1;
 
-        answers.each(function() {
+        answers.each(function () {
             const $row = $(this);
             if (answers.length === 1) {
                 $row.find('.select-ans').prop('checked', true);
             }
             $row.find('.del-ans, .select-ans').toggleClass('hidden', !showControls);
-            $row.find('.accuracy-field').removeClass('hidden');
         });
     }
 
     // Обновление нумерации заданий и id
     function updateAssignmentNumbers() {
-        $('.fullExpression').each(function(index) {
+        $('.fullExpression').each(function (index) {
             const newId = index + 1;
             $(this).attr('id', `fullExpression${newId}`);
             $(this).find('h3').attr('id', `count${newId}`).text(`Задание №${newId}.`);
@@ -38,10 +37,10 @@ $(document).ready(function() {
     }
 
     // Добавление нового задания
-    $(document).on('click', '#sel-type', function() {
+    $(document).on('click', '#sel-type', function () {
         const $clone = $('.fullExpression').first().clone();
         $clone.find('input').val('');
-        $clone.find('math-field').each(function() {
+        $clone.find('math-field').each(function () {
             this.value = '';
         });
         $clone.find('.answer-row').not(':first').remove();
@@ -53,21 +52,34 @@ $(document).ready(function() {
     });
 
     // Добавление варианта ответа
-    $(document).on('click', '.btn-add-answer', function() {
+    $(document).on('click', '.btn-add-answer', function () {
         const $expression = $(this).closest('.fullExpression');
         const $clone = $expression.find('.answer-row').first().clone();
+
         $clone.find('input').val('');
-        $clone.find('math-field').each(function() {
+        $clone.find('math-field').each(function () {
             this.value = '';
         });
         $clone.find('.select-ans').prop('checked', false);
+
+        // Скрыть поля типа и точности и расширить поле ответа
+        $clone.find('.meta-fields').hide();
+        $clone.find('.answer-field').css('width', '100%');
+
         $expression.find('.answers-container').append($clone);
         updateAnswerVisibility($expression);
         initMathFields();
     });
 
+    // Показать тип и точность при фокусе на поле ответа
+    $(document).on('focus', '.answer-field', function () {
+        const $metaFields = $(this).closest('.answer-content').find('.meta-fields');
+        $metaFields.show();
+        $(this).css('width', '');
+    });
+
     // Удаление варианта ответа
-    $(document).on('click', '.del-ans', function() {
+    $(document).on('click', '.del-ans', function () {
         const $parent = $(this).closest('.fullExpression');
         if ($parent.find('.answer-row').length > 1) {
             $(this).closest('.answer-row').remove();
@@ -76,7 +88,7 @@ $(document).ready(function() {
     });
 
     // Удаление задания
-    $(document).on('click', '.del-expr', function() {
+    $(document).on('click', '.del-expr', function () {
         if ($('.fullExpression').length > 1) {
             $(this).closest('.fullExpression').remove();
             updateAssignmentNumbers();
@@ -101,25 +113,21 @@ $(document).ready(function() {
         const points = [];
         const boolAnswers = [];
 
-        $('.fullExpression').each(function() {
-            // Выражение и баллы
+        $('.fullExpression').each(function () {
             const expr = $(this).find('math-field[name="user_expression"]').val() || '';
             const point = $(this).find('input[name="point_solve"]').val() || '0';
 
-            // Списки для одного задания
             let answerList = [];
             let epsilonList = [];
             let typeList = [];
             let boolList = [];
 
-            // Проходим по всем строкам ответа
-            $(this).find('.answer-row').each(function() {
+            $(this).find('.answer-row').each(function () {
                 const answerVal = $(this).find('.answer-field').val().trim();
-                const epsVal    = $(this).find('.accuracy-field').val().trim();
-                const typeVal   = $(this).find('.type-field').val().trim();
-                const isTrue    = $(this).find('.select-ans').is(':checked') ? '1' : '0';
+                const epsVal = $(this).find('.accuracy-field').val().trim();
+                const typeVal = $(this).find('.type-field').val().trim();
+                const isTrue = $(this).find('.select-ans').is(':checked') ? '1' : '0';
 
-                // Если ответ есть, добавляем все четыре массива
                 if (answerVal !== '') {
                     answerList.push(answerVal);
                     epsilonList.push(epsVal);
@@ -128,20 +136,17 @@ $(document).ready(function() {
                 }
             });
 
-            // Удаляем пустые в конце (предотвращает лишние ;)
-            answerList  = removeTrailingEmpty(answerList);
+            answerList = removeTrailingEmpty(answerList);
             epsilonList = removeTrailingEmpty(epsilonList);
-            typeList    = removeTrailingEmpty(typeList);
-            boolList    = removeTrailingEmpty(boolList);
+            typeList = removeTrailingEmpty(typeList);
+            boolList = removeTrailingEmpty(boolList);
 
-            // Формируем строки
             const exist_select = answerList.length > 1 ? 1 : 0;
-            const ansString    = exist_select ? answerList.join(';') : (answerList[0] || '');
-            const epsString    = exist_select ? epsilonList.join(';') : (epsilonList[0] || '');
-            const typeString   = exist_select ? typeList.join(';') : (typeList[0] || '');
-            const boolString   = exist_select ? boolList.join(';') : (boolList[0] || '');
+            const ansString = exist_select ? answerList.join(';') : (answerList[0] || '');
+            const epsString = exist_select ? epsilonList.join(';') : (epsilonList[0] || '');
+            const typeString = exist_select ? typeList.join(';') : (typeList[0] || '');
+            const boolString = exist_select ? boolList.join(';') : (boolList[0] || '');
 
-            // Сохраняем в массивы
             expressions.push(expr);
             points.push(point);
             answers.push(ansString);
@@ -150,7 +155,6 @@ $(document).ready(function() {
             boolAnswers.push(boolString);
         });
 
-        // Присваиваем скрытым полям
         $('#hidden_expr1').val(JSON.stringify(expressions));
         $('#hidden_point_solve1').val(JSON.stringify(points));
         $('#hidden_ans1').val(JSON.stringify(answers));
@@ -158,16 +162,14 @@ $(document).ready(function() {
         $('#hidden_type1').val(JSON.stringify(types));
         $('#hidden_bool_ans1').val(JSON.stringify(boolAnswers));
 
-        // Остальные скрытые поля
         $('#hidden_name_test').val($('#testNameInput').val());
         $('#hidden_description_test').val($('#description_test').val());
         $('#hidden_subj_test').val($('#subj_test').val());
         $('#hidden_num_attempts').val($('#num_attempts').val());
 
-        // Время в формате HH:MM:SS
-        const h = String(parseInt($('#hours').val() || '0')).padStart(2,'0');
-        const m = String(parseInt($('#minutes').val() || '0')).padStart(2,'0');
-        const s = String(parseInt($('#seconds').val() || '0')).padStart(2,'0');
+        const h = String(parseInt($('#hours').val() || '0')).padStart(2, '0');
+        const m = String(parseInt($('#minutes').val() || '0')).padStart(2, '0');
+        const s = String(parseInt($('#seconds').val() || '0')).padStart(2, '0');
         $('#hidden_time_solve').val(`${h}:${m}:${s}`);
     }
 
@@ -180,7 +182,7 @@ $(document).ready(function() {
         const m = parseInt($('#minutes').val()) || 0;
         const s = parseInt($('#seconds').val()) || 0;
 
-        if (h < 0)      { $('#hours').addClass('invalid'); valid = false; }
+        if (h < 0) { $('#hours').addClass('invalid'); valid = false; }
         if (m < 0 || m > 59) { $('#minutes').addClass('invalid'); valid = false; }
         if (s < 0 || s > 59) { $('#seconds').addClass('invalid'); valid = false; }
 
@@ -194,7 +196,7 @@ $(document).ready(function() {
         .appendTo('head');
 
     // Перед сохранением собираем данные и проверяем время
-    $(document).on('click', '.save-and-go-to-list', function(e) {
+    $(document).on('click', '.save-and-go-to-list', function (e) {
         if (!isValidTime()) {
             e.preventDefault();
             alert("Пожалуйста, введите корректное время (часы ≥ 0, минуты и секунды от 0 до 59).");
@@ -202,4 +204,43 @@ $(document).ready(function() {
         }
         collectTestData();
     });
+
+    // === Черновик: начало ===
+
+    // Флаг сохранения
+    let isSaved = false;
+
+    function saveAsDraft() {
+        isSaved = true;
+
+        // Пример сохранения (допиши нужное):
+        // collectTestData();
+        // localStorage.setItem('testDraft', JSON.stringify(...));
+    }
+
+    // Кнопка "Сохранить как черновик" (на основной странице)
+    $('#save-draft').on('click', function () {
+        saveAsDraft();
+        alert('Черновик сохранён');
+    });
+
+    // Кнопка "Сохранить как черновик" в модалке
+    $('#save-draft-modal').on('click', function () {
+        saveAsDraft();
+        window.location.href = '/';
+    });
+
+    // Кнопка "Продолжить составление"
+    $('#continue-creating').on('click', function () {
+        window.location.hash = '#header';
+    });
+
+    // Предупреждение об уходе со страницы
+    window.onbeforeunload = function () {
+        if (!isSaved) {
+            return 'Вы не сохранили тест. Уверены, что хотите уйти?';
+        }
+    };
+
+    // === Черновик: конец ===
 });

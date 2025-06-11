@@ -229,9 +229,43 @@ def account_view(request):
 @login_required
 @role_required(['teacher', 'admin'])
 def account_view2(request):
-    # teacher_data = request.user.teacherdata
+    user = request.user
+    context = {
+        'current_user': user,
+        'is_teacher': user.role == 'teacher',
+    }
 
-    return render(request, 'users/teacher_account.html')
+    # Получаем данные преподавателя или None
+    try:
+        teacher_data = user.teacherdata
+    except TeacherData.DoesNotExist:
+        teacher_data = None
+
+    context['teacher_data'] = teacher_data
+
+    if request.method == 'POST':
+        # Обновление email пользователя
+        user.email = request.POST.get('email', user.email)
+
+        # Обновление данных преподавателя
+        if teacher_data is None:
+            # Можно создать новый объект, если нужно (по желанию)
+            teacher_data = TeacherData.objects.create(
+                data_map=user,
+                first_name='',
+                last_name='',
+                middle_name=''
+            )
+
+        teacher_data.first_name = request.POST.get('first_name', teacher_data.first_name)
+        teacher_data.last_name = request.POST.get('last_name', teacher_data.last_name)
+        teacher_data.middle_name = request.POST.get('middle_name', teacher_data.middle_name)
+        teacher_data.save()
+
+        user.save()
+        return redirect('teacher_account_view')  # Обрати внимание на правильное имя URL
+
+    return render(request, 'users/teacher_account.html', context)
 
 
 @login_required

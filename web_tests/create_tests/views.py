@@ -2,7 +2,7 @@ from django.contrib.auth import logout
 from django.core.checks import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.text import slugify
-from .models import AboutExpressions, AboutTest, Subjects, PublishedGroup
+from .models import AboutExpressions, AboutTest, Subjects, PublishedGroup, TypeAnswer
 from users.models import StudentGroup, StudentInstitute, TeacherData
 import json
 from django.http import JsonResponse
@@ -13,7 +13,6 @@ import logging
 
 
 logger = logging.getLogger(__name__)
-
 
 def parse_duration_string(time_str):
     try:
@@ -35,6 +34,7 @@ def parse_duration_string(time_str):
 @role_required(['teacher', 'admin'])
 def create_test(request):
     all_subj = Subjects.objects.all()
+    all_types_answer = TypeAnswer.objects.all()
 
     if request.method == 'POST':
         try:
@@ -66,15 +66,16 @@ def create_test(request):
             )
 
             # Добавляем задания
-            for expr, ans, t_ans, eps, type, point, bool_ans in zip(expressions, answers, boolAns, epsilons, types, points, boolAns):
+            for expr, ans, t_ans, eps, type_id, point, bool_ans in zip(expressions, answers, boolAns, epsilons, types, points, boolAns):
                 flag_select = ';' in bool_ans
+                type_obj = TypeAnswer.objects.get(id=type_id)
 
                 expr_instance = AboutExpressions.objects.create(
                     user_expression=expr,
                     user_ans=ans,
                     true_ans=t_ans,
                     user_eps=eps,
-                    user_type=type,
+                    user_type=type_obj,
                     points_for_solve=point,
                     exist_select=flag_select
                 )
@@ -89,7 +90,9 @@ def create_test(request):
                 'error_msg': str(e)
             })
 
-    return render(request, 'create_tests/writing_tests.html', {'all_subj': all_subj})
+    return render(request, 'create_tests/writing_tests.html',
+                  {'all_subj': all_subj,
+                           'all_types_answer': all_types_answer})
 
 
 @login_required
@@ -189,99 +192,111 @@ def unpublish_test(request, slug_name):
 
 @login_required
 @role_required(['teacher', 'admin'])
+def create_draft_test(request):
+    # Создаем пустой черновик и редиректим на редактирование
+    draft_test = AboutTest.objects.create(
+        name_tests='Новый черновик',
+        num_of_attempts=1,
+        description='',
+        time_to_solution=timedelta(minutes=30),
+        is_draft=True,
+        user=request.user  # если есть привязка к автору
+    )
+    return redirect('create_tests:edit_test', slug_name=draft_test.name_slug_tests)
+
+
+@login_required
+@role_required(['teacher', 'admin'])
 def edit_test(request, slug_name):
     test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
     all_subj = Subjects.objects.all()
+    all_types_answer = TypeAnswer.objects.all()
 
     if request.method == 'POST':
         try:
-            # Обновление основной информации теста
+            # Обновляем основные поля теста
             test.name_tests = request.POST.get('name_test', test.name_tests)
             test.num_of_attempts = int(request.POST.get('num_attempts', test.num_of_attempts))
             test.description = request.POST.get('description_test', test.description)
 
-            # Обновление предмета
+            # Обновляем предмет
             subj_id = request.POST.get('subj_test')
             if subj_id:
                 test.subj = Subjects.objects.get(id=subj_id)
 
-            # Обновление времени
-            hours = int(request.POST.get('hours', 0))
-            minutes = int(request.POST.get('minutes', 0))
-            seconds = int(request.POST.get('seconds', 0))
-            test.time_to_solution = timedelta(hours=hours, minutes=minutes, seconds=seconds)
+            # Обновляем время (парсим из строки формата HH:MM:SS)
+            time_to_sol_raw = request.POST.get('time_solve')
+            test.time_to_solution = parse_duration_string(time_to_sol_raw)
 
-            # Получаем данные из JSON
-            expressions = json.loads(request.POST.get('expressions_json', '[]'))
-            points = json.loads(request.POST.get('points_json', '[]'))
-            answers = json.loads(request.POST.get('answers_json', '[]'))
-            epsilons = json.loads(request.POST.get('epsilons_json', '[]'))
-            types = json.loads(request.POST.get('types_json', '[]'))
-            bool_answers = json.loads(request.POST.get('bool_answers_json', '[]'))
+            # Получение списков из формы (как в create_test)
+            points = json.loads(request.POST.get('point_solve', '[]'))
+            expressions = json.loads(request.POST.get('user_expression', '[]'))
+            answers = json.loads(request.POST.get('user_ans', '[]'))
+            boolAns = json.loads(request.POST.get('user_bool_ans', '[]'))
+            epsilons = json.loads(request.POST.get('user_eps', '[]'))
+            types = json.loads(request.POST.get('user_type', '[]'))
 
             # Удаляем старые выражения
-            test.expressions.clear()
+            test.expressions.all().delete()
 
             # Добавляем новые выражения
-            for expr, point, ans_list, eps_list, type_list, bool_list in zip(
-                    expressions, points, answers, epsilons, types, bool_answers):
-                # Для каждого задания создаем новый объект AboutExpressions
-                expr_obj = AboutExpressions.objects.create(
+            for expr, ans, bool_ans, eps, type_id, point in zip(expressions, answers, boolAns, epsilons, types, points):
+                flag_select = ';' in bool_ans
+                type_obj = TypeAnswer.objects.get(id=type_id)
+
+                expr_instance = AboutExpressions.objects.create(
                     user_expression=expr,
+                    user_ans=ans,
+                    true_ans=bool_ans,
+                    user_eps=eps,
+                    user_type=type_obj,
                     points_for_solve=point,
-                    user_ans=';'.join(ans_list) if len(ans_list) > 1 else ans_list[0],
-                    user_eps=';'.join(eps_list) if len(eps_list) > 1 else eps_list[0],
-                    user_type=';'.join(type_list) if len(type_list) > 1 else type_list[0],
-                    true_ans=';'.join(map(str, bool_list)) if len(bool_list) > 1 else str(bool_list[0]),
-                    exist_select=len(ans_list) > 1
+                    exist_select=flag_select
                 )
-                test.expressions.add(expr_obj)
+                test.expressions.add(expr_instance)
 
             test.save()
-            return redirect('test_list')  # Или другой редирект
+            return redirect('create_tests:test_list')
 
         except Exception as e:
             messages.error(request, f"Ошибка при сохранении: {str(e)}")
-            return redirect('edit_test', slug=slug_name)
+            return redirect('create_tests:edit_test', slug_name=slug_name)
 
-    # GET запрос - подготовка данных
-    expressions = []
+    # GET запрос - подготовка данных для отображения
+    expressions_data = []
     for expr in test.expressions.all():
-        # Подготавливаем данные для каждого выражения
-        expr_data = {
-            'id': expr.id,
-            'user_expression': expr.user_expression,
-            'points_for_solve': expr.points_for_solve,
-            'answers': []
-        }
-
-        # Разбираем ответы, если их несколько
+        # Разбираем данные выражения для отображения
         ans_list = expr.user_ans.split(';') if ';' in expr.user_ans else [expr.user_ans]
         eps_list = expr.user_eps.split(';') if ';' in expr.user_eps else [expr.user_eps]
-        type_list = expr.user_type.split(';') if ';' in expr.user_type else [expr.user_type]
         bool_list = expr.true_ans.split(';') if ';' in expr.true_ans else [expr.true_ans]
 
-        # Собираем ответы для шаблона
-        for ans, eps, type_ans, bool_ans in zip(ans_list, eps_list, type_list, bool_list):
-            expr_data['answers'].append({
+        # Подготавливаем список ответов
+        answers_data = []
+        for i, (ans, eps, bool_val) in enumerate(zip(ans_list, eps_list, bool_list)):
+            answers_data.append({
                 'user_ans': ans,
                 'user_eps': eps,
-                'user_type': type_ans,
-                'exist_select': bool_ans == '1'
+                'user_type_id': expr.user_type.id if expr.user_type else '',
+                'is_correct': bool_val == '1'
             })
 
-        expressions.append(expr_data)
+        expressions_data.append({
+            'user_expression': expr.user_expression,
+            'points_for_solve': expr.points_for_solve,
+            'answers': answers_data
+        })
 
-    # Время для отображения
-    total_seconds = test.time_to_solution.total_seconds()
-    hours = int(total_seconds // 3600)
-    minutes = int((total_seconds % 3600) // 60)
-    seconds = int(total_seconds % 60)
+    # Разбираем время для отображения
+    total_seconds = int(test.time_to_solution.total_seconds())
+    hours = total_seconds // 3600
+    minutes = (total_seconds % 3600) // 60
+    seconds = total_seconds % 60
 
     context = {
         'test': test,
-        'expressions': expressions,
+        'expressions_data': expressions_data,
         'all_subj': all_subj,
+        'all_types_answer': all_types_answer,
         'hours': hours,
         'minutes': minutes,
         'seconds': seconds,

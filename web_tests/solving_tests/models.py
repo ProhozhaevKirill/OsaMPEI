@@ -6,8 +6,8 @@ from users.models import CustomUser
 
 class StudentResult(models.Model):
     student = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    test = models.ForeignKey(AboutTest, on_delete=models.CASCADE)  # Связь с тестом
-    attempt_number = models.PositiveIntegerField(default=1)  # Какая это попытка
+    test = models.ForeignKey(AboutTest, on_delete=models.CASCADE)
+    attempt_number = models.PositiveIntegerField(default=1)
     result_points = models.FloatField()
     res_answer = models.CharField(max_length=255, blank=True)
     teacher_expressions = models.ManyToManyField(AboutExpressions)

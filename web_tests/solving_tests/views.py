@@ -8,6 +8,7 @@ from logic_of_expression.check_sympy_expr import CheckAnswer
 import numpy as np
 from .decorators import role_required
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
 
 
 @login_required
@@ -25,7 +26,7 @@ def list_test(request):
         published_tests = []
 
     return render(request, 'solving_tests/test_selection.html', {
-        'tests': published_tests  # Убедитесь, что переменная передаётся
+        'tests': published_tests
     })
 
 @login_required
@@ -34,14 +35,12 @@ def some_test_for_student(request, slug_name):
     test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
 
     if request.method == 'POST':
-        # 1) Распаковываем JSON-строку
         raw = request.POST.get('binaryAnswers', '[]')
         try:
             student_answers = json.loads(raw)
         except json.JSONDecodeError:
             student_answers = []
 
-        # 2) Гарантируем длину
         expressions = list(test.expressions.all())
         n = len(expressions)
         if len(student_answers) < n:
@@ -49,28 +48,23 @@ def some_test_for_student(request, slug_name):
         elif len(student_answers) > n:
             student_answers = student_answers[:n]
 
-        # 3) Собираем данные для проверки
         right_answers = [ex.user_ans for ex in expressions]
         is_choice = [ex.exist_select for ex in expressions]
         var_true_ans = [ex.true_ans for ex in expressions]
         points = [ex.points_for_solve for ex in expressions]
         all_p = np.sum(points)
 
-        # 4) Считаем результат
         result_score = 0
         for i, ex in enumerate(expressions):
             user_ans = student_answers[i]
             if is_choice[i]:
-                # user_ans — список выбранных вариантов
                 ua = ''.join(user_ans)
                 va = var_true_ans[i].replace(';', '')
                 res = CheckAnswer(va, ua, True).compare_answer()
             else:
-                # user_ans — строка из math-field
                 res = CheckAnswer(right_answers[i], user_ans, False).compare_answer()
             result_score += res * points[i]
 
-        # 5) Оценка
         score_in_pr = result_score / all_p * 100
         if score_in_pr >= 80:
             grade = 5
@@ -89,7 +83,6 @@ def some_test_for_student(request, slug_name):
 
         return redirect('solving_tests:show_result', slug_name=slug_name)
 
-    # GET
     expressions_with_options = []
     for ex in test.expressions.all():
         options = ex.user_ans.split(';') if ex.user_ans else []
@@ -104,16 +97,22 @@ def some_test_for_student(request, slug_name):
         'expressions_with_options': expressions_with_options,
     })
 
+
 @login_required
 @role_required(['student', 'admin'])
 def show_result(request, slug_name):
     test_result = request.session.get('test_result')
+
     if not test_result:
         return redirect('list_test')
+
+    test = AboutTest.objects.get(name_slug_tests=slug_name)
+    count = test.expressions.aggregate(Sum('points_for_solve'))['points_for_solve__sum'] or 0
+
     return render(request, 'solving_tests/result.html', {
         'test_name': test_result['test_name'],
         'result': test_result['result'],
         'score': test_result['score'],
+        'count': count,
         'slug_name': slug_name,
     })
-

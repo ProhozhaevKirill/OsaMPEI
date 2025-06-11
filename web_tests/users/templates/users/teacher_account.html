@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}АСТРА - личный кабинет преподавателя {% endblock %}
+{% block title %}АСТРА - личный кабинет{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/teacher_account.css' %}">
@@ -20,9 +20,8 @@
         <!-- Основная область -->
         <main class="main-content">
             <section class="welcome-section">
-                <h1 class="welcome-title">Добро пожаловать, {{teacher_data.first_name}} {{teacher_data.last_name}}</h1>
-                <h3 class="second-inf"> {{teacher_data.institute}} </h3>
-                <h3 class="second-inf"> Кафедра: {{teacher_data.department}} </h3>
+                <h1 class="welcome-title">Добро пожаловать, {{teacher_data.first_name}} {{teacher_data.middle_name}} {{teacher_data.last_name}}</h1>
+                <h3 class="second-inf">{{ teacher_data.institute }}</h3>
             </section>
 
             <div class="stats-grid">

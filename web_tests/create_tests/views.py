@@ -1,7 +1,11 @@
+import uuid
+
 from django.contrib.auth import logout
 from django.core.checks import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.text import slugify
+from unidecode import unidecode
+
 from .models import AboutExpressions, AboutTest, Subjects, PublishedGroup, TypeAnswer
 from users.models import StudentGroup, StudentInstitute, TeacherData
 import json
@@ -10,6 +14,8 @@ from .decorators import role_required
 from django.contrib.auth.decorators import login_required
 from datetime import timedelta
 import logging
+from django.views.decorators.csrf import csrf_exempt
+import datetime
 
 
 logger = logging.getLogger(__name__)
@@ -55,7 +61,7 @@ def create_test(request):
             types = json.loads(request.POST.get('user_type', '[]'))
 
             # Сохраняем тест
-            test_slug = slugify(test_name, allow_unicode=True)
+            test_slug = slugify(unidecode(test_name))
             new_test = AboutTest.objects.create(
                 name_tests=test_name,
                 time_to_solution=time_to_sol,
@@ -63,6 +69,7 @@ def create_test(request):
                 num_of_attempts=count_attempts,
                 subj=subj,
                 description=description_test,
+                is_draft=False
             )
 
             # Добавляем задания
@@ -87,12 +94,13 @@ def create_test(request):
         except Exception as e:
             return render(request, 'create_tests/writing_tests.html', {
                 'all_subj': all_subj,
+                'all_types_answer': all_types_answer,
                 'error_msg': str(e)
             })
 
     return render(request, 'create_tests/writing_tests.html',
                   {'all_subj': all_subj,
-                           'all_types_answer': all_types_answer})
+                   'all_types_answer': all_types_answer})
 
 
 @login_required
@@ -101,18 +109,22 @@ def test_list(request):
     all_groups = StudentGroup.objects.all().select_related('institute')
     institutes = StudentInstitute.objects.all().prefetch_related('studentgroup_set')
 
-    tests = AboutTest.objects.all()
+    # Получаем опубликованные тесты и черновики отдельно
+    tests = AboutTest.objects.filter(is_draft=False)
+    drafts = AboutTest.objects.filter(is_draft=True)
 
     published = PublishedGroup.objects.select_related('group_name', 'test_name')
     published_groups = [pg.group_name for pg in published]
 
     return render(request, 'create_tests/all_test_for_teach.html', {
         'tests': tests,
+        'drafts': drafts,
         'all_groups': all_groups,
         'institutes': institutes,
         'groups': published_groups,
         'published': published
     })
+
 
 
 @login_required
@@ -192,6 +204,109 @@ def unpublish_test(request, slug_name):
 
 @login_required
 @role_required(['teacher', 'admin'])
+@csrf_exempt
+def save_draft(request):
+    """Сохранение черновика теста"""
+    if request.method == 'POST':
+        try:
+            # Получаем данные из запроса
+            test_name = request.POST.get('name_test', 'Черновик')
+            time_to_sol_raw = request.POST.get('time_solve', '01:00:00')
+            count_attempts = request.POST.get('num_attempts', '1')
+            description_test = request.POST.get('description_test', '')
+            subj_id = request.POST.get('subj_test')
+
+            # Парсим время
+            try:
+                time_to_sol = parse_duration_string(time_to_sol_raw)
+            except:
+                time_to_sol = timedelta(hours=1)
+
+            # Получаем предмет или используем по умолчанию
+            if subj_id:
+                subj = Subjects.objects.get(id=subj_id)
+            else:
+                subj = Subjects.objects.first()
+
+            # Получение списков из формы
+            points = json.loads(request.POST.get('point_solve', '[]'))
+            expressions = json.loads(request.POST.get('user_expression', '[]'))
+            answers = json.loads(request.POST.get('user_ans', '[]'))
+            boolAns = json.loads(request.POST.get('user_bool_ans', '[]'))
+            epsilons = json.loads(request.POST.get('user_eps', '[]'))
+            types = json.loads(request.POST.get('user_type', '[]'))
+
+            # Создаем уникальный slug для черновика
+            base_slug = slugify(unidecode(test_name))
+            unique_slug = f"{base_slug}-draft-{uuid.uuid4().hex[:8]}"
+
+            # Сохраняем черновик
+            draft_test = AboutTest.objects.create(
+                name_tests=test_name,
+                time_to_solution=time_to_sol,
+                name_slug_tests=unique_slug,
+                num_of_attempts=int(count_attempts) if count_attempts else 1,
+                subj=subj,
+                description=description_test,
+                is_draft=True
+            )
+
+            # Добавляем задания если они есть
+            if expressions and len(expressions) > 0:
+                for i, expr in enumerate(expressions):
+                    if expr.strip():  # Проверяем что выражение не пустое
+                        ans = answers[i] if i < len(answers) else ''
+                        bool_ans = boolAns[i] if i < len(boolAns) else '1'
+                        eps = epsilons[i] if i < len(epsilons) else '0'
+                        type_id = types[i] if i < len(types) else None
+                        point = points[i] if i < len(points) else 1
+
+                        flag_select = ';' in bool_ans
+                        type_obj = None
+                        if type_id:
+                            try:
+                                type_obj = TypeAnswer.objects.get(id=type_id)
+                            except:
+                                type_obj = TypeAnswer.objects.first()
+
+                        expr_instance = AboutExpressions.objects.create(
+                            user_expression=expr,
+                            user_ans=ans,
+                            true_ans=bool_ans,
+                            user_eps=eps,
+                            user_type=type_obj,
+                            points_for_solve=int(point) if point else 1,
+                            exist_select=flag_select
+                        )
+                        draft_test.expressions.add(expr_instance)
+
+            draft_test.save()
+            return JsonResponse({
+                'success': True,
+                'message': 'Черновик сохранен',
+                'draft_id': draft_test.id,
+                'redirect_url': '/create_tests/listTests/'
+            })
+
+        except Exception as e:
+            logger.error(f"Error saving draft: {str(e)}")
+            return JsonResponse({
+                'success': False,
+                'error': f'Ошибка при сохранении черновика: {str(e)}'
+            }, status=400)
+
+    return JsonResponse({'success': False, 'error': 'Неверный метод запроса'}, status=405)
+
+
+@login_required
+@role_required(['teacher', 'admin'])
+def continue_draft(request, slug_name):
+    """Продолжить работу с черновиком"""
+    return redirect('create_tests:edit_test', slug_name=slug_name)
+
+
+@login_required
+@role_required(['teacher', 'admin'])
 def create_draft_test(request):
     # Создаем пустой черновик и редиректим на редактирование
     draft_test = AboutTest.objects.create(
@@ -214,6 +329,9 @@ def edit_test(request, slug_name):
 
     if request.method == 'POST':
         try:
+            # Определяем, публикуем ли мы черновик или сохраняем как черновик
+            action = request.POST.get('action', 'save')
+
             # Обновляем основные поля теста
             test.name_tests = request.POST.get('name_test', test.name_tests)
             test.num_of_attempts = int(request.POST.get('num_attempts', test.num_of_attempts))
@@ -241,21 +359,32 @@ def edit_test(request, slug_name):
 
             # Добавляем новые выражения
             for expr, ans, bool_ans, eps, type_id, point in zip(expressions, answers, boolAns, epsilons, types, points):
-                flag_select = ';' in bool_ans
-                type_obj = TypeAnswer.objects.get(id=type_id)
+                if expr.strip():  # Проверяем что выражение не пустое
+                    flag_select = ';' in bool_ans
+                    type_obj = TypeAnswer.objects.get(id=type_id) if type_id else None
 
-                expr_instance = AboutExpressions.objects.create(
-                    user_expression=expr,
-                    user_ans=ans,
-                    true_ans=bool_ans,
-                    user_eps=eps,
-                    user_type=type_obj,
-                    points_for_solve=point,
-                    exist_select=flag_select
-                )
-                test.expressions.add(expr_instance)
+                    expr_instance = AboutExpressions.objects.create(
+                        user_expression=expr,
+                        user_ans=ans,
+                        true_ans=bool_ans,
+                        user_eps=eps,
+                        user_type=type_obj,
+                        points_for_solve=int(point) if point else 1,
+                        exist_select=flag_select
+                    )
+                    test.expressions.add(expr_instance)
+
+            # Определяем статус теста в зависимости от действия
+            if action == 'publish':
+                test.is_draft = False
+                # Обновляем slug если это был черновик
+                if 'draft' in test.name_slug_tests:
+                    test.name_slug_tests = slugify(unidecode(test.name_tests))
+            elif action == 'save_draft':
+                test.is_draft = True
 
             test.save()
+            messages.success(request, 'Тест успешно сохранен!')
             return redirect('create_tests:test_list')
 
         except Exception as e:
@@ -300,5 +429,6 @@ def edit_test(request, slug_name):
         'hours': hours,
         'minutes': minutes,
         'seconds': seconds,
+        'is_editing': True,
     }
-    return render(request, 'create_tests/editing_tests.html', context)
+    return render(request, 'create_tests/writing_tests.html', context)

@@ -11,4 +11,6 @@ urlpatterns = [
     path('unpublish/<slug:slug_name>/', views.unpublish_test, name='unpublish_test'),
     path('delete-test/<slug:slug_name>/', views.delete_test, name='delete_test'),
     path('edit-test/<slug:slug_name>/', views.edit_test, name='edit_test'),
+    path('save-draft/', views.save_draft, name='save_draft'),
+    path('continue-draft/<slug:slug_name>/', views.continue_draft, name='continue_draft'),
 ]

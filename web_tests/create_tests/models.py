@@ -55,7 +55,6 @@ class AboutTest(models.Model):
     type_of_result = models.IntegerField(blank=True, default=1)  # Тип возвращаемого результата
     description = models.CharField(max_length=150, default="", blank=True)
     is_published = models.IntegerField(default=0)
-    is_done = models.IntegerField(default=1)
     is_draft = models.BooleanField(default=False)
     subj = models.ForeignKey(Subjects,
                              on_delete=models.PROTECT,
@@ -63,7 +62,7 @@ class AboutTest(models.Model):
 
     # publish_date = models.DateTimeField(auto_now_add=True)  # Дата публикации (можно будет отложить публикацию)
     # expiration_date = models.DateTimeField(null=True, blank=True)  # Время публикации (аналогично)
-    # time_last_change = models.DateTimeField(auto_now=True)  # Время последнего изменения теста
+    # time_last_change = models.DateTimeField(auto_now=True)  # Время последнего изменения теста (для сортировки)
     expressions = models.ManyToManyField(AboutExpressions)
 
     def __str__(self):

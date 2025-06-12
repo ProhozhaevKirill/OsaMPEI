@@ -155,12 +155,26 @@ $(document).ready(function () {
             boolAnswers.push(boolString);
         });
 
-        $('#hidden_expr1').val(JSON.stringify(expressions));
-        $('#hidden_point_solve1').val(JSON.stringify(points));
-        $('#hidden_ans1').val(JSON.stringify(answers));
-        $('#hidden_eps1').val(JSON.stringify(epsilons));
-        $('#hidden_type1').val(JSON.stringify(types));
-        $('#hidden_bool_ans1').val(JSON.stringify(boolAnswers));
+        return {
+            expressions: expressions,
+            points: points,
+            answers: answers,
+            epsilons: epsilons,
+            types: types,
+            boolAnswers: boolAnswers
+        };
+    }
+
+    // Заполнение скрытых полей данными
+    function fillHiddenFields() {
+        const data = collectTestData();
+
+        $('#hidden_expr1').val(JSON.stringify(data.expressions));
+        $('#hidden_point_solve1').val(JSON.stringify(data.points));
+        $('#hidden_ans1').val(JSON.stringify(data.answers));
+        $('#hidden_eps1').val(JSON.stringify(data.epsilons));
+        $('#hidden_type1').val(JSON.stringify(data.types));
+        $('#hidden_bool_ans1').val(JSON.stringify(data.boolAnswers));
 
         $('#hidden_name_test').val($('#testNameInput').val());
         $('#hidden_description_test').val($('#description_test').val());
@@ -202,45 +216,130 @@ $(document).ready(function () {
             alert("Пожалуйста, введите корректное время (часы ≥ 0, минуты и секунды от 0 до 59).");
             return;
         }
-        collectTestData();
+        fillHiddenFields();
     });
 
     // === Черновик: начало ===
 
     // Флаг сохранения
     let isSaved = false;
+    let isFormChanged = false;
 
+    // Отслеживание изменений в форме
+    $(document).on('input change', 'input, select, math-field', function() {
+        isFormChanged = true;
+        isSaved = false;
+    });
+
+    // Функция сохранения черновика
     function saveAsDraft() {
-        isSaved = true;
+        const data = collectTestData();
 
-        // Пример сохранения (допиши нужное):
-        // collectTestData();
-        // localStorage.setItem('testDraft', JSON.stringify(...));
+        // Подготавливаем данные для отправки
+        const formData = new FormData();
+        formData.append('name_test', $('#testNameInput').val() || 'Черновик');
+        formData.append('description_test', $('#description_test').val() || '');
+                formData.append('subj_test', $('#subj_test').val() || '');
+        formData.append('num_attempts', $('#num_attempts').val() || 1);
+
+        const h = String(parseInt($('#hours').val() || '0')).padStart(2, '0');
+        const m = String(parseInt($('#minutes').val() || '0')).padStart(2, '0');
+        const s = String(parseInt($('#seconds').val() || '0')).padStart(2, '0');
+        formData.append('time_to_solution', `${h}:${m}:${s}`);
+
+        formData.append('expressions', JSON.stringify(data.expressions));
+        formData.append('points', JSON.stringify(data.points));
+        formData.append('answers', JSON.stringify(data.answers));
+        formData.append('epsilons', JSON.stringify(data.epsilons));
+        formData.append('types', JSON.stringify(data.types));
+        formData.append('boolAnswers', JSON.stringify(data.boolAnswers));
+
+        // Флаг черновика
+        formData.append('is_draft', '1');
+
+        $.ajax({
+            url: '/your-save-draft-endpoint/',  // Замените на ваш URL для сохранения черновика
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val()
+            },
+            success: function (response) {
+                isSaved = true;
+                isFormChanged = false;
+                console.log('Черновик сохранен');
+            },
+            error: function (xhr) {
+                console.error('Ошибка при сохранении черновика', xhr);
+            }
+        });
     }
 
-    // Кнопка "Сохранить как черновик" (на основной странице)
-    $('#save-draft').on('click', function () {
-        saveAsDraft();
-        alert('Черновик сохранён');
-    });
-
-    // Кнопка "Сохранить как черновик" в модалке
-    $('#save-draft-modal').on('click', function () {
-        saveAsDraft();
-        window.location.href = '/';
-    });
-
-    // Кнопка "Продолжить составление"
-    $('#continue-creating').on('click', function () {
-        window.location.hash = '#header';
-    });
-
-    // Предупреждение об уходе со страницы
-    window.onbeforeunload = function () {
-        if (!isSaved) {
-            return 'Вы не сохранили тест. Уверены, что хотите уйти?';
+    // Периодическое сохранение черновика
+    setInterval(function () {
+        if (isFormChanged && !isSaved) {
+            saveAsDraft();
         }
-    };
+    }, 10000); // каждые 10 секунд
+
+    // Восстановление черновика при загрузке (если нужно)
+    function restoreDraft(draftData) {
+        if (!draftData) return;
+
+        $('#testNameInput').val(draftData.name_test);
+        $('#description_test').val(draftData.description_test);
+        $('#subj_test').val(draftData.subj_test);
+        $('#num_attempts').val(draftData.num_attempts);
+
+        const [h, m, s] = (draftData.time_to_solution || '01:30:00').split(':');
+        $('#hours').val(parseInt(h));
+        $('#minutes').val(parseInt(m));
+        $('#seconds').val(parseInt(s));
+
+        const exprs = JSON.parse(draftData.expressions || '[]');
+        const points = JSON.parse(draftData.points || '[]');
+        const answers = JSON.parse(draftData.answers || '[]');
+        const epsilons = JSON.parse(draftData.epsilons || '[]');
+        const types = JSON.parse(draftData.types || '[]');
+        const bools = JSON.parse(draftData.boolAnswers || '[]');
+
+        $('.fullExpression').not(':first').remove();
+        const $first = $('.fullExpression').first();
+        for (let i = 0; i < exprs.length; i++) {
+            const $exprBlock = (i === 0) ? $first : $first.clone();
+            $exprBlock.find('math-field[name="user_expression"]').val(exprs[i]);
+            $exprBlock.find('input[name="point_solve"]').val(points[i] || '0');
+
+            const ansList = (answers[i] || '').split(';');
+            const epsList = (epsilons[i] || '').split(';');
+            const typeList = (types[i] || '').split(';');
+            const boolList = (bools[i] || '').split(';');
+
+            const $ansContainer = $exprBlock.find('.answers-container');
+            $ansContainer.find('.answer-row').not(':first').remove();
+            const $firstAns = $ansContainer.find('.answer-row').first();
+
+            ansList.forEach((ans, j) => {
+                const $ansRow = (j === 0) ? $firstAns : $firstAns.clone();
+                $ansRow.find('.answer-field').val(ans);
+                $ansRow.find('.accuracy-field').val(epsList[j] || '');
+                $ansRow.find('.type-field').val(typeList[j] || '');
+                $ansRow.find('.select-ans').prop('checked', boolList[j] === '1');
+                if (j > 0) {
+                    $ansContainer.append($ansRow);
+                }
+            });
+
+            if (i > 0) {
+                $('.butChange').before($exprBlock);
+            }
+        }
+
+        updateAssignmentNumbers();
+        initMathFields();
+    }
 
     // === Черновик: конец ===
 });

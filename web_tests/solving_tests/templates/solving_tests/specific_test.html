@@ -35,7 +35,7 @@
 
                     <div class="navigation-sidebar">
                         {% for ex in expressions_with_options %}
-                            <a class="task-number" href="#task-{{ forloop.counter }}">{{ forloop.counter }}</a>
+                            <a class="task-number" id="nav-{{ forloop.counter }}" href="#task-{{ forloop.counter }}">{{ forloop.counter }}</a>
                         {% endfor %}
                     </div>
                 </div>

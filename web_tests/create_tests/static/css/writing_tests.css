@@ -382,6 +382,10 @@ body {
   box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
+button .btn-watch {
+    height: 34px;
+}
+
 .modal-header {
     display: flex;
     justify-content: space-between;

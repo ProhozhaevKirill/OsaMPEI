@@ -34,52 +34,61 @@
     </div>
 
     <div class="tests-grid">
-        {% for test in tests %}
-        <div class="test-card" data-id="{{ test.id }}" data-completed="{% if test.completed %}true{% else %}false{% endif %}" data-new="{% if test.is_new %}true{% else %}false{% endif %}">
-            <div class="test-header">
-                <div class="test-status">
-                    {% if test.completed %}
-                    <span class="badge completed"><i class="fas fa-check-circle"></i> Пройден</span>
-                    {% elif test.is_new %}
-                    <span class="badge new"><i class="fas fa-star"></i> Новый</span>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="test-body">
-                <h3 class="test-title">
-                    <a href="{% url 'solving_tests:some_test_for_student' slug_name=test.name_slug_tests %}">{{ test.name_tests }}</a>
-                </h3>
-                <h5>Предмет: {{ test.subj }}</h5>
+        {% for item in tests %}
+            {% with test=item.test %}
+                <div class="test-card" data-id="{{ test.id }}" data-completed="{% if test.completed %}true{% else %}false{% endif %}" data-new="{% if test.is_new %}true{% else %}false{% endif %}">
+                    <div class="test-header">
+                        <div class="test-status">
+                            {% if test.completed %}
+                            <span class="badge completed"><i class="fas fa-check-circle"></i> Пройден</span>
+                            {% elif test.is_new %}
+                            <span class="badge new"><i class="fas fa-star"></i> Новый</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="test-body">
+                        <h3 class="test-title">
+                            <a href="{% url 'solving_tests:some_test_for_student' slug_name=test.name_slug_tests %}">{{ test.name_tests }}</a>
+                        </h3>
+                        <h5>Предмет: {{ test.subj }}</h5>
 
-                {% if test.description %}
-                    <p class="test-description">{{ test.description|truncatechars:150 }}</p>
-                {% endif %}
-                <div class="test-meta">
-                    <span><i class="far fa-clock"></i> Время: {{ test.time_to_solution }}</span>
-                    <span><i class="fas fa-redo"></i> {% if test.num_of_attempts == 0 %}Количество попыток не ограниченно{% else %}попыток: {{ test.num_of_attempts }}{% endif %}</span>
+                        {% if test.description %}
+                            <p class="test-description">{{ test.description|truncatechars:150 }}</p>
+                        {% endif %}
+                        <div class="test-meta">
+                            <span><i class="far fa-clock"></i> Время: {{ test.time_to_solution }}</span>
+                            <span><i class="fas fa-redo"></i>
+                                {% if test.num_of_attempts == 0 %}
+                                    Количество попыток не ограниченно
+                                {% else %}
+                                    Попыток: {{ item.remaining_attempts }}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="test-footer">
+                        <a href="{% url 'solving_tests:some_test_for_student' slug_name=test.name_slug_tests %}" class="btn start-btn">
+                            {% if test.completed %}
+                            <i class="fas fa-redo"></i> Повторить
+                            {% else %}
+                            <i class="fas fa-play"></i> Начать
+                            {% endif %}
+                        </a>
+                        <button class="btn info-btn" data-test-id="{{ test.id }}">
+                            <i class="fas fa-info-circle"></i> Подробнее
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div class="test-footer">
-                <a href="{% url 'solving_tests:some_test_for_student' slug_name=test.name_slug_tests %}" class="btn start-btn">
-                    {% if test.completed %}
-                    <i class="fas fa-redo"></i> Повторить
-                    {% else %}
-                    <i class="fas fa-play"></i> Начать
-                    {% endif %}
-                </a>
-                <button class="btn info-btn" data-test-id="{{ test.id }}">
-                    <i class="fas fa-info-circle"></i> Подробнее
-                </button>
-            </div>
-        </div>
+            {% endwith %}
         {% empty %}
-        <div class="empty-state">
-            <i class="fas fa-tasks fa-3x"></i>
-            <h3>Нет доступных тестов</h3>
-            <p>В настоящее время для вас нет доступных тестов.</p>
-        </div>
+            <div class="empty-state">
+                <i class="fas fa-tasks fa-3x"></i>
+                <h3>Нет доступных тестов</h3>
+                <p>В настоящее время для вас нет доступных тестов.</p>
+            </div>
         {% endfor %}
     </div>
+
 
     <!-- Модальное окно с информацией о тесте -->
     <div id="testInfoModal" class="modal">

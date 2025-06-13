@@ -49,6 +49,7 @@ class Subjects(models.Model):
 class AboutTest(models.Model):
     objects = None
     name_tests = models.CharField(max_length=255, blank=False)  # Название теста
+    creator = models.ForeignKey(TeacherData, on_delete=models.PROTECT, null=True, blank=True, related_name='created_tests') # Создатель теста
     time_to_solution = models.DurationField(default=timedelta(hours=1, minutes=30))
     name_slug_tests = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")  # Слаг имени
     num_of_attempts = models.IntegerField(blank=True, default=1)  # Количество попыток для решения

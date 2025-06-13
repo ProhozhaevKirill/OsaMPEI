@@ -135,7 +135,15 @@ def delete_test(request, slug_name):
     if request.method == "POST":
         try:
             test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
+
+            # Удаляем связанные выражения
+            expressions = test.expressions.all()
+            for expr in expressions:
+                expr.delete()
+
+            # Теперь удаляем тест
             test.delete()
+
             return JsonResponse({"success": True})
         except Exception as e:
             return JsonResponse({"success": False, "error": str(e)}, status=400)

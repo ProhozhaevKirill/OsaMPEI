@@ -55,3 +55,56 @@ document.addEventListener("DOMContentLoaded", () => {
     // Запуск таймера, обновление каждую секунду
     const timerInterval = setInterval(updateTimer, 1000);
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const questionCards = document.querySelectorAll(".question-card");
+
+    questionCards.forEach((card) => {
+        const questionNumber = card.dataset.question;
+        const navLink = document.getElementById(`nav-${questionNumber}`);
+
+        const checkboxes = card.querySelectorAll('input[type="checkbox"]');
+        const mathField = card.querySelector("math-field");
+
+        function updateStatus() {
+            let filled = false;
+
+            if (checkboxes.length > 0) {
+                filled = Array.from(checkboxes).some(cb => cb.checked);
+            } else if (mathField) {
+                filled = mathField.getValue().trim().length > 0;
+            }
+
+            if (filled) {
+                navLink.classList.add("completed");
+            } else {
+                navLink.classList.remove("completed");
+            }
+        }
+
+        // Навешиваем обработчики
+        if (checkboxes.length > 0) {
+            checkboxes.forEach(cb => cb.addEventListener("change", updateStatus));
+        }
+
+        if (mathField) {
+            mathField.addEventListener("input", updateStatus);
+        }
+
+        // Обновим статус при загрузке
+        updateStatus();
+    });
+
+    // Прокрутка к задаче (если нужно с анимацией):
+    document.querySelectorAll(".task-number").forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute("href").substring(1);
+            const target = document.getElementById(targetId);
+            if (target) {
+                target.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+        });
+    });
+});

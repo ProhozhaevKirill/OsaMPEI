@@ -72,7 +72,6 @@
         <div class="butChange">
             <button type="button" id="sel-type" class="add-btn">Добавить задание</button>
             <a href="#popup"><button type="submit" class="save-btn">Сохранить</button></a>
-            <button type="button" class="draft-btn" id="save-draft">Сохранить как черновик</button>
         </div>
     </div>
 </div>
@@ -137,26 +136,4 @@
         </div>
     </div>
 </div>
-
-<!-- Модалка при уходе -->
-<div id="unsavedModal" class="popup">
-    <a href="#header" class="popap_area"></a>
-    <div class="popup_body">
-        <div class="popup_content">
-            <div class="test-header">
-                <div class="modal-header">
-                    <h3>Вы не сохранили тест</h3>
-                    <a href="#header"><button class="close-modal">&times;</button></a>
-                </div>
-                <p>Вы уверены, что хотите покинуть страницу? Несохранённые данные будут потеряны.</p>
-            </div>
-            <div class="btn_option">
-                <button class="changeTest" id="continue-creating">Продолжить составление</button>
-                <button class="save-and-go-to-list" id="save-draft-modal">Сохранить как черновик</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 {% endblock %}

@@ -24,14 +24,14 @@
                 <h3 class="second-inf">Группа: {{ student_data.group }}</h3>
             </section>
 
-            <div class="stats-grid">
+            <div class="stat-row">
                 <div class="stat-card">
                     <div class="stat-icon tests">
-                        <i class="fas fa-tasks"></i>
+                        <i class="fas fa-list"></i>
                     </div>
                     <div class="stat-info">
-                        <div class="stat-title">Активных тестов</div>
-                        <div class="stat-value">{{ about_tests|length }}</div>
+                        <div class="stat-title">Всего тестов</div>
+                        <div class="stat-value">{{ total_tests }}</div>
                     </div>
                 </div>
 
@@ -40,25 +40,25 @@
                         <i class="fas fa-check-circle"></i>
                     </div>
                     <div class="stat-info">
-                        <div class="stat-title">Пройденных тестов</div>
-                        <div class="stat-value">{{ student_data.count_solve|default:"0" }}</div>
+                        <div class="stat-title">Решено</div>
+                        <div class="stat-value">{{ solved_tests }}</div>
                     </div>
                 </div>
 
                 <div class="stat-card">
                     <div class="stat-icon time">
-                        <i class="fas fa-clock"></i>
+                        <i class="fas fa-percentage"></i>
                     </div>
                     <div class="stat-info">
                         <div class="stat-title">Успеваемость</div>
-                        <div class="stat-value">{{ student_data.perc_of_correct_ans|default:"0" }}%</div>
+                        <div class="stat-value">{{ success_rate }}%</div>
                     </div>
                 </div>
             </div>
 
             <section>
                 <h2 class="section-title">
-                    <i class="fas fa-chart-bar"></i> Доступные тесты
+                    <i class="fas fa-info-circle"></i> Информация о тестах
                 </h2>
 
                 {% if about_tests %}
@@ -76,20 +76,18 @@
                                 <tr>
                                     <td>{{ test.test.subj }}</td>
                                     <td>{{ test.test.name_tests }}</td>
-                                    <td>{{ test.type_of_result|default:"—" }}</td>
                                     <td>
-                                        {% if test.num_of_attempts == 1 %}
-                                            <span class="badge badge-success">Завершено</span>
-                                        {% elif test.count_of_tries %}
-                                            {% if test.remaining_attempts == 0 %}
-                                                <span class="badge badge-secondary">Попытки исчерпаны</span>
-                                            {% elif test.remaining_attempts == test.num_of_attempts %}
-                                                <span class="badge badge-info">Доступен</span>
-                                            {% else %}
-                                                <span class="badge badge-warning">Осталось {{ test.remaining_attempts }} попыток</span>
-                                            {% endif %}
+                                        {% if test.best_result %}
+                                            {{ test.type_of_result }}
                                         {% else %}
-                                            <span class="badge badge-info">Доступен</span>
+                                            —
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if test.remaining_attempts > 0 %}
+                                            Осталось попыток: {{ test.remaining_attempts }}
+                                        {% else %}
+                                            Завершено
                                         {% endif %}
                                     </td>
                                 </tr>

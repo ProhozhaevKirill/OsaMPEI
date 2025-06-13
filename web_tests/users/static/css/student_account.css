@@ -306,6 +306,46 @@ img, video, iframe {
     padding: 15px;
 }
 
+.stat-row {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    flex: 1 1 200px;
+    background-color: #f4f4f4;
+    padding: 16px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.stat-icon {
+    font-size: 32px;
+    margin-right: 16px;
+    color: #3e64ff;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-title {
+    font-size: 14px;
+    color: #777;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+
 .test-description {
     color: var(--secondary-color);
     font-size: 0.9rem;

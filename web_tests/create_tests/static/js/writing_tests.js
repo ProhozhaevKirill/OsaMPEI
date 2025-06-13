@@ -204,43 +204,4 @@ $(document).ready(function () {
         }
         collectTestData();
     });
-
-    // === Черновик: начало ===
-
-    // Флаг сохранения
-    let isSaved = false;
-
-    function saveAsDraft() {
-        isSaved = true;
-
-        // Пример сохранения (допиши нужное):
-        // collectTestData();
-        // localStorage.setItem('testDraft', JSON.stringify(...));
-    }
-
-    // Кнопка "Сохранить как черновик" (на основной странице)
-    $('#save-draft').on('click', function () {
-        saveAsDraft();
-        alert('Черновик сохранён');
-    });
-
-    // Кнопка "Сохранить как черновик" в модалке
-    $('#save-draft-modal').on('click', function () {
-        saveAsDraft();
-        window.location.href = '/';
-    });
-
-    // Кнопка "Продолжить составление"
-    $('#continue-creating').on('click', function () {
-        window.location.hash = '#header';
-    });
-
-    // Предупреждение об уходе со страницы
-    window.onbeforeunload = function () {
-        if (!isSaved) {
-            return 'Вы не сохранили тест. Уверены, что хотите уйти?';
-        }
-    };
-
-    // === Черновик: конец ===
 });

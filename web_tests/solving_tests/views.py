@@ -17,22 +17,36 @@ def list_test(request):
     user = request.user
 
     try:
-        student = StudentData.objects.get(data_map=request.user)
+        student = StudentData.objects.get(data_map=user)
         student_group = student.group
-        published_tests = AboutTest.objects.filter(
-            publishedgroup__group_name=student_group
-        ).distinct()
+        all_tests = AboutTest.objects.filter(publishedgroup__group_name=student_group).distinct()
+
+        tests_with_attempts = []
+        for test in all_tests:
+            attempts = StudentResult.objects.filter(student=user, test=test).count()
+            if attempts < test.num_of_attempts:
+                tests_with_attempts.append({
+                    'test': test,
+                    'remaining_attempts': test.num_of_attempts - attempts
+                })
+
     except StudentData.DoesNotExist:
-        published_tests = []
+        tests_with_attempts = []
 
     return render(request, 'solving_tests/test_selection.html', {
-        'tests': published_tests
+        'tests': tests_with_attempts
     })
+
 
 @login_required
 @role_required(['student', 'admin'])
 def some_test_for_student(request, slug_name):
     test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
+    student = request.user
+
+    attempt_count = StudentResult.objects.filter(student=student, test=test).count()
+    if attempt_count >= test.num_of_attempts:
+        return redirect('solving_tests:show_result', slug_name=slug_name)
 
     if request.method == 'POST':
         raw = request.POST.get('binaryAnswers', '[]')
@@ -81,6 +95,14 @@ def some_test_for_student(request, slug_name):
             'test_name': test.name_tests,
         }
 
+        StudentResult.objects.create(
+            student=student,
+            test=test,
+            attempt_number=attempt_count + 1,
+            result_points=result_score,
+            res_answer=str(student_answers),
+        )
+
         return redirect('solving_tests:show_result', slug_name=slug_name)
 
     expressions_with_options = []
@@ -115,4 +137,28 @@ def show_result(request, slug_name):
         'score': test_result['score'],
         'count': count,
         'slug_name': slug_name,
+    })
+
+
+@login_required
+@role_required(['student', 'admin'])
+def finished_tests(request):
+    user = request.user
+    finished = []
+
+    try:
+        student = StudentData.objects.get(data_map=user)
+        student_group = student.group
+        all_tests = AboutTest.objects.filter(publishedgroup__group_name=student_group).distinct()
+
+        for test in all_tests:
+            attempts = StudentResult.objects.filter(student=user, test=test).count()
+            if attempts >= test.num_of_attempts:
+                finished.append(test)
+
+    except StudentData.DoesNotExist:
+        pass
+
+    return render(request, 'solving_tests/finished_tests.html', {
+        'finished_tests': finished
     })

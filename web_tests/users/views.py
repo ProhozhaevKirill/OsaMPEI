@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .decorators import role_required
 from django.contrib.auth import logout as auth_logout
+from create_tests.views import some_test
 
 
 def login_view(request):
@@ -139,17 +140,14 @@ def account_view(request):
     }
 
     if user.role == 'student':
-        # Получаем данные студента или None, если не создано
         try:
             student_data = user.studentdata
         except StudentData.DoesNotExist:
             student_data = None
 
-        # Получаем все институты и группы для выбора
         institutes = StudentInstitute.objects.all()
         groups = StudentGroup.objects.all()
 
-        # Получаем опубликованные тесты для группы студента
         if student_data and student_data.group:
             published_tests = AboutTest.objects.filter(
                 publishedgroup__group_name=student_data.group
@@ -157,24 +155,82 @@ def account_view(request):
         else:
             published_tests = AboutTest.objects.none()
 
-        # Результаты студента по опубликованным тестам
+        # Получаем все результаты студента
         student_results = StudentResult.objects.filter(
             student=user,
             test__in=published_tests
-        ).order_by('-id')
+        ).order_by('test', '-attempt_number')
 
-        # Добавляем поле remaining_attempts для каждого результата
+        # Группируем по тесту: выбираем лучший результат по каждому тесту
+        best_results = {}
         for result in student_results:
-            result.remaining_attempts = max(result.num_of_attempts - result.count_of_tries, 0)
+            if result.test_id not in best_results or result.result_points > best_results[result.test_id].result_points:
+                best_results[result.test_id] = result
+
+        # Обогащаем информацией: оставшиеся попытки, статус
+        active_tests = []
+        completed_tests = []
+        for test in published_tests:
+            all_attempts = [res for res in student_results if res.test_id == test.id]
+            max_attempt = max([res.attempt_number for res in all_attempts], default=0)
+            best_result = best_results.get(test.id)
+
+            remaining_attempts = test.num_of_attempts - max_attempt
+
+            test_info = {
+                'test': test,
+                'best_result': best_result,
+                'remaining_attempts': remaining_attempts,
+                'type_of_result': f"{best_result.result_points:.0f}" if best_result else None,
+                'status': '',
+            }
+
+            if remaining_attempts <= 0:
+                test_info['status'] = 'Завершено'
+                completed_tests.append(test_info)
+            else:
+                test_info['status'] = f'Осталось {remaining_attempts} попыток'
+                active_tests.append(test_info)
+
+        # 1. Всего тестов
+        total_tests = len(published_tests)
+
+        # 2. Сколько решено (есть хотя бы одна попытка)
+        solved_tests = len(set(result.test_id for result in student_results))
+
+        # 3. Успеваемость на основе оценок
+        def get_grade_weight(points):
+            if points >= 90:
+                return 1.0
+            elif points >= 75:
+                return 0.75
+            elif points >= 60:
+                return 0.5
+            else:
+                return 0.0
+
+        # Собираем веса за каждый тест (0, если не решён)
+        grade_weights = []
+        for test in published_tests:
+            best_result = best_results.get(test.id)
+            if best_result:
+                grade_weights.append(get_grade_weight(best_result.result_points))
+            else:
+                grade_weights.append(0.0)
+
+        success_rate = int((sum(grade_weights) / total_tests) * 100) if total_tests > 0 else 0
 
         context.update({
+            'total_tests': total_tests,
+            'solved_tests': solved_tests,
+            'success_rate': success_rate,
             'student_data': student_data,
             'institutes': institutes,
             'groups': groups,
-            'about_tests': student_results,
+            'about_tests': active_tests + completed_tests,
         })
+
     else:
-        # Для админа или других ролей - просто передаем данные профиля
         context['teacher_data'] = getattr(user, 'teacherdata', None)
 
     if request.method == 'POST':
@@ -235,7 +291,6 @@ def account_view2(request):
         'is_teacher': user.role == 'teacher',
     }
 
-    # Получаем данные преподавателя или None
     try:
         teacher_data = user.teacherdata
     except TeacherData.DoesNotExist:
@@ -243,13 +298,31 @@ def account_view2(request):
 
     context['teacher_data'] = teacher_data
 
+    if teacher_data:
+        # Все тесты, созданные преподавателем
+        teacher_tests = AboutTest.objects.filter(creator=teacher_data).order_by('-id')
+
+        # Статистика
+        created_tests_count = teacher_tests.count()
+        published_tests_count = teacher_tests.filter(is_published=1).count()
+
+        # Количество уникальных групп, где учит преподаватель (через PublishedGroup)
+        students_count = PublishedGroup.objects.filter(teacher_name=teacher_data)\
+                                              .values('group_name').distinct().count()
+
+        context.update({
+            'teacher_tests': teacher_tests,
+        })
+
+        # Динамические поля для шаблона
+        teacher_data.created_tests_count = created_tests_count
+        teacher_data.published_tests_count = published_tests_count
+        teacher_data.students_count = students_count
+
     if request.method == 'POST':
-        # Обновление email пользователя
         user.email = request.POST.get('email', user.email)
 
-        # Обновление данных преподавателя
         if teacher_data is None:
-            # Можно создать новый объект, если нужно (по желанию)
             teacher_data = TeacherData.objects.create(
                 data_map=user,
                 first_name='',
@@ -261,9 +334,8 @@ def account_view2(request):
         teacher_data.last_name = request.POST.get('last_name', teacher_data.last_name)
         teacher_data.middle_name = request.POST.get('middle_name', teacher_data.middle_name)
         teacher_data.save()
-
         user.save()
-        return redirect('teacher_account_view')  # Обрати внимание на правильное имя URL
+        return redirect('teacher_account_view')
 
     return render(request, 'users/teacher_account.html', context)
 

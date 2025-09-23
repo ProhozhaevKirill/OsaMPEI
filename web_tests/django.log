@@ -371,3 +371,9 @@ django.db.utils.OperationalError: database is locked
 [INFO] 2025-09-24 02:04:29,361 django.utils.autoreload 16028 14704 Watching for file changes with StatReloader
 [INFO] 2025-09-24 02:06:10,597 django.utils.autoreload 16028 14704 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
 [INFO] 2025-09-24 02:06:12,148 django.utils.autoreload 14540 15016 Watching for file changes with StatReloader
+[INFO] 2025-09-24 02:09:40,426 django.utils.autoreload 11972 22572 Watching for file changes with StatReloader
+[INFO] 2025-09-24 02:10:11,017 django.server 11972 18784 "GET /TestsCreate/listTests/ HTTP/1.1" 200 42356
+[INFO] 2025-09-24 02:10:11,174 django.server 11972 18784 "GET /static/js/header.js HTTP/1.1" 304 0
+[INFO] 2025-09-24 02:10:23,975 django.server 11972 12488 "POST /TestsCreate/publish-test/obrabotka-matrits-nachalo/ HTTP/1.1" 200 17
+[INFO] 2025-09-24 02:10:24,016 django.server 11972 12488 "GET /TestsCreate/listTests/ HTTP/1.1" 200 42619
+[INFO] 2025-09-24 02:10:26,210 django.server 11972 7072 "GET /TestsCreate/listTests/ HTTP/1.1" 200 42619

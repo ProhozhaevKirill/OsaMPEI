@@ -19,74 +19,14 @@
 }
 
 body {
-  margin: 0;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background-color: #f5f5f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
-body {
     margin: 0;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background-color: #fff; /* светлый фон страницы */
-}
-
-.content-wrapper {
+    background-color: #f5f5f5;
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 100px 0;
-}
-
-/* Контейнер с фоном-картинкой */
-.photo-wrapper {
-    position: relative;
-    display: flex;               /* добавим флекс для центрирования */
     justify-content: center;
-    align-items: center;
-
-    background-image: url('{% static "images/bg.jpg" %}');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    border-radius: 30px;
-    padding: 60px 40px;
-
-    max-width: 50vw;
-    min-width: 1100px;
-    min-height: 600px;           /* 🔧 чтобы фон не схлопывался */
+    height: 100vh;
 }
-
-
-/* Адаптируемый контейнер регистрации */
-.poleForAut {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    padding: 30px;
-    width: 100%;
-    max-width: 400px;
-    box-shadow: var(--shadow-md);
-    position: relative;
-    z-index: 1;
-}
-
-/* Убедимся, что шапка на месте */
-.app-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 70px;
-    background-color: var(--primary-color);
-    color: var(--text-light);
-    box-shadow: var(--shadow-md);
-    z-index: 1000;
-}
-
 
 * {
     margin: 0;
@@ -105,7 +45,6 @@ body {
     color: var(--text-light);
     box-shadow: var(--shadow-md);
     z-index: 1000;
-
 }
 
 .header-container {
@@ -113,7 +52,7 @@ body {
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    max-width: 95%;
+    max-width: 1500px;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -125,8 +64,8 @@ body {
     gap: 15px;
 }
 
-/* Контейнер авторизации */
-.poleForAut {
+/* Контейнер страницы */
+.allPole {
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -136,24 +75,26 @@ body {
     width: 100%;
 }
 
-.poleForAut h2 {
+/* Заголовок */
+.allPole h2 {
     text-align: center;
     color: #2c3e50;
     margin-bottom: 20px;
 }
 
-.login, .password {
+/* Поля ввода */
+.form-group {
     margin-bottom: 20px;
 }
 
-label {
+.form-group label {
     display: block;
     margin-bottom: 5px;
     color: #34495e;
     font-weight: bold;
 }
 
-input {
+.form-group input {
     width: 100%;
     padding: 10px;
     border: 2px solid #ddd;
@@ -161,38 +102,24 @@ input {
     font-size: 1rem;
 }
 
-/* Кнопка регистрации */
+/* Кнопка входа */
 .logIn {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  background-color: var(--primary-color);
-  color: var(--text-light);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .logIn:hover {
-  background: var(--primary-hover);
+    background: var(--primary-hover);
 }
 
-.register-link {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.register-link a {
-    color: #34495e;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.register-link a:hover {
-    text-decoration: underline;
-}
-
+/* Ошибки формы */
 .errorlist {
     color: #c0392b;
     padding: 10px;
@@ -202,4 +129,26 @@ input {
     margin-bottom: 20px;
 }
 
+/* Ссылка на регистрацию */
+.auth-link {
+    text-align: center;
+    margin-top: 20px;
+}
 
+.auth-link a {
+    color: #34495e;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+    .allPole {
+        padding: 20px;
+        max-width: 90%;
+    }
+}

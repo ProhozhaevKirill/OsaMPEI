@@ -20,7 +20,7 @@
         <!-- Основная область -->
         <main class="main-content">
             <section class="welcome-section">
-                <h1 class="welcome-title">Добро пожаловать, {{teacher_data.first_name}} {{teacher_data.middle_name}} {{teacher_data.last_name}}</h1>
+                <h1 class="welcome-title">Добро пожаловать, {{teacher_data.first_name}} {{teacher_data.middle_name}}</h1>
                 <h3 class="second-inf">{{ teacher_data.institute }}</h3>
             </section>
 
@@ -30,8 +30,7 @@
             <i class="fas fa-tasks"></i>
         </div>
         <div class="stat-info">
-            <div class="stat-title">Созданные тесты</div>
-            <div class="stat-value">{{ teacher_data.created_tests_count }}</div>
+            <div class="stat-title">Созданные тесты: {{ teacher_data.created_tests_count }}</div>
         </div>
     </div>
 
@@ -40,8 +39,7 @@
             <i class="fas fa-check-circle"></i>
         </div>
         <div class="stat-info">
-            <div class="stat-title">Опубликованные тесты</div>
-            <div class="stat-value">{{ teacher_data.published_tests_count }}</div>
+            <div class="stat-title">Опубликованные тесты: {{ teacher_data.published_tests_count }}</div>
         </div>
     </div>
 </div>
@@ -66,9 +64,9 @@
             <td>{{ test.name_tests }}</td>
             <td>
                 {% if test.is_published %}
-                    <span class="badge badge-success">Опубликован</span>
+                    Опубликован
                 {% else %}
-                    <span class="badge badge-warning">Не опубликован</span>
+                    Не опубликован
                 {% endif %}
             </td>
         </tr>

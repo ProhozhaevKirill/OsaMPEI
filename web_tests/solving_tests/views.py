@@ -62,9 +62,11 @@ def some_test_for_student(request, slug_name):
         elif len(student_answers) > n:
             student_answers = student_answers[:n]
 
+
         right_answers = [ex.user_ans for ex in expressions]
         is_choice = [ex.exist_select for ex in expressions]
         var_true_ans = [ex.true_ans for ex in expressions]
+        type_ans = [ex.user_type for ex in expressions]
         points = [ex.points_for_solve for ex in expressions]
         all_p = np.sum(points)
 
@@ -74,9 +76,9 @@ def some_test_for_student(request, slug_name):
             if is_choice[i]:
                 ua = ''.join(user_ans)
                 va = var_true_ans[i].replace(';', '')
-                res = CheckAnswer(va, ua, True).compare_answer()
+                res = CheckAnswer(va, ua, True, type_ans=type_ans[i]).compare_answer()
             else:
-                res = CheckAnswer(right_answers[i], user_ans, False).compare_answer()
+                res = CheckAnswer(right_answers[i], user_ans, False, type_ans=type_ans[i]).compare_answer()
             result_score += res * points[i]
 
         score_in_pr = result_score / all_p * 100

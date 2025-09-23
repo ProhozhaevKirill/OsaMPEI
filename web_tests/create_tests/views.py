@@ -1,5 +1,5 @@
 from django.contrib.auth import logout
-from django.core.checks import messages
+from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.text import slugify
 from .models import AboutExpressions, AboutTest, Subjects, PublishedGroup, TypeAnswer
@@ -35,6 +35,7 @@ def parse_duration_string(time_str):
 def create_test(request):
     all_subj = Subjects.objects.all()
     all_types_answer = TypeAnswer.objects.all()
+    print(all_types_answer)
 
     if request.method == 'POST':
         try:
@@ -66,17 +67,23 @@ def create_test(request):
             )
 
             # Добавляем задания
-            for expr, ans, t_ans, eps, type_id, point, bool_ans in zip(expressions, answers, boolAns, epsilons, types, points, boolAns):
+            for i, (expr, ans, bool_ans, eps, type_id, point) in enumerate(zip(expressions, answers, boolAns, epsilons, types, points)):
+                if not expr.strip():  # Пропускаем пустые выражения
+                    continue
+
                 flag_select = ';' in bool_ans
-                type_obj = TypeAnswer.objects.get(id=type_id)
+                type_obj = TypeAnswer.objects.get(id=type_id) if type_id else None
+
+                if not type_obj:
+                    continue
 
                 expr_instance = AboutExpressions.objects.create(
                     user_expression=expr,
                     user_ans=ans,
-                    true_ans=t_ans,
-                    user_eps=eps,
+                    true_ans=bool_ans,
+                    user_eps=eps or "0",
                     user_type=type_obj,
-                    points_for_solve=point,
+                    points_for_solve=point or 1,
                     exist_select=flag_select
                 )
                 new_test.expressions.add(expr_instance)
@@ -202,14 +209,24 @@ def unpublish_test(request, slug_name):
 @role_required(['teacher', 'admin'])
 def create_draft_test(request):
     # Создаем пустой черновик и редиректим на редактирование
-    draft_test = AboutTest.objects.create(
-        name_tests='Новый черновик',
-        num_of_attempts=1,
-        description='',
-        time_to_solution=timedelta(minutes=30),
-        is_draft=True,
-        user=request.user  # если есть привязка к автору
-    )
+    try:
+        teacher = TeacherData.objects.get(data_map=request.user)
+        draft_test = AboutTest.objects.create(
+            name_tests='Новый черновик',
+            num_of_attempts=1,
+            description='',
+            time_to_solution=timedelta(minutes=30),
+            is_draft=True,
+            creator=teacher
+        )
+    except TeacherData.DoesNotExist:
+        draft_test = AboutTest.objects.create(
+            name_tests='Новый черновик',
+            num_of_attempts=1,
+            description='',
+            time_to_solution=timedelta(minutes=30),
+            is_draft=True
+        )
     return redirect('create_tests:edit_test', slug_name=draft_test.name_slug_tests)
 
 
@@ -222,6 +239,8 @@ def edit_test(request, slug_name):
 
     if request.method == 'POST':
         try:
+            logger.info(f"POST data received: {request.POST}")
+
             # Обновляем основные поля теста
             test.name_tests = request.POST.get('name_test', test.name_tests)
             test.num_of_attempts = int(request.POST.get('num_attempts', test.num_of_attempts))
@@ -234,36 +253,74 @@ def edit_test(request, slug_name):
 
             # Обновляем время (парсим из строки формата HH:MM:SS)
             time_to_sol_raw = request.POST.get('time_solve')
-            test.time_to_solution = parse_duration_string(time_to_sol_raw)
+            if time_to_sol_raw:
+                test.time_to_solution = parse_duration_string(time_to_sol_raw)
 
             # Получение списков из формы (как в create_test)
-            points = json.loads(request.POST.get('point_solve', '[]'))
-            expressions = json.loads(request.POST.get('user_expression', '[]'))
-            answers = json.loads(request.POST.get('user_ans', '[]'))
-            boolAns = json.loads(request.POST.get('user_bool_ans', '[]'))
-            epsilons = json.loads(request.POST.get('user_eps', '[]'))
-            types = json.loads(request.POST.get('user_type', '[]'))
+            points_raw = request.POST.get('point_solve', '[]')
+            expressions_raw = request.POST.get('user_expression', '[]')
+            answers_raw = request.POST.get('user_ans', '[]')
+            boolAns_raw = request.POST.get('user_bool_ans', '[]')
+            epsilons_raw = request.POST.get('user_eps', '[]')
+            types_raw = request.POST.get('user_type', '[]')
 
-            # Удаляем старые выражения
-            test.expressions.all().delete()
+            logger.info(f"Raw data - points: {points_raw}, expressions: {expressions_raw}")
 
-            # Добавляем новые выражения
-            for expr, ans, bool_ans, eps, type_id, point in zip(expressions, answers, boolAns, epsilons, types, points):
-                flag_select = ';' in bool_ans
-                type_obj = TypeAnswer.objects.get(id=type_id)
+            points = json.loads(points_raw)
+            expressions = json.loads(expressions_raw)
+            answers = json.loads(answers_raw)
+            boolAns = json.loads(boolAns_raw)
+            epsilons = json.loads(epsilons_raw)
+            types = json.loads(types_raw)
 
-                expr_instance = AboutExpressions.objects.create(
-                    user_expression=expr,
-                    user_ans=ans,
-                    true_ans=bool_ans,
-                    user_eps=eps,
-                    user_type=type_obj,
-                    points_for_solve=point,
-                    exist_select=flag_select
-                )
-                test.expressions.add(expr_instance)
+            logger.info(f"Parsed data - expressions count: {len(expressions)}, points count: {len(points)}")
+
+            # Проверяем, есть ли хотя бы одно валидное выражение
+            valid_expressions = []
+            for i, (expr, ans, bool_ans, eps, type_id, point) in enumerate(zip(expressions, answers, boolAns, epsilons, types, points)):
+                if expr.strip() and type_id:  # Проверяем и выражение, и тип
+                    valid_expressions.append((expr, ans, bool_ans, eps, type_id, point))
+
+            logger.info(f"Found {len(valid_expressions)} valid expressions out of {len(expressions)}")
+
+            # Удаляем старые выражения только если есть валидные новые данные
+            if valid_expressions:
+                logger.info("Deleting old expressions...")
+                test.expressions.all().delete()
+
+                # Добавляем новые выражения
+                for i, (expr, ans, bool_ans, eps, type_id, point) in enumerate(valid_expressions):
+                    try:
+                        logger.info(f"Processing expression {i+1}: {expr[:50]}...")
+                        logger.info(f"Data: ans='{ans}', bool_ans='{bool_ans}', eps='{eps}', type_id='{type_id}', point='{point}'")
+
+                        flag_select = ';' in bool_ans
+                        logger.info(f"flag_select = {flag_select}")
+
+                        type_obj = TypeAnswer.objects.get(id=type_id)
+                        logger.info(f"type_obj = {type_obj}")
+
+                        expr_instance = AboutExpressions.objects.create(
+                            user_expression=expr,
+                            user_ans=ans,
+                            true_ans=bool_ans,
+                            user_eps=eps or "0",
+                            user_type=type_obj,
+                            points_for_solve=int(point) if point else 1,
+                            exist_select=flag_select
+                        )
+                        logger.info(f"Created expression instance: {expr_instance}")
+
+                        test.expressions.add(expr_instance)
+                        logger.info(f"Added expression {i+1} successfully")
+                    except Exception as e:
+                        logger.error(f"Error processing expression {i+1}: {str(e)}")
+                        raise
+            else:
+                logger.warning("No valid expressions found, keeping existing expressions")
 
             test.save()
+            logger.info("Test saved successfully")
             return redirect('create_tests:test_list')
 
         except Exception as e:

@@ -20,14 +20,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Переключение меню уведомлений
-    notificationsBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        notificationsMenu.classList.toggle('hidden');
-        profileMenu.classList.add('hidden');
+    if (notificationsBtn) {
+        notificationsBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            notificationsMenu.classList.toggle('hidden');
+            profileMenu.classList.add('hidden');
 
-        // Добавляем/удаляем класс active для родительского элемента
-        this.parentElement.classList.toggle('active');
-    });
+            // Добавляем/удаляем класс active для родительского элемента
+            this.parentElement.classList.toggle('active');
+        });
+    }
 
     // Открытие мобильного меню
     mobileMenuBtn.addEventListener('click', function() {

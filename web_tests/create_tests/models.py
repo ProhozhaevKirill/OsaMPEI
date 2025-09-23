@@ -14,6 +14,7 @@ class TypeAnswer(models.Model):
         (1, "Целые"),
         (2, "Нецелые"),
         (3, "Строки"),
+        (4, "Матрицы"),
     ]
 
     type_code = models.IntegerField(choices=TYPE_CHOICES, unique=True)

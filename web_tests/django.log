@@ -1,0 +1,373 @@
+[INFO] 2025-09-23 23:19:29,984 django.utils.autoreload 24496 12264 Watching for file changes with StatReloader
+[INFO] 2025-09-23 23:20:01,568 django.server 24496 22760 "GET /TestsCreate/listTests/ HTTP/1.1" 200 45015
+[WARNING] 2025-09-23 23:20:01,755 django.request 24496 22760 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:20:01,758 django.server 24496 22760 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:20:03,857 django.server 24496 22760 "GET /TestsCreate/edit-test/dlina/ HTTP/1.1" 200 12977
+[WARNING] 2025-09-23 23:20:03,976 django.request 24496 22760 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:20:03,988 django.server 24496 22760 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:20:16,404 create_tests.views 24496 16160 POST data received: <QueryDict: {'csrfmiddlewaretoken': ['LcWZ3NBaoyrpmF4nQmy2jG6z2h6cCYHyxMd92NAKVuCi258fWVmqyppXuoueb9OH'], 'name_test': ['Длина'], 'time_solve': ['01:00:00'], 'num_attempts': ['1'], 'subj_test': ['1'], 'description_test': ['Первые два задания подумать, остальные посчитать'], 'point_solve': ['["0"]'], 'user_expression': ['["писюн"]'], 'user_ans': ['["1;2"]'], 'user_eps': ['["1;1"]'], 'user_type': ['["1;1"]'], 'user_bool_ans': ['["1;0"]']}>
+[INFO] 2025-09-23 23:20:16,406 create_tests.views 24496 16160 Raw data - points: ["0"], expressions: ["писюн"]
+[INFO] 2025-09-23 23:20:16,407 create_tests.views 24496 16160 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-09-23 23:20:16,407 create_tests.views 24496 16160 Found 1 valid expressions out of 1
+[INFO] 2025-09-23 23:20:16,408 create_tests.views 24496 16160 Deleting old expressions...
+[INFO] 2025-09-23 23:20:16,412 create_tests.views 24496 16160 Processing expression 1: писюн...
+[INFO] 2025-09-23 23:20:16,414 django.server 24496 16160 "POST /TestsCreate/edit-test/dlina/ HTTP/1.1" 302 0
+[INFO] 2025-09-23 23:20:16,437 django.server 24496 16160 "GET /TestsCreate/edit-test/dlina/ HTTP/1.1" 200 12977
+[WARNING] 2025-09-23 23:20:16,579 django.request 24496 16160 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:20:16,591 django.server 24496 16160 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:21:19,467 django.utils.autoreload 24496 12264 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2025-09-23 23:21:20,741 django.utils.autoreload 4152 6640 Watching for file changes with StatReloader
+[INFO] 2025-09-23 23:21:33,950 django.server 4152 13072 "GET /TestsCreate/listTests/ HTTP/1.1" 200 45015
+[WARNING] 2025-09-23 23:21:34,107 django.request 4152 13072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:21:34,109 django.server 4152 13072 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:21:35,965 django.server 4152 14216 "GET /TestsCreate/edit-test/dlina/ HTTP/1.1" 200 12977
+[WARNING] 2025-09-23 23:21:36,066 django.request 4152 14216 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:21:36,068 django.server 4152 14216 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:21:49,600 create_tests.views 4152 23228 POST data received: <QueryDict: {'csrfmiddlewaretoken': ['s4vmls93JxRBksY63EGizclsi7aCoIXQeEMwks8Dgt2u0S2Y9duGOVEQKeyEXT4Z'], 'name_test': ['Длина'], 'time_solve': ['01:00:00'], 'num_attempts': ['1'], 'subj_test': ['1'], 'description_test': ['Первые два задания подумать, остальные посчитать'], 'point_solve': ['["0"]'], 'user_expression': ['["писюн"]'], 'user_ans': ['["1;2"]'], 'user_eps': ['["1;1"]'], 'user_type': ['["1;1"]'], 'user_bool_ans': ['["1;0"]']}>
+[INFO] 2025-09-23 23:21:49,604 create_tests.views 4152 23228 Raw data - points: ["0"], expressions: ["писюн"]
+[INFO] 2025-09-23 23:21:49,604 create_tests.views 4152 23228 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-09-23 23:21:49,606 create_tests.views 4152 23228 Found 1 valid expressions out of 1
+[INFO] 2025-09-23 23:21:49,607 create_tests.views 4152 23228 Deleting old expressions...
+[INFO] 2025-09-23 23:21:49,610 create_tests.views 4152 23228 Processing expression 1: писюн...
+[INFO] 2025-09-23 23:21:49,611 create_tests.views 4152 23228 Data: ans='1;2', bool_ans='1;0', eps='1;1', type_id='1;1', point='0'
+[INFO] 2025-09-23 23:21:49,612 create_tests.views 4152 23228 flag_select = True
+[ERROR] 2025-09-23 23:21:49,613 create_tests.views 4152 23228 Error processing expression 1: Field 'id' expected a number but got '1;1'.
+[INFO] 2025-09-23 23:21:49,615 django.server 4152 23228 "POST /TestsCreate/edit-test/dlina/ HTTP/1.1" 302 0
+[INFO] 2025-09-23 23:21:49,645 django.server 4152 23228 "GET /TestsCreate/edit-test/dlina/ HTTP/1.1" 200 12977
+[WARNING] 2025-09-23 23:21:49,763 django.request 4152 23228 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:21:49,766 django.server 4152 23228 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:23:16,762 django.server 4152 272 "GET /TestsCreate/listTests/ HTTP/1.1" 200 45015
+[WARNING] 2025-09-23 23:23:16,912 django.request 4152 272 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:23:16,915 django.server 4152 272 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:23:18,642 django.server 4152 272 "GET /TestsCreate/edit-test/dlina/ HTTP/1.1" 200 12977
+[WARNING] 2025-09-23 23:23:18,744 django.request 4152 272 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:23:18,747 django.server 4152 272 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:23:32,214 create_tests.views 4152 3940 POST data received: <QueryDict: {'csrfmiddlewaretoken': ['ViMBPI9wMOj9kfk6HHXfWIvyvJt50I3pHS3LOI86jKu20FoYNgLDbrOWXQR7zTay'], 'name_test': ['Длина'], 'time_solve': ['01:00:00'], 'num_attempts': ['1'], 'subj_test': ['1'], 'description_test': ['Первые два задания подумать, остальные посчитать'], 'point_solve': ['["0"]'], 'user_expression': ['["Писюн"]'], 'user_ans': ['["1;2"]'], 'user_eps': ['["1;1"]'], 'user_type': ['["1;1"]'], 'user_bool_ans': ['["1;0"]']}>
+[INFO] 2025-09-23 23:23:32,217 create_tests.views 4152 3940 Raw data - points: ["0"], expressions: ["Писюн"]
+[INFO] 2025-09-23 23:23:32,218 create_tests.views 4152 3940 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-09-23 23:23:32,218 create_tests.views 4152 3940 Found 1 valid expressions out of 1
+[INFO] 2025-09-23 23:23:32,218 create_tests.views 4152 3940 Deleting old expressions...
+[INFO] 2025-09-23 23:23:32,223 create_tests.views 4152 3940 Processing expression 1: Писюн...
+[INFO] 2025-09-23 23:23:32,224 create_tests.views 4152 3940 Data: ans='1;2', bool_ans='1;0', eps='1;1', type_id='1;1', point='0'
+[INFO] 2025-09-23 23:23:32,224 create_tests.views 4152 3940 flag_select = True
+[ERROR] 2025-09-23 23:23:32,225 create_tests.views 4152 3940 Error processing expression 1: Field 'id' expected a number but got '1;1'.
+[INFO] 2025-09-23 23:23:32,229 django.server 4152 3940 "POST /TestsCreate/edit-test/dlina/ HTTP/1.1" 302 0
+[INFO] 2025-09-23 23:23:32,258 django.server 4152 3940 "GET /TestsCreate/edit-test/dlina/ HTTP/1.1" 200 12977
+[WARNING] 2025-09-23 23:23:32,391 django.request 4152 3940 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:23:32,394 django.server 4152 3940 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:23:36,951 django.server 4152 18228 "GET /TestsCreate/listTests/ HTTP/1.1" 200 45015
+[WARNING] 2025-09-23 23:23:37,139 django.request 4152 3532 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:23:37,143 django.server 4152 3532 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:23:38,985 django.server 4152 3532 "GET /TestsCreate/edit-test/dlina/ HTTP/1.1" 200 12977
+[WARNING] 2025-09-23 23:23:39,114 django.request 4152 3532 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:23:39,116 django.server 4152 3532 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:25:01,682 django.utils.autoreload 18656 18060 Watching for file changes with StatReloader
+[INFO] 2025-09-23 23:25:07,377 django.server 18656 20204 "GET /TestsCreate/edit-test/dlina/ HTTP/1.1" 200 12977
+[WARNING] 2025-09-23 23:25:07,518 django.request 18656 20204 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:25:07,520 django.server 18656 20204 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:25:09,342 django.server 18656 20204 "GET /TestsCreate/listTests/ HTTP/1.1" 200 45015
+[WARNING] 2025-09-23 23:25:09,570 django.request 18656 20204 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:25:09,577 django.server 18656 20204 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:25:10,595 django.server 18656 20204 "GET /TestsCreate/listTests/ HTTP/1.1" 200 45015
+[WARNING] 2025-09-23 23:25:10,809 django.request 18656 20204 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:25:10,810 django.server 18656 20204 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:25:12,401 django.server 18656 20552 "GET /TestsCreate/edit-test/dlina/ HTTP/1.1" 200 12977
+[WARNING] 2025-09-23 23:25:12,504 django.request 18656 20552 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:25:12,506 django.server 18656 20552 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:25:25,807 create_tests.views 18656 24068 POST data received: <QueryDict: {'csrfmiddlewaretoken': ['MDljj69VvQpoWqa2JwYkOLNqptk4ZOBHydCti68v2MAhCQeUP5MI3u6ORAI6yZIQ'], 'name_test': ['Длина'], 'time_solve': ['01:00:00'], 'num_attempts': ['1'], 'subj_test': ['1'], 'description_test': ['Первые два задания подумать, остальные посчитать'], 'point_solve': ['["0"]'], 'user_expression': ['["Писюн"]'], 'user_ans': ['["1;2"]'], 'user_eps': ['["1;1"]'], 'user_type': ['["1;1"]'], 'user_bool_ans': ['["1;0"]']}>
+[INFO] 2025-09-23 23:25:25,809 create_tests.views 18656 24068 Raw data - points: ["0"], expressions: ["Писюн"]
+[INFO] 2025-09-23 23:25:25,810 create_tests.views 18656 24068 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-09-23 23:25:25,811 create_tests.views 18656 24068 Found 1 valid expressions out of 1
+[INFO] 2025-09-23 23:25:25,811 create_tests.views 18656 24068 Deleting old expressions...
+[INFO] 2025-09-23 23:25:25,814 create_tests.views 18656 24068 Processing expression 1: Писюн...
+[INFO] 2025-09-23 23:25:25,814 create_tests.views 18656 24068 Data: ans='1;2', bool_ans='1;0', eps='1;1', type_id='1;1', point='0'
+[INFO] 2025-09-23 23:25:25,815 create_tests.views 18656 24068 flag_select = True
+[ERROR] 2025-09-23 23:25:25,815 create_tests.views 18656 24068 Error processing expression 1: Field 'id' expected a number but got '1;1'.
+[INFO] 2025-09-23 23:25:25,818 django.server 18656 24068 "POST /TestsCreate/edit-test/dlina/ HTTP/1.1" 302 0
+[INFO] 2025-09-23 23:25:25,844 django.server 18656 24068 "GET /TestsCreate/edit-test/dlina/ HTTP/1.1" 200 12977
+[WARNING] 2025-09-23 23:25:25,987 django.request 18656 24068 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:25:25,990 django.server 18656 24068 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:25:30,445 django.server 18656 20024 "GET /TestsCreate/listTests/ HTTP/1.1" 200 45015
+[WARNING] 2025-09-23 23:25:30,593 django.request 18656 20024 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:25:30,601 django.server 18656 20024 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:25:32,165 django.server 18656 20024 "GET /TestsCreate/edit-test/dlina/ HTTP/1.1" 200 12977
+[WARNING] 2025-09-23 23:25:32,265 django.request 18656 20024 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-09-23 23:25:32,266 django.server 18656 20024 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 3839
+[INFO] 2025-09-23 23:26:03,772 django.server 18656 12676 "GET / HTTP/1.1" 200 1911
+[INFO] 2025-09-23 23:26:06,908 django.server 18656 12676 "POST / HTTP/1.1" 302 0
+[INFO] 2025-09-23 23:26:06,948 django.server 18656 12676 "GET /TestsCreate/listTests/ HTTP/1.1" 200 45015
+[INFO] 2025-09-23 23:26:09,456 django.server 18656 12676 "GET /TestsCreate/edit-test/dlina/ HTTP/1.1" 200 12977
+[INFO] 2025-09-23 23:26:21,449 create_tests.views 18656 6976 POST data received: <QueryDict: {'csrfmiddlewaretoken': ['pVo8fiusoMFONN8GQOsmLxw29cjCntJCdQO8gFeNFCfBk9pzofrVcoAyuDqtXjzP'], 'name_test': ['Длина'], 'time_solve': ['01:00:00'], 'num_attempts': ['1'], 'subj_test': ['1'], 'description_test': ['Первые два задания подумать, остальные посчитать'], 'point_solve': ['["0"]'], 'user_expression': ['["Писюн"]'], 'user_ans': ['["1;2"]'], 'user_eps': ['["1;1"]'], 'user_type': ['["1;1"]'], 'user_bool_ans': ['["1;0"]']}>
+[INFO] 2025-09-23 23:26:21,451 create_tests.views 18656 6976 Raw data - points: ["0"], expressions: ["Писюн"]
+[INFO] 2025-09-23 23:26:21,452 create_tests.views 18656 6976 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-09-23 23:26:21,453 create_tests.views 18656 6976 Found 1 valid expressions out of 1
+[INFO] 2025-09-23 23:26:21,453 create_tests.views 18656 6976 Deleting old expressions...
+[INFO] 2025-09-23 23:26:21,456 create_tests.views 18656 6976 Processing expression 1: Писюн...
+[INFO] 2025-09-23 23:26:21,457 create_tests.views 18656 6976 Data: ans='1;2', bool_ans='1;0', eps='1;1', type_id='1;1', point='0'
+[INFO] 2025-09-23 23:26:21,457 create_tests.views 18656 6976 flag_select = True
+[ERROR] 2025-09-23 23:26:21,458 create_tests.views 18656 6976 Error processing expression 1: Field 'id' expected a number but got '1;1'.
+[INFO] 2025-09-23 23:26:21,460 django.server 18656 6976 "POST /TestsCreate/edit-test/dlina/ HTTP/1.1" 302 0
+[INFO] 2025-09-23 23:26:21,496 django.server 18656 6976 "GET /TestsCreate/edit-test/dlina/ HTTP/1.1" 200 12977
+[INFO] 2025-09-23 23:26:26,727 django.server 18656 24452 "GET /TestsCreate/listTests/ HTTP/1.1" 200 45015
+[INFO] 2025-09-23 23:28:29,894 django.server 18656 3748 "GET /TestsCreate/listTests/ HTTP/1.1" 200 45015
+[INFO] 2025-09-23 23:28:30,231 django.server 18656 6080 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 12941
+[INFO] 2025-09-23 23:28:30,428 django.server 18656 3748 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-09-23 23:28:30,441 django.server 18656 20024 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-09-23 23:28:30,470 django.server 18656 20024 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-09-23 23:28:30,534 django.server 18656 20024 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 10374
+[WARNING] 2025-09-23 23:28:31,714 django.request 18656 16308 Not Found: /favicon.ico
+[WARNING] 2025-09-23 23:28:31,716 django.server 18656 16308 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-09-23 23:28:32,729 django.server 18656 16308 "GET /TestsCreate/edit-test/dlina/ HTTP/1.1" 200 12981
+[INFO] 2025-09-23 23:28:32,852 django.server 18656 4336 "GET /static/js/editing_tests.js?v=2 HTTP/1.1" 200 10877
+[INFO] 2025-09-23 23:28:43,463 create_tests.views 18656 9196 POST data received: <QueryDict: {'csrfmiddlewaretoken': ['4hF8fVYobwe6MGAzkZkMtJRGTqrm52JASc58giIJsmOTj2RsSqjlUAVceRydFSzN'], 'name_test': ['Длина'], 'time_solve': ['01:00:00'], 'num_attempts': ['1'], 'subj_test': ['1'], 'description_test': ['Первые два задания подумать, остальные посчитать'], 'point_solve': ['["0"]'], 'user_expression': ['["Писюн"]'], 'user_ans': ['["1;2"]'], 'user_eps': ['["1;1"]'], 'user_type': ['["1"]'], 'user_bool_ans': ['["1;0"]']}>
+[INFO] 2025-09-23 23:28:43,467 create_tests.views 18656 9196 Raw data - points: ["0"], expressions: ["Писюн"]
+[INFO] 2025-09-23 23:28:43,469 create_tests.views 18656 9196 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-09-23 23:28:43,471 create_tests.views 18656 9196 Found 1 valid expressions out of 1
+[INFO] 2025-09-23 23:28:43,472 create_tests.views 18656 9196 Deleting old expressions...
+[INFO] 2025-09-23 23:28:43,476 create_tests.views 18656 9196 Processing expression 1: Писюн...
+[INFO] 2025-09-23 23:28:43,476 create_tests.views 18656 9196 Data: ans='1;2', bool_ans='1;0', eps='1;1', type_id='1', point='0'
+[INFO] 2025-09-23 23:28:43,477 create_tests.views 18656 9196 flag_select = True
+[INFO] 2025-09-23 23:28:43,479 create_tests.views 18656 9196 type_obj = Целые
+[INFO] 2025-09-23 23:28:43,504 create_tests.views 18656 9196 Created expression instance: Писюн
+[INFO] 2025-09-23 23:28:43,522 create_tests.views 18656 9196 Added expression 1 successfully
+[INFO] 2025-09-23 23:28:43,541 create_tests.views 18656 9196 Test saved successfully
+[INFO] 2025-09-23 23:28:43,543 django.server 18656 9196 "POST /TestsCreate/edit-test/dlina/ HTTP/1.1" 302 0
+[INFO] 2025-09-23 23:28:43,622 django.server 18656 9196 "GET /TestsCreate/listTests/ HTTP/1.1" 200 45015
+[INFO] 2025-09-23 23:28:45,552 django.server 18656 9196 "GET /TestsCreate/edit-test/dlina/ HTTP/1.1" 200 14395
+[INFO] 2025-09-23 23:36:37,355 create_tests.views 18656 18576 POST data received: <QueryDict: {'csrfmiddlewaretoken': ['hHNfAAbvuEHpmthnyr4jfOsKMxfQcKNw5CdfBXVQLuhcTPyg6S3SGFwg7YmHMADJ'], 'name_test': ['Длина'], 'time_solve': ['01:00:00'], 'num_attempts': ['1'], 'subj_test': ['1'], 'description_test': ['Первые два задания подумать, остальные посчитать'], 'point_solve': ['["0"]'], 'user_expression': ['["Писюн"]'], 'user_ans': ['["1;2"]'], 'user_eps': ['["1;1"]'], 'user_type': ['["1"]'], 'user_bool_ans': ['["1;0"]']}>
+[INFO] 2025-09-23 23:36:37,358 create_tests.views 18656 18576 Raw data - points: ["0"], expressions: ["Писюн"]
+[INFO] 2025-09-23 23:36:37,359 create_tests.views 18656 18576 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-09-23 23:36:37,360 create_tests.views 18656 18576 Found 1 valid expressions out of 1
+[INFO] 2025-09-23 23:36:37,361 create_tests.views 18656 18576 Deleting old expressions...
+[INFO] 2025-09-23 23:36:37,384 create_tests.views 18656 18576 Processing expression 1: Писюн...
+[INFO] 2025-09-23 23:36:37,385 create_tests.views 18656 18576 Data: ans='1;2', bool_ans='1;0', eps='1;1', type_id='1', point='0'
+[INFO] 2025-09-23 23:36:37,385 create_tests.views 18656 18576 flag_select = True
+[INFO] 2025-09-23 23:36:37,387 create_tests.views 18656 18576 type_obj = Целые
+[INFO] 2025-09-23 23:36:37,399 create_tests.views 18656 18576 Created expression instance: Писюн
+[INFO] 2025-09-23 23:36:37,409 create_tests.views 18656 18576 Added expression 1 successfully
+[INFO] 2025-09-23 23:36:37,420 create_tests.views 18656 18576 Test saved successfully
+[INFO] 2025-09-23 23:36:37,422 django.server 18656 18576 "POST /TestsCreate/edit-test/dlina/ HTTP/1.1" 302 0
+[INFO] 2025-09-23 23:36:37,501 django.server 18656 18576 "GET /TestsCreate/listTests/ HTTP/1.1" 200 45015
+[INFO] 2025-09-23 23:36:37,767 django.server 18656 18576 "GET /static/js/header.js HTTP/1.1" 304 0
+[INFO] 2025-09-23 23:36:39,239 django.server 18656 18576 "GET /TestsCreate/edit-test/dlina/ HTTP/1.1" 200 14395
+[INFO] 2025-09-23 23:36:39,339 django.server 18656 11164 "GET /static/js/editing_tests.js?v=2 HTTP/1.1" 304 0
+[INFO] 2025-09-23 23:42:17,278 django.server 18656 21908 "GET /personaInf/ HTTP/1.1" 200 8049
+[INFO] 2025-09-23 23:42:17,437 django.server 18656 21908 "GET /static/js/header.js HTTP/1.1" 304 0
+[WARNING] 2025-09-23 23:42:17,460 django.server 18656 10820 "GET /static/js/teacher_account.js HTTP/1.1" 404 1822
+[INFO] 2025-09-23 23:42:18,166 django.server 18656 21908 "GET /TestsCreate/listTests/ HTTP/1.1" 200 45015
+[INFO] 2025-09-23 23:42:20,119 django.server 18656 21908 "GET /TestsCreate/listTests/ HTTP/1.1" 200 45015
+[INFO] 2025-09-23 23:42:20,223 django.server 18656 21908 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-09-23 23:42:20,228 django.server 18656 7224 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 12941
+[INFO] 2025-09-23 23:42:20,233 django.server 18656 13856 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-09-23 23:42:20,239 django.server 18656 13856 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-09-23 23:42:20,247 django.server 18656 13856 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 10374
+[WARNING] 2025-09-23 23:42:21,260 django.request 18656 13856 Not Found: /favicon.ico
+[WARNING] 2025-09-23 23:42:21,261 django.server 18656 13856 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-09-23 23:42:21,881 django.server 18656 13856 "GET /TestsCreate/edit-test/dlina/ HTTP/1.1" 200 14395
+[INFO] 2025-09-23 23:42:21,967 django.server 18656 7224 "GET /static/js/editing_tests.js?v=3 HTTP/1.1" 200 10996
+[INFO] 2025-09-23 23:42:48,910 create_tests.views 18656 1616 POST data received: <QueryDict: {'csrfmiddlewaretoken': ['F1cPMcE6veXX2dktPL6iyrR9Ix4VvlSytWCPNzorM4xKzzBmnc5RZiVF3YbM5bIL'], 'name_test': ['Длина'], 'time_solve': ['01:00:00'], 'num_attempts': ['1'], 'subj_test': ['1'], 'description_test': ['Первые два задания подумать, остальные посчитать'], 'point_solve': ['["0"]'], 'user_expression': ['["Писюн"]'], 'user_ans': ['["1;2"]'], 'user_eps': ['["1;0"]'], 'user_type': ['["1"]'], 'user_bool_ans': ['["1;0"]']}>
+[INFO] 2025-09-23 23:42:48,913 create_tests.views 18656 1616 Raw data - points: ["0"], expressions: ["Писюн"]
+[INFO] 2025-09-23 23:42:48,914 create_tests.views 18656 1616 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-09-23 23:42:48,915 create_tests.views 18656 1616 Found 1 valid expressions out of 1
+[INFO] 2025-09-23 23:42:48,916 create_tests.views 18656 1616 Deleting old expressions...
+[INFO] 2025-09-23 23:42:48,936 create_tests.views 18656 1616 Processing expression 1: Писюн...
+[INFO] 2025-09-23 23:42:48,937 create_tests.views 18656 1616 Data: ans='1;2', bool_ans='1;0', eps='1;0', type_id='1', point='0'
+[INFO] 2025-09-23 23:42:48,938 create_tests.views 18656 1616 flag_select = True
+[INFO] 2025-09-23 23:42:48,941 create_tests.views 18656 1616 type_obj = Целые
+[INFO] 2025-09-23 23:42:48,958 create_tests.views 18656 1616 Created expression instance: Писюн
+[INFO] 2025-09-23 23:42:48,971 create_tests.views 18656 1616 Added expression 1 successfully
+[INFO] 2025-09-23 23:42:48,986 create_tests.views 18656 1616 Test saved successfully
+[INFO] 2025-09-23 23:42:48,988 django.server 18656 1616 "POST /TestsCreate/edit-test/dlina/ HTTP/1.1" 302 0
+[INFO] 2025-09-23 23:42:49,081 django.server 18656 1616 "GET /TestsCreate/listTests/ HTTP/1.1" 200 45015
+[INFO] 2025-09-23 23:56:31,844 django.server 18656 7600 "POST /TestsCreate/delete-test/dlina/ HTTP/1.1" 200 17
+[INFO] 2025-09-23 23:56:31,908 django.server 18656 7600 "GET /TestsCreate/listTests/ HTTP/1.1" 200 42110
+[INFO] 2025-09-23 23:56:32,031 django.server 18656 7600 "GET /static/js/header.js HTTP/1.1" 304 0
+[INFO] 2025-09-23 23:56:35,236 django.server 18656 17944 "POST /TestsCreate/delete-test/1/ HTTP/1.1" 200 17
+[INFO] 2025-09-23 23:56:35,272 django.server 18656 17944 "GET /TestsCreate/listTests/ HTTP/1.1" 200 39292
+[WARNING] 2025-09-24 01:27:38,363 django.request 18656 1884 Not Found: /фвьшт
+[WARNING] 2025-09-24 01:27:38,368 django.server 18656 1884 "GET /%D1%84%D0%B2%D1%8C%D1%88%D1%82 HTTP/1.1" 404 3745
+[INFO] 2025-09-24 01:27:43,766 django.server 18656 14452 "GET /admin HTTP/1.1" 301 0
+[INFO] 2025-09-24 01:27:43,904 django.server 18656 23384 "GET /admin/ HTTP/1.1" 302 0
+[INFO] 2025-09-24 01:27:44,097 django.server 18656 23384 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 5686
+[INFO] 2025-09-24 01:27:44,310 django.server 18656 23128 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2682
+[INFO] 2025-09-24 01:27:44,312 django.server 18656 23384 "GET /static/admin/css/base.css HTTP/1.1" 200 21544
+[INFO] 2025-09-24 01:27:44,314 django.server 18656 12740 "GET /static/admin/css/login.css HTTP/1.1" 200 958
+[INFO] 2025-09-24 01:27:44,315 django.server 18656 11020 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+[INFO] 2025-09-24 01:27:44,319 django.server 18656 18908 "GET /static/admin/css/responsive.css HTTP/1.1" 200 17905
+[INFO] 2025-09-24 01:27:44,348 django.server 18656 11020 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+[INFO] 2025-09-24 01:27:44,349 django.server 18656 18908 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+[INFO] 2025-09-24 01:27:44,356 django.server 18656 12740 "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+[INFO] 2025-09-24 01:28:03,924 django.server 18656 18508 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4172
+[INFO] 2025-09-24 01:28:10,416 django.server 18656 18508 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4173
+[INFO] 2025-09-24 01:28:18,269 django.server 18656 8320 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4174
+[INFO] 2025-09-24 01:28:34,372 django.server 18656 18040 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4174
+[ERROR] 2025-09-24 01:28:49,189 django.request 18656 22088 Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 329, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\contrib\admin\sites.py", line 440, in login
+    return LoginView.as_view(**defaults)(request)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\views\decorators\debug.py", line 143, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
+    result = _process_exception(request, e)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
+    return bound_method(*args, **kwargs)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\contrib\auth\views.py", line 88, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\views\generic\base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\views\generic\edit.py", line 151, in post
+    return self.form_valid(form)
+           ~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\contrib\auth\views.py", line 107, in form_valid
+    auth_login(self.request, form.get_user())
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\contrib\auth\__init__.py", line 124, in login
+    request.session.flush()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\contrib\sessions\backends\base.py", line 295, in flush
+    self.delete()
+    ~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\contrib\sessions\backends\db.py", line 104, in delete
+    self.model.objects.get(session_key=session_key).delete()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\base.py", line 1183, in delete
+    return collector.delete()
+           ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\deletion.py", line 453, in delete
+    count = sql.DeleteQuery(model).delete_batch(
+        [instance.pk], self.using
+    )
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\subqueries.py", line 42, in delete_batch
+    num_deleted += self.do_query(
+                   ~~~~~~~~~~~~~^
+        self.get_meta().db_table, self.where, using=using
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\subqueries.py", line 20, in do_query
+    cursor = self.get_compiler(using).execute_sql(CURSOR)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 329, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: database is locked
+[ERROR] 2025-09-24 01:28:49,214 django.server 18656 22088 "POST /admin/login/?next=/admin/ HTTP/1.1" 500 217433
+[INFO] 2025-09-24 01:29:07,584 django.server 18656 20384 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[INFO] 2025-09-24 01:29:07,635 django.server 18656 20384 "GET /admin/ HTTP/1.1" 200 16024
+[INFO] 2025-09-24 01:29:07,724 django.server 18656 20384 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+[INFO] 2025-09-24 01:29:07,746 django.server 18656 12280 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+[INFO] 2025-09-24 01:29:07,746 django.server 18656 20384 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+[INFO] 2025-09-24 01:29:07,748 django.server 18656 2072 "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+[INFO] 2025-09-24 01:29:13,390 django.server 18656 9492 "GET /admin/create_tests/subjects/ HTTP/1.1" 200 15417
+[INFO] 2025-09-24 01:29:13,564 django.server 18656 6472 "GET /static/admin/css/changelists.css HTTP/1.1" 200 6811
+[INFO] 2025-09-24 01:29:13,564 django.server 18656 7872 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+[INFO] 2025-09-24 01:29:13,572 django.server 18656 19128 "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+[INFO] 2025-09-24 01:29:13,579 django.server 18656 16884 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9042
+[INFO] 2025-09-24 01:29:13,593 django.server 18656 6472 "GET /static/admin/js/actions.js HTTP/1.1" 200 8067
+[INFO] 2025-09-24 01:29:13,594 django.server 18656 7872 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+[INFO] 2025-09-24 01:29:13,602 django.server 18656 9492 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-09-24 01:29:13,606 django.server 18656 19128 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+[INFO] 2025-09-24 01:29:13,615 django.server 18656 20608 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+[INFO] 2025-09-24 01:29:13,633 django.server 18656 16884 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+[INFO] 2025-09-24 01:29:13,643 django.server 18656 20608 "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+[INFO] 2025-09-24 01:29:13,768 django.server 18656 20608 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+[INFO] 2025-09-24 01:29:18,080 django.server 18656 9768 "GET /admin/create_tests/typeanswer/ HTTP/1.1" 200 14135
+[INFO] 2025-09-24 01:29:18,183 django.server 18656 23556 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-09-24 01:29:23,375 django.server 18656 23984 "GET /admin/create_tests/typeanswer/add/ HTTP/1.1" 200 13574
+[INFO] 2025-09-24 01:29:23,467 django.server 18656 8492 "GET /static/admin/css/forms.css HTTP/1.1" 200 9090
+[INFO] 2025-09-24 01:29:23,473 django.server 18656 23984 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+[INFO] 2025-09-24 01:29:23,477 django.server 18656 13828 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-09-24 01:29:23,486 django.server 18656 23984 "GET /static/admin/css/widgets.css HTTP/1.1" 200 11800
+[INFO] 2025-09-24 01:29:23,493 django.server 18656 13828 "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+[INFO] 2025-09-24 01:29:34,650 django.server 18656 6512 "GET /admin/create_tests/typeanswer/ HTTP/1.1" 200 14135
+[INFO] 2025-09-24 01:29:34,759 django.server 18656 6512 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-09-24 01:29:41,904 django.server 18656 16432 "POST /admin/create_tests/typeanswer/ HTTP/1.1" 302 0
+[INFO] 2025-09-24 01:29:41,949 django.server 18656 16432 "GET /admin/create_tests/typeanswer/ HTTP/1.1" 200 14405
+[INFO] 2025-09-24 01:29:42,044 django.server 18656 9944 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-09-24 01:29:42,073 django.server 18656 9944 "GET /static/admin/img/icon-alert.svg HTTP/1.1" 200 504
+[INFO] 2025-09-24 01:29:44,081 django.server 18656 9944 "GET /admin/create_tests/typeanswer/add/ HTTP/1.1" 200 13574
+[INFO] 2025-09-24 01:29:44,177 django.server 18656 16432 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-09-24 01:32:01,419 django.server 18656 19872 "POST /admin/create_tests/typeanswer/add/ HTTP/1.1" 302 0
+[INFO] 2025-09-24 01:32:01,454 django.server 18656 19872 "GET /admin/create_tests/typeanswer/ HTTP/1.1" 200 14715
+[INFO] 2025-09-24 01:32:01,576 django.server 18656 14904 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-09-24 01:32:01,648 django.server 18656 14904 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+[INFO] 2025-09-24 01:32:03,876 django.server 18656 14904 "GET /admin/create_tests/typeanswer/4/change/ HTTP/1.1" 200 13833
+[INFO] 2025-09-24 01:32:03,976 django.server 18656 14904 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-09-24 01:32:06,246 django.server 18656 14904 "GET /admin/create_tests/typeanswer/ HTTP/1.1" 200 14486
+[INFO] 2025-09-24 01:32:07,428 django.server 18656 24484 "GET /admin/create_tests/typeanswer/3/change/ HTTP/1.1" 200 13825
+[INFO] 2025-09-24 01:32:07,517 django.server 18656 12656 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-09-24 01:32:09,893 django.server 18656 12656 "GET /admin/create_tests/typeanswer/ HTTP/1.1" 200 14486
+[INFO] 2025-09-24 01:32:10,841 django.server 18656 12656 "GET /admin/create_tests/typeanswer/2/change/ HTTP/1.1" 200 13833
+[INFO] 2025-09-24 01:32:10,912 django.server 18656 24484 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-09-24 01:32:12,871 django.server 18656 24484 "GET /admin/create_tests/typeanswer/ HTTP/1.1" 200 14486
+[INFO] 2025-09-24 01:32:13,921 django.server 18656 24484 "GET /admin/create_tests/typeanswer/1/change/ HTTP/1.1" 200 13817
+[INFO] 2025-09-24 01:32:13,997 django.server 18656 12656 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-09-24 01:32:15,369 django.server 18656 12656 "GET /admin/create_tests/typeanswer/ HTTP/1.1" 200 14486
+[INFO] 2025-09-24 01:32:38,037 django.server 18656 23880 "GET / HTTP/1.1" 200 1911
+[INFO] 2025-09-24 01:32:42,125 django.server 18656 23880 "POST / HTTP/1.1" 302 0
+[INFO] 2025-09-24 01:32:42,164 django.server 18656 23880 "GET /TestsCreate/listTests/ HTTP/1.1" 200 39292
+[INFO] 2025-09-24 01:32:42,304 django.server 18656 23880 "GET /static/js/header.js HTTP/1.1" 304 0
+[INFO] 2025-09-24 01:45:29,479 django.server 18656 19632 "GET /TestsCreate/ HTTP/1.1" 200 12902
+[INFO] 2025-09-24 01:45:29,625 django.server 18656 19632 "GET /static/js/writing_tests.js HTTP/1.1" 304 0
+[INFO] 2025-09-24 01:54:06,739 django.server 18656 22888 "POST /TestsCreate/ HTTP/1.1" 302 0
+[INFO] 2025-09-24 01:54:06,823 django.server 18656 22888 "GET /TestsCreate/listTests/ HTTP/1.1" 200 42356
+[INFO] 2025-09-24 01:54:07,006 django.server 18656 22888 "GET /static/js/header.js HTTP/1.1" 304 0
+[INFO] 2025-09-24 01:54:10,698 django.server 18656 22888 "GET /TestsCreate/listTests/obrabotka-matrits-nachalo/ HTTP/1.1" 200 9768
+[INFO] 2025-09-24 02:04:25,685 django.utils.autoreload 18656 18060 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2025-09-24 02:04:29,361 django.utils.autoreload 16028 14704 Watching for file changes with StatReloader
+[INFO] 2025-09-24 02:06:10,597 django.utils.autoreload 16028 14704 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2025-09-24 02:06:12,148 django.utils.autoreload 14540 15016 Watching for file changes with StatReloader

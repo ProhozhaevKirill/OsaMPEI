@@ -1,6 +1,7 @@
 import re
 import numpy as np
 
+
 # from web_tests.logic_of_expression.test_t_to_s_ver2 import primerExpr
 
 
@@ -45,20 +46,22 @@ class GetLexeme:
         all_expr = all_expr.replace('$', '')
         all_expr = all_expr.replace('right)', ')').replace('left(', '(')
         all_expr = all_expr.replace('displaylines', '')
+        all_expr = all_expr.replace('\,', '')
 
         # Добавление фигурных скобок для случаев когда они не нужны в теховской нотации (sqrt4)
         i = 0
         while i < len(all_expr):
             atom = ''
-            while all_expr[i] in self.PER and i < len(all_expr)-1:
+            while all_expr[i] in self.PER and i < len(all_expr) - 1:
                 atom += all_expr[i]
                 i += 1
                 if atom in self.TEXTEG:
                     if all_expr[i] in self.DIGIT:
                         if atom == 'sqrt' or atom == 'rect':
-                            all_expr = all_expr[:i] + '{' + all_expr[i] + '}' + all_expr[i+1:]
+                            all_expr = all_expr[:i] + '{' + all_expr[i] + '}' + all_expr[i + 1:]
                         if atom == 'frac':
-                            all_expr = all_expr[:i] + '{' + all_expr[i] + '}{' + all_expr[i+1] + '}' + all_expr[i+2:]
+                            all_expr = all_expr[:i] + '{' + all_expr[i] + '}{' + all_expr[i + 1] + '}' + all_expr[
+                                                                                                         i + 2:]
             i += 1
 
         return all_expr
@@ -158,20 +161,23 @@ class Tex2Sympy(GetLexeme):
 
     # Обработка для корней
     def sqrt_construct(self, unexpr):
-        # Проверяем на наличие степени
-        if '[' in unexpr and ']' in unexpr:
-            degree_start = unexpr.find('[') + 1
-            degree_end = unexpr.find(']', degree_start)
-            degree = unexpr[degree_start:degree_end]
-            unexpr = unexpr.replace(f"[{degree}]", "")
+        # Обработка степени корня (если задана, например sqrt[3]{x})
+        degree = '2'  # По умолчанию корень квадратный
+
+        if unexpr.startswith('sqrt['):
+            degree_match = re.match(r'sqrt\[(.*?)\]', unexpr)
+            if degree_match:
+                degree = degree_match.group(1)
+                # Удалим sqrt[degree] и оставим только содержимое { ... }
+                unexpr = unexpr.replace(f"sqrt[{degree}]", "")
         else:
-            degree = '2'
+            unexpr = unexpr.replace('sqrt', '')
 
-        unexpr = unexpr.replace('sqrt', '').strip()
-        unexpr = unexpr.replace('{', '(').replace('}', ')')
-
-        processed_expr = f"{unexpr}**1/{degree}"
+        # Приведение к формату выражения (a)**(1/n)
+        unexpr = unexpr.replace('{', '(').replace('}', ')').strip()
+        processed_expr = f"({unexpr})**(1/{degree})"
         return processed_expr
+
 
     # Обработка для модулей
     def rect_construct(self, unexpr):
@@ -231,12 +237,12 @@ class Tex2Sympy(GetLexeme):
             else:
                 if flag:
                     j -= 1
-                if atom in self.MATHFUNC and j + 1 < len(expression) and expression[j+1] == '*':
+                if atom in self.MATHFUNC and j + 1 < len(expression) and expression[j + 1] == '*':
                     j += 1
                     res += '(' + atom
                     get_gr1 = self.stack_for_math_funk(expression, j + 2)
                     get_gr2 = self.stack_for_math_funk(expression, get_gr1 + 1)
-                    res += expression[get_gr1 + 1:get_gr2 + 1] + ')' + expression[j:get_gr1+1]
+                    res += expression[get_gr1 + 1:get_gr2 + 1] + ')' + expression[j:get_gr1 + 1]
                     j = get_gr2
                 else:
                     res += atom

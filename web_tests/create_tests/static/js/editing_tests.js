@@ -5,7 +5,14 @@ $(document).ready(function () {
     function initMathFields() {
         document.querySelectorAll('math-field').forEach(mf => {
             if (!mf.mathfield) {
-                console.warn("MathLive field not initialized properly");
+                console.log("Initializing MathLive field:", mf);
+                // Принудительная инициализация
+                mf.style.display = 'block';
+                setTimeout(() => {
+                    if (!mf.mathfield) {
+                        console.warn("MathLive field still not initialized:", mf);
+                    }
+                }, 100);
             }
         });
     }
@@ -20,6 +27,13 @@ $(document).ready(function () {
             const $row = $(this);
             if (answers.length === 1) {
                 $row.find('.select-ans').prop('checked', true);
+                // Показываем поля типа и точности для единственного ответа
+                $row.find('.meta-fields').show();
+                $row.find('.answer-field').css('width', '');
+            } else {
+                // Скрываем поля типа и точности для множественных ответов
+                $row.find('.meta-fields').hide();
+                $row.find('.answer-field').css('width', '100%');
             }
             $row.find('.del-ans, .select-ans').toggleClass('hidden', !showControls);
         });
@@ -65,21 +79,12 @@ $(document).ready(function () {
         $clone.find('.select-ans').prop('checked', false);
         $clone.find('.type-field').val('');
 
-        // Скрыть поля типа и точности и расширить поле ответа
-        $clone.find('.meta-fields').hide();
-        $clone.find('.answer-field').css('width', '100%');
-
         $expression.find('.answers-container').append($clone);
         updateAnswerVisibility($expression);
         initMathFields();
     });
 
-    // Показать тип и точность при фокусе на поле ответа
-    $(document).on('focus', '.answer-field', function () {
-        const $metaFields = $(this).closest('.answer-content').find('.meta-fields');
-        $metaFields.show();
-        $(this).css('width', '');
-    });
+    // Обработчик фокуса убран - теперь видимость полей управляется количеством ответов
 
     // Удаление варианта ответа
     $(document).on('click', '.del-ans', function () {
@@ -116,10 +121,14 @@ $(document).ready(function () {
         const points = [];
         const boolAnswers = [];
 
-        $('.fullExpression').each(function() {
+        console.log('Starting data collection...');
+
+        $('.fullExpression').each(function(index) {
             // Выражение и баллы
             const expr = $(this).find('math-field[name="user_expression"]').val() || '';
             const point = $(this).find('input[name="point_solve"]').val() || '0';
+
+            console.log(`Expression ${index + 1}: "${expr}", Points: ${point}`);
 
             // Списки для одного задания
             let answerList = [];
@@ -127,18 +136,27 @@ $(document).ready(function () {
             let typeList = [];
             let boolList = [];
 
+            // Получаем тип от первого ответа (тип един для всего выражения)
+            let firstTypeVal = '';
+
             // Проходим по всем строкам ответа
-            $(this).find('.answer-row').each(function() {
-                const answerVal = $(this).find('.answer-field').val().trim();
-                const epsVal    = $(this).find('.accuracy-field').val().trim();
-                const typeVal   = $(this).find('.type-field').val().trim();
+            $(this).find('.answer-row').each(function(ansIndex) {
+                const answerVal = $(this).find('.answer-field').val()?.trim() || '';
+                const epsVal    = $(this).find('.accuracy-field').val()?.trim() || '0';
+                const typeVal   = $(this).find('.type-field').val()?.trim() || '';
                 const isTrue    = $(this).find('.select-ans').is(':checked') ? '1' : '0';
 
-                // Если ответ есть, добавляем все четыре массива
+                // Берем тип от первого непустого ответа
+                if (answerVal !== '' && !firstTypeVal) {
+                    firstTypeVal = typeVal;
+                }
+
+                console.log(`  Answer ${ansIndex + 1}: "${answerVal}", Eps: "${epsVal}", Type: "${typeVal}", IsTrue: ${isTrue}`);
+
+                // Если ответ есть, добавляем в массивы (кроме типа)
                 if (answerVal !== '') {
                     answerList.push(answerVal);
-                    epsilonList.push(epsVal);
-                    typeList.push(typeVal);
+                    epsilonList.push(epsVal || '0');
                     boolList.push(isTrue);
                 }
             });
@@ -146,15 +164,16 @@ $(document).ready(function () {
             // Удаляем пустые в конце (предотвращает лишние ;)
             answerList  = removeTrailingEmpty(answerList);
             epsilonList = removeTrailingEmpty(epsilonList);
-            typeList    = removeTrailingEmpty(typeList);
             boolList    = removeTrailingEmpty(boolList);
 
             // Формируем строки
             const exist_select = answerList.length > 1 ? 1 : 0;
             const ansString    = exist_select ? answerList.join(';') : (answerList[0] || '');
-            const epsString    = exist_select ? epsilonList.join(';') : (epsilonList[0] || '');
-            const typeString   = exist_select ? typeList.join(';') : (typeList[0] || '');
-            const boolString   = exist_select ? boolList.join(';') : (boolList[0] || '');
+            const epsString    = exist_select ? epsilonList.join(';') : (epsilonList[0] || '0');
+            const typeString   = firstTypeVal; // Тип един для всего выражения
+            const boolString   = exist_select ? boolList.join(';') : (boolList[0] || '0');
+
+            console.log(`  Final strings - Ans: "${ansString}", Eps: "${epsString}", Type: "${typeString}", Bool: "${boolString}"`);
 
             // Сохраняем в массивы
             expressions.push(expr);
@@ -163,6 +182,15 @@ $(document).ready(function () {
             epsilons.push(epsString);
             types.push(typeString);
             boolAnswers.push(boolString);
+        });
+
+        console.log('Final arrays:', {
+            expressions,
+            answers,
+            epsilons,
+            types,
+            boolAnswers,
+            points
         });
 
         // Присваиваем скрытым полям

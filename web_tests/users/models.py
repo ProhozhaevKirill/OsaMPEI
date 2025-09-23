@@ -47,20 +47,6 @@ class StudentInstitute(models.Model):
         return self.name
 
 
-# class StudentDirection(models.Model):
-#     name = models.CharField(max_length=256, unique=True)
-#
-#     def __str__(self):
-#         return self.name
-#
-#
-# class StudentDepartment(models.Model):
-#     name = models.CharField(max_length=256, unique=True)
-#
-#     def __str__(self):
-#         return self.name
-
-
 class StudentGroup(models.Model):
     name = models.CharField(max_length=20, unique=True)
     name_inst = models.ForeignKey(StudentInstitute, on_delete=models.PROTECT)

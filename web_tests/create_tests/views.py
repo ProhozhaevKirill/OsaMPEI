@@ -165,8 +165,15 @@ def create_test(request):
             return redirect('create_tests:test_list')
 
         except Exception as e:
+            logger.error(f"CREATE TEST ERROR: {str(e)}")
+            logger.error(f"Exception type: {type(e)}")
+            import traceback
+            logger.error(f"Full traceback: {traceback.format_exc()}")
+
             return render(request, 'create_tests/writing_tests.html', {
                 'all_subj': all_subj,
+                'all_types_answer': all_types_answer,
+                'all_norms': all_norms,
                 'error_msg': str(e)
             })
 

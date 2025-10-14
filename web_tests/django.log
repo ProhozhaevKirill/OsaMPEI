@@ -2381,3 +2381,453 @@ django.db.utils.OperationalError: no such table: create_tests_taskgroup
 [INFO] 2025-10-15 00:32:30,750 django.server 20352 23116 "GET /static/images/logo.png HTTP/1.1" 200 188088
 [INFO] 2025-10-15 00:32:31,937 django.server 20352 21092 "GET /static/js/header.js HTTP/1.1" 200 4044
 [INFO] 2025-10-15 00:32:34,012 django.server 20352 21092 "GET /static/favicon.ico HTTP/1.1" 200 1455
+[INFO] 2025-10-15 00:35:58,999 django.utils.autoreload 23604 1952 Watching for file changes with StatReloader
+[INFO] 2025-10-15 00:36:13,774 django.server 23604 21872 "GET /TestsCreate/listTests/ HTTP/1.1" 200 111727
+[INFO] 2025-10-15 00:36:14,169 django.server 23604 14948 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 12941
+[INFO] 2025-10-15 00:36:14,172 django.server 23604 21872 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-15 00:36:14,218 django.server 23604 21872 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-15 00:36:14,249 django.server 23604 21872 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-10-15 00:36:14,269 django.server 23604 21872 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 10374
+[WARNING] 2025-10-15 00:36:18,472 django.request 23604 21872 Not Found: /favicon.ico
+[WARNING] 2025-10-15 00:36:18,473 django.server 23604 21872 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-15 00:36:20,317 django.server 23604 21872 "GET /TestsCreate/ HTTP/1.1" 200 17662
+[INFO] 2025-10-15 00:36:20,521 django.server 23604 21872 "GET /static/css/writing_tests.css HTTP/1.1" 304 0
+[INFO] 2025-10-15 00:36:20,537 django.server 23604 14880 "GET /static/js/writing_tests.js HTTP/1.1" 304 0
+[INFO] 2025-10-15 00:38:51,261 django.server 23604 26724 "GET /TestsCreate/ HTTP/1.1" 200 17662
+[INFO] 2025-10-15 00:38:51,424 django.server 23604 26724 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-15 00:38:51,443 django.server 23604 25348 "GET /static/css/writing_tests.css HTTP/1.1" 200 15932
+[INFO] 2025-10-15 00:38:51,455 django.server 23604 24508 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-10-15 00:38:51,456 django.server 23604 2812 "GET /static/js/writing_tests.js HTTP/1.1" 200 21868
+[INFO] 2025-10-15 00:38:51,470 django.server 23604 25552 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2025-10-15 00:38:51,988 django.server 23604 25552 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-15 00:38:52,477 django.server 23604 25552 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-10-15 00:38:54,269 django.server 23604 25552 "GET /static/favicon.ico HTTP/1.1" 200 1455
+[INFO] 2025-10-15 00:52:14,339 create_tests.views 23604 20048 === CREATE TEST DEBUG START ===
+[INFO] 2025-10-15 00:52:14,340 create_tests.views 23604 20048 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans']
+[INFO] 2025-10-15 00:52:14,342 create_tests.views 23604 20048 POST data: {'csrfmiddlewaretoken': ['kvzgaOUPV49toFXMTvZHgsN87Lr9e4WgHEYOdvf76OZDOIKRpaf44F7E5IpE1t7S'], 'name_test': ['Демонстрационный'], 'time_solve': ['01:00:00'], 'num_attempts': ['100'], 'subj_test': ['2'], 'description_test': ['3 задания - матрицы, целые числа, выбор ответа из предложенных'], 'point_solve': ['["5","5","5","5","5","5","10","10","10"]'], 'user_expression': ['["\\\\displaylines{Найдите\\\\;произведение\\\\;матриц\\\\;\\\\\\\\ A\\\\;=\\\\;\\\\begin{pmatrix}1 & 2\\\\\\\\ 3 & 4\\\\end{pmatrix},\\\\;B\\\\;=\\\\;\\\\begin{pmatrix}2 & 0\\\\\\\\ 1 & 2\\\\end{pmatrix}}","\\\\displaylines{Найдите\\\\;произведение\\\\;матриц\\\\;\\\\\\\\ A\\\\;=\\\\;\\\\begin{pmatrix}0 & 1\\\\\\\\ 2 & 3\\\\end{pmatrix},\\\\;B\\\\;=\\\\;\\\\begin{pmatrix}4 & 2\\\\\\\\ 1 & 0\\\\end{pmatrix}}","\\\\displaylines{Найдите\\\\;произведение\\\\;матриц\\\\;\\\\\\\\ A\\\\;=\\\\;\\\\begin{pmatrix}1 & 0 & 2\\\\\\\\ -1 & 3 & 1\\\\end{pmatrix},\\\\;B\\\\;=\\\\;\\\\begin{pmatrix}3 & 1\\\\\\\\ 2 & 1\\\\\\\\ 1 & 0\\\\end{pmatrix}}","\\\\displaylines{Найдите\\\\;определитель\\\\;матрицы\\\\;\\\\\\\\ A\\\\;=\\\\;\\\\begin{pmatrix}2 & 1\\\\\\\\ 5 & 3\\\\end{pmatrix}}","\\\\displaylines{Найдите\\\\;определитель\\\\;матрицы\\\\;\\\\\\\\ A\\\\;=\\\\;\\\\begin{pmatrix}4 & -2\\\\\\\\ 1 & 0\\\\end{pmatrix}}","\\\\displaylines{Найдите\\\\;определитель\\\\;матрицы\\\\;\\\\\\\\ A\\\\;=\\\\;\\\\begin{pmatrix}7 & 6\\\\\\\\ 2 & 1\\\\end{pmatrix}}","Какая\\\\;из\\\\;следующих\\\\;операций\\\\;не\\\\;сохраняет\\\\;ранг\\\\;матрицы?","Какая\\\\;из\\\\;следующих\\\\;матриц\\\\;невырожденная?","Что\\\\;из\\\\;ниже\\\\;перечисленного\\\\;всегда\\\\;верно\\\\;для\\\\;ортогональной\\\\;матрицы\\\\;Q?\\\\;"]'], 'user_ans': ['["\\\\begin{pmatrix}4 & 4\\\\\\\\ 10 & 8\\\\end{pmatrix}","\\\\begin{pmatrix}1 & 0\\\\\\\\ 11 & 4\\\\end{pmatrix}","\\\\begin{pmatrix}5 & 1\\\\\\\\ 4 & 2\\\\end{pmatrix}","1","2","-5","Умножение\\\\;строки\\\\;на\\\\;ненулевое\\\\;число;Добавление\\\\;кратной\\\\;одной\\\\;строки\\\\;к\\\\;другой;Транспонирование;Умножение\\\\;матрицы\\\\;на\\\\;вырожденную\\\\;квадратную\\\\;матрицу","\\\\begin{pmatrix}1 & 2\\\\\\\\ 2 & 4\\\\end{pmatrix};\\\\begin{pmatrix}0 & 1\\\\\\\\ 1 & 0\\\\end{pmatrix};\\\\begin{pmatrix}1 & 1\\\\\\\\ 1 & 1\\\\end{pmatrix};\\\\begin{pmatrix}2 & 4\\\\\\\\ 1 & 2\\\\end{pmatrix}","Q^{-1}=Q^{T};\\\\det\\\\left(Q\\\\right)=0;Все\\\\;собственные\\\\;значение\\\\;\\\\lambda_{k}=1;Q^{T}\\\\cdot Q=I"]'], 'user_eps': ['["0","0","0","0","0","0",";;;",";;;",";;;"]'], 'user_type': ['["4","4","4","1","1","1",";;;",";;;",";;;"]'], 'user_norm': ['["1","2","2","","","",";;;",";;;",";;;"]'], 'user_bool_ans': ['["0","1","1","1","1","1","0;0;0;1","0;1;0;0","1;0;0;1"]']}
+[INFO] 2025-10-15 00:52:14,345 create_tests.views 23604 20048 Basic fields - name: 'Демонстрационный', time: '01:00:00', attempts: '100', subj_id: '2'
+[INFO] 2025-10-15 00:52:14,350 create_tests.views 23604 20048 Raw data - points: ["5","5","5","5","5","5","10","10","10"], expressions: ["\\displaylines{Найдите\\;произведение\\;матриц\\;\\\\ A\\;=\\;\\begin{pmatrix}1 & 2\\\\ 3 & 4\\end{pmatrix},\\;B\\;=\\;\\begin{pmatrix}2 & 0\\\\ 1 & 2\\end{pmatrix}}","\\displaylines{Найдите\\;произведение\\;матриц\\;\\\\ A\\;=\\;\\begin{pmatrix}0 & 1\\\\ 2 & 3\\end{pmatrix},\\;B\\;=\\;\\begin{pmatrix}4 & 2\\\\ 1 & 0\\end{pmatrix}}","\\displaylines{Найдите\\;произведение\\;матриц\\;\\\\ A\\;=\\;\\begin{pmatrix}1 & 0 & 2\\\\ -1 & 3 & 1\\end{pmatrix},\\;B\\;=\\;\\begin{pmatrix}3 & 1\\\\ 2 & 1\\\\ 1 & 0\\end{pmatrix}}","\\displaylines{Найдите\\;определитель\\;матрицы\\;\\\\ A\\;=\\;\\begin{pmatrix}2 & 1\\\\ 5 & 3\\end{pmatrix}}","\\displaylines{Найдите\\;определитель\\;матрицы\\;\\\\ A\\;=\\;\\begin{pmatrix}4 & -2\\\\ 1 & 0\\end{pmatrix}}","\\displaylines{Найдите\\;определитель\\;матрицы\\;\\\\ A\\;=\\;\\begin{pmatrix}7 & 6\\\\ 2 & 1\\end{pmatrix}}","Какая\\;из\\;следующих\\;операций\\;не\\;сохраняет\\;ранг\\;матрицы?","Какая\\;из\\;следующих\\;матриц\\;невырожденная?","Что\\;из\\;ниже\\;перечисленного\\;всегда\\;верно\\;для\\;ортогональной\\;матрицы\\;Q?\\;"]
+[INFO] 2025-10-15 00:52:14,353 create_tests.views 23604 20048 Parsed data - expressions count: 9, points count: 9
+[INFO] 2025-10-15 00:52:14,400 create_tests.views 23604 20048 Found 9 valid expressions out of 9
+[INFO] 2025-10-15 00:52:14,401 create_tests.views 23604 20048 Numbers raw: [], Block nums raw: []
+[INFO] 2025-10-15 00:52:14,401 create_tests.views 23604 20048 Processing expression 1: \displaylines{Найдите\;произведение\;матриц\;\\ A\...
+[INFO] 2025-10-15 00:52:14,402 create_tests.views 23604 20048 Data: ans='\begin{pmatrix}4 & 4\\ 10 & 8\end{pmatrix}', bool_ans='0', eps='0', type_id='4', point='5', norm_id='1'
+[INFO] 2025-10-15 00:52:14,402 create_tests.views 23604 20048 flag_select = False
+[INFO] 2025-10-15 00:52:14,404 create_tests.views 23604 20048 type_obj = Матрицы
+[INFO] 2025-10-15 00:52:14,421 create_tests.views 23604 20048 Created expression instance: \displaylines{Найдите\;произведение\;матриц\;\\ A\;=\;\begin{pmatrix}1 & 2\\ 3 & 4\end{pmatrix},\;B\;=\;\begin{pmatrix}2 & 0\\ 1 & 2\end{pmatrix}} with number=1, block=1
+[INFO] 2025-10-15 00:52:14,439 create_tests.views 23604 20048 Added expression 1 successfully
+[INFO] 2025-10-15 00:52:14,455 create_tests.views 23604 20048 Created norm relation for expression 1
+[INFO] 2025-10-15 00:52:14,456 create_tests.views 23604 20048 Processing expression 2: \displaylines{Найдите\;произведение\;матриц\;\\ A\...
+[INFO] 2025-10-15 00:52:14,456 create_tests.views 23604 20048 Data: ans='\begin{pmatrix}1 & 0\\ 11 & 4\end{pmatrix}', bool_ans='1', eps='0', type_id='4', point='5', norm_id='2'
+[INFO] 2025-10-15 00:52:14,457 create_tests.views 23604 20048 flag_select = False
+[INFO] 2025-10-15 00:52:14,461 create_tests.views 23604 20048 type_obj = Матрицы
+[INFO] 2025-10-15 00:52:14,473 create_tests.views 23604 20048 Created expression instance: \displaylines{Найдите\;произведение\;матриц\;\\ A\;=\;\begin{pmatrix}0 & 1\\ 2 & 3\end{pmatrix},\;B\;=\;\begin{pmatrix}4 & 2\\ 1 & 0\end{pmatrix}} with number=2, block=1
+[INFO] 2025-10-15 00:52:14,484 create_tests.views 23604 20048 Added expression 2 successfully
+[INFO] 2025-10-15 00:52:14,496 create_tests.views 23604 20048 Created norm relation for expression 2
+[INFO] 2025-10-15 00:52:14,497 create_tests.views 23604 20048 Processing expression 3: \displaylines{Найдите\;произведение\;матриц\;\\ A\...
+[INFO] 2025-10-15 00:52:14,497 create_tests.views 23604 20048 Data: ans='\begin{pmatrix}5 & 1\\ 4 & 2\end{pmatrix}', bool_ans='1', eps='0', type_id='4', point='5', norm_id='2'
+[INFO] 2025-10-15 00:52:14,498 create_tests.views 23604 20048 flag_select = False
+[INFO] 2025-10-15 00:52:14,499 create_tests.views 23604 20048 type_obj = Матрицы
+[INFO] 2025-10-15 00:52:14,515 create_tests.views 23604 20048 Created expression instance: \displaylines{Найдите\;произведение\;матриц\;\\ A\;=\;\begin{pmatrix}1 & 0 & 2\\ -1 & 3 & 1\end{pmatrix},\;B\;=\;\begin{pmatrix}3 & 1\\ 2 & 1\\ 1 & 0\end{pmatrix}} with number=3, block=1
+[INFO] 2025-10-15 00:52:14,532 create_tests.views 23604 20048 Added expression 3 successfully
+[INFO] 2025-10-15 00:52:14,544 create_tests.views 23604 20048 Created norm relation for expression 3
+[INFO] 2025-10-15 00:52:14,545 create_tests.views 23604 20048 Processing expression 4: \displaylines{Найдите\;определитель\;матрицы\;\\ A...
+[INFO] 2025-10-15 00:52:14,545 create_tests.views 23604 20048 Data: ans='1', bool_ans='1', eps='0', type_id='1', point='5', norm_id=''
+[INFO] 2025-10-15 00:52:14,545 create_tests.views 23604 20048 flag_select = False
+[INFO] 2025-10-15 00:52:14,548 create_tests.views 23604 20048 type_obj = Целые
+[INFO] 2025-10-15 00:52:14,559 create_tests.views 23604 20048 Created expression instance: \displaylines{Найдите\;определитель\;матрицы\;\\ A\;=\;\begin{pmatrix}2 & 1\\ 5 & 3\end{pmatrix}} with number=4, block=1
+[INFO] 2025-10-15 00:52:14,571 create_tests.views 23604 20048 Added expression 4 successfully
+[INFO] 2025-10-15 00:52:14,571 create_tests.views 23604 20048 Processing expression 5: \displaylines{Найдите\;определитель\;матрицы\;\\ A...
+[INFO] 2025-10-15 00:52:14,572 create_tests.views 23604 20048 Data: ans='2', bool_ans='1', eps='0', type_id='1', point='5', norm_id=''
+[INFO] 2025-10-15 00:52:14,572 create_tests.views 23604 20048 flag_select = False
+[INFO] 2025-10-15 00:52:14,574 create_tests.views 23604 20048 type_obj = Целые
+[INFO] 2025-10-15 00:52:14,586 create_tests.views 23604 20048 Created expression instance: \displaylines{Найдите\;определитель\;матрицы\;\\ A\;=\;\begin{pmatrix}4 & -2\\ 1 & 0\end{pmatrix}} with number=5, block=1
+[INFO] 2025-10-15 00:52:14,600 create_tests.views 23604 20048 Added expression 5 successfully
+[INFO] 2025-10-15 00:52:14,601 create_tests.views 23604 20048 Processing expression 6: \displaylines{Найдите\;определитель\;матрицы\;\\ A...
+[INFO] 2025-10-15 00:52:14,601 create_tests.views 23604 20048 Data: ans='-5', bool_ans='1', eps='0', type_id='1', point='5', norm_id=''
+[INFO] 2025-10-15 00:52:14,602 create_tests.views 23604 20048 flag_select = False
+[INFO] 2025-10-15 00:52:14,603 create_tests.views 23604 20048 type_obj = Целые
+[INFO] 2025-10-15 00:52:14,615 create_tests.views 23604 20048 Created expression instance: \displaylines{Найдите\;определитель\;матрицы\;\\ A\;=\;\begin{pmatrix}7 & 6\\ 2 & 1\end{pmatrix}} with number=6, block=1
+[INFO] 2025-10-15 00:52:14,627 create_tests.views 23604 20048 Added expression 6 successfully
+[INFO] 2025-10-15 00:52:14,628 create_tests.views 23604 20048 Processing expression 7: Какая\;из\;следующих\;операций\;не\;сохраняет\;ран...
+[INFO] 2025-10-15 00:52:14,628 create_tests.views 23604 20048 Data: ans='Умножение\;строки\;на\;ненулевое\;число;Добавление\;кратной\;одной\;строки\;к\;другой;Транспонирование;Умножение\;матрицы\;на\;вырожденную\;квадратную\;матрицу', bool_ans='0;0;0;1', eps=';;;', type_id=';;;', point='10', norm_id=';;;'
+[INFO] 2025-10-15 00:52:14,629 create_tests.views 23604 20048 flag_select = True
+[ERROR] 2025-10-15 00:52:14,630 create_tests.views 23604 20048 Error processing expression 7: Field 'id' expected a number but got ';;;'.
+[INFO] 2025-10-15 00:52:14,636 django.server 23604 20048 "POST /TestsCreate/ HTTP/1.1" 200 16610
+[INFO] 2025-10-15 00:52:14,825 django.server 23604 19036 "GET /static/css/writing_tests.css HTTP/1.1" 304 0
+[INFO] 2025-10-15 00:52:14,834 django.server 23604 20048 "GET /static/js/writing_tests.js HTTP/1.1" 304 0
+[INFO] 2025-10-15 00:52:36,586 django.server 23604 14344 "GET /TestsCreate/listTests/ HTTP/1.1" 200 115209
+[WARNING] 2025-10-15 00:52:36,945 django.request 23604 14344 Not Found: /favicon.ico
+[WARNING] 2025-10-15 00:52:36,948 django.server 23604 14344 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-15 00:52:40,972 django.server 23604 14344 "GET /TestsCreate/edit-test/demonstratsionnyi/ HTTP/1.1" 200 41351
+[INFO] 2025-10-15 00:52:41,256 django.server 23604 14344 "GET /static/js/editing_tests.js HTTP/1.1" 304 0
+[INFO] 2025-10-15 00:58:59,099 django.server 23604 12348 "GET /TestsCreate/edit-test/demonstratsionnyi/ HTTP/1.1" 200 41351
+[INFO] 2025-10-15 00:58:59,369 django.server 23604 12348 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-15 00:58:59,412 django.server 23604 15228 "GET /static/css/writing_tests.css HTTP/1.1" 200 15932
+[INFO] 2025-10-15 00:58:59,417 django.server 23604 26608 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-10-15 00:58:59,420 django.server 23604 12532 "GET /static/js/editing_tests.js HTTP/1.1" 200 22823
+[INFO] 2025-10-15 00:58:59,427 django.server 23604 22084 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-15 00:58:59,436 django.server 23604 4908 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2025-10-15 00:59:01,112 django.server 23604 22084 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-10-15 00:59:02,591 django.server 23604 27508 "GET /static/favicon.ico HTTP/1.1" 200 1455
+[INFO] 2025-10-15 01:04:44,232 django.server 23604 13528 "GET /TestsCreate/edit-test/demonstratsionnyi/ HTTP/1.1" 200 42667
+[INFO] 2025-10-15 01:04:44,440 django.server 23604 13528 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-15 01:04:44,469 django.server 23604 13668 "GET /static/css/writing_tests.css HTTP/1.1" 200 15932
+[INFO] 2025-10-15 01:04:44,482 django.server 23604 17124 "GET /static/js/editing_tests.js HTTP/1.1" 200 22935
+[INFO] 2025-10-15 01:04:44,488 django.server 23604 26896 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-10-15 01:04:44,495 django.server 23604 10472 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2025-10-15 01:04:45,539 django.server 23604 26896 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-15 01:04:46,594 django.server 23604 26896 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-10-15 01:04:50,481 django.server 23604 26896 "GET /static/favicon.ico HTTP/1.1" 200 1455
+[INFO] 2025-10-15 01:11:51,998 create_tests.views 23604 13652 POST data received: <QueryDict: {'csrfmiddlewaretoken': ['qTGqxM8pXS5stwtPofm93AIemXvUeYkKN25YAttH8CVCTzgUUUCwRN2KkUtp1nvm'], 'name_test': ['Демонстрационный'], 'time_solve': ['01:00:00'], 'num_attempts': ['100'], 'subj_test': ['2'], 'description_test': ['3 задания - матрицы, целые числа, выбор ответа из предложенных'], 'point_solve': ['["5","5","5","5","5","5","7","7","7"]'], 'user_expression': ['["\\\\displaylines{Найдите\\\\;произведение\\\\;матриц\\\\;\\\\\\\\ A\\\\;=\\\\;\\\\begin{pmatrix}1 & 2\\\\\\\\ 3 & 4\\\\end{pmatrix},\\\\;B\\\\;=\\\\;\\\\begin{pmatrix}2 & 0\\\\\\\\ 1 & 2\\\\end{pmatrix}}","\\\\displaylines{Найдите\\\\;произведение\\\\;матриц\\\\;\\\\\\\\ A\\\\;=\\\\;\\\\begin{pmatrix}0 & 1\\\\\\\\ 2 & 3\\\\end{pmatrix},\\\\;B\\\\;=\\\\;\\\\begin{pmatrix}4 & 2\\\\\\\\ 1 & 0\\\\end{pmatrix}}","\\\\displaylines{Найдите\\\\;произведение\\\\;матриц\\\\;\\\\\\\\ A\\\\;=\\\\;\\\\begin{pmatrix}1 & 0 & 2\\\\\\\\ -1 & 3 & 1\\\\end{pmatrix},\\\\;B\\\\;=\\\\;\\\\begin{pmatrix}3 & 1\\\\\\\\ 2 & 1\\\\\\\\ 1 & 0\\\\end{pmatrix}}","\\\\displaylines{Найдите\\\\;определитель\\\\;матрицы\\\\;\\\\\\\\ A\\\\;=\\\\;\\\\begin{pmatrix}2 & 1\\\\\\\\ 5 & 3\\\\end{pmatrix}}","\\\\displaylines{Найдите\\\\;определитель\\\\;матрицы\\\\;\\\\\\\\ A\\\\;=\\\\;\\\\begin{pmatrix}7 & 6\\\\\\\\ 2 & 1\\\\end{pmatrix}}","\\\\displaylines{Найдите\\\\;определитель\\\\;матрицы\\\\;\\\\\\\\ A\\\\;=\\\\;\\\\begin{pmatrix}4 & -2\\\\\\\\ 1 & 0\\\\end{pmatrix}}","\\\\displaylines{Что\\\\;из\\\\;ниже\\\\;перечисленного\\\\;всегда\\\\;верно\\\\;для\\\\;ортогональной\\\\;матрицы\\\\;Q}","\\\\displaylines{Какая\\\\;из\\\\;следующих\\\\;операций\\\\;не\\\\;сохраняет\\\\;ранг\\\\;матрицы?\\\\\\\\ }","\\\\displaylines{Какая\\\\;из\\\\;следующих\\\\;матриц\\\\;невырожденная?\\\\\\\\ }"]'], 'user_ans': ['["\\\\begin{pmatrix}4 & 4\\\\\\\\ 10 & 8\\\\end{pmatrix}","\\\\begin{pmatrix}1 & 0\\\\\\\\ 11 & 4\\\\end{pmatrix}","\\\\begin{pmatrix}5 & 1\\\\\\\\ 4 & 2\\\\end{pmatrix}","1","-5","2","Q^{-1}=Q^{T};\\\\det\\\\left(Q\\\\right)=0;Все\\\\;собственные\\\\;значения\\\\;\\\\lambda_{k}=1;Q^{T}\\\\cdot Q=I","Умножение\\\\;строки\\\\;на\\\\;ненулевое\\\\;число;Добавление\\\\;кратной\\\\;одной\\\\;строки\\\\;к\\\\;другой;Транспонирование;Умножение\\\\;матрицы\\\\;на\\\\;невырожденную\\\\;квадратную\\\\;матрицу","\\\\begin{pmatrix}1 & 2\\\\\\\\ 2 & 4\\\\end{pmatrix};\\\\begin{pmatrix}0 & 1\\\\\\\\ 1 & 0\\\\end{pmatrix};\\\\begin{pmatrix}1 & 1\\\\\\\\ 1 & 1\\\\end{pmatrix};\\\\begin{pmatrix}2 & 4\\\\\\\\ 1 & 2\\\\end{pmatrix}"]'], 'user_eps': ['["0","0","0","0","0","0",";;;",";;;",";;;"]'], 'user_type': ['["4","4","4","1","1","1","1;4;4;4","1;4;4;4","1;4;4;4"]'], 'user_norm': ['["1","2","2","1","1","1","1;1;1;1","1;1;1;1","1;1;1;1"]'], 'user_bool_ans': ['["1","1","1","1","1","1","1;0;0;1","0;0;0;1","0;1;0;0"]'], 'number': ['[1,2,3,1,2,3,1,2,3]'], 'block_expression_num': ['[1,1,1,2,2,2,3,3,3]']}>
+[INFO] 2025-10-15 01:11:52,007 create_tests.views 23604 13652 Raw data - points: ["5","5","5","5","5","5","7","7","7"], expressions: ["\\displaylines{Найдите\\;произведение\\;матриц\\;\\\\ A\\;=\\;\\begin{pmatrix}1 & 2\\\\ 3 & 4\\end{pmatrix},\\;B\\;=\\;\\begin{pmatrix}2 & 0\\\\ 1 & 2\\end{pmatrix}}","\\displaylines{Найдите\\;произведение\\;матриц\\;\\\\ A\\;=\\;\\begin{pmatrix}0 & 1\\\\ 2 & 3\\end{pmatrix},\\;B\\;=\\;\\begin{pmatrix}4 & 2\\\\ 1 & 0\\end{pmatrix}}","\\displaylines{Найдите\\;произведение\\;матриц\\;\\\\ A\\;=\\;\\begin{pmatrix}1 & 0 & 2\\\\ -1 & 3 & 1\\end{pmatrix},\\;B\\;=\\;\\begin{pmatrix}3 & 1\\\\ 2 & 1\\\\ 1 & 0\\end{pmatrix}}","\\displaylines{Найдите\\;определитель\\;матрицы\\;\\\\ A\\;=\\;\\begin{pmatrix}2 & 1\\\\ 5 & 3\\end{pmatrix}}","\\displaylines{Найдите\\;определитель\\;матрицы\\;\\\\ A\\;=\\;\\begin{pmatrix}7 & 6\\\\ 2 & 1\\end{pmatrix}}","\\displaylines{Найдите\\;определитель\\;матрицы\\;\\\\ A\\;=\\;\\begin{pmatrix}4 & -2\\\\ 1 & 0\\end{pmatrix}}","\\displaylines{Что\\;из\\;ниже\\;перечисленного\\;всегда\\;верно\\;для\\;ортогональной\\;матрицы\\;Q}","\\displaylines{Какая\\;из\\;следующих\\;операций\\;не\\;сохраняет\\;ранг\\;матрицы?\\\\ }","\\displaylines{Какая\\;из\\;следующих\\;матриц\\;невырожденная?\\\\ }"]
+[INFO] 2025-10-15 01:11:52,010 create_tests.views 23604 13652 Parsed data - expressions count: 9, points count: 9
+[INFO] 2025-10-15 01:11:52,011 create_tests.views 23604 13652 Found 9 valid expressions out of 9
+[INFO] 2025-10-15 01:11:52,012 create_tests.views 23604 13652 Deleting old expressions...
+[INFO] 2025-10-15 01:11:57,604 django.server 23604 13652 "POST /TestsCreate/edit-test/demonstratsionnyi/ HTTP/1.1" 302 0
+[INFO] 2025-10-15 01:11:57,680 django.server 23604 13652 "GET /TestsCreate/edit-test/demonstratsionnyi/ HTTP/1.1" 200 42667
+[INFO] 2025-10-15 01:11:57,907 django.server 23604 13652 "GET /static/js/editing_tests.js HTTP/1.1" 304 0
+[INFO] 2025-10-15 01:11:57,909 django.server 23604 16240 "GET /static/css/writing_tests.css HTTP/1.1" 304 0
+[INFO] 2025-10-15 01:17:21,886 django.server 23604 13508 "GET /TestsCreate/listTests/ HTTP/1.1" 200 115209
+[WARNING] 2025-10-15 01:17:22,359 django.request 23604 13508 Not Found: /favicon.ico
+[WARNING] 2025-10-15 01:17:22,362 django.server 23604 13508 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-15 01:17:41,785 django.server 23604 28564 "GET /TestsCreate/ HTTP/1.1" 200 17662
+[INFO] 2025-10-15 01:17:41,987 django.server 23604 28564 "GET /static/css/writing_tests.css HTTP/1.1" 304 0
+[INFO] 2025-10-15 01:17:42,004 django.server 23604 26468 "GET /static/js/writing_tests.js HTTP/1.1" 200 24682
+[INFO] 2025-10-15 01:18:15,681 create_tests.views 23604 26020 === CREATE TEST DEBUG START ===
+[INFO] 2025-10-15 01:18:15,682 create_tests.views 23604 26020 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans', 'number', 'block_expression_num']
+[INFO] 2025-10-15 01:18:15,684 create_tests.views 23604 26020 POST data: {'csrfmiddlewaretoken': ['knDmkhHLou8VlrBcQkKJlBmicGpHXcq6Hw2UnY23zeY5LuohmZ069OGOaDncKBBI'], 'name_test': ['1'], 'time_solve': ['11:01:01'], 'num_attempts': ['1'], 'subj_test': ['2'], 'description_test': ['1'], 'point_solve': ['["1"]'], 'user_expression': ['["1-1"]'], 'user_ans': ['["0;1;2"]'], 'user_eps': ['[";;"]'], 'user_type': ['[";;"]'], 'user_norm': ['[";;"]'], 'user_bool_ans': ['["1;0;0"]'], 'number': ['[1]'], 'block_expression_num': ['[1]']}
+[INFO] 2025-10-15 01:18:15,685 create_tests.views 23604 26020 Basic fields - name: '1', time: '11:01:01', attempts: '1', subj_id: '2'
+[INFO] 2025-10-15 01:18:15,689 create_tests.views 23604 26020 Raw data - points: ["1"], expressions: ["1-1"]
+[INFO] 2025-10-15 01:18:15,690 create_tests.views 23604 26020 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-10-15 01:18:21,303 django.server 23604 26020 "POST /TestsCreate/ HTTP/1.1" 200 16610
+[INFO] 2025-10-15 01:18:21,493 django.server 23604 18052 "GET /static/js/writing_tests.js HTTP/1.1" 304 0
+[INFO] 2025-10-15 01:19:16,733 create_tests.views 23604 27008 === CREATE TEST DEBUG START ===
+[INFO] 2025-10-15 01:19:16,734 create_tests.views 23604 27008 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans', 'number', 'block_expression_num']
+[INFO] 2025-10-15 01:19:16,735 create_tests.views 23604 27008 POST data: {'csrfmiddlewaretoken': ['knDmkhHLou8VlrBcQkKJlBmicGpHXcq6Hw2UnY23zeY5LuohmZ069OGOaDncKBBI'], 'name_test': ['1'], 'time_solve': ['11:01:01'], 'num_attempts': ['1'], 'subj_test': ['2'], 'description_test': ['1'], 'point_solve': ['["1"]'], 'user_expression': ['["1-1"]'], 'user_ans': ['["0;1;2"]'], 'user_eps': ['[";;"]'], 'user_type': ['[";;"]'], 'user_norm': ['[";;"]'], 'user_bool_ans': ['["1;0;0"]'], 'number': ['[1]'], 'block_expression_num': ['[1]']}
+[INFO] 2025-10-15 01:19:16,736 create_tests.views 23604 27008 Basic fields - name: '1', time: '11:01:01', attempts: '1', subj_id: '2'
+[INFO] 2025-10-15 01:19:16,739 create_tests.views 23604 27008 Raw data - points: ["1"], expressions: ["1-1"]
+[INFO] 2025-10-15 01:19:16,740 create_tests.views 23604 27008 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-10-15 01:19:22,563 django.server 23604 27008 "POST /TestsCreate/ HTTP/1.1" 200 16610
+[INFO] 2025-10-15 01:19:22,735 django.server 23604 27008 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-15 01:19:22,781 django.server 23604 26888 "GET /static/css/writing_tests.css HTTP/1.1" 200 15932
+[INFO] 2025-10-15 01:19:22,792 django.server 23604 20728 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-10-15 01:19:22,794 django.server 23604 25936 "GET /static/js/writing_tests.js HTTP/1.1" 200 24682
+[INFO] 2025-10-15 01:19:22,805 django.server 23604 8040 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-15 01:19:22,809 django.server 23604 15556 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2025-10-15 01:19:24,106 django.server 23604 15556 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-10-15 01:19:25,444 django.server 23604 15556 "GET /static/favicon.ico HTTP/1.1" 200 1455
+[INFO] 2025-10-15 01:19:44,520 create_tests.views 23604 24180 === CREATE TEST DEBUG START ===
+[INFO] 2025-10-15 01:19:44,522 create_tests.views 23604 24180 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans', 'number', 'block_expression_num']
+[INFO] 2025-10-15 01:19:44,523 create_tests.views 23604 24180 POST data: {'csrfmiddlewaretoken': ['RwGriaH8E4NHV9b2uUvNkoIMPGIA4Y25eF5ZlR2qPODRlcY70zLa8B2iNDG5RndH'], 'name_test': ['1'], 'time_solve': ['01:01:01'], 'num_attempts': ['1'], 'subj_test': ['4'], 'description_test': ['1'], 'point_solve': ['["1"]'], 'user_expression': ['["1"]'], 'user_ans': ['["1;2"]'], 'user_eps': ['[";"]'], 'user_type': ['[";"]'], 'user_norm': ['[";"]'], 'user_bool_ans': ['["1;0"]'], 'number': ['[1]'], 'block_expression_num': ['[1]']}
+[INFO] 2025-10-15 01:19:44,524 create_tests.views 23604 24180 Basic fields - name: '1', time: '01:01:01', attempts: '1', subj_id: '4'
+[INFO] 2025-10-15 01:19:44,527 create_tests.views 23604 24180 Raw data - points: ["1"], expressions: ["1"]
+[INFO] 2025-10-15 01:19:44,528 create_tests.views 23604 24180 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-10-15 01:19:50,152 django.server 23604 24180 "POST /TestsCreate/ HTTP/1.1" 200 16610
+[INFO] 2025-10-15 01:19:50,358 django.server 23604 12400 "GET /static/js/writing_tests.js HTTP/1.1" 304 0
+[INFO] 2025-10-15 01:23:10,907 django.utils.autoreload 23604 1952 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2025-10-15 01:23:13,795 django.utils.autoreload 14992 22732 Watching for file changes with StatReloader
+[INFO] 2025-10-15 01:23:57,274 django.server 14992 11708 "GET /TestsCreate/listTests/ HTTP/1.1" 200 115209
+[WARNING] 2025-10-15 01:23:57,774 django.request 14992 11988 Not Found: /favicon.ico
+[WARNING] 2025-10-15 01:23:57,780 django.server 14992 11988 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-15 01:24:01,346 django.server 14992 11988 "GET /TestsCreate/ HTTP/1.1" 200 17667
+[INFO] 2025-10-15 01:24:01,573 django.server 14992 11988 "GET /static/css/writing_tests.css HTTP/1.1" 304 0
+[INFO] 2025-10-15 01:24:01,590 django.server 14992 27000 "GET /static/js/writing_tests.js HTTP/1.1" 304 0
+[INFO] 2025-10-15 01:24:21,783 create_tests.views 14992 18584 === CREATE TEST DEBUG START ===
+[INFO] 2025-10-15 01:24:21,784 create_tests.views 14992 18584 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans', 'number', 'block_expression_num']
+[INFO] 2025-10-15 01:24:21,784 create_tests.views 14992 18584 POST data: {'csrfmiddlewaretoken': ['tIJpVkzaNkuRnOowqjqkPfPQ0zvVwzCoQR8XY1UsY4k1NRbBWYGHDs9mYwtqjYN0'], 'name_test': ['1'], 'time_solve': ['01:01:01'], 'num_attempts': ['1'], 'subj_test': ['3'], 'description_test': ['1'], 'point_solve': ['["1"]'], 'user_expression': ['["1-1"]'], 'user_ans': ['["0;1"]'], 'user_eps': ['[";"]'], 'user_type': ['[";"]'], 'user_norm': ['[";"]'], 'user_bool_ans': ['["1;0"]'], 'number': ['[1]'], 'block_expression_num': ['[1]']}
+[INFO] 2025-10-15 01:24:21,785 create_tests.views 14992 18584 Basic fields - name: '1', time: '01:01:01', attempts: '1', subj_id: '3'
+[INFO] 2025-10-15 01:24:21,789 create_tests.views 14992 18584 Raw data - points: ["1"], expressions: ["1-1"]
+[INFO] 2025-10-15 01:24:21,790 create_tests.views 14992 18584 Parsed data - expressions count: 1, points count: 1
+[ERROR] 2025-10-15 01:24:27,411 create_tests.views 14992 18584 CREATE TEST ERROR: database is locked
+[ERROR] 2025-10-15 01:24:27,416 create_tests.views 14992 18584 Exception type: <class 'django.db.utils.OperationalError'>
+[ERROR] 2025-10-15 01:24:27,456 create_tests.views 14992 18584 Full traceback: Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 329, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\create_tests\views.py", line 82, in create_test
+    new_test = AboutTest.objects.create(
+        name_tests=test_name,
+    ...<4 lines>...
+        creator=teacher,
+    )
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 679, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\create_tests\models.py", line 135, in save
+    super().save(*args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\base.py", line 822, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\base.py", line 909, in save_base
+    updated = self._save_table(
+        raw,
+    ...<4 lines>...
+        update_fields,
+    )
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\base.py", line 1071, in _save_table
+    results = self._do_insert(
+        cls._base_manager, using, fields, returning_fields, raw
+    )
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\base.py", line 1112, in _do_insert
+    return manager._insert(
+           ~~~~~~~~~~~~~~~^
+        [self],
+        ^^^^^^^
+    ...<3 lines>...
+        raw=raw,
+        ^^^^^^^^
+    )
+    ^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1847, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1823, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 329, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: database is locked
+
+[INFO] 2025-10-15 01:24:27,483 django.server 14992 18584 "POST /TestsCreate/ HTTP/1.1" 200 17924
+[INFO] 2025-10-15 01:25:19,803 django.server 14992 5024 "GET /TestsCreate/listTests/ HTTP/1.1" 200 115209
+[INFO] 2025-10-15 01:25:24,054 django.server 14992 5024 "GET /TestsCreate/ HTTP/1.1" 200 17667
+[INFO] 2025-10-15 01:25:24,268 django.server 14992 22748 "GET /static/js/writing_tests.js HTTP/1.1" 304 0
+[INFO] 2025-10-15 01:25:51,419 create_tests.views 14992 13232 === CREATE TEST DEBUG START ===
+[INFO] 2025-10-15 01:25:51,420 create_tests.views 14992 13232 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans', 'number', 'block_expression_num']
+[INFO] 2025-10-15 01:25:51,421 create_tests.views 14992 13232 POST data: {'csrfmiddlewaretoken': ['B6DGtRBXeg0lwkmgJ8PEA76fGJtT4PrzYf2ewyWfp0QvWn9lfN51okqLEGroReCb'], 'name_test': ['1'], 'time_solve': ['01:01:01'], 'num_attempts': ['1'], 'subj_test': ['3'], 'description_test': ['1'], 'point_solve': ['["1"]'], 'user_expression': ['["1-1"]'], 'user_ans': ['["0;1"]'], 'user_eps': ['[";"]'], 'user_type': ['[";"]'], 'user_norm': ['[";"]'], 'user_bool_ans': ['["1;0"]'], 'number': ['[1]'], 'block_expression_num': ['[1]']}
+[INFO] 2025-10-15 01:25:51,422 create_tests.views 14992 13232 Basic fields - name: '1', time: '01:01:01', attempts: '1', subj_id: '3'
+[INFO] 2025-10-15 01:25:51,424 create_tests.views 14992 13232 Raw data - points: ["1"], expressions: ["1-1"]
+[INFO] 2025-10-15 01:25:51,425 create_tests.views 14992 13232 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-10-15 01:25:51,453 create_tests.views 14992 13232 Found 1 valid expressions out of 1
+[INFO] 2025-10-15 01:25:51,454 create_tests.views 14992 13232 Numbers raw: [1], Block nums raw: [1]
+[INFO] 2025-10-15 01:25:51,455 create_tests.views 14992 13232 Processing expression 1: 1-1...
+[INFO] 2025-10-15 01:25:51,455 create_tests.views 14992 13232 Data: ans='0;1', bool_ans='1;0', eps=';', type_id=';', point='1', norm_id=';'
+[INFO] 2025-10-15 01:25:51,455 create_tests.views 14992 13232 flag_select = True
+[ERROR] 2025-10-15 01:25:51,456 create_tests.views 14992 13232 Error processing expression 1: Field 'id' expected a number but got ';'.
+[ERROR] 2025-10-15 01:25:51,457 create_tests.views 14992 13232 CREATE TEST ERROR: Field 'id' expected a number but got ';'.
+[ERROR] 2025-10-15 01:25:51,458 create_tests.views 14992 13232 Exception type: <class 'ValueError'>
+[ERROR] 2025-10-15 01:25:51,479 create_tests.views 14992 13232 Full traceback: Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2117, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ';'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\create_tests\views.py", line 122, in create_test
+    type_obj = TypeAnswer.objects.get(id=type_id)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1613, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1645, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1559, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1389, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 364, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2119, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'id' expected a number but got ';'.
+
+[INFO] 2025-10-15 01:25:51,491 django.server 14992 13232 "POST /TestsCreate/ HTTP/1.1" 200 17967
+[INFO] 2025-10-15 01:29:56,025 create_tests.views 14992 6420 === CREATE TEST DEBUG START ===
+[INFO] 2025-10-15 01:29:56,026 create_tests.views 14992 6420 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans', 'number', 'block_expression_num']
+[INFO] 2025-10-15 01:29:56,026 create_tests.views 14992 6420 POST data: {'csrfmiddlewaretoken': ['B6DGtRBXeg0lwkmgJ8PEA76fGJtT4PrzYf2ewyWfp0QvWn9lfN51okqLEGroReCb'], 'name_test': ['1'], 'time_solve': ['01:01:01'], 'num_attempts': ['1'], 'subj_test': ['3'], 'description_test': ['1'], 'point_solve': ['["1"]'], 'user_expression': ['["1-1"]'], 'user_ans': ['["0;1"]'], 'user_eps': ['[";"]'], 'user_type': ['[";"]'], 'user_norm': ['[";"]'], 'user_bool_ans': ['["1;0"]'], 'number': ['[1]'], 'block_expression_num': ['[1]']}
+[INFO] 2025-10-15 01:29:56,027 create_tests.views 14992 6420 Basic fields - name: '1', time: '01:01:01', attempts: '1', subj_id: '3'
+[INFO] 2025-10-15 01:29:56,029 create_tests.views 14992 6420 Raw data - points: ["1"], expressions: ["1-1"]
+[INFO] 2025-10-15 01:29:56,030 create_tests.views 14992 6420 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-10-15 01:29:56,054 create_tests.views 14992 6420 Found 1 valid expressions out of 1
+[INFO] 2025-10-15 01:29:56,055 create_tests.views 14992 6420 Numbers raw: [1], Block nums raw: [1]
+[INFO] 2025-10-15 01:29:56,056 create_tests.views 14992 6420 Processing expression 1: 1-1...
+[INFO] 2025-10-15 01:29:56,056 create_tests.views 14992 6420 Data: ans='0;1', bool_ans='1;0', eps=';', type_id=';', point='1', norm_id=';'
+[INFO] 2025-10-15 01:29:56,056 create_tests.views 14992 6420 flag_select = True
+[ERROR] 2025-10-15 01:29:56,057 create_tests.views 14992 6420 Error processing expression 1: Field 'id' expected a number but got ';'.
+[ERROR] 2025-10-15 01:29:56,057 create_tests.views 14992 6420 CREATE TEST ERROR: Field 'id' expected a number but got ';'.
+[ERROR] 2025-10-15 01:29:56,057 create_tests.views 14992 6420 Exception type: <class 'ValueError'>
+[ERROR] 2025-10-15 01:29:56,064 create_tests.views 14992 6420 Full traceback: Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2117, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ';'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\create_tests\views.py", line 122, in create_test
+    type_obj = TypeAnswer.objects.get(id=type_id)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1613, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1645, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1559, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1389, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 364, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2119, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'id' expected a number but got ';'.
+
+[INFO] 2025-10-15 01:29:56,557 django.server 14992 6420 "POST /TestsCreate/ HTTP/1.1" 200 17967
+[INFO] 2025-10-15 01:29:57,058 django.server 14992 6420 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-15 01:29:57,068 django.server 14992 24240 "GET /static/css/writing_tests.css HTTP/1.1" 200 15932
+[INFO] 2025-10-15 01:29:57,071 django.server 14992 27704 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-10-15 01:29:57,084 django.server 14992 9192 "GET /static/js/writing_tests.js HTTP/1.1" 200 24914
+[INFO] 2025-10-15 01:29:57,089 django.server 14992 28232 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-15 01:29:57,100 django.server 14992 1056 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2025-10-15 01:30:04,038 django.server 14992 19016 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-10-15 01:30:05,974 django.server 14992 19016 "GET /TestsCreate/listTests/ HTTP/1.1" 200 121723
+[WARNING] 2025-10-15 01:30:09,357 django.request 14992 1312 Not Found: /favicon.ico
+[WARNING] 2025-10-15 01:30:09,359 django.server 14992 1312 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-15 01:30:09,976 django.server 14992 1312 "GET /TestsCreate/ HTTP/1.1" 200 17667
+[INFO] 2025-10-15 01:30:37,036 create_tests.views 14992 27676 === CREATE TEST DEBUG START ===
+[INFO] 2025-10-15 01:30:37,037 create_tests.views 14992 27676 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans', 'number', 'block_expression_num']
+[INFO] 2025-10-15 01:30:37,038 create_tests.views 14992 27676 POST data: {'csrfmiddlewaretoken': ['Z8YapuuG34pDLdJtsUtHnXHtrITmDo7wmhnIsbPYeOfNbgwyYzJ4ba1ZpFRRqNi8'], 'name_test': ['1'], 'time_solve': ['01:01:01'], 'num_attempts': ['1'], 'subj_test': ['1'], 'description_test': ['1'], 'point_solve': ['["1"]'], 'user_expression': ['["1"]'], 'user_ans': ['["1;2"]'], 'user_eps': ['[";"]'], 'user_type': ['[""]'], 'user_norm': ['[""]'], 'user_bool_ans': ['["1;0"]'], 'number': ['[1]'], 'block_expression_num': ['[1]']}
+[INFO] 2025-10-15 01:30:37,039 create_tests.views 14992 27676 Basic fields - name: '1', time: '01:01:01', attempts: '1', subj_id: '1'
+[INFO] 2025-10-15 01:30:37,043 create_tests.views 14992 27676 Raw data - points: ["1"], expressions: ["1"]
+[INFO] 2025-10-15 01:30:37,045 create_tests.views 14992 27676 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-10-15 01:30:37,068 create_tests.views 14992 27676 Found 0 valid expressions out of 1
+[INFO] 2025-10-15 01:30:37,069 create_tests.views 14992 27676 Numbers raw: [1], Block nums raw: [1]
+[WARNING] 2025-10-15 01:30:37,070 create_tests.views 14992 27676 No valid expressions found
+[INFO] 2025-10-15 01:30:37,084 create_tests.views 14992 27676 === CREATE TEST DEBUG END ===
+[INFO] 2025-10-15 01:30:37,086 django.server 14992 27676 "POST /TestsCreate/ HTTP/1.1" 302 0
+[INFO] 2025-10-15 01:30:37,188 django.server 14992 27676 "GET /TestsCreate/listTests/ HTTP/1.1" 200 124947
+[INFO] 2025-10-15 01:30:41,986 django.server 14992 26248 "GET /TestsCreate/listTests/1-6/ HTTP/1.1" 200 8994
+[INFO] 2025-10-15 01:31:02,111 django.server 14992 12348 "GET /personaInf/ HTTP/1.1" 200 13307
+[WARNING] 2025-10-15 01:31:02,373 django.server 14992 12348 "GET /static/js/teacher_account.js HTTP/1.1" 404 1822
+[INFO] 2025-10-15 01:31:03,349 django.server 14992 14332 "GET /TestsCreate/listTests/ HTTP/1.1" 200 124947
+[INFO] 2025-10-15 01:31:17,472 django.server 14992 9468 "POST /TestsCreate/delete-test/1-4/ HTTP/1.1" 200 17
+[INFO] 2025-10-15 01:31:17,614 django.server 14992 9468 "GET /TestsCreate/listTests/ HTTP/1.1" 200 121690
+[INFO] 2025-10-15 01:31:20,479 django.server 14992 19836 "POST /TestsCreate/delete-test/1-5/ HTTP/1.1" 200 17
+[WARNING] 2025-10-15 01:31:20,491 django.request 14992 5784 Bad Request: /TestsCreate/delete-test/1-5/
+[WARNING] 2025-10-15 01:31:20,492 django.server 14992 5784 "POST /TestsCreate/delete-test/1-5/ HTTP/1.1" 400 68
+[INFO] 2025-10-15 01:31:20,650 django.server 14992 5784 "GET /TestsCreate/listTests/ HTTP/1.1" 200 118433
+[INFO] 2025-10-15 01:31:23,866 django.server 14992 5784 "POST /TestsCreate/delete-test/1-6/ HTTP/1.1" 200 17
+[INFO] 2025-10-15 01:31:24,024 django.server 14992 5784 "GET /TestsCreate/listTests/ HTTP/1.1" 200 115209
+[INFO] 2025-10-15 01:31:28,159 django.server 14992 24924 "GET /TestsCreate/listTests/demonstratsionnyi/ HTTP/1.1" 200 12242
+[INFO] 2025-10-15 01:31:46,690 django.server 14992 8404 "POST /TestsCreate/publish-test/demonstratsionnyi/ HTTP/1.1" 200 17
+[INFO] 2025-10-15 01:31:46,822 django.server 14992 8404 "GET /TestsCreate/listTests/ HTTP/1.1" 200 119783
+[INFO] 2025-10-15 01:31:51,261 django.server 14992 25624 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2025-10-15 01:31:51,319 django.server 14992 25624 "GET / HTTP/1.1" 200 1911
+[INFO] 2025-10-15 01:31:57,935 django.server 14992 25624 "POST / HTTP/1.1" 302 0
+[INFO] 2025-10-15 01:31:57,999 django.server 14992 25624 "GET /Home/ HTTP/1.1" 200 14848
+[INFO] 2025-10-15 01:32:03,875 django.server 14992 25624 "GET /TestsSolving/ HTTP/1.1" 200 20271
+[INFO] 2025-10-15 01:32:07,934 django.server 14992 14184 "GET /TestsSolving/demonstratsionnyi/ HTTP/1.1" 200 10213
+[INFO] 2025-10-15 01:32:08,058 django.server 14992 14184 "GET /static/css/specific_test.css HTTP/1.1" 304 0
+[INFO] 2025-10-15 01:32:08,072 django.server 14992 9500 "GET /static/js/specific_test.js HTTP/1.1" 304 0
+[INFO] 2025-10-15 01:32:57,518 django.server 14992 13304 "POST /TestsSolving/demonstratsionnyi/ HTTP/1.1" 302 0
+[INFO] 2025-10-15 01:32:57,548 django.server 14992 13304 "GET /TestsSolving/demonstratsionnyi/result/ HTTP/1.1" 200 6557
+[INFO] 2025-10-15 01:33:02,175 django.server 14992 28320 "GET /TestsSolving/ HTTP/1.1" 200 20270
+[INFO] 2025-10-15 01:33:08,033 django.server 14992 18948 "GET /TestsSolving/demonstratsionnyi/ HTTP/1.1" 200 10241
+[INFO] 2025-10-15 01:33:17,083 django.server 14992 18948 "GET /Home/ HTTP/1.1" 200 14846

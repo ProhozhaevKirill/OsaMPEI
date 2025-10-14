@@ -19,6 +19,11 @@
 
 {% block content %}
 <div class="container">
+    {% if error_msg %}
+        <div class="alert alert-danger" style="margin-bottom: 20px; padding: 15px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 4px;">
+            <strong>Ошибка:</strong> {{ error_msg }}
+        </div>
+    {% endif %}
     <div class="test-creation-layout">
         <!-- Левая панель с картой заданий -->
         <div class="task-map-panel">

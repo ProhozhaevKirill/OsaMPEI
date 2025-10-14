@@ -368,6 +368,12 @@ $(document).ready(function () {
                 let normList = [];
                 let boolList = [];
 
+                // Определяем тип вопроса - тестовый или обычный
+                const isTestQuestion = $(this).find('.select-ans:not(.hidden)').length > 0;
+                let firstAnswerType = '';
+                let firstAnswerEps = '';
+                let firstAnswerNorm = '';
+
                 $(this).find('.answer-row').each(function (answerIndex) {
                     console.log(`    Обрабатываю ответ ${answerIndex + 1}`);
 
@@ -380,14 +386,29 @@ $(document).ready(function () {
                     const normVal = $(this).find('.norm-field').val() || '';
                     const isTrue = $(this).find('.select-ans').is(':checked') ? '1' : '0';
 
-                    console.log(`      Ответ: "${answerVal}", Тип: "${typeVal}"`);
+                    console.log(`      Ответ: "${answerVal}", Тип: "${typeVal}", Правильный: ${isTrue}`);
 
                     if (answerVal !== '') {
                         answerList.push(answerVal);
-                        epsilonList.push(epsVal);
-                        typeList.push(typeVal);
-                        normList.push(normVal);
                         boolList.push(isTrue);
+
+                        // Для тестовых вопросов берем тип, точность и норму только из первого ответа
+                        if (isTestQuestion) {
+                            if (answerIndex === 0) {
+                                firstAnswerType = typeVal;
+                                firstAnswerEps = epsVal;
+                                firstAnswerNorm = normVal;
+                            }
+                            // Для всех ответов тестового вопроса используем данные первого ответа
+                            epsilonList.push(firstAnswerEps);
+                            typeList.push(firstAnswerType);
+                            normList.push(firstAnswerNorm);
+                        } else {
+                            // Для обычных вопросов используем данные каждого ответа
+                            epsilonList.push(epsVal);
+                            typeList.push(typeVal);
+                            normList.push(normVal);
+                        }
                     }
                 });
 
@@ -396,26 +417,39 @@ $(document).ready(function () {
                     return; // Пропускаем варианты без ответов
                 }
 
-                console.log(`    Найдено ответов: ${answerList.length}`);
+                // Для тестовых вопросов проверяем, что есть хотя бы один правильный ответ
+                if (isTestQuestion) {
+                    const hasCorrectAnswer = boolList.some(val => val === '1');
+                    if (!hasCorrectAnswer) {
+                        console.log(`    Внимание: У тестового вопроса нет правильного ответа, помечаем первый как правильный`);
+                        if (boolList.length > 0) {
+                            boolList[0] = '1';
+                        }
+                    }
+                }
+
+                console.log(`    Найдено ответов: ${answerList.length}, тестовый вопрос: ${isTestQuestion}`);
 
                 // Добавляем данные в общие массивы
                 expressions.push(expr);
                 points.push(groupPoints);
-                blockNumbers.push(blockNum);           // block_expression_num (номер задания)
-                variantNumbers.push(variantIndex + 1); // number (номер варианта)
+                blockNumbers.push(blockNum);           // block_expression_num (номер задания) - одинаковый для всех вариантов задания
+                variantNumbers.push(variantIndex + 1); // number (номер варианта внутри задания) - 1,2,3...
 
                 // Форматируем ответы как в старой системе
                 const exist_select = answerList.length > 1;
                 const ansString = exist_select ? answerList.join(';') : (answerList[0] || '');
                 const epsString = exist_select ? epsilonList.join(';') : (epsilonList[0] || '');
-                const typeString = exist_select ? typeList.join(';') : (typeList[0] || '');
-                const normString = exist_select ? normList.join(';') : (normList[0] || '');
                 const boolString = exist_select ? boolList.join(';') : (boolList[0] || '');
+
+                // Для типов и норм всегда берем значение из первого ответа (не массив)
+                const typeValue = firstAnswerType || typeList[0] || '';
+                const normValue = firstAnswerNorm || normList[0] || '';
 
                 answers.push(ansString);
                 epsilons.push(epsString);
-                types.push(typeString);
-                norms.push(normString);
+                types.push(typeValue);  // Одиночное значение, не строка с ;
+                norms.push(normValue);  // Одиночное значение, не строка с ;
                 boolAnswers.push(boolString);
 
                 console.log(`    Добавлен вариант с выражением: "${expr}", блок: ${blockNum}, номер: ${variantIndex + 1}`);
@@ -435,6 +469,14 @@ $(document).ready(function () {
         $('#hidden_type1').val(JSON.stringify(types));
         $('#hidden_norm1').val(JSON.stringify(norms));
         $('#hidden_bool_ans1').val(JSON.stringify(boolAnswers));
+
+        // Добавляем новые поля для номеров блоков и вариантов
+        // Удаляем старые скрытые поля если они есть
+        $('input[name="number"]').remove();
+        $('input[name="block_expression_num"]').remove();
+
+        $('#testForm').append('<input type="hidden" name="number" value=\'' + JSON.stringify(variantNumbers) + '\'>');
+        $('#testForm').append('<input type="hidden" name="block_expression_num" value=\'' + JSON.stringify(blockNumbers) + '\'>');
 
         // Остальные скрытые поля
         $('#hidden_name_test').val($('#testNameInput').val());

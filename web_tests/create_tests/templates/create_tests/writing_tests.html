@@ -19,59 +19,113 @@
 
 {% block content %}
 <div class="container">
-    <div class="mainPart">
-        <div class="fullExpression" id="fullExpression1">
-            <div class="header-expression">
-                <div class="task-header-left">
-                    <div class="task-number">
-                        <h3 id="count1">Задание №1.</h3>
-                    </div>
-                    <div class="point-for-solve">
-                        <input type="text" name="point_solve" id="point_solve1" placeholder="Баллы">
-                    </div>
-                </div>
-                <button type="button" class="btn btn-icon del-expr" title="Удалить задание ">
-                    Удалить задание <i class="fas fa-trash-alt"></i>
-                </button>
+    <div class="test-creation-layout">
+        <!-- Левая панель с картой заданий -->
+        <div class="task-map-panel">
+            <div class="task-map-header">
+                <h3>Список заданий:</h3>
             </div>
-
-            <div class="expression">
-                <math-field id="expr1" virtual-keyboard-mode="manual" name="user_expression" lang="ru" placeholder="Задание"></math-field>
-            </div>
-
-            <div class="answers-container">
-                <div class="answer-row">
-                    <div class="answer-wrapper">
-                        <div class="answer-header">
-                            <input type="checkbox" class="select-ans hidden">
-                            <button class="del-ans hidden">Удалить вариант ответа.</button>
-                        </div>
-                        <div class="answer-content">
-                            <math-field class="answer-field" placeholder="Ответ"></math-field>
-                            <div class="meta-fields">
-                                <input type="text" class="accuracy-field" placeholder="Точность">
-                                <select name="user_type" class="type-field" id="type-select" required>
-                                  <option value="" disabled selected hidden>Тип ответа</option>
-                                  {% for t in all_types_answer %}
-                                    <option value="{{ t.id }}">{{ t.name }}</option>
-                                  {% endfor %}
-                                </select>
-                            </div>
-                        </div>
+            <div class="task-map-container" id="taskMapContainer">
+                <div class="task-map-item active" data-task-id="1">
+                    <div class="task-map-item-content">
+                        <span class="task-number">1</span>
                     </div>
+                    <button class="delete-task-btn" title="Удалить задание">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
             </div>
-
-            <div class="add-answer-footer">
-                <button class="btn-add-answer">
-                    <i class="fas fa-plus-circle"></i> Добавить вариант ответа
-                </button>
+            <button type="button" id="add-task-group" class="add-task-btn">
+                <i class="fas fa-plus"></i> Добавить
+            </button>
+            <div class="save-section">
+                <a href="#popup"><button type="submit" class="save-btn">
+                    <i class="fas fa-save"></i>
+                    Сохранить
+                </button></a>
             </div>
         </div>
 
-        <div class="butChange">
-            <button type="button" id="sel-type" class="add-btn">Добавить задание</button>
-            <a href="#popup"><button type="submit" class="save-btn">Сохранить</button></a>
+        <!-- Правая панель с редактором заданий -->
+        <div class="task-editor-panel">
+            <div class="task-groups-container" id="taskGroupsContainer">
+                <div class="task-group active" id="taskGroup1" data-task-id="1">
+                    <div class="task-group-header">
+                        <div class="task-group-left">
+                            <div class="task-group-number">
+                                <h2 id="groupCount1">Задание №1</h2>
+                            </div>
+                            <div class="point-for-solve">
+                                <input type="text" name="group_points" id="group_points1" placeholder="Баллы">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-icon del-task-group" title="Удалить группу заданий">
+                            Удалить задание <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+
+                    <div class="task-variants-container">
+                        <div class="task-variant" id="variant1_1">
+                            <div class="variant-header">
+                                <div class="variant-left">
+                                    <h4 id="variantCount1_1">Вариант №1</h4>
+                                </div>
+                                <button type="button" class="btn btn-icon del-variant hidden" title="Удалить вариант">
+                                    Удалить вариант <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+
+                            <div class="expression">
+                                <math-field id="expr1_1" virtual-keyboard-mode="manual" name="user_expression" lang="ru" placeholder="Задание"></math-field>
+                            </div>
+
+                            <div class="answers-container">
+                                <div class="answer-row">
+                                    <div class="answer-wrapper">
+                                        <div class="answer-header">
+                                            <div class="answer-checkbox">
+                                                <input type="checkbox" class="select-ans hidden">
+                                                <span class="correct-label hidden">Верный ответ</span>
+                                            </div>
+                                            <button class="del-ans hidden">Удалить вариант ответа</button>
+                                        </div>
+                                        <div class="answer-content">
+                                            <math-field class="answer-field" placeholder="Ответ"></math-field>
+                                            <div class="meta-fields">
+                                                <input type="text" class="accuracy-field" placeholder="Точность">
+                                                <select name="user_type" class="type-field" id="type-select" required>
+                                                  <option value="" disabled selected hidden>Тип ответа</option>
+                                                  {% for t in all_types_answer %}
+                                                    <option value="{{ t.id }}">{{ t.name }}</option>
+                                                  {% endfor %}
+                                                </select>
+                                                <select name="user_norm" class="norm-field" id="norm-select" style="display: none;">
+                                                  <option value="" disabled selected hidden>Норма матрицы</option>
+                                                  {% for n in all_norms %}
+                                                    <option value="{{ n.id }}">{{ n.name }}</option>
+                                                  {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="add-answer-footer">
+                                <button class="btn-add-answer">
+                                    <i class="fas fa-plus-circle"></i> Добавить вариант ответа
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="add-variant-footer">
+                        <button class="btn-add-variant">
+                            <i class="fas fa-plus"></i> Добавить вариант задания
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -128,11 +182,24 @@
                         <input type="hidden" name="user_ans" id="hidden_ans1">
                         <input type="hidden" name="user_eps" id="hidden_eps1">
                         <input type="hidden" name="user_type" id="hidden_type1">
+                        <input type="hidden" name="user_norm" id="hidden_norm1">
                         <input type="hidden" name="user_bool_ans" id="hidden_bool_ans1">
                         <button type="submit" class="save-and-go-to-list">Да, вернуться к списку</button>
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно подтверждения удаления задания -->
+<div id="deleteTaskModal" class="confirmation-modal">
+    <div class="confirmation-content">
+        <div class="confirmation-title">Удаление задания</div>
+        <div class="confirmation-message">Вы уверены, что хотите удалить это задание? Все данные будут потеряны безвозвратно.</div>
+        <div class="confirmation-buttons">
+            <button class="cancel-btn" id="cancelDeleteTask">Отмена</button>
+            <button class="confirm-btn" id="confirmDeleteTask">Удалить</button>
         </div>
     </div>
 </div>

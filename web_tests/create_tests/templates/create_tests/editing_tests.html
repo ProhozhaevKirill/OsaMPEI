@@ -12,142 +12,228 @@
 
 {% block extra_js %}
     <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
-    <script src="{% static 'js/editing_tests.js' %}?v=3"></script>
+    <script src="{% static 'js/editing_tests.js' %}"></script>
     <script src="https://unpkg.com/mathlive"></script>
     <script src="{% static 'js/mathJax-rus.js' %}"></script>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <div class="mainPart">
-        {% for expr in expressions_data %}
-        <div class="fullExpression" id="fullExpression{{ forloop.counter }}">
-            <div class="header-expression">
-                <div class="task-header-left">
-                    <div class="task-number">
-                        <h3 id="count{{ forloop.counter }}">Задание №{{ forloop.counter }}.</h3>
-                    </div>
-                    <div class="point-for-solve">
-                        <input type="text" name="point_solve" id="point_solve{{ forloop.counter }}" value="{{ expr.points_for_solve }}" placeholder="Баллы">
-                    </div>
-                </div>
-                <button type="button" class="btn btn-icon del-expr" title="Удалить задание">
-                    Удалить задание <i class="fas fa-trash-alt"></i>
-                </button>
+    <div class="test-creation-layout">
+        <!-- Левая панель с картой заданий -->
+        <div class="task-map-panel">
+            <div class="task-map-header">
+                <h3>Список заданий:</h3>
             </div>
-
-            <div class="expression">
-                <math-field id="expr{{ forloop.counter }}" virtual-keyboard-mode="manual" name="user_expression" lang="ru" placeholder="Задание">{{ expr.user_expression }}</math-field>
+            <div class="task-map-container" id="taskMapContainer">
+                <!-- Карта заданий будет сгенерирована JS -->
             </div>
+            <button type="button" id="add-task-group" class="add-task-btn">
+                <i class="fas fa-plus"></i> Добавить
+            </button>
+            <div class="save-section">
+                <a href="#popup"><button type="submit" class="save-btn">
+                    <i class="fas fa-save"></i>
+                    Сохранить
+                </button></a>
+            </div>
+        </div>
 
-            <div class="answers-container">
-                {% for ans in expr.answers %}
-                <div class="answer-row">
-                    <div class="answer-wrapper">
-                        <div class="answer-header">
-                            <input type="checkbox" class="select-ans {% if expr.answers|length == 1 %}hidden{% endif %}" {% if ans.is_correct %}checked{% endif %}>
-                            <button class="del-ans {% if expr.answers|length == 1 %}hidden{% endif %}">Удалить вариант ответа.</button>
-                        </div>
-                        <div class="answer-content">
-                            <math-field class="answer-field" placeholder="Ответ">{{ ans.user_ans }}</math-field>
-                            <div class="meta-fields">
-                                <input type="text" class="accuracy-field" placeholder="Точность" value="{{ ans.user_eps }}">
-                                <select name="user_type" class="type-field" id="type-select" required>
-                                    <option value="" disabled>Тип ответа</option>
-                                    {% for t in all_types_answer %}
-                                        <option value="{{ t.id }}" {% if t.id == ans.user_type_id %}selected{% endif %}>{{ t.name }}</option>
-                                    {% endfor %}
-                                </select>
+        <!-- Правая панель с редактором заданий -->
+        <div class="task-editor-panel">
+            <div class="task-groups-container" id="taskGroupsContainer">
+                {% for task_group in task_groups_data %}
+                <div class="task-group {% if forloop.first %}active{% endif %}" id="taskGroup{{ forloop.counter }}" data-task-id="{{ forloop.counter }}">
+                    <div class="task-group-header">
+                        <div class="task-group-left">
+                            <div class="task-group-number">
+                                <h2 id="groupCount{{ forloop.counter }}">Задание №{{ forloop.counter }}</h2>
+                            </div>
+                            <div class="point-for-solve">
+                                <input type="text" name="group_points" id="group_points{{ forloop.counter }}" placeholder="Баллы" value="{{ task_group.points_for_solve }}">
                             </div>
                         </div>
+                        <button type="button" class="btn btn-icon del-task-group" title="Удалить группу заданий">
+                            Удалить задание <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+
+                    <div class="task-variants-container">
+                        {% for variant in task_group.variants %}
+                        <div class="task-variant" id="variant{{ forloop.parentloop.counter }}_{{ forloop.counter }}">
+                            <div class="variant-header">
+                                <div class="variant-left">
+                                    <h4 id="variantCount{{ forloop.parentloop.counter }}_{{ forloop.counter }}">Вариант №{{ forloop.counter }}</h4>
+                                </div>
+                                <button type="button" class="btn btn-icon del-variant {% if task_group.variants|length == 1 %}hidden{% endif %}" title="Удалить вариант">
+                                    Удалить вариант <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+
+                            <div class="expression">
+                                <math-field id="expr{{ forloop.parentloop.counter }}_{{ forloop.counter }}" virtual-keyboard-mode="manual" name="user_expression" lang="ru" placeholder="Задание">{{ variant.user_expression }}</math-field>
+                            </div>
+
+                            <div class="answers-container">
+                                {% for answer in variant.answers %}
+                                <div class="answer-row">
+                                    <div class="answer-wrapper">
+                                        <div class="answer-header">
+                                            <div class="answer-checkbox">
+                                                <input type="checkbox" class="select-ans {% if variant.answers|length == 1 %}hidden{% endif %}" {% if answer.is_correct %}checked{% endif %}>
+                                                <span class="correct-label {% if variant.answers|length == 1 %}hidden{% endif %}">Верный ответ</span>
+                                            </div>
+                                            <button class="del-ans {% if variant.answers|length == 1 %}hidden{% endif %}">Удалить вариант ответа</button>
+                                        </div>
+                                        <div class="answer-content">
+                                            <math-field class="answer-field" placeholder="Ответ">{{ answer.user_ans }}</math-field>
+                                            <div class="meta-fields" {% if variant.answers|length > 1 %}style="display: none;"{% endif %}>
+                                                <input type="text" class="accuracy-field" placeholder="Точность" value="{{ answer.user_eps }}">
+                                                <select name="user_type" class="type-field" id="type-select" required>
+                                                    <option value="" disabled hidden>Тип ответа</option>
+                                                    {% for t in all_types_answer %}
+                                                        <option value="{{ t.id }}" {% if t.id == answer.user_type_id %}selected{% endif %}>{{ t.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <select name="user_norm" class="norm-field" id="norm-select" {% if answer.user_type_id != 4 %}style="display: none;"{% endif %}>
+                                                    <option value="" disabled hidden>Норма матрицы</option>
+                                                    {% for n in all_norms %}
+                                                        <option value="{{ n.id }}" {% if n.id == answer.user_norm_id %}selected{% endif %}>{{ n.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% empty %}
+                                <!-- Если нет ответов, создаем один пустой -->
+                                <div class="answer-row">
+                                    <div class="answer-wrapper">
+                                        <div class="answer-header">
+                                            <div class="answer-checkbox">
+                                                <input type="checkbox" class="select-ans hidden">
+                                                <span class="correct-label hidden">Верный ответ</span>
+                                            </div>
+                                            <button class="del-ans hidden">Удалить вариант ответа</button>
+                                        </div>
+                                        <div class="answer-content">
+                                            <math-field class="answer-field" placeholder="Ответ"></math-field>
+                                            <div class="meta-fields">
+                                                <input type="text" class="accuracy-field" placeholder="Точность">
+                                                <select name="user_type" class="type-field" id="type-select" required>
+                                                    <option value="" disabled selected hidden>Тип ответа</option>
+                                                    {% for t in all_types_answer %}
+                                                        <option value="{{ t.id }}">{{ t.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <select name="user_norm" class="norm-field" id="norm-select" style="display: none;">
+                                                    <option value="" disabled selected hidden>Норма матрицы</option>
+                                                    {% for n in all_norms %}
+                                                        <option value="{{ n.id }}">{{ n.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="add-answer-footer">
+                                <button class="btn-add-answer">
+                                    <i class="fas fa-plus-circle"></i> Добавить вариант ответа
+                                </button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="add-variant-footer">
+                        <button class="btn-add-variant">
+                            <i class="fas fa-plus"></i> Добавить вариант задания
+                        </button>
                     </div>
                 </div>
                 {% empty %}
-                <!-- Если нет ответов, создаем один пустой -->
-                <div class="answer-row">
-                    <div class="answer-wrapper">
-                        <div class="answer-header">
-                            <input type="checkbox" class="select-ans hidden">
-                            <button class="del-ans hidden">Удалить вариант ответа.</button>
-                        </div>
-                        <div class="answer-content">
-                            <math-field class="answer-field" placeholder="Ответ"></math-field>
-                            <div class="meta-fields">
-                                <input type="text" class="accuracy-field" placeholder="Точность">
-                                <select name="user_type" class="type-field" id="type-select" required>
-                                    <option value="" disabled selected hidden>Тип ответа</option>
-                                    {% for t in all_types_answer %}
-                                        <option value="{{ t.id }}">{{ t.name }}</option>
-                                    {% endfor %}
-                                </select>
+                <!-- Если нет заданий, создаем одно пустое -->
+                <div class="task-group active" id="taskGroup1" data-task-id="1">
+                    <div class="task-group-header">
+                        <div class="task-group-left">
+                            <div class="task-group-number">
+                                <h2 id="groupCount1">Задание №1</h2>
+                            </div>
+                            <div class="point-for-solve">
+                                <input type="text" name="group_points" id="group_points1" placeholder="Баллы">
                             </div>
                         </div>
+                        <button type="button" class="btn btn-icon del-task-group" title="Удалить группу заданий">
+                            Удалить задание <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+
+                    <div class="task-variants-container">
+                        <div class="task-variant" id="variant1_1">
+                            <div class="variant-header">
+                                <div class="variant-left">
+                                    <h4 id="variantCount1_1">Вариант №1</h4>
+                                </div>
+                                <button type="button" class="btn btn-icon del-variant hidden" title="Удалить вариант">
+                                    Удалить вариант <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+
+                            <div class="expression">
+                                <math-field id="expr1_1" virtual-keyboard-mode="manual" name="user_expression" lang="ru" placeholder="Задание"></math-field>
+                            </div>
+
+                            <div class="answers-container">
+                                <div class="answer-row">
+                                    <div class="answer-wrapper">
+                                        <div class="answer-header">
+                                            <div class="answer-checkbox">
+                                                <input type="checkbox" class="select-ans hidden">
+                                                <span class="correct-label hidden">Верный ответ</span>
+                                            </div>
+                                            <button class="del-ans hidden">Удалить вариант ответа</button>
+                                        </div>
+                                        <div class="answer-content">
+                                            <math-field class="answer-field" placeholder="Ответ"></math-field>
+                                            <div class="meta-fields">
+                                                <input type="text" class="accuracy-field" placeholder="Точность">
+                                                <select name="user_type" class="type-field" id="type-select" required>
+                                                    <option value="" disabled selected hidden>Тип ответа</option>
+                                                    {% for t in all_types_answer %}
+                                                        <option value="{{ t.id }}">{{ t.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <select name="user_norm" class="norm-field" id="norm-select" style="display: none;">
+                                                    <option value="" disabled selected hidden>Норма матрицы</option>
+                                                    {% for n in all_norms %}
+                                                        <option value="{{ n.id }}">{{ n.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="add-answer-footer">
+                                <button class="btn-add-answer">
+                                    <i class="fas fa-plus-circle"></i> Добавить вариант ответа
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="add-variant-footer">
+                        <button class="btn-add-variant">
+                            <i class="fas fa-plus"></i> Добавить вариант задания
+                        </button>
                     </div>
                 </div>
                 {% endfor %}
             </div>
-
-            <div class="add-answer-footer">
-                <button class="btn-add-answer">
-                    <i class="fas fa-plus-circle"></i> Добавить вариант ответа
-                </button>
-            </div>
-        </div>
-        {% empty %}
-        <!-- Если нет заданий, создаем одно пустое -->
-        <div class="fullExpression" id="fullExpression1">
-            <div class="header-expression">
-                <div class="task-header-left">
-                    <div class="task-number">
-                        <h3 id="count1">Задание №1.</h3>
-                    </div>
-                    <div class="point-for-solve">
-                        <input type="text" name="point_solve" id="point_solve1" placeholder="Баллы">
-                    </div>
-                </div>
-                <button type="button" class="btn btn-icon del-expr" title="Удалить задание">
-                    Удалить задание <i class="fas fa-trash-alt"></i>
-                </button>
-            </div>
-
-            <div class="expression">
-                <math-field id="expr1" virtual-keyboard-mode="manual" name="user_expression" lang="ru" placeholder="Задание"></math-field>
-            </div>
-
-            <div class="answers-container">
-                <div class="answer-row">
-                    <div class="answer-wrapper">
-                        <div class="answer-header">
-                            <input type="checkbox" class="select-ans hidden">
-                            <button class="del-ans hidden">Удалить вариант ответа.</button>
-                        </div>
-                        <div class="answer-content">
-                            <math-field class="answer-field" placeholder="Ответ"></math-field>
-                            <div class="meta-fields">
-                                <input type="text" class="accuracy-field" placeholder="Точность">
-                                <select name="user_type" class="type-field" id="type-select" required>
-                                    <option value="" disabled selected hidden>Тип ответа</option>
-                                    {% for t in all_types_answer %}
-                                        <option value="{{ t.id }}">{{ t.name }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="add-answer-footer">
-                <button class="btn-add-answer">
-                    <i class="fas fa-plus-circle"></i> Добавить вариант ответа
-                </button>
-            </div>
-        </div>
-        {% endfor %}
-
-        <div class="butChange">
-            <button type="button" id="sel-type" class="add-btn">Добавить задание</button>
-            <a href="#popup"><button type="submit" class="save-btn">Сохранить</button></a>
         </div>
     </div>
 </div>
@@ -158,7 +244,10 @@
     <div class="popup_body">
         <div class="popup_content">
             <div class="test-header">
-                <h3>Заполните перед сохранением</h3>
+                <div class="modal-header">
+                    <h3>Заполните перед сохранением </h3>
+                    <a href="#header"> <button class="close-modal">&times;</button> </a>
+                </div>
                 <div class="centered-inputs">
                     <select name="subj_test" id="subj_test" class="wide-input">
                         <option value="" disabled>Выберите предмет</option>
@@ -176,12 +265,15 @@
                         <input type="number" id="seconds" placeholder="Секунды" min="0" max="59" class="time-input" value="{{ seconds }}">
                     </div>
 
+                    {% if time_error %}
+                        <div class="error-msg">{{ time_error }}</div>
+                    {% endif %}
+
                     <input type="text" name="num_attempts" id="num_attempts" placeholder="Количество попыток" class="wide-input" value="{{ test.num_of_attempts }}">
                     <input type="text" name="description_test" id="description_test" placeholder="Описание теста" class="wide-input" value="{{ test.description }}">
                 </div>
             </div>
 
-            <a href="#header" class="popup_close">X</a>
             <div class="popup_title">Вы уверенны, что хотите сохранить?</div>
             <div class="btn_option">
                 <a href="#header"><button class="changeTest">Нет, продолжить составление</button></a>
@@ -198,11 +290,24 @@
                         <input type="hidden" name="user_ans" id="hidden_ans1">
                         <input type="hidden" name="user_eps" id="hidden_eps1">
                         <input type="hidden" name="user_type" id="hidden_type1">
+                        <input type="hidden" name="user_norm" id="hidden_norm1">
                         <input type="hidden" name="user_bool_ans" id="hidden_bool_ans1">
                         <button type="submit" class="save-and-go-to-list">Да, вернуться к списку</button>
                     </form>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно подтверждения удаления задания -->
+<div id="deleteTaskModal" class="confirmation-modal">
+    <div class="confirmation-content">
+        <div class="confirmation-title">Удаление задания</div>
+        <div class="confirmation-message">Вы уверены, что хотите удалить это задание? Все данные будут потеряны безвозвратно.</div>
+        <div class="confirmation-buttons">
+            <button class="cancel-btn" id="cancelDeleteTask">Отмена</button>
+            <button class="confirm-btn" id="confirmDeleteTask">Удалить</button>
         </div>
     </div>
 </div>

@@ -24,7 +24,23 @@ class TypeAnswer(models.Model):
         return self.name
 
 
+class TypeNorm(models.Model):
+    TYPE_CHOICES_NORM = [
+        (1, "Евклидова норма"),
+        (2, "Первая норма"),
+        (3, "Бесконечная норма"),
+    ]
+
+    type_code = models.IntegerField(choices=TYPE_CHOICES_NORM, unique=True)
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+
 class AboutExpressions(models.Model):
+    number = models.IntegerField(max_length=20, default=0)
+    block_expression_num = models.IntegerField(max_length=50, default=0)
     user_expression = models.CharField(max_length=100, blank=False)
     user_ans = models.CharField(max_length=150, blank=False)
     true_ans = models.CharField(max_length=15, default='1')
@@ -40,6 +56,16 @@ class AboutExpressions(models.Model):
         super().save(*args, **kwargs)
 
 
+class TypeNormForMatrix(models.Model):
+    num_expr = models.ForeignKey(AboutExpressions, on_delete=models.CASCADE)
+    matrix_norms = models.ForeignKey(TypeNorm, on_delete=models.SET_NULL, null=True)
+
+
+class TypeNormForTaskVariant(models.Model):
+    task_variant = models.ForeignKey('TaskVariant', on_delete=models.CASCADE)
+    matrix_norms = models.ForeignKey(TypeNorm, on_delete=models.SET_NULL, null=True)
+
+
 class Subjects(models.Model):
     name = models.CharField(max_length=100, unique=True, default="Другое")
 
@@ -47,10 +73,32 @@ class Subjects(models.Model):
         return self.name
 
 
+class TaskGroup(models.Model):
+    number = models.IntegerField(default=1)  # Номер группы заданий
+    points_for_solve = models.IntegerField(default=1)  # Баллы за решение этой группы
+
+    def __str__(self):
+        return f"Группа заданий №{self.number}"
+
+
+class TaskVariant(models.Model):
+    task_group = models.ForeignKey(TaskGroup, on_delete=models.CASCADE, related_name='variants')
+    user_expression = models.CharField(max_length=100, blank=False)
+    user_ans = models.CharField(max_length=150, blank=False)
+    true_ans = models.CharField(max_length=15, default='1')
+    user_eps = models.CharField(max_length=150, default="0", blank=True)
+    user_type = models.ForeignKey(TypeAnswer, on_delete=models.SET_NULL, null=True)
+    exist_select = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Вариант {self.id} группы {self.task_group.number}"
+
+
 class AboutTest(models.Model):
     objects = None
     name_tests = models.CharField(max_length=255, blank=False)  # Название теста
-    creator = models.ForeignKey(TeacherData, on_delete=models.PROTECT, null=True, blank=True, related_name='created_tests') # Создатель теста
+    creator = models.ForeignKey(TeacherData, on_delete=models.PROTECT, null=True, blank=True,
+                                related_name='created_tests')  # Создатель теста
     time_to_solution = models.DurationField(default=timedelta(hours=1, minutes=30))
     name_slug_tests = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")  # Слаг имени
     num_of_attempts = models.IntegerField(blank=True, default=1)  # Количество попыток для решения
@@ -67,13 +115,23 @@ class AboutTest(models.Model):
     # expiration_date = models.DateTimeField(null=True, blank=True)  # Время публикации (аналогично)
     # time_last_change = models.DateTimeField(auto_now=True)  # Время последнего изменения теста
     expressions = models.ManyToManyField(AboutExpressions)
+    task_groups = models.ManyToManyField(TaskGroup, blank=True)  # Новые группы заданий
 
     def __str__(self):
         return self.name_tests
 
     def save(self, *args, **kwargs):
         if not self.id:  # Проверка на создание нового объекта
-            self.name_slug_tests = slugify(unidecode(self.name_tests))
+            base_slug = slugify(unidecode(self.name_tests))
+            slug = base_slug
+            counter = 1
+
+            # Проверяем уникальность slug'а
+            while AboutTest.objects.filter(name_slug_tests=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+
+            self.name_slug_tests = slug
         super().save(*args, **kwargs)
 
 
@@ -86,4 +144,3 @@ class PublishedGroup(models.Model):
 @receiver(pre_delete, sender=AboutTest)
 def delete_related_expressions(sender, instance, **kwargs):
     instance.expressions.clear()
-

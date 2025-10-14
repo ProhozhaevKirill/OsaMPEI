@@ -2,7 +2,7 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.text import slugify
-from .models import AboutExpressions, AboutTest, Subjects, PublishedGroup, TypeAnswer
+from .models import AboutExpressions, AboutTest, Subjects, PublishedGroup, TypeAnswer, TypeNorm, TypeNormForMatrix, TaskGroup, TaskVariant, TypeNormForTaskVariant
 from users.models import StudentGroup, StudentInstitute, TeacherData
 import json
 from django.http import JsonResponse
@@ -35,60 +35,133 @@ def parse_duration_string(time_str):
 def create_test(request):
     all_subj = Subjects.objects.all()
     all_types_answer = TypeAnswer.objects.all()
-    print(all_types_answer)
+    all_norms = TypeNorm.objects.all()
 
     if request.method == 'POST':
         try:
+            logger.info("=== CREATE TEST DEBUG START ===")
+            logger.info(f"POST data keys: {list(request.POST.keys())}")
+            logger.info(f"POST data: {dict(request.POST)}")
+
             test_name = request.POST.get('name_test')
             time_to_sol_raw = request.POST.get('time_solve')
             count_attempts = request.POST.get('num_attempts')
             description_test = request.POST.get('description_test', '')
             subj_id = request.POST.get('subj_test')
+
+            logger.info(f"Basic fields - name: '{test_name}', time: '{time_to_sol_raw}', attempts: '{count_attempts}', subj_id: '{subj_id}'")
+
             subj = Subjects.objects.get(id=subj_id)
             time_to_sol = parse_duration_string(time_to_sol_raw)
 
-            # Получение списков из формы
-            points = json.loads(request.POST.get('point_solve', '[]'))
-            expressions = json.loads(request.POST.get('user_expression', '[]'))
-            answers = json.loads(request.POST.get('user_ans', '[]'))
-            boolAns = json.loads(request.POST.get('user_bool_ans', '[]'))
-            epsilons = json.loads(request.POST.get('user_eps', '[]'))
-            types = json.loads(request.POST.get('user_type', '[]'))
+            # Получение списков из формы (старая система)
+            points_raw = request.POST.get('point_solve', '[]')
+            expressions_raw = request.POST.get('user_expression', '[]')
+            answers_raw = request.POST.get('user_ans', '[]')
+            boolAns_raw = request.POST.get('user_bool_ans', '[]')
+            epsilons_raw = request.POST.get('user_eps', '[]')
+            types_raw = request.POST.get('user_type', '[]')
+            norms_raw = request.POST.get('user_norm', '[]')
 
-            # Сохраняем тест
-            test_slug = slugify(test_name, allow_unicode=True)
+            logger.info(f"Raw data - points: {points_raw}, expressions: {expressions_raw}")
+
+            points = json.loads(points_raw)
+            expressions = json.loads(expressions_raw)
+            answers = json.loads(answers_raw)
+            boolAns = json.loads(boolAns_raw)
+            epsilons = json.loads(epsilons_raw)
+            types = json.loads(types_raw)
+            norms = json.loads(norms_raw)
+
+            logger.info(f"Parsed data - expressions count: {len(expressions)}, points count: {len(points)}")
+
+            # Получаем данные преподавателя
+            teacher = TeacherData.objects.get(data_map=request.user)
+
+            # Сохраняем тест (slug создается автоматически в модели)
             new_test = AboutTest.objects.create(
                 name_tests=test_name,
                 time_to_solution=time_to_sol,
-                name_slug_tests=test_slug,
                 num_of_attempts=count_attempts,
                 subj=subj,
                 description=description_test,
+                creator=teacher,
             )
 
-            # Добавляем задания
-            for i, (expr, ans, bool_ans, eps, type_id, point) in enumerate(zip(expressions, answers, boolAns, epsilons, types, points)):
-                if not expr.strip():  # Пропускаем пустые выражения
-                    continue
+            # Проверяем, есть ли хотя бы одно валидное выражение
+            valid_expressions = []
+            for i, (expr, ans, bool_ans, eps, type_id, point, norm_id) in enumerate(zip(expressions, answers, boolAns, epsilons, types, points, norms)):
+                if expr.strip() and type_id:  # Проверяем и выражение, и тип
+                    valid_expressions.append((expr, ans, bool_ans, eps, type_id, point, norm_id))
 
-                flag_select = ';' in bool_ans
-                type_obj = TypeAnswer.objects.get(id=type_id) if type_id else None
+            logger.info(f"Found {len(valid_expressions)} valid expressions out of {len(expressions)}")
 
-                if not type_obj:
-                    continue
+            # Получаем номера блоков и задач из формы
+            numbers_raw = request.POST.get('number', '[]')
+            block_nums_raw = request.POST.get('block_expression_num', '[]')
 
-                expr_instance = AboutExpressions.objects.create(
-                    user_expression=expr,
-                    user_ans=ans,
-                    true_ans=bool_ans,
-                    user_eps=eps or "0",
-                    user_type=type_obj,
-                    points_for_solve=point or 1,
-                    exist_select=flag_select
-                )
-                new_test.expressions.add(expr_instance)
+            logger.info(f"Numbers raw: {numbers_raw}, Block nums raw: {block_nums_raw}")
+
+            try:
+                numbers = json.loads(numbers_raw)
+                block_nums = json.loads(block_nums_raw)
+            except json.JSONDecodeError:
+                numbers = [i+1 for i in range(len(valid_expressions))]  # По умолчанию 1, 2, 3...
+                block_nums = [1] * len(valid_expressions)  # По умолчанию все в блоке 1
+
+            # Добавляем выражения
+            if valid_expressions:
+                for i, (expr, ans, bool_ans, eps, type_id, point, norm_id) in enumerate(valid_expressions):
+                    try:
+                        logger.info(f"Processing expression {i+1}: {expr[:50]}...")
+                        logger.info(f"Data: ans='{ans}', bool_ans='{bool_ans}', eps='{eps}', type_id='{type_id}', point='{point}', norm_id='{norm_id}'")
+
+                        flag_select = ';' in bool_ans
+                        logger.info(f"flag_select = {flag_select}")
+
+                        type_obj = TypeAnswer.objects.get(id=type_id)
+                        logger.info(f"type_obj = {type_obj}")
+
+                        # Получаем номер задания и номер блока
+                        task_number = numbers[i] if i < len(numbers) else i + 1
+                        block_number = block_nums[i] if i < len(block_nums) else 1
+
+                        expr_instance = AboutExpressions.objects.create(
+                            user_expression=expr,
+                            user_ans=ans,
+                            true_ans=bool_ans,
+                            user_eps=eps or "0",
+                            user_type=type_obj,
+                            points_for_solve=int(point) if point else 1,
+                            exist_select=flag_select,
+                            number=task_number,
+                            block_expression_num=block_number
+                        )
+                        logger.info(f"Created expression instance: {expr_instance} with number={task_number}, block={block_number}")
+
+                        new_test.expressions.add(expr_instance)
+                        logger.info(f"Added expression {i+1} successfully")
+
+                        # Добавляем норму матрицы, если тип ответа - матрицы (type_code = 4) и указана норма
+                        if type_obj.type_code == 4 and norm_id:
+                            try:
+                                norm_obj = TypeNorm.objects.get(id=norm_id)
+                                TypeNormForMatrix.objects.create(
+                                    num_expr=expr_instance,
+                                    matrix_norms=norm_obj
+                                )
+                                logger.info(f"Created norm relation for expression {i+1}")
+                            except (TypeNorm.DoesNotExist, ValueError):
+                                logger.warning(f"Invalid norm ID {norm_id} for expression {i+1}")
+                                pass  # Игнорируем неправильные ID норм
+                    except Exception as e:
+                        logger.error(f"Error processing expression {i+1}: {str(e)}")
+                        raise
+            else:
+                logger.warning("No valid expressions found")
 
             new_test.save()
+            logger.info("=== CREATE TEST DEBUG END ===")
             return redirect('create_tests:test_list')
 
         except Exception as e:
@@ -98,8 +171,10 @@ def create_test(request):
             })
 
     return render(request, 'create_tests/writing_tests.html',
-                  {'all_subj': all_subj,
-                           'all_types_answer': all_types_answer})
+                {'all_subj': all_subj,
+                        'all_types_answer': all_types_answer,
+                        'all_norms': all_norms},
+                )
 
 
 @login_required
@@ -236,6 +311,7 @@ def edit_test(request, slug_name):
     test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
     all_subj = Subjects.objects.all()
     all_types_answer = TypeAnswer.objects.all()
+    all_norms = TypeNorm.objects.all()
 
     if request.method == 'POST':
         try:
@@ -263,6 +339,9 @@ def edit_test(request, slug_name):
             boolAns_raw = request.POST.get('user_bool_ans', '[]')
             epsilons_raw = request.POST.get('user_eps', '[]')
             types_raw = request.POST.get('user_type', '[]')
+            norms_raw = request.POST.get('user_norm', '[]')
+            numbers_raw = request.POST.get('number', '[]')
+            block_nums_raw = request.POST.get('block_expression_num', '[]')
 
             logger.info(f"Raw data - points: {points_raw}, expressions: {expressions_raw}")
 
@@ -272,14 +351,22 @@ def edit_test(request, slug_name):
             boolAns = json.loads(boolAns_raw)
             epsilons = json.loads(epsilons_raw)
             types = json.loads(types_raw)
+            norms = json.loads(norms_raw)
+
+            try:
+                numbers = json.loads(numbers_raw)
+                block_nums = json.loads(block_nums_raw)
+            except json.JSONDecodeError:
+                numbers = [i+1 for i in range(len(expressions))]  # По умолчанию 1, 2, 3...
+                block_nums = [1] * len(expressions)  # По умолчанию все в блоке 1
 
             logger.info(f"Parsed data - expressions count: {len(expressions)}, points count: {len(points)}")
 
             # Проверяем, есть ли хотя бы одно валидное выражение
             valid_expressions = []
-            for i, (expr, ans, bool_ans, eps, type_id, point) in enumerate(zip(expressions, answers, boolAns, epsilons, types, points)):
+            for i, (expr, ans, bool_ans, eps, type_id, point, norm_id) in enumerate(zip(expressions, answers, boolAns, epsilons, types, points, norms)):
                 if expr.strip() and type_id:  # Проверяем и выражение, и тип
-                    valid_expressions.append((expr, ans, bool_ans, eps, type_id, point))
+                    valid_expressions.append((expr, ans, bool_ans, eps, type_id, point, norm_id))
 
             logger.info(f"Found {len(valid_expressions)} valid expressions out of {len(expressions)}")
 
@@ -289,16 +376,20 @@ def edit_test(request, slug_name):
                 test.expressions.all().delete()
 
                 # Добавляем новые выражения
-                for i, (expr, ans, bool_ans, eps, type_id, point) in enumerate(valid_expressions):
+                for i, (expr, ans, bool_ans, eps, type_id, point, norm_id) in enumerate(valid_expressions):
                     try:
                         logger.info(f"Processing expression {i+1}: {expr[:50]}...")
-                        logger.info(f"Data: ans='{ans}', bool_ans='{bool_ans}', eps='{eps}', type_id='{type_id}', point='{point}'")
+                        logger.info(f"Data: ans='{ans}', bool_ans='{bool_ans}', eps='{eps}', type_id='{type_id}', point='{point}', norm_id='{norm_id}'")
 
                         flag_select = ';' in bool_ans
                         logger.info(f"flag_select = {flag_select}")
 
                         type_obj = TypeAnswer.objects.get(id=type_id)
                         logger.info(f"type_obj = {type_obj}")
+
+                        # Получаем номер задания и номер блока
+                        task_number = numbers[i] if i < len(numbers) else i + 1
+                        block_number = block_nums[i] if i < len(block_nums) else 1
 
                         expr_instance = AboutExpressions.objects.create(
                             user_expression=expr,
@@ -307,12 +398,27 @@ def edit_test(request, slug_name):
                             user_eps=eps or "0",
                             user_type=type_obj,
                             points_for_solve=int(point) if point else 1,
-                            exist_select=flag_select
+                            exist_select=flag_select,
+                            number=task_number,
+                            block_expression_num=block_number
                         )
-                        logger.info(f"Created expression instance: {expr_instance}")
+                        logger.info(f"Created expression instance: {expr_instance} with number={task_number}, block={block_number}")
 
                         test.expressions.add(expr_instance)
                         logger.info(f"Added expression {i+1} successfully")
+
+                        # Добавляем норму матрицы, если тип ответа - матрицы (type_code = 4) и указана норма
+                        if type_obj.type_code == 4 and norm_id:
+                            try:
+                                norm_obj = TypeNorm.objects.get(id=norm_id)
+                                TypeNormForMatrix.objects.create(
+                                    num_expr=expr_instance,
+                                    matrix_norms=norm_obj
+                                )
+                                logger.info(f"Created norm relation for expression {i+1}")
+                            except (TypeNorm.DoesNotExist, ValueError):
+                                logger.warning(f"Invalid norm ID {norm_id} for expression {i+1}")
+                                pass  # Игнорируем неправильные ID норм
                     except Exception as e:
                         logger.error(f"Error processing expression {i+1}: {str(e)}")
                         raise
@@ -328,28 +434,63 @@ def edit_test(request, slug_name):
             return redirect('create_tests:edit_test', slug_name=slug_name)
 
     # GET запрос - подготовка данных для отображения
-    expressions_data = []
-    for expr in test.expressions.all():
-        # Разбираем данные выражения для отображения
-        ans_list = expr.user_ans.split(';') if ';' in expr.user_ans else [expr.user_ans]
-        eps_list = expr.user_eps.split(';') if ';' in expr.user_eps else [expr.user_eps]
-        bool_list = expr.true_ans.split(';') if ';' in expr.true_ans else [expr.true_ans]
+    # Группируем выражения по block_expression_num (номер задания)
+    from collections import defaultdict
 
-        # Подготавливаем список ответов
-        answers_data = []
-        for i, (ans, eps, bool_val) in enumerate(zip(ans_list, eps_list, bool_list)):
-            answers_data.append({
-                'user_ans': ans,
-                'user_eps': eps,
-                'user_type_id': expr.user_type.id if expr.user_type else '',
-                'is_correct': bool_val == '1'
+    task_groups_data = []
+    expressions_by_block = defaultdict(list)
+
+    # Сначала группируем все выражения по номеру блока
+    for expr in test.expressions.all().order_by('block_expression_num', 'number'):
+        block_num = expr.block_expression_num if hasattr(expr, 'block_expression_num') and expr.block_expression_num else 1
+        expressions_by_block[block_num].append(expr)
+
+    # Теперь обрабатываем каждую группу (задание)
+    for block_num in sorted(expressions_by_block.keys()):
+        variants_data = []
+        block_expressions = expressions_by_block[block_num]
+
+        # Получаем первое выражение для баллов (все варианты одного задания имеют одинаковые баллы)
+        first_expr = block_expressions[0]
+        points_for_solve = first_expr.points_for_solve
+
+        # Обрабатываем каждый вариант в этом блоке
+        for expr in block_expressions:
+            # Разбираем данные выражения для отображения
+            ans_list = expr.user_ans.split(';') if ';' in expr.user_ans else [expr.user_ans]
+            eps_list = expr.user_eps.split(';') if ';' in expr.user_eps else [expr.user_eps]
+            bool_list = expr.true_ans.split(';') if ';' in expr.true_ans else [expr.true_ans]
+
+            # Получаем норму матрицы для этого выражения
+            norm_for_matrix = TypeNormForMatrix.objects.filter(num_expr=expr).first()
+            norm_id = norm_for_matrix.matrix_norms.id if norm_for_matrix and norm_for_matrix.matrix_norms else ''
+
+            # Подготавливаем список ответов
+            answers_data = []
+            for i, (ans, eps, bool_val) in enumerate(zip(ans_list, eps_list, bool_list)):
+                answers_data.append({
+                    'user_ans': ans,
+                    'user_eps': eps,
+                    'user_type_id': expr.user_type.id if expr.user_type else '',
+                    'user_norm_id': norm_id,
+                    'is_correct': bool_val == '1'
+                })
+
+            variants_data.append({
+                'user_expression': expr.user_expression,
+                'answers': answers_data,
+                'variant_number': expr.number if hasattr(expr, 'number') and expr.number else 1
             })
 
-        expressions_data.append({
-            'user_expression': expr.user_expression,
-            'points_for_solve': expr.points_for_solve,
-            'answers': answers_data
+        task_groups_data.append({
+            'block_number': block_num,
+            'points_for_solve': points_for_solve,
+            'variants': variants_data
         })
+
+    # Если нет данных, создаем пустую структуру для новых тестов
+    if not task_groups_data:
+        task_groups_data = []
 
     # Разбираем время для отображения
     total_seconds = int(test.time_to_solution.total_seconds())
@@ -359,9 +500,10 @@ def edit_test(request, slug_name):
 
     context = {
         'test': test,
-        'expressions_data': expressions_data,
+        'task_groups_data': task_groups_data,
         'all_subj': all_subj,
         'all_types_answer': all_types_answer,
+        'all_norms': all_norms,
         'hours': hours,
         'minutes': minutes,
         'seconds': seconds,

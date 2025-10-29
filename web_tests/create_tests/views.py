@@ -54,24 +54,98 @@ def create_test(request):
             subj = Subjects.objects.get(id=subj_id)
             time_to_sol = parse_duration_string(time_to_sol_raw)
 
-            # Получение списков из формы (старая система)
-            points_raw = request.POST.get('point_solve', '[]')
-            expressions_raw = request.POST.get('user_expression', '[]')
-            answers_raw = request.POST.get('user_ans', '[]')
-            boolAns_raw = request.POST.get('user_bool_ans', '[]')
-            epsilons_raw = request.POST.get('user_eps', '[]')
-            types_raw = request.POST.get('user_type', '[]')
-            norms_raw = request.POST.get('user_norm', '[]')
+            # Проверяем новый формат task_groups_data
+            task_groups_data_raw = request.POST.get('task_groups_data', '[]')
+            logger.info(f"Raw task_groups_data: {task_groups_data_raw}")
 
-            logger.info(f"Raw data - points: {points_raw}, expressions: {expressions_raw}")
+            task_groups_data = json.loads(task_groups_data_raw)
+            logger.info(f"Parsed task_groups_data: {task_groups_data}")
 
-            points = json.loads(points_raw)
-            expressions = json.loads(expressions_raw)
-            answers = json.loads(answers_raw)
-            boolAns = json.loads(boolAns_raw)
-            epsilons = json.loads(epsilons_raw)
-            types = json.loads(types_raw)
-            norms = json.loads(norms_raw)
+            # Если есть данные в новом формате, используем их
+            if task_groups_data:
+                # Преобразуем новый формат в старый для совместимости
+                points = []
+                expressions = []
+                answers = []
+                boolAns = []
+                epsilons = []
+                types = []
+                norms = []
+                numbers = []
+                block_nums = []
+
+                for group_index, group in enumerate(task_groups_data):
+                    group_points = group.get('points', '1')
+                    variants = group.get('variants', [])
+
+                    for variant_index, variant in enumerate(variants):
+                        expressions.append(variant.get('expression', ''))
+
+                        # Обрабатываем варианты ответов
+                        variant_answers = variant.get('answers', '')
+                        variant_epsilons = variant.get('epsilons', '')
+                        variant_boolAnswers = variant.get('boolAnswers', '')
+
+                        # Если это строки с разделителями, то это уже готовые данные
+                        # Если это массивы, то нужно объединить
+                        if isinstance(variant_answers, list):
+                            answers.append(';'.join(str(ans) for ans in variant_answers))
+                        else:
+                            answers.append(str(variant_answers))
+
+                        if isinstance(variant_epsilons, list):
+                            epsilons.append(';'.join(str(eps) for eps in variant_epsilons))
+                        else:
+                            epsilons.append(str(variant_epsilons))
+
+                        # Для правильных ответов нужна особая обработка
+                        if isinstance(variant_boolAnswers, list):
+                            # Преобразуем в бинарную строку: True/1 -> "1", False/0 -> "0"
+                            bool_binary = []
+                            for val in variant_boolAnswers:
+                                if str(val).lower() in ['true', '1', 'yes']:
+                                    bool_binary.append('1')
+                                else:
+                                    bool_binary.append('0')
+                            boolAns.append(';'.join(bool_binary))
+                        else:
+                            # Одиночное значение
+                            if str(variant_boolAnswers).lower() in ['true', '1', 'yes']:
+                                boolAns.append('1')
+                            else:
+                                boolAns.append('0')
+
+                        types.append(variant.get('types', ''))
+                        norms.append(variant.get('norms', ''))
+                        points.append(group_points)
+
+                        # Номер варианта внутри группы (1, 2, 3...)
+                        numbers.append(variant_index + 1)
+                        # Номер группы (блока) заданий (1, 2, 3...)
+                        block_nums.append(group_index + 1)
+
+                logger.info(f"Converted data - expressions count: {len(expressions)}, answers: {answers}")
+                logger.info(f"boolAns: {boolAns}")
+
+            else:
+                # Старая система
+                points_raw = request.POST.get('point_solve', '[]')
+                expressions_raw = request.POST.get('user_expression', '[]')
+                answers_raw = request.POST.get('user_ans', '[]')
+                boolAns_raw = request.POST.get('user_bool_ans', '[]')
+                epsilons_raw = request.POST.get('user_eps', '[]')
+                types_raw = request.POST.get('user_type', '[]')
+                norms_raw = request.POST.get('user_norm', '[]')
+
+                logger.info(f"Raw data - points: {points_raw}, expressions: {expressions_raw}")
+
+                points = json.loads(points_raw)
+                expressions = json.loads(expressions_raw)
+                answers = json.loads(answers_raw)
+                boolAns = json.loads(boolAns_raw)
+                epsilons = json.loads(epsilons_raw)
+                types = json.loads(types_raw)
+                norms = json.loads(norms_raw)
 
             logger.info(f"Parsed data - expressions count: {len(expressions)}, points count: {len(points)}")
 
@@ -96,18 +170,19 @@ def create_test(request):
 
             logger.info(f"Found {len(valid_expressions)} valid expressions out of {len(expressions)}")
 
-            # Получаем номера блоков и задач из формы
-            numbers_raw = request.POST.get('number', '[]')
-            block_nums_raw = request.POST.get('block_expression_num', '[]')
+            # Получаем номера блоков и задач из формы (только для старого формата)
+            if not task_groups_data:
+                numbers_raw = request.POST.get('number', '[]')
+                block_nums_raw = request.POST.get('block_expression_num', '[]')
 
-            logger.info(f"Numbers raw: {numbers_raw}, Block nums raw: {block_nums_raw}")
+                logger.info(f"Numbers raw: {numbers_raw}, Block nums raw: {block_nums_raw}")
 
-            try:
-                numbers = json.loads(numbers_raw)
-                block_nums = json.loads(block_nums_raw)
-            except json.JSONDecodeError:
-                numbers = [i+1 for i in range(len(valid_expressions))]  # По умолчанию 1, 2, 3...
-                block_nums = [1] * len(valid_expressions)  # По умолчанию все в блоке 1
+                try:
+                    numbers = json.loads(numbers_raw)
+                    block_nums = json.loads(block_nums_raw)
+                except json.JSONDecodeError:
+                    numbers = [i+1 for i in range(len(expressions))]  # По умолчанию 1, 2, 3...
+                    block_nums = [1] * len(expressions)  # По умолчанию все в блоке 1
 
             # Добавляем выражения
             if valid_expressions:
@@ -339,33 +414,107 @@ def edit_test(request, slug_name):
             if time_to_sol_raw:
                 test.time_to_solution = parse_duration_string(time_to_sol_raw)
 
-            # Получение списков из формы (как в create_test)
-            points_raw = request.POST.get('point_solve', '[]')
-            expressions_raw = request.POST.get('user_expression', '[]')
-            answers_raw = request.POST.get('user_ans', '[]')
-            boolAns_raw = request.POST.get('user_bool_ans', '[]')
-            epsilons_raw = request.POST.get('user_eps', '[]')
-            types_raw = request.POST.get('user_type', '[]')
-            norms_raw = request.POST.get('user_norm', '[]')
-            numbers_raw = request.POST.get('number', '[]')
-            block_nums_raw = request.POST.get('block_expression_num', '[]')
+            # Проверяем новый формат task_groups_data
+            task_groups_data_raw = request.POST.get('task_groups_data', '[]')
+            logger.info(f"Raw task_groups_data: {task_groups_data_raw}")
 
-            logger.info(f"Raw data - points: {points_raw}, expressions: {expressions_raw}")
+            task_groups_data = json.loads(task_groups_data_raw)
+            logger.info(f"Parsed task_groups_data: {task_groups_data}")
 
-            points = json.loads(points_raw)
-            expressions = json.loads(expressions_raw)
-            answers = json.loads(answers_raw)
-            boolAns = json.loads(boolAns_raw)
-            epsilons = json.loads(epsilons_raw)
-            types = json.loads(types_raw)
-            norms = json.loads(norms_raw)
+            # Если есть данные в новом формате, используем их
+            if task_groups_data:
+                # Преобразуем новый формат в старый для совместимости
+                points = []
+                expressions = []
+                answers = []
+                boolAns = []
+                epsilons = []
+                types = []
+                norms = []
+                numbers = []
+                block_nums = []
 
-            try:
-                numbers = json.loads(numbers_raw)
-                block_nums = json.loads(block_nums_raw)
-            except json.JSONDecodeError:
-                numbers = [i+1 for i in range(len(expressions))]  # По умолчанию 1, 2, 3...
-                block_nums = [1] * len(expressions)  # По умолчанию все в блоке 1
+                for group_index, group in enumerate(task_groups_data):
+                    group_points = group.get('points', '1')
+                    variants = group.get('variants', [])
+
+                    for variant_index, variant in enumerate(variants):
+                        expressions.append(variant.get('expression', ''))
+
+                        # Обрабатываем варианты ответов
+                        variant_answers = variant.get('answers', '')
+                        variant_epsilons = variant.get('epsilons', '')
+                        variant_boolAnswers = variant.get('boolAnswers', '')
+
+                        # Если это строки с разделителями, то это уже готовые данные
+                        # Если это массивы, то нужно объединить
+                        if isinstance(variant_answers, list):
+                            answers.append(';'.join(str(ans) for ans in variant_answers))
+                        else:
+                            answers.append(str(variant_answers))
+
+                        if isinstance(variant_epsilons, list):
+                            epsilons.append(';'.join(str(eps) for eps in variant_epsilons))
+                        else:
+                            epsilons.append(str(variant_epsilons))
+
+                        # Для правильных ответов нужна особая обработка
+                        if isinstance(variant_boolAnswers, list):
+                            # Преобразуем в бинарную строку: True/1 -> "1", False/0 -> "0"
+                            bool_binary = []
+                            for val in variant_boolAnswers:
+                                if str(val).lower() in ['true', '1', 'yes']:
+                                    bool_binary.append('1')
+                                else:
+                                    bool_binary.append('0')
+                            boolAns.append(';'.join(bool_binary))
+                        else:
+                            # Одиночное значение
+                            if str(variant_boolAnswers).lower() in ['true', '1', 'yes']:
+                                boolAns.append('1')
+                            else:
+                                boolAns.append('0')
+
+                        types.append(variant.get('types', ''))
+                        norms.append(variant.get('norms', ''))
+                        points.append(group_points)
+
+                        # Номер варианта внутри группы (1, 2, 3...)
+                        numbers.append(variant_index + 1)
+                        # Номер группы (блока) заданий (1, 2, 3...)
+                        block_nums.append(group_index + 1)
+
+                logger.info(f"Converted data - expressions count: {len(expressions)}, answers: {answers}")
+                logger.info(f"boolAns: {boolAns}")
+
+            else:
+                # Старая система
+                points_raw = request.POST.get('point_solve', '[]')
+                expressions_raw = request.POST.get('user_expression', '[]')
+                answers_raw = request.POST.get('user_ans', '[]')
+                boolAns_raw = request.POST.get('user_bool_ans', '[]')
+                epsilons_raw = request.POST.get('user_eps', '[]')
+                types_raw = request.POST.get('user_type', '[]')
+                norms_raw = request.POST.get('user_norm', '[]')
+                numbers_raw = request.POST.get('number', '[]')
+                block_nums_raw = request.POST.get('block_expression_num', '[]')
+
+                logger.info(f"Raw data - points: {points_raw}, expressions: {expressions_raw}")
+
+                points = json.loads(points_raw)
+                expressions = json.loads(expressions_raw)
+                answers = json.loads(answers_raw)
+                boolAns = json.loads(boolAns_raw)
+                epsilons = json.loads(epsilons_raw)
+                types = json.loads(types_raw)
+                norms = json.loads(norms_raw)
+
+                try:
+                    numbers = json.loads(numbers_raw)
+                    block_nums = json.loads(block_nums_raw)
+                except json.JSONDecodeError:
+                    numbers = [i+1 for i in range(len(expressions))]  # По умолчанию 1, 2, 3...
+                    block_nums = [1] * len(expressions)  # По умолчанию все в блоке 1
 
             logger.info(f"Parsed data - expressions count: {len(expressions)}, points count: {len(points)}")
 

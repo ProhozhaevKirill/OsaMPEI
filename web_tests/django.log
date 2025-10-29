@@ -2831,3 +2831,190 @@ ValueError: Field 'id' expected a number but got ';'.
 [INFO] 2025-10-15 01:33:02,175 django.server 14992 28320 "GET /TestsSolving/ HTTP/1.1" 200 20270
 [INFO] 2025-10-15 01:33:08,033 django.server 14992 18948 "GET /TestsSolving/demonstratsionnyi/ HTTP/1.1" 200 10241
 [INFO] 2025-10-15 01:33:17,083 django.server 14992 18948 "GET /Home/ HTTP/1.1" 200 14846
+[INFO] 2025-10-15 12:32:59,538 django.utils.autoreload 21600 19832 Watching for file changes with StatReloader
+[INFO] 2025-10-15 12:33:19,688 django.server 21600 18252 "GET / HTTP/1.1" 200 1911
+[INFO] 2025-10-15 12:33:26,522 django.server 21600 16600 "POST / HTTP/1.1" 302 0
+[INFO] 2025-10-15 12:33:26,587 django.server 21600 16600 "GET /Home/ HTTP/1.1" 200 14846
+[INFO] 2025-10-15 12:33:31,454 django.server 21600 13156 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2025-10-15 12:33:31,495 django.server 21600 10128 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2025-10-15 12:33:31,509 django.server 21600 10128 "GET / HTTP/1.1" 200 1911
+[INFO] 2025-10-15 12:33:38,597 django.server 21600 4644 "POST / HTTP/1.1" 302 0
+[INFO] 2025-10-15 12:33:38,690 django.server 21600 4644 "GET /TestsCreate/listTests/ HTTP/1.1" 200 119783
+[INFO] 2025-10-15 12:33:42,864 django.server 21600 5408 "GET /TestsCreate/listTests/demonstratsionnyi/ HTTP/1.1" 200 12242
+[INFO] 2025-10-15 12:34:33,284 django.server 21600 6772 "GET /TestsCreate/listTests/ HTTP/1.1" 200 119783
+[INFO] 2025-10-15 12:34:35,834 django.server 21600 6772 "GET /TestsCreate/ HTTP/1.1" 200 17667
+[INFO] 2025-10-15 12:34:35,954 django.server 21600 6772 "GET /static/css/writing_tests.css HTTP/1.1" 304 0
+[INFO] 2025-10-15 12:34:35,960 django.server 21600 25508 "GET /static/js/writing_tests.js HTTP/1.1" 304 0
+[INFO] 2025-10-15 12:35:41,040 django.server 21600 9688 "GET /TestsCreate/ HTTP/1.1" 200 17667
+[INFO] 2025-10-15 12:35:41,911 django.server 21600 9688 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-15 12:35:41,919 django.server 21600 20812 "GET /static/css/writing_tests.css HTTP/1.1" 200 15932
+[INFO] 2025-10-15 12:35:41,939 django.server 21600 18964 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-10-15 12:35:41,943 django.server 21600 6784 "GET /static/js/writing_tests.js HTTP/1.1" 200 24914
+[INFO] 2025-10-15 12:35:41,961 django.server 21600 8716 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2025-10-15 12:35:44,169 django.server 21600 18204 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-15 12:35:44,170 django.server 21600 19632 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-10-15 12:35:44,240 django.server 21600 18204 "GET /static/favicon.ico HTTP/1.1" 200 1455
+[INFO] 2025-10-15 12:35:53,884 django.server 21600 26012 "GET /TestsCreate/listTests/ HTTP/1.1" 200 119783
+[WARNING] 2025-10-15 12:35:57,498 django.request 21600 12180 Not Found: /favicon.ico
+[WARNING] 2025-10-15 12:35:57,500 django.server 21600 12180 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-15 12:35:58,280 django.server 21600 12180 "GET /TestsCreate/listTests/ HTTP/1.1" 200 119783
+[INFO] 2025-10-15 12:35:58,432 django.server 21600 12180 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-15 12:35:58,448 django.server 21600 21708 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 12941
+[INFO] 2025-10-15 12:35:58,460 django.server 21600 13188 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-15 12:35:58,500 django.server 21600 13188 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-10-15 12:35:58,502 django.server 21600 21708 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 10374
+[WARNING] 2025-10-15 12:35:58,613 django.request 21600 21708 Not Found: /favicon.ico
+[WARNING] 2025-10-15 12:35:58,615 django.server 21600 21708 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-15 12:36:21,836 django.server 21600 24684 "GET /TestsCreate/listTests/ HTTP/1.1" 200 119783
+[INFO] 2025-10-15 12:36:21,939 django.server 21600 24684 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-15 12:36:21,952 django.server 21600 14344 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 12941
+[INFO] 2025-10-15 12:36:21,956 django.server 21600 2368 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-15 12:36:21,978 django.server 21600 2368 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-10-15 12:36:21,993 django.server 21600 2368 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 10374
+[INFO] 2025-10-15 12:36:54,920 django.server 21600 16904 "GET / HTTP/1.1" 200 1911
+[WARNING] 2025-10-15 12:36:55,137 django.request 21600 16904 Not Found: /favicon.ico
+[WARNING] 2025-10-15 12:36:55,138 django.server 21600 16904 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-15 12:36:59,234 django.server 21600 16904 "POST / HTTP/1.1" 302 0
+[INFO] 2025-10-15 12:36:59,307 django.server 21600 16904 "GET /TestsCreate/listTests/ HTTP/1.1" 200 119783
+[INFO] 2025-10-15 12:37:13,183 django.server 21600 16696 "GET /TestsCreate/listTests/ HTTP/1.1" 200 119783
+[INFO] 2025-10-15 12:37:13,317 django.server 21600 16696 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-15 12:37:13,324 django.server 21600 23848 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 12941
+[INFO] 2025-10-15 12:37:13,343 django.server 21600 23052 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-15 12:37:13,353 django.server 21600 23052 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-10-15 12:37:13,416 django.server 21600 23052 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 10374
+[WARNING] 2025-10-15 12:37:20,690 django.request 21600 19096 Not Found: /favicon.ico
+[WARNING] 2025-10-15 12:37:20,692 django.server 21600 19096 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-15 12:37:23,014 django.server 21600 19096 "GET /TestsCreate/listTests/ HTTP/1.1" 200 119783
+[INFO] 2025-10-15 12:37:23,157 django.server 21600 19096 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-15 12:37:23,175 django.server 21600 23028 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 12941
+[INFO] 2025-10-15 12:37:23,198 django.server 21600 8316 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-15 12:37:23,264 django.server 21600 8316 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-10-15 12:37:23,273 django.server 21600 8316 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 10374
+[WARNING] 2025-10-15 12:37:33,996 django.request 21600 28364 Not Found: /favicon.ico
+[WARNING] 2025-10-15 12:37:34,001 django.server 21600 28364 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-15 12:37:37,994 django.server 21600 19480 "GET /TestsCreate/ HTTP/1.1" 200 17667
+[INFO] 2025-10-15 12:38:07,981 django.server 21600 23408 "GET /TestsCreate/ HTTP/1.1" 200 17667
+[INFO] 2025-10-15 12:38:08,126 django.server 21600 23408 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-15 12:38:08,142 django.server 21600 7700 "GET /static/css/writing_tests.css HTTP/1.1" 200 15932
+[INFO] 2025-10-15 12:38:08,160 django.server 21600 27760 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-10-15 12:38:08,162 django.server 21600 24672 "GET /static/js/writing_tests.js HTTP/1.1" 200 24914
+[INFO] 2025-10-15 12:38:08,165 django.server 21600 13884 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-15 12:38:08,174 django.server 21600 24808 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2025-10-15 12:39:30,909 django.server 21600 10452 "GET /TestsCreate/ HTTP/1.1" 200 17667
+[INFO] 2025-10-15 12:39:31,094 django.server 21600 10452 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-15 12:39:31,099 django.server 21600 6868 "GET /static/css/writing_tests.css HTTP/1.1" 200 15932
+[INFO] 2025-10-15 12:39:31,107 django.server 21600 8288 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2025-10-15 12:39:31,119 django.server 21600 4816 "GET /static/js/writing_tests.js HTTP/1.1" 200 24914
+[INFO] 2025-10-15 12:39:31,135 django.server 21600 20108 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-15 12:39:31,142 django.server 21600 22300 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-10-15 12:39:33,175 django.server 21600 17084 "GET /TestsCreate/ HTTP/1.1" 200 17667
+[INFO] 2025-10-15 12:39:33,244 django.server 21600 21748 "GET /TestsCreate/ HTTP/1.1" 200 17667
+[INFO] 2025-10-15 12:39:33,251 django.server 21600 17084 - Broken pipe from ('127.0.0.1', 58848)
+[INFO] 2025-10-15 12:39:33,329 django.server 21600 21748 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-15 12:39:33,356 django.server 21600 13724 "GET /static/css/writing_tests.css HTTP/1.1" 200 15932
+[INFO] 2025-10-15 12:39:33,359 django.server 21600 10552 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-10-15 12:39:33,360 django.server 21600 14736 "GET /static/js/writing_tests.js HTTP/1.1" 200 24914
+[INFO] 2025-10-15 12:39:33,363 django.server 21600 10592 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-15 12:39:33,370 django.server 21600 5536 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2025-10-15 12:39:33,411 django.server 21600 10592 "GET /TestsCreate/ HTTP/1.1" 200 17667
+[INFO] 2025-10-15 12:39:33,491 django.server 21600 10592 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-15 12:39:33,516 django.server 21600 21748 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-10-15 12:39:33,518 django.server 21600 5536 "GET /static/css/writing_tests.css HTTP/1.1" 200 15932
+[INFO] 2025-10-15 12:39:33,519 django.server 21600 10552 "GET /static/js/writing_tests.js HTTP/1.1" 200 24914
+[INFO] 2025-10-15 12:39:33,524 django.server 21600 14736 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-15 12:39:33,528 django.server 21600 13724 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2025-10-15 12:39:33,554 django.server 21600 5536 "GET /TestsCreate/ HTTP/1.1" 200 17667
+[INFO] 2025-10-15 12:39:41,339 django.server 21600 6020 "GET /TestsCreate/ HTTP/1.1" 200 17667
+[INFO] 2025-10-15 12:40:03,064 django.server 21600 1476 "GET /static/favicon.ico HTTP/1.1" 200 1455
+[INFO] 2025-10-15 12:44:35,406 django.server 21600 9608 "GET /TestsCreate/ HTTP/1.1" 200 17667
+[INFO] 2025-10-15 12:44:36,339 django.server 21600 9608 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-15 12:44:36,366 django.server 21600 23764 "GET /static/css/writing_tests.css HTTP/1.1" 200 15932
+[INFO] 2025-10-15 12:44:36,371 django.server 21600 8736 "GET /static/js/writing_tests.js HTTP/1.1" 200 24914
+[INFO] 2025-10-15 12:44:36,374 django.server 21600 26996 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-10-15 12:44:36,387 django.server 21600 16852 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2025-10-15 12:44:40,191 django.server 21600 24384 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-15 12:44:43,503 django.server 21600 24384 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-10-15 12:44:52,362 django.server 21600 27812 "GET /static/favicon.ico HTTP/1.1" 200 1455
+[INFO] 2025-10-15 12:45:26,535 django.server 21600 21580 "GET /TestsCreate/listTests/ HTTP/1.1" 200 119783
+[INFO] 2025-10-20 01:37:58,062 django.server 21600 10980 "GET /TestsCreate/listTests/ HTTP/1.1" 200 119783
+[INFO] 2025-10-20 01:37:59,596 django.server 21600 10980 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-20 01:37:59,691 django.server 21600 25824 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-20 01:37:59,762 django.server 21600 16092 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-10-20 01:37:59,787 django.server 21600 12232 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 12941
+[INFO] 2025-10-20 01:37:59,847 django.server 21600 14812 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 10374
+[WARNING] 2025-10-20 01:38:00,458 django.request 21600 14812 Not Found: /favicon.ico
+[WARNING] 2025-10-20 01:38:00,770 django.server 21600 14812 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-20 01:38:08,245 django.server 21600 17116 "GET /personaInf/ HTTP/1.1" 200 12618
+[WARNING] 2025-10-20 01:38:08,473 django.server 21600 17116 "GET /static/js/teacher_account.js HTTP/1.1" 404 1822
+[INFO] 2025-10-20 01:38:10,761 django.server 21600 25732 "GET /TestsCreate/listTests/ HTTP/1.1" 200 119783
+[INFO] 2025-10-29 00:02:20,252 django.utils.autoreload 25832 5664 Watching for file changes with StatReloader
+[INFO] 2025-10-29 00:02:36,042 django.server 25832 8076 "GET / HTTP/1.1" 200 1911
+[INFO] 2025-10-29 00:02:37,238 django.server 25832 8076 "GET /static/js/registration.js HTTP/1.1" 304 0
+[INFO] 2025-10-29 00:02:37,312 django.server 25832 5652 "GET /static/images/logo.png HTTP/1.1" 304 0
+[INFO] 2025-10-29 00:02:37,386 django.server 25832 26456 "GET /static/css/registration.css HTTP/1.1" 304 0
+[WARNING] 2025-10-29 00:02:38,398 django.request 25832 26456 Not Found: /favicon.ico
+[WARNING] 2025-10-29 00:02:38,403 django.server 25832 26456 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-29 00:03:13,110 django.server 25832 18116 "GET / HTTP/1.1" 200 1911
+[INFO] 2025-10-29 00:03:13,650 django.server 25832 23792 "GET /static/css/registration.css HTTP/1.1" 304 0
+[INFO] 2025-10-29 00:03:13,655 django.server 25832 18116 "GET /static/js/registration.js HTTP/1.1" 304 0
+[INFO] 2025-10-29 00:03:13,832 django.server 25832 18596 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2025-10-29 00:03:13,837 django.server 25832 24268 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[WARNING] 2025-10-29 00:03:14,037 django.request 25832 24268 Not Found: /favicon.ico
+[WARNING] 2025-10-29 00:03:14,040 django.server 25832 24268 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-29 00:03:26,596 django.server 25832 19660 "POST / HTTP/1.1" 302 0
+[INFO] 2025-10-29 00:03:26,770 django.server 25832 19660 "GET /TestsCreate/listTests/ HTTP/1.1" 200 119783
+[INFO] 2025-10-29 00:03:27,050 django.server 25832 19660 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-29 00:03:27,057 django.server 25832 6904 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 12941
+[INFO] 2025-10-29 00:03:27,102 django.server 25832 6904 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-10-29 00:03:27,166 django.server 25832 6904 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 10374
+[INFO] 2025-10-29 00:03:29,718 django.server 25832 6904 "GET /TestsCreate/ HTTP/1.1" 200 17667
+[INFO] 2025-10-29 00:03:29,936 django.server 25832 6904 "GET /static/css/writing_tests.css HTTP/1.1" 200 15932
+[INFO] 2025-10-29 00:03:29,951 django.server 25832 6104 "GET /static/js/writing_tests.js HTTP/1.1" 200 24914
+[INFO] 2025-10-29 00:03:29,959 django.server 25832 19660 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-10-29 00:03:32,366 django.server 25832 21076 "GET /static/favicon.ico HTTP/1.1" 200 1455
+[INFO] 2025-10-29 00:04:01,177 create_tests.views 25832 18856 === CREATE TEST DEBUG START ===
+[INFO] 2025-10-29 00:04:01,179 create_tests.views 25832 18856 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans', 'number', 'block_expression_num']
+[INFO] 2025-10-29 00:04:01,180 create_tests.views 25832 18856 POST data: {'csrfmiddlewaretoken': ['0cozYHELtGXPStB4zv07eg973liZeSldZso7IHTV7a0s1V0nNoPRlUu5NWtnpwrE'], 'name_test': ['1'], 'time_solve': ['01:01:01'], 'num_attempts': ['1111'], 'subj_test': ['1'], 'description_test': ['11233'], 'point_solve': ['["1"]'], 'user_expression': ['["1"]'], 'user_ans': ['["1;2"]'], 'user_eps': ['["1;1"]'], 'user_type': ['["1"]'], 'user_norm': ['[""]'], 'user_bool_ans': ['["1;0"]'], 'number': ['[1]'], 'block_expression_num': ['[1]']}
+[INFO] 2025-10-29 00:04:01,182 create_tests.views 25832 18856 Basic fields - name: '1', time: '01:01:01', attempts: '1111', subj_id: '1'
+[INFO] 2025-10-29 00:04:01,186 create_tests.views 25832 18856 Raw task_groups_data: []
+[INFO] 2025-10-29 00:04:01,187 create_tests.views 25832 18856 Parsed task_groups_data: []
+[INFO] 2025-10-29 00:04:01,189 create_tests.views 25832 18856 Raw data - points: ["1"], expressions: ["1"]
+[INFO] 2025-10-29 00:04:01,190 create_tests.views 25832 18856 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-10-29 00:04:01,222 create_tests.views 25832 18856 Found 1 valid expressions out of 1
+[INFO] 2025-10-29 00:04:01,223 create_tests.views 25832 18856 Numbers raw: [1], Block nums raw: [1]
+[INFO] 2025-10-29 00:04:01,224 create_tests.views 25832 18856 Processing expression 1: 1...
+[INFO] 2025-10-29 00:04:01,224 create_tests.views 25832 18856 Data: ans='1;2', bool_ans='1;0', eps='1;1', type_id='1', point='1', norm_id=''
+[INFO] 2025-10-29 00:04:01,225 create_tests.views 25832 18856 flag_select = True
+[INFO] 2025-10-29 00:04:01,228 create_tests.views 25832 18856 type_obj = Целые
+[INFO] 2025-10-29 00:04:01,245 create_tests.views 25832 18856 Created expression instance: 1 with number=1, block=1
+[INFO] 2025-10-29 00:04:01,263 create_tests.views 25832 18856 Added expression 1 successfully
+[INFO] 2025-10-29 00:04:01,277 create_tests.views 25832 18856 === CREATE TEST DEBUG END ===
+[INFO] 2025-10-29 00:04:01,280 django.server 25832 18856 "POST /TestsCreate/ HTTP/1.1" 302 0
+[INFO] 2025-10-29 00:04:01,403 django.server 25832 18856 "GET /TestsCreate/listTests/ HTTP/1.1" 200 123183
+[INFO] 2025-10-29 00:04:21,430 django.server 25832 14824 "GET /TestsCreate/listTests/1-4/ HTTP/1.1" 200 9324
+[INFO] 2025-10-29 00:04:21,677 django.server 25832 14824 "GET /static/js/macros-mathJax.js HTTP/1.1" 304 0
+[INFO] 2025-10-29 00:04:48,811 django.server 25832 23340 "POST /TestsCreate/publish-test/1-4/ HTTP/1.1" 200 17
+[INFO] 2025-10-29 00:04:48,957 django.server 25832 23340 "GET /TestsCreate/listTests/ HTTP/1.1" 200 125426
+[INFO] 2025-10-29 00:04:53,197 django.server 25832 17324 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2025-10-29 00:04:53,216 django.server 25832 17324 "GET / HTTP/1.1" 200 1911
+[INFO] 2025-10-29 00:05:00,805 django.server 25832 17324 "POST / HTTP/1.1" 302 0
+[INFO] 2025-10-29 00:05:00,869 django.server 25832 17324 "GET /Home/ HTTP/1.1" 200 15516
+[INFO] 2025-10-29 00:05:01,082 django.server 25832 11064 "GET /static/css/student_account.css HTTP/1.1" 304 0
+[INFO] 2025-10-29 00:05:01,091 django.server 25832 17324 "GET /static/js/student_account.js HTTP/1.1" 304 0
+[INFO] 2025-10-29 00:05:03,639 django.server 25832 16568 "GET /TestsSolving/ HTTP/1.1" 200 21878
+[INFO] 2025-10-29 00:05:03,825 django.server 25832 16568 "GET /static/css/test_selection.css HTTP/1.1" 304 0
+[INFO] 2025-10-29 00:05:03,849 django.server 25832 20020 "GET /static/js/test_selection.js HTTP/1.1" 304 0
+[INFO] 2025-10-29 00:05:06,956 django.server 25832 20020 "GET /TestsSolving/1-4/ HTTP/1.1" 200 9402
+[INFO] 2025-10-29 00:05:07,141 django.server 25832 16568 "GET /static/css/specific_test.css HTTP/1.1" 304 0
+[INFO] 2025-10-29 00:05:07,147 django.server 25832 20020 "GET /static/js/specific_test.js HTTP/1.1" 304 0
+[INFO] 2025-10-29 00:05:22,610 django.server 25832 10244 "POST /TestsSolving/1-4/ HTTP/1.1" 302 0
+[INFO] 2025-10-29 00:05:22,655 django.server 25832 10244 "GET /TestsSolving/1-4/result/ HTTP/1.1" 200 6555
+[INFO] 2025-10-29 00:05:22,848 django.server 25832 13388 "GET /static/css/result.css HTTP/1.1" 304 0
+[INFO] 2025-10-29 00:07:39,609 django.server 25832 14276 "GET /TestsSolving/ HTTP/1.1" 200 21878
+[INFO] 2025-10-29 00:07:42,589 django.server 25832 15428 "GET /TestsSolving/1-4/ HTTP/1.1" 200 9402
+[INFO] 2025-10-29 00:07:54,285 django.server 25832 18204 "POST /TestsSolving/1-4/ HTTP/1.1" 302 0
+[INFO] 2025-10-29 00:07:54,313 django.server 25832 18204 "GET /TestsSolving/1-4/result/ HTTP/1.1" 200 6555
+[INFO] 2025-10-29 13:09:12,502 django.utils.autoreload 8644 7864 Watching for file changes with StatReloader
+[INFO] 2025-10-29 13:09:20,398 django.server 8644 20652 "GET / HTTP/1.1" 200 1911
+[WARNING] 2025-10-29 13:09:21,311 django.request 8644 22152 Not Found: /favicon.ico
+[WARNING] 2025-10-29 13:09:21,313 django.server 8644 22152 "GET /favicon.ico HTTP/1.1" 404 3728

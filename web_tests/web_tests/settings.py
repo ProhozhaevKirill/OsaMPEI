@@ -1,5 +1,10 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+# Загружаем переменные окружения
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -8,12 +13,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8juj)ng5h_j27-e@@&vtrn-k4h&-lz&fyj()-#80$mz2kf$+%y'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-8juj)ng5h_j27-e@@&vtrn-k4h&-lz&fyj()-#80$mz2kf$+%y')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['10.5.157.80', 'localhost', '127.0.0.1']
+# Разные ALLOWED_HOSTS для разработки и продакшена
+if DEBUG:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+else:
+    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '46.23.96.15,localhost,127.0.0.1').split(',')
 
 
 # Application definition
@@ -119,16 +128,12 @@ LOGIN_URL = ''
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-# STATICFILES_DIRS = [
-#     BASE_DIR / 'core/static',  # Статические файлы для core
-#     BASE_DIR / 'create_tests/static',  # Статические файлы для create_tests
-#     BASE_DIR / 'solving_tests/static',  # Статические файлы для solving_tests
-#     BASE_DIR / 'users/static',  # Статические файлы для users
-#     BASE_DIR / 'static',  # Статические файлы для web_tests
-# ]
+# Для production (автоматически определяется)
+if not DEBUG:
+    STATIC_ROOT = '/var/www/static/'
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = '/var/www/media/'
 
-# Для production:
-# STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

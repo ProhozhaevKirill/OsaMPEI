@@ -421,74 +421,102 @@ def edit_test(request, slug_name):
             task_groups_data = json.loads(task_groups_data_raw)
             logger.info(f"Parsed task_groups_data: {task_groups_data}")
 
-            # Если есть данные в новом формате, используем их
+            # Если есть данные в новом формате, сохраняем в TaskGroup/TaskVariant
             if task_groups_data:
-                # Преобразуем новый формат в старый для совместимости
-                points = []
-                expressions = []
-                answers = []
-                boolAns = []
-                epsilons = []
-                types = []
-                norms = []
-                numbers = []
-                block_nums = []
+                logger.info("Saving test in new TaskGroup/TaskVariant format")
+
+                # Удаляем старые TaskGroup и AboutExpressions
+                test.task_groups.all().delete()
+                test.expressions.all().delete()
 
                 for group_index, group in enumerate(task_groups_data):
-                    group_points = group.get('points', '1')
+                    group_points = int(group.get('points', '1'))
                     variants = group.get('variants', [])
 
+                    if not variants:
+                        continue
+
+                    # Создаем TaskGroup
+                    task_group = TaskGroup.objects.create(
+                        number=group_index + 1,
+                        points_for_solve=group_points
+                    )
+
+                    # Добавляем TaskGroup к тесту
+                    test.task_groups.add(task_group)
+
+                    # Создаем TaskVariant для каждого варианта
                     for variant_index, variant in enumerate(variants):
-                        expressions.append(variant.get('expression', ''))
+                        expression = variant.get('expression', '')
+                        if not expression.strip():
+                            continue
 
                         # Обрабатываем варианты ответов
                         variant_answers = variant.get('answers', '')
                         variant_epsilons = variant.get('epsilons', '')
                         variant_boolAnswers = variant.get('boolAnswers', '')
 
-                        # Если это строки с разделителями, то это уже готовые данные
-                        # Если это массивы, то нужно объединить
+                        # Преобразуем ответы в строки
                         if isinstance(variant_answers, list):
-                            answers.append(';'.join(str(ans) for ans in variant_answers))
+                            user_ans = ';'.join(str(ans) for ans in variant_answers)
                         else:
-                            answers.append(str(variant_answers))
+                            user_ans = str(variant_answers)
 
                         if isinstance(variant_epsilons, list):
-                            epsilons.append(';'.join(str(eps) for eps in variant_epsilons))
+                            user_eps = ';'.join(str(eps) for eps in variant_epsilons)
                         else:
-                            epsilons.append(str(variant_epsilons))
+                            user_eps = str(variant_epsilons) or "0"
 
-                        # Для правильных ответов нужна особая обработка
+                        # Для правильных ответов
                         if isinstance(variant_boolAnswers, list):
-                            # Преобразуем в бинарную строку: True/1 -> "1", False/0 -> "0"
                             bool_binary = []
                             for val in variant_boolAnswers:
                                 if str(val).lower() in ['true', '1', 'yes']:
                                     bool_binary.append('1')
                                 else:
                                     bool_binary.append('0')
-                            boolAns.append(';'.join(bool_binary))
+                            true_ans = ';'.join(bool_binary)
                         else:
-                            # Одиночное значение
                             if str(variant_boolAnswers).lower() in ['true', '1', 'yes']:
-                                boolAns.append('1')
+                                true_ans = '1'
                             else:
-                                boolAns.append('0')
+                                true_ans = '0'
 
-                        types.append(variant.get('types', ''))
-                        norms.append(variant.get('norms', ''))
-                        points.append(group_points)
+                        type_id = variant.get('types', '')
+                        norm_id = variant.get('norms', '')
 
-                        # Номер варианта внутри группы (1, 2, 3...)
-                        numbers.append(variant_index + 1)
-                        # Номер группы (блока) заданий (1, 2, 3...)
-                        block_nums.append(group_index + 1)
+                        if not type_id:
+                            continue
 
-                logger.info(f"Converted data - expressions count: {len(expressions)}, answers: {answers}")
-                logger.info(f"boolAns: {boolAns}")
+                        flag_select = ';' in true_ans
+                        type_obj = TypeAnswer.objects.get(id=type_id)
 
+                        # Создаем TaskVariant
+                        task_variant = TaskVariant.objects.create(
+                            task_group=task_group,
+                            user_expression=expression,
+                            user_ans=user_ans,
+                            true_ans=true_ans,
+                            user_eps=user_eps,
+                            user_type=type_obj,
+                            exist_select=flag_select
+                        )
+
+                        # Добавляем норму матрицы, если нужно
+                        if type_obj.type_code == 4 and norm_id:
+                            try:
+                                norm_obj = TypeNorm.objects.get(id=norm_id)
+                                TypeNormForTaskVariant.objects.create(
+                                    task_variant=task_variant,
+                                    matrix_norms=norm_obj
+                                )
+                                logger.info(f"Created norm relation for variant {variant_index + 1}")
+                            except (TypeNorm.DoesNotExist, ValueError):
+                                logger.warning(f"Invalid norm ID {norm_id} for variant {variant_index + 1}")
+
+                logger.info(f"Created {len(task_groups_data)} task groups in new format")
             else:
-                # Старая система
+                # Старая система или отсутствие данных - используем AboutExpressions
                 points_raw = request.POST.get('point_solve', '[]')
                 expressions_raw = request.POST.get('user_expression', '[]')
                 answers_raw = request.POST.get('user_ans', '[]')
@@ -516,70 +544,71 @@ def edit_test(request, slug_name):
                     numbers = [i+1 for i in range(len(expressions))]  # По умолчанию 1, 2, 3...
                     block_nums = [1] * len(expressions)  # По умолчанию все в блоке 1
 
-            logger.info(f"Parsed data - expressions count: {len(expressions)}, points count: {len(points)}")
+                logger.info(f"Parsed data - expressions count: {len(expressions)}, points count: {len(points)}")
 
-            # Проверяем, есть ли хотя бы одно валидное выражение
-            valid_expressions = []
-            for i, (expr, ans, bool_ans, eps, type_id, point, norm_id) in enumerate(zip(expressions, answers, boolAns, epsilons, types, points, norms)):
-                if expr.strip() and type_id:  # Проверяем и выражение, и тип
-                    valid_expressions.append((expr, ans, bool_ans, eps, type_id, point, norm_id))
+                # Проверяем, есть ли хотя бы одно валидное выражение
+                valid_expressions = []
+                for i, (expr, ans, bool_ans, eps, type_id, point, norm_id) in enumerate(zip(expressions, answers, boolAns, epsilons, types, points, norms)):
+                    if expr.strip() and type_id:  # Проверяем и выражение, и тип
+                        valid_expressions.append((expr, ans, bool_ans, eps, type_id, point, norm_id))
 
-            logger.info(f"Found {len(valid_expressions)} valid expressions out of {len(expressions)}")
+                logger.info(f"Found {len(valid_expressions)} valid expressions out of {len(expressions)}")
 
-            # Удаляем старые выражения только если есть валидные новые данные
-            if valid_expressions:
-                logger.info("Deleting old expressions...")
-                test.expressions.all().delete()
+                # Удаляем старые выражения только если есть валидные новые данные
+                if valid_expressions:
+                    logger.info("Deleting old expressions...")
+                    test.expressions.all().delete()
+                    test.task_groups.all().delete()  # Также удаляем task_groups при сохранении в старом формате
 
-                # Добавляем новые выражения
-                for i, (expr, ans, bool_ans, eps, type_id, point, norm_id) in enumerate(valid_expressions):
-                    try:
-                        logger.info(f"Processing expression {i+1}: {expr[:50]}...")
-                        logger.info(f"Data: ans='{ans}', bool_ans='{bool_ans}', eps='{eps}', type_id='{type_id}', point='{point}', norm_id='{norm_id}'")
+                    # Добавляем новые выражения
+                    for i, (expr, ans, bool_ans, eps, type_id, point, norm_id) in enumerate(valid_expressions):
+                        try:
+                            logger.info(f"Processing expression {i+1}: {expr[:50]}...")
+                            logger.info(f"Data: ans='{ans}', bool_ans='{bool_ans}', eps='{eps}', type_id='{type_id}', point='{point}', norm_id='{norm_id}'")
 
-                        flag_select = ';' in bool_ans
-                        logger.info(f"flag_select = {flag_select}")
+                            flag_select = ';' in bool_ans
+                            logger.info(f"flag_select = {flag_select}")
 
-                        type_obj = TypeAnswer.objects.get(id=type_id)
-                        logger.info(f"type_obj = {type_obj}")
+                            type_obj = TypeAnswer.objects.get(id=type_id)
+                            logger.info(f"type_obj = {type_obj}")
 
-                        # Получаем номер задания и номер блока
-                        task_number = numbers[i] if i < len(numbers) else i + 1
-                        block_number = block_nums[i] if i < len(block_nums) else 1
+                            # Получаем номер задания и номер блока
+                            task_number = numbers[i] if i < len(numbers) else i + 1
+                            block_number = block_nums[i] if i < len(block_nums) else 1
 
-                        expr_instance = AboutExpressions.objects.create(
-                            user_expression=expr,
-                            user_ans=ans,
-                            true_ans=bool_ans,
-                            user_eps=eps or "0",
-                            user_type=type_obj,
-                            points_for_solve=int(point) if point else 1,
-                            exist_select=flag_select,
-                            number=task_number,
-                            block_expression_num=block_number
-                        )
-                        logger.info(f"Created expression instance: {expr_instance} with number={task_number}, block={block_number}")
+                            expr_instance = AboutExpressions.objects.create(
+                                user_expression=expr,
+                                user_ans=ans,
+                                true_ans=bool_ans,
+                                user_eps=eps or "0",
+                                user_type=type_obj,
+                                points_for_solve=int(point) if point else 1,
+                                exist_select=flag_select,
+                                number=task_number,
+                                block_expression_num=block_number
+                            )
+                            logger.info(f"Created expression instance: {expr_instance} with number={task_number}, block={block_number}")
 
-                        test.expressions.add(expr_instance)
-                        logger.info(f"Added expression {i+1} successfully")
+                            test.expressions.add(expr_instance)
+                            logger.info(f"Added expression {i+1} successfully")
 
-                        # Добавляем норму матрицы, если тип ответа - матрицы (type_code = 4) и указана норма
-                        if type_obj.type_code == 4 and norm_id:
-                            try:
-                                norm_obj = TypeNorm.objects.get(id=norm_id)
-                                TypeNormForMatrix.objects.create(
-                                    num_expr=expr_instance,
-                                    matrix_norms=norm_obj
-                                )
-                                logger.info(f"Created norm relation for expression {i+1}")
-                            except (TypeNorm.DoesNotExist, ValueError):
-                                logger.warning(f"Invalid norm ID {norm_id} for expression {i+1}")
-                                pass  # Игнорируем неправильные ID норм
-                    except Exception as e:
-                        logger.error(f"Error processing expression {i+1}: {str(e)}")
-                        raise
-            else:
-                logger.warning("No valid expressions found, keeping existing expressions")
+                            # Добавляем норму матрицы, если тип ответа - матрицы (type_code = 4) и указана норма
+                            if type_obj.type_code == 4 and norm_id:
+                                try:
+                                    norm_obj = TypeNorm.objects.get(id=norm_id)
+                                    TypeNormForMatrix.objects.create(
+                                        num_expr=expr_instance,
+                                        matrix_norms=norm_obj
+                                    )
+                                    logger.info(f"Created norm relation for expression {i+1}")
+                                except (TypeNorm.DoesNotExist, ValueError):
+                                    logger.warning(f"Invalid norm ID {norm_id} for expression {i+1}")
+                                    pass  # Игнорируем неправильные ID норм
+                        except Exception as e:
+                            logger.error(f"Error processing expression {i+1}: {str(e)}")
+                            raise
+                else:
+                    logger.warning("No valid expressions found, keeping existing expressions")
 
             test.save()
             logger.info("Test saved successfully")

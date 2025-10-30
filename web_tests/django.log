@@ -3018,3 +3018,272 @@ ValueError: Field 'id' expected a number but got ';'.
 [INFO] 2025-10-29 13:09:20,398 django.server 8644 20652 "GET / HTTP/1.1" 200 1911
 [WARNING] 2025-10-29 13:09:21,311 django.request 8644 22152 Not Found: /favicon.ico
 [WARNING] 2025-10-29 13:09:21,313 django.server 8644 22152 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-29 14:14:58,132 django.utils.autoreload 22804 18788 Watching for file changes with StatReloader
+[INFO] 2025-10-29 14:15:13,517 django.server 22804 22628 "GET /admin HTTP/1.1" 301 0
+[INFO] 2025-10-29 14:15:13,619 django.server 22804 4364 "GET /admin/ HTTP/1.1" 302 0
+[INFO] 2025-10-29 14:15:13,733 django.server 22804 4364 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3919
+[WARNING] 2025-10-29 14:15:14,079 django.request 22804 4364 Not Found: /static/admin/css/base.css
+[WARNING] 2025-10-29 14:15:14,081 django.server 22804 4364 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:14,086 django.request 22804 21128 Not Found: /static/admin/css/dark_mode.css
+[WARNING] 2025-10-29 14:15:14,094 django.request 22804 6008 Not Found: /static/admin/css/responsive.css
+[WARNING] 2025-10-29 14:15:14,095 django.server 22804 21128 "GET /static/admin/css/dark_mode.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:14,097 django.request 22804 20968 Not Found: /static/admin/css/nav_sidebar.css
+[WARNING] 2025-10-29 14:15:14,100 django.request 22804 20612 Not Found: /static/admin/css/login.css
+[WARNING] 2025-10-29 14:15:14,100 django.server 22804 6008 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:14,102 django.server 22804 20612 "GET /static/admin/css/login.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:14,102 django.server 22804 20968 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:14,148 django.request 22804 20968 Not Found: /static/admin/js/theme.js
+[WARNING] 2025-10-29 14:15:14,151 django.request 22804 20612 Not Found: /static/admin/js/nav_sidebar.js
+[WARNING] 2025-10-29 14:15:14,153 django.request 22804 6008 Not Found: /static/admin/css/nav_sidebar.css
+[WARNING] 2025-10-29 14:15:14,156 django.request 22804 21128 Not Found: /static/admin/css/login.css
+[WARNING] 2025-10-29 14:15:14,157 django.request 22804 4364 Not Found: /static/admin/css/responsive.css
+[WARNING] 2025-10-29 14:15:14,160 django.server 22804 20612 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:14,160 django.server 22804 20968 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:14,162 django.server 22804 6008 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:14,162 django.server 22804 4364 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:14,163 django.server 22804 21128 "GET /static/admin/css/login.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:14,274 django.request 22804 21128 Not Found: /favicon.ico
+[WARNING] 2025-10-29 14:15:14,276 django.server 22804 21128 "GET /favicon.ico HTTP/1.1" 404 179
+[INFO] 2025-10-29 14:15:17,597 django.server 22804 21128 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3919
+[WARNING] 2025-10-29 14:15:17,672 django.request 22804 21128 Not Found: /static/admin/css/base.css
+[WARNING] 2025-10-29 14:15:17,673 django.server 22804 21128 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:17,677 django.request 22804 4364 Not Found: /static/admin/css/dark_mode.css
+[WARNING] 2025-10-29 14:15:17,679 django.request 22804 6008 Not Found: /static/admin/css/nav_sidebar.css
+[WARNING] 2025-10-29 14:15:17,681 django.request 22804 20612 Not Found: /static/admin/css/login.css
+[WARNING] 2025-10-29 14:15:17,683 django.request 22804 17968 Not Found: /static/admin/css/responsive.css
+[WARNING] 2025-10-29 14:15:17,685 django.server 22804 4364 "GET /static/admin/css/dark_mode.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:17,686 django.server 22804 6008 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:17,688 django.server 22804 20612 "GET /static/admin/css/login.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:17,689 django.server 22804 17968 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:17,748 django.request 22804 17968 Not Found: /static/admin/js/theme.js
+[WARNING] 2025-10-29 14:15:17,749 django.request 22804 20612 Not Found: /static/admin/js/nav_sidebar.js
+[WARNING] 2025-10-29 14:15:17,750 django.request 22804 4364 Not Found: /static/admin/css/login.css
+[WARNING] 2025-10-29 14:15:17,751 django.request 22804 21128 Not Found: /static/admin/css/responsive.css
+[WARNING] 2025-10-29 14:15:17,751 django.request 22804 6008 Not Found: /static/admin/css/nav_sidebar.css
+[WARNING] 2025-10-29 14:15:17,753 django.server 22804 17968 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:17,753 django.server 22804 20612 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:17,753 django.server 22804 4364 "GET /static/admin/css/login.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:17,755 django.server 22804 6008 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:17,755 django.server 22804 21128 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:17,798 django.request 22804 21128 Not Found: /favicon.ico
+[WARNING] 2025-10-29 14:15:17,799 django.server 22804 21128 "GET /favicon.ico HTTP/1.1" 404 179
+[INFO] 2025-10-29 14:15:29,312 django.server 22804 7064 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4174
+[WARNING] 2025-10-29 14:15:29,400 django.request 22804 7064 Not Found: /static/admin/css/base.css
+[WARNING] 2025-10-29 14:15:29,402 django.server 22804 7064 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:29,411 django.request 22804 14912 Not Found: /static/admin/css/login.css
+[WARNING] 2025-10-29 14:15:29,413 django.request 22804 17132 Not Found: /static/admin/css/nav_sidebar.css
+[WARNING] 2025-10-29 14:15:29,416 django.request 22804 23336 Not Found: /static/admin/css/responsive.css
+[WARNING] 2025-10-29 14:15:29,417 django.request 22804 2436 Not Found: /static/admin/css/dark_mode.css
+[WARNING] 2025-10-29 14:15:29,419 django.server 22804 17132 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:29,419 django.server 22804 23336 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:29,420 django.server 22804 14912 "GET /static/admin/css/login.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:29,422 django.server 22804 2436 "GET /static/admin/css/dark_mode.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:29,432 django.request 22804 2436 Not Found: /static/admin/js/theme.js
+[WARNING] 2025-10-29 14:15:29,434 django.request 22804 17132 Not Found: /static/admin/js/nav_sidebar.js
+[WARNING] 2025-10-29 14:15:29,435 django.request 22804 14912 Not Found: /static/admin/css/login.css
+[WARNING] 2025-10-29 14:15:29,436 django.request 22804 7064 Not Found: /static/admin/css/responsive.css
+[WARNING] 2025-10-29 14:15:29,438 django.request 22804 23336 Not Found: /static/admin/css/nav_sidebar.css
+[WARNING] 2025-10-29 14:15:29,440 django.server 22804 2436 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:29,440 django.server 22804 17132 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:29,441 django.server 22804 7064 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:29,442 django.server 22804 14912 "GET /static/admin/css/login.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:29,444 django.server 22804 23336 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+[INFO] 2025-10-29 14:15:43,760 django.server 22804 12144 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4176
+[WARNING] 2025-10-29 14:15:43,836 django.request 22804 12144 Not Found: /static/admin/css/base.css
+[WARNING] 2025-10-29 14:15:43,839 django.server 22804 12144 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:43,843 django.request 22804 7708 Not Found: /static/admin/css/dark_mode.css
+[WARNING] 2025-10-29 14:15:43,846 django.request 22804 22212 Not Found: /static/admin/css/nav_sidebar.css
+[WARNING] 2025-10-29 14:15:43,848 django.server 22804 7708 "GET /static/admin/css/dark_mode.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:43,851 django.request 22804 12660 Not Found: /static/admin/css/login.css
+[WARNING] 2025-10-29 14:15:43,853 django.request 22804 12296 Not Found: /static/admin/css/responsive.css
+[WARNING] 2025-10-29 14:15:43,856 django.server 22804 12660 "GET /static/admin/css/login.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:43,856 django.server 22804 22212 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:43,856 django.server 22804 12296 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:43,860 django.request 22804 7708 Not Found: /static/admin/js/theme.js
+[WARNING] 2025-10-29 14:15:43,864 django.request 22804 12144 Not Found: /static/admin/js/nav_sidebar.js
+[WARNING] 2025-10-29 14:15:43,865 django.server 22804 7708 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:43,866 django.server 22804 12144 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+[INFO] 2025-10-29 14:15:51,615 django.server 22804 12144 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[INFO] 2025-10-29 14:15:51,659 django.server 22804 12144 "GET /admin/ HTTP/1.1" 200 16428
+[WARNING] 2025-10-29 14:15:51,739 django.request 22804 12144 Not Found: /static/admin/css/base.css
+[WARNING] 2025-10-29 14:15:51,741 django.server 22804 12144 "GET /static/admin/css/base.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:51,750 django.request 22804 12660 Not Found: /static/admin/css/dashboard.css
+[WARNING] 2025-10-29 14:15:51,753 django.request 22804 7708 Not Found: /static/admin/css/dark_mode.css
+[WARNING] 2025-10-29 14:15:51,754 django.request 22804 22212 Not Found: /static/admin/css/responsive.css
+[WARNING] 2025-10-29 14:15:51,756 django.request 22804 12296 Not Found: /static/admin/css/nav_sidebar.css
+[WARNING] 2025-10-29 14:15:51,758 django.server 22804 7708 "GET /static/admin/css/dark_mode.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:51,759 django.server 22804 12296 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:51,759 django.server 22804 22212 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:51,759 django.server 22804 12660 "GET /static/admin/css/dashboard.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:51,773 django.request 22804 22212 Not Found: /static/admin/js/theme.js
+[WARNING] 2025-10-29 14:15:51,775 django.request 22804 7708 Not Found: /static/admin/js/nav_sidebar.js
+[WARNING] 2025-10-29 14:15:51,777 django.request 22804 12660 Not Found: /static/admin/css/dashboard.css
+[WARNING] 2025-10-29 14:15:51,779 django.request 22804 12144 Not Found: /static/admin/css/responsive.css
+[WARNING] 2025-10-29 14:15:51,780 django.request 22804 12296 Not Found: /static/admin/css/nav_sidebar.css
+[WARNING] 2025-10-29 14:15:51,782 django.server 22804 22212 "GET /static/admin/js/theme.js HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:51,783 django.server 22804 12660 "GET /static/admin/css/dashboard.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:51,784 django.server 22804 12144 "GET /static/admin/css/responsive.css HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:51,784 django.server 22804 7708 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 404 179
+[WARNING] 2025-10-29 14:15:51,786 django.server 22804 12296 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 404 179
+[INFO] 2025-10-29 14:17:14,411 django.utils.autoreload 22804 18788 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\web_tests\settings.py changed, reloading.
+[INFO] 2025-10-29 14:17:16,320 django.utils.autoreload 7340 7780 Watching for file changes with StatReloader
+[INFO] 2025-10-29 14:17:25,934 django.utils.autoreload 7340 7780 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\web_tests\settings.py changed, reloading.
+[INFO] 2025-10-29 14:18:31,724 django.utils.autoreload 1260 13636 Watching for file changes with StatReloader
+[INFO] 2025-10-29 14:18:38,137 django.server 1260 9012 "GET / HTTP/1.1" 200 1911
+[INFO] 2025-10-29 14:18:38,442 django.server 1260 20992 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-29 14:18:38,447 django.server 1260 9012 "GET /static/css/registration.css HTTP/1.1" 200 2951
+[INFO] 2025-10-29 14:18:38,457 django.server 1260 12912 "GET /static/js/registration.js HTTP/1.1" 200 798
+[INFO] 2025-10-29 14:18:38,458 django.server 1260 9896 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[WARNING] 2025-10-29 14:18:38,590 django.request 1260 12912 Not Found: /favicon.ico
+[WARNING] 2025-10-29 14:18:38,591 django.server 1260 12912 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-29 14:18:44,038 django.server 1260 12340 "GET /admin/ HTTP/1.1" 200 16428
+[INFO] 2025-10-29 14:18:44,145 django.server 1260 12340 "GET /static/admin/css/base.css HTTP/1.1" 200 21544
+[INFO] 2025-10-29 14:18:44,147 django.server 1260 15404 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+[INFO] 2025-10-29 14:18:44,147 django.server 1260 12416 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2682
+[INFO] 2025-10-29 14:18:44,148 django.server 1260 23476 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+[INFO] 2025-10-29 14:18:44,149 django.server 1260 17472 "GET /static/admin/css/responsive.css HTTP/1.1" 200 17905
+[INFO] 2025-10-29 14:18:44,163 django.server 1260 23476 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+[INFO] 2025-10-29 14:18:44,164 django.server 1260 12416 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+[INFO] 2025-10-29 14:18:44,190 django.server 1260 12416 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+[INFO] 2025-10-29 14:18:44,190 django.server 1260 23476 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+[INFO] 2025-10-29 14:18:57,160 django.server 1260 23816 "GET /admin/users/customuser/ HTTP/1.1" 200 20773
+[INFO] 2025-10-29 14:18:57,283 django.server 1260 22448 "GET /static/admin/css/changelists.css HTTP/1.1" 200 6811
+[INFO] 2025-10-29 14:18:57,292 django.server 1260 5992 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9042
+[INFO] 2025-10-29 14:18:57,292 django.server 1260 24472 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+[INFO] 2025-10-29 14:18:57,294 django.server 1260 23004 "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+[INFO] 2025-10-29 14:18:57,303 django.server 1260 22448 "GET /static/admin/js/actions.js HTTP/1.1" 200 8067
+[INFO] 2025-10-29 14:18:57,313 django.server 1260 5992 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+[INFO] 2025-10-29 14:18:57,317 django.server 1260 24472 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+[INFO] 2025-10-29 14:18:57,321 django.server 1260 7284 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-10-29 14:18:57,331 django.server 1260 23816 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+[INFO] 2025-10-29 14:18:57,334 django.server 1260 23004 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+[INFO] 2025-10-29 14:18:57,449 django.server 1260 7284 "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+[INFO] 2025-10-29 14:18:57,524 django.server 1260 7284 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+[INFO] 2025-10-29 14:19:00,387 django.server 1260 7284 "GET /admin/users/customuser/56/change/ HTTP/1.1" 200 28807
+[INFO] 2025-10-29 14:19:00,498 django.server 1260 5992 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+[INFO] 2025-10-29 14:19:00,501 django.server 1260 24472 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+[INFO] 2025-10-29 14:19:00,502 django.server 1260 23004 "GET /static/admin/css/forms.css HTTP/1.1" 200 9090
+[INFO] 2025-10-29 14:19:00,504 django.server 1260 23816 "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+[INFO] 2025-10-29 14:19:00,508 django.server 1260 22448 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-10-29 14:19:00,520 django.server 1260 22448 "GET /static/admin/css/widgets.css HTTP/1.1" 200 11800
+[INFO] 2025-10-29 14:19:00,525 django.server 1260 23816 "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+[INFO] 2025-10-29 14:19:00,712 django.server 1260 23816 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+[INFO] 2025-10-29 14:19:00,714 django.server 1260 22448 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+[INFO] 2025-10-29 14:19:19,657 django.server 1260 18824 "GET /admin/users/customuser/ HTTP/1.1" 200 20773
+[INFO] 2025-10-29 14:19:19,686 django.server 1260 22504 "GET /admin/users/customuser/ HTTP/1.1" 200 20773
+[INFO] 2025-10-29 14:19:19,747 django.server 1260 22080 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-10-29 14:19:24,890 django.server 1260 21944 "GET /admin/users/customuser/1/change/ HTTP/1.1" 200 28829
+[INFO] 2025-10-29 14:19:24,975 django.server 1260 5984 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-10-30 23:20:22,458 django.utils.autoreload 22920 5060 Watching for file changes with StatReloader
+[INFO] 2025-10-30 23:21:32,147 django.utils.autoreload 16512 14872 Watching for file changes with StatReloader
+[INFO] 2025-10-30 23:21:43,701 django.server 16512 15784 "GET / HTTP/1.1" 200 1911
+[WARNING] 2025-10-30 23:21:45,807 django.request 16512 15784 Not Found: /favicon.ico
+[WARNING] 2025-10-30 23:21:45,809 django.server 16512 15784 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-30 23:21:56,765 django.server 16512 10304 "GET / HTTP/1.1" 200 1911
+[WARNING] 2025-10-30 23:21:58,987 django.request 16512 11500 Not Found: /favicon.ico
+[WARNING] 2025-10-30 23:21:58,991 django.server 16512 11500 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-30 23:22:05,512 django.server 16512 11500 "POST / HTTP/1.1" 302 0
+[INFO] 2025-10-30 23:22:05,625 django.server 16512 11500 "GET /TestsCreate/listTests/ HTTP/1.1" 200 125426
+[INFO] 2025-10-30 23:22:05,902 django.server 16512 11500 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 12941
+[INFO] 2025-10-30 23:22:05,949 django.server 16512 21380 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 10374
+[INFO] 2025-10-30 23:22:09,600 django.server 16512 21380 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2025-10-30 23:22:09,613 django.server 16512 21380 "GET / HTTP/1.1" 200 1911
+[INFO] 2025-10-30 23:22:17,005 django.server 16512 22308 "POST / HTTP/1.1" 302 0
+[INFO] 2025-10-30 23:22:17,052 django.server 16512 22308 "GET /Home/ HTTP/1.1" 200 15514
+[INFO] 2025-10-30 23:22:18,730 django.server 16512 22308 "GET /TestsSolving/ HTTP/1.1" 200 21878
+[INFO] 2025-10-30 23:22:43,087 django.server 16512 3092 "GET /TestsSolving/1-4/ HTTP/1.1" 200 9402
+[INFO] 2025-10-30 23:22:59,440 django.server 16512 18268 "POST /TestsSolving/1-4/ HTTP/1.1" 302 0
+[INFO] 2025-10-30 23:22:59,481 django.server 16512 18268 "GET /TestsSolving/1-4/result/ HTTP/1.1" 200 6555
+[INFO] 2025-10-30 23:27:18,054 django.utils.autoreload 16512 14872 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2025-10-30 23:27:24,904 django.utils.autoreload 23456 5072 Watching for file changes with StatReloader
+[INFO] 2025-10-30 23:29:53,852 django.utils.autoreload 23456 5072 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2025-10-30 23:29:56,110 django.utils.autoreload 21740 16740 Watching for file changes with StatReloader
+[INFO] 2025-10-30 23:56:45,607 django.utils.autoreload 21740 16740 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2025-10-30 23:56:48,127 django.utils.autoreload 19260 3792 Watching for file changes with StatReloader
+[INFO] 2025-10-30 23:57:10,371 django.utils.autoreload 19260 3792 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2025-10-30 23:57:11,671 django.utils.autoreload 8156 22744 Watching for file changes with StatReloader
+[INFO] 2025-10-30 23:59:20,580 django.server 8156 15576 "GET /TestsSolving/ HTTP/1.1" 200 21878
+[INFO] 2025-10-31 00:01:31,072 django.server 8156 7720 "GET /TestsSolving/1-4/ HTTP/1.1" 200 9402
+[INFO] 2025-10-31 00:01:45,099 solving_tests.views 8156 19444 Question 1: Multiple choice - Selected: {'1'}, Should be: {'1'}, Result: 1
+[INFO] 2025-10-31 00:01:45,129 django.server 8156 19444 "POST /TestsSolving/1-4/ HTTP/1.1" 302 0
+[INFO] 2025-10-31 00:01:45,158 django.server 8156 19444 "GET /TestsSolving/1-4/result/ HTTP/1.1" 200 6555
+[INFO] 2025-10-31 00:01:47,288 django.server 8156 17880 "GET /TestsSolving/ HTTP/1.1" 200 21878
+[INFO] 2025-10-31 00:19:16,791 django.server 8156 17788 "GET /TestsSolving/1-4/ HTTP/1.1" 200 9402
+[INFO] 2025-10-31 00:19:39,079 solving_tests.views 8156 17788 Question 1: Multiple choice - Selected: {'2'}, Should be: {'1'}, Result: 0
+[INFO] 2025-10-31 00:19:39,100 django.server 8156 17788 "POST /TestsSolving/1-4/ HTTP/1.1" 302 0
+[INFO] 2025-10-31 00:19:39,123 django.server 8156 17788 "GET /TestsSolving/1-4/result/ HTTP/1.1" 200 6555
+[INFO] 2025-10-31 00:19:51,761 django.server 8156 17788 "GET /TestsSolving/ HTTP/1.1" 200 21878
+[INFO] 2025-10-31 00:19:53,993 django.server 8156 17788 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2025-10-31 00:19:54,054 django.server 8156 17788 "GET / HTTP/1.1" 200 1911
+[INFO] 2025-10-31 00:20:01,245 django.server 8156 1156 "POST / HTTP/1.1" 302 0
+[INFO] 2025-10-31 00:20:01,369 django.server 8156 1156 "GET /TestsCreate/listTests/ HTTP/1.1" 200 125426
+[INFO] 2025-10-31 00:20:04,813 django.server 8156 1156 "GET /TestsCreate/ HTTP/1.1" 200 17667
+[INFO] 2025-10-31 00:20:05,066 django.server 8156 1156 "GET /static/css/writing_tests.css HTTP/1.1" 200 15932
+[INFO] 2025-10-31 00:20:05,070 django.server 8156 2456 "GET /static/js/writing_tests.js HTTP/1.1" 200 24914
+[INFO] 2025-10-31 00:20:59,735 create_tests.views 8156 14108 === CREATE TEST DEBUG START ===
+[INFO] 2025-10-31 00:20:59,736 create_tests.views 8156 14108 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans', 'number', 'block_expression_num']
+[INFO] 2025-10-31 00:20:59,737 create_tests.views 8156 14108 POST data: {'csrfmiddlewaretoken': ['w2c1y9nUG625oIhJWSps0TloFNujUX16CPaHEZdNyYjki56IFZbiorV6NRppC1Zr'], 'name_test': ['111'], 'time_solve': ['01:01:01'], 'num_attempts': ['1234567'], 'subj_test': ['5'], 'description_test': ['123'], 'point_solve': ['["1","1"]'], 'user_expression': ['["1-1","2-2"]'], 'user_ans': ['["0;1","0;1"]'], 'user_eps': ['["0;0","0;0"]'], 'user_type': ['["1","1"]'], 'user_norm': ['["",""]'], 'user_bool_ans': ['["1;0","1;0"]'], 'number': ['[1,2]'], 'block_expression_num': ['[1,1]']}
+[INFO] 2025-10-31 00:20:59,738 create_tests.views 8156 14108 Basic fields - name: '111', time: '01:01:01', attempts: '1234567', subj_id: '5'
+[INFO] 2025-10-31 00:20:59,739 create_tests.views 8156 14108 Raw task_groups_data: []
+[INFO] 2025-10-31 00:20:59,740 create_tests.views 8156 14108 Parsed task_groups_data: []
+[INFO] 2025-10-31 00:20:59,741 create_tests.views 8156 14108 Raw data - points: ["1","1"], expressions: ["1-1","2-2"]
+[INFO] 2025-10-31 00:20:59,741 create_tests.views 8156 14108 Parsed data - expressions count: 2, points count: 2
+[INFO] 2025-10-31 00:20:59,761 create_tests.views 8156 14108 Found 2 valid expressions out of 2
+[INFO] 2025-10-31 00:20:59,761 create_tests.views 8156 14108 Numbers raw: [1,2], Block nums raw: [1,1]
+[INFO] 2025-10-31 00:20:59,762 create_tests.views 8156 14108 Processing expression 1: 1-1...
+[INFO] 2025-10-31 00:20:59,762 create_tests.views 8156 14108 Data: ans='0;1', bool_ans='1;0', eps='0;0', type_id='1', point='1', norm_id=''
+[INFO] 2025-10-31 00:20:59,762 create_tests.views 8156 14108 flag_select = True
+[INFO] 2025-10-31 00:20:59,764 create_tests.views 8156 14108 type_obj = Целые
+[INFO] 2025-10-31 00:20:59,776 create_tests.views 8156 14108 Created expression instance: 1-1 with number=1, block=1
+[INFO] 2025-10-31 00:20:59,787 create_tests.views 8156 14108 Added expression 1 successfully
+[INFO] 2025-10-31 00:20:59,788 create_tests.views 8156 14108 Processing expression 2: 2-2...
+[INFO] 2025-10-31 00:20:59,788 create_tests.views 8156 14108 Data: ans='0;1', bool_ans='1;0', eps='0;0', type_id='1', point='1', norm_id=''
+[INFO] 2025-10-31 00:20:59,788 create_tests.views 8156 14108 flag_select = True
+[INFO] 2025-10-31 00:20:59,789 create_tests.views 8156 14108 type_obj = Целые
+[INFO] 2025-10-31 00:20:59,799 create_tests.views 8156 14108 Created expression instance: 2-2 with number=2, block=1
+[INFO] 2025-10-31 00:20:59,807 create_tests.views 8156 14108 Added expression 2 successfully
+[INFO] 2025-10-31 00:20:59,817 create_tests.views 8156 14108 === CREATE TEST DEBUG END ===
+[INFO] 2025-10-31 00:20:59,819 django.server 8156 14108 "POST /TestsCreate/ HTTP/1.1" 302 0
+[INFO] 2025-10-31 00:20:59,894 django.server 8156 14108 "GET /TestsCreate/listTests/ HTTP/1.1" 200 128941
+[INFO] 2025-10-31 00:21:10,403 django.server 8156 17496 "POST /TestsCreate/publish-test/111/ HTTP/1.1" 200 17
+[INFO] 2025-10-31 00:21:10,523 django.server 8156 17496 "GET /TestsCreate/listTests/ HTTP/1.1" 200 131270
+[INFO] 2025-10-31 00:21:13,839 django.server 8156 17496 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2025-10-31 00:21:13,850 django.server 8156 17496 "GET / HTTP/1.1" 200 1911
+[INFO] 2025-10-31 00:21:19,475 django.server 8156 19932 "POST / HTTP/1.1" 302 0
+[INFO] 2025-10-31 00:21:19,517 django.server 8156 19932 "GET /Home/ HTTP/1.1" 200 16217
+[INFO] 2025-10-31 00:21:21,919 django.server 8156 19932 "GET /TestsSolving/ HTTP/1.1" 200 23518
+[INFO] 2025-10-31 00:21:24,045 django.server 8156 19932 "GET /TestsSolving/111/ HTTP/1.1" 200 9406
+[INFO] 2025-10-31 00:21:39,165 solving_tests.views 8156 21156 Question 1: Multiple choice - Selected: {'0'}, Should be: {'0'}, Result: 1
+[INFO] 2025-10-31 00:21:39,182 django.server 8156 21156 "POST /TestsSolving/111/ HTTP/1.1" 302 0
+[INFO] 2025-10-31 00:21:39,203 django.server 8156 21156 "GET /TestsSolving/111/result/ HTTP/1.1" 200 6555
+[INFO] 2025-10-31 00:21:41,298 django.server 8156 21156 "GET /TestsSolving/ HTTP/1.1" 200 23518
+[INFO] 2025-10-31 00:21:43,438 django.server 8156 21156 "GET /TestsSolving/111/ HTTP/1.1" 200 9406
+[INFO] 2025-10-31 00:21:55,140 solving_tests.views 8156 22124 Question 1: Multiple choice - Selected: {'0'}, Should be: {'0'}, Result: 1
+[INFO] 2025-10-31 00:21:55,162 django.server 8156 22124 "POST /TestsSolving/111/ HTTP/1.1" 302 0
+[INFO] 2025-10-31 00:21:55,185 django.server 8156 22124 "GET /TestsSolving/111/result/ HTTP/1.1" 200 6555
+[INFO] 2025-10-31 00:21:58,748 django.server 8156 11556 "GET /TestsSolving/ HTTP/1.1" 200 23518
+[INFO] 2025-10-31 00:22:00,420 django.server 8156 11556 "GET /TestsSolving/111/ HTTP/1.1" 200 9406
+[INFO] 2025-10-31 00:22:15,297 solving_tests.views 8156 21624 Question 1: Multiple choice - Selected: set(), Should be: {'0'}, Result: 0
+[INFO] 2025-10-31 00:22:15,319 django.server 8156 21624 "POST /TestsSolving/111/ HTTP/1.1" 302 0
+[INFO] 2025-10-31 00:22:15,339 django.server 8156 21624 "GET /TestsSolving/111/result/ HTTP/1.1" 200 6555
+[INFO] 2025-10-31 00:22:31,782 django.server 8156 21996 "GET /TestsSolving/ HTTP/1.1" 200 23518
+[INFO] 2025-10-31 00:22:34,516 django.server 8156 21996 "GET /TestsSolving/111/ HTTP/1.1" 200 9406
+[INFO] 2025-10-31 00:22:46,355 solving_tests.views 8156 17652 Question 1: Multiple choice - Selected: {'0'}, Should be: {'0'}, Result: 1
+[INFO] 2025-10-31 00:22:46,373 django.server 8156 17652 "POST /TestsSolving/111/ HTTP/1.1" 302 0
+[INFO] 2025-10-31 00:22:46,391 django.server 8156 17652 "GET /TestsSolving/111/result/ HTTP/1.1" 200 6555
+[INFO] 2025-10-31 00:22:53,751 django.server 8156 17652 "GET /TestsSolving/ HTTP/1.1" 200 23518
+[INFO] 2025-10-31 00:23:13,237 django.server 8156 23440 "GET /TestsSolving/vayvayvay/ HTTP/1.1" 200 8712
+[INFO] 2025-10-31 00:26:20,346 django.utils.autoreload 8156 22744 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2025-10-31 00:26:22,213 django.utils.autoreload 23160 16416 Watching for file changes with StatReloader
+[INFO] 2025-10-31 00:35:56,190 django.server 23160 15676 "GET /TestsSolving/ HTTP/1.1" 200 23518
+[INFO] 2025-10-31 00:35:56,792 django.server 23160 11096 "GET /static/css/test_selection.css HTTP/1.1" 200 8223
+[INFO] 2025-10-31 00:35:56,874 django.server 23160 5688 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-10-31 00:35:56,925 django.server 23160 5688 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-10-31 00:35:56,945 django.server 23160 15676 "GET /static/css/header.css HTTP/1.1" 200 11498
+[INFO] 2025-10-31 00:35:56,956 django.server 23160 5688 "GET /static/js/test_selection.js HTTP/1.1" 200 4477
+[WARNING] 2025-10-31 00:35:59,817 django.request 23160 5688 Not Found: /favicon.ico
+[WARNING] 2025-10-31 00:35:59,818 django.server 23160 5688 "GET /favicon.ico HTTP/1.1" 404 3728
+[INFO] 2025-10-31 00:36:04,637 django.server 23160 18688 "GET /TestsSolving/111/ HTTP/1.1" 200 9406
+[INFO] 2025-10-31 00:36:08,706 solving_tests.views 23160 18688 Question 1: Multiple choice - Selected: {'0'}, Should be: {'0'}, Result: 1
+[INFO] 2025-10-31 00:36:08,747 django.server 23160 18688 "POST /TestsSolving/111/ HTTP/1.1" 302 0
+[INFO] 2025-10-31 00:36:08,778 django.server 23160 18688 "GET /TestsSolving/111/result/ HTTP/1.1" 200 6555

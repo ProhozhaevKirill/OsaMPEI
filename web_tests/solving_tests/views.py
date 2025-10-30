@@ -46,9 +46,10 @@ def get_randomized_test_for_student(test, student_id, attempt_number=1):
     чтобы каждая попытка давала уникальный вариант
 
     Логика рандомизации:
-    - Группируем задания по block_expression_num
-    - Из каждого блока выбираем случайное задание для студента
-    - Сортируем по полю number для правильного порядка отображения
+    - Если тест использует новую систему TaskGroup, то из каждой группы выбираем случайный вариант
+    - Если тест использует старую систему, группируем задания по block_expression_num
+    - Из каждого блока/группы выбираем случайное задание для студента
+    - Сортируем по номеру для правильного порядка отображения
     - Каждая попытка генерирует новый вариант
     """
     # Создаем seed на основе id студента, id теста и номера попытки
@@ -57,39 +58,68 @@ def get_randomized_test_for_student(test, student_id, attempt_number=1):
 
     randomized_expressions = []
 
-    # Группируем задания по блокам
-    from collections import defaultdict
-    blocks = defaultdict(list)
+    # Проверяем, использует ли тест новую систему TaskGroup
+    task_groups = test.task_groups.all()
 
-    for ex in test.expressions.all():
-        blocks[ex.block_expression_num].append(ex)
+    if task_groups.exists():
+        # Новая система: используем TaskGroup и TaskVariant
+        from create_tests.models import TypeNormForTaskVariant
 
-    # Из каждого блока выбираем случайное задание
-    selected_expressions = []
-    for block_num, expressions in blocks.items():
-        if expressions:
-            # Выбираем случайное задание из блока
-            selected_expression = random.choice(expressions)
-            selected_expressions.append(selected_expression)
+        for task_group in task_groups.order_by('number'):
+            variants = task_group.variants.all()
+            if variants:
+                # Выбираем случайный вариант из группы
+                selected_variant = random.choice(list(variants))
 
-    # Сортируем по полю number для правильного порядка
-    selected_expressions.sort(key=lambda x: x.number)
+                # Получаем норму матрицы для TaskVariant
+                norm_for_task = TypeNormForTaskVariant.objects.filter(task_variant=selected_variant).first()
 
-    # Формируем окончательный список
-    for ex in selected_expressions:
-        norm_for_matrix = TypeNormForMatrix.objects.filter(num_expr=ex).first()
-        randomized_expressions.append({
-            'user_expression': ex.user_expression,
-            'user_ans': ex.user_ans,
-            'true_ans': ex.true_ans,
-            'user_eps': ex.user_eps,
-            'user_type': ex.user_type,
-            'points_for_solve': ex.points_for_solve,
-            'exist_select': ex.exist_select,
-            'matrix_norm': norm_for_matrix.matrix_norms if norm_for_matrix else None,
-            'number': ex.number,
-            'block_expression_num': ex.block_expression_num
-        })
+                randomized_expressions.append({
+                    'user_expression': selected_variant.user_expression,
+                    'user_ans': selected_variant.user_ans,
+                    'true_ans': selected_variant.true_ans,
+                    'user_eps': selected_variant.user_eps,
+                    'user_type': selected_variant.user_type,
+                    'points_for_solve': task_group.points_for_solve,
+                    'exist_select': selected_variant.exist_select,
+                    'matrix_norm': norm_for_task.matrix_norms if norm_for_task else None,
+                    'number': task_group.number,
+                    'block_expression_num': task_group.number
+                })
+    else:
+        # Старая система: используем AboutExpressions
+        from collections import defaultdict
+        blocks = defaultdict(list)
+
+        for ex in test.expressions.all():
+            blocks[ex.block_expression_num].append(ex)
+
+        # Из каждого блока выбираем случайное задание
+        selected_expressions = []
+        for block_num, expressions in blocks.items():
+            if expressions:
+                # Выбираем случайное задание из блока
+                selected_expression = random.choice(expressions)
+                selected_expressions.append(selected_expression)
+
+        # Сортируем по полю number для правильного порядка
+        selected_expressions.sort(key=lambda x: x.number)
+
+        # Формируем окончательный список
+        for ex in selected_expressions:
+            norm_for_matrix = TypeNormForMatrix.objects.filter(num_expr=ex).first()
+            randomized_expressions.append({
+                'user_expression': ex.user_expression,
+                'user_ans': ex.user_ans,
+                'true_ans': ex.true_ans,
+                'user_eps': ex.user_eps,
+                'user_type': ex.user_type,
+                'points_for_solve': ex.points_for_solve,
+                'exist_select': ex.exist_select,
+                'matrix_norm': norm_for_matrix.matrix_norms if norm_for_matrix else None,
+                'number': ex.number,
+                'block_expression_num': ex.block_expression_num
+            })
 
     return randomized_expressions
 
@@ -128,10 +158,40 @@ def some_test_for_student(request, slug_name):
             user_ans = student_answers[i]
 
             if expr_data['exist_select']:
-                # Multiple choice question
-                ua = ''.join(user_ans)
-                va = expr_data['true_ans'].replace(';', '')
-                res = CheckAnswer(va, ua, True, type_ans=expr_data['user_type'].type_code).compare_answer()
+                # Multiple choice question - проверяем правильность выбранных вариантов
+                import logging
+                logger = logging.getLogger(__name__)
+
+                # Разбираем варианты ответов и правильные ответы
+                available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+                correct_answers = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
+
+                # Получаем выбранные пользователем варианты
+                if isinstance(user_ans, str):
+                    selected_options = user_ans.split(';') if user_ans else []
+                elif isinstance(user_ans, list):
+                    selected_options = user_ans
+                else:
+                    selected_options = []
+
+                # Проверяем правильность: каждый выбранный вариант должен быть правильным,
+                # и не должно быть пропущенных правильных вариантов
+                res = 1  # Начинаем с полного балла
+
+                # Создаем множества для сравнения
+                selected_set = set(selected_options)
+
+                # Определяем какие варианты должны быть выбраны (где true_ans[j] == '1')
+                should_be_selected = set()
+                for j, is_correct in enumerate(correct_answers):
+                    if j < len(available_options) and is_correct == '1':
+                        should_be_selected.add(available_options[j])
+
+                # Проверяем точное совпадение
+                if selected_set != should_be_selected:
+                    res = 0
+
+                logger.info(f"Question {i+1}: Multiple choice - Selected: {selected_set}, Should be: {should_be_selected}, Result: {res}")
             else:
                 # Single answer question
                 if expr_data['user_type'].type_code == 4:  # Matrix type
@@ -206,8 +266,26 @@ def show_result(request, slug_name):
 
     test = AboutTest.objects.get(name_slug_tests=slug_name)
 
-    # Подсчитываем общее количество баллов (используем старую систему)
-    count = test.expressions.aggregate(Sum('points_for_solve'))['points_for_solve__sum'] or 0
+    # Подсчитываем общее количество баллов в зависимости от используемой системы
+    task_groups = test.task_groups.all()
+
+    if task_groups.exists():
+        # Новая система: используем TaskGroup - считаем по группам заданий
+        count = task_groups.aggregate(Sum('points_for_solve'))['points_for_solve__sum'] or 0
+    else:
+        # Старая система: используем AboutExpressions
+        # ВАЖНО: группируем по block_expression_num, чтобы не считать варианты как отдельные задания
+        from collections import defaultdict
+
+        groups = defaultdict(list)
+        for expr in test.expressions.all():
+            groups[expr.block_expression_num].append(expr)
+
+        count = 0
+        for block_num, expr_list in groups.items():
+            if expr_list:
+                # Берем баллы от первого выражения в группе (все варианты имеют одинаковые баллы)
+                count += expr_list[0].points_for_solve
 
     return render(request, 'solving_tests/result.html', {
         'test_name': test_result['test_name'],

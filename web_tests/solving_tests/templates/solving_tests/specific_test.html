@@ -7,15 +7,15 @@
 {% block extra_css %}
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
     <link rel="stylesheet" href='{% static "css/specific_test.css" %}'>
-    <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.css">
+    <link rel="stylesheet" href="{% static 'libs/mathlive/mathlive.css' %}">
 {% endblock %}
 
 {% block extra_js %}
-    <script src="https://unpkg.com/mathlive"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
+    <script src="{% static 'libs/polyfill/polyfill.min.js' %}"></script>
     <script id="MathJax-script" async
-            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script src='https://unpkg.com/mathlive/dist/mathlive.min.js'></script>
+            src="{% static 'libs/mathjax/tex-mml-chtml.js' %}"></script>
+    <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
 
     <script src="{% static 'js/specific_test.js' %}"></script>
     <script src="{% static 'js/macros-mathJax.js' %}"></script>

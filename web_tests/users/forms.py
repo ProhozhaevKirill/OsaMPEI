@@ -64,6 +64,7 @@ class ProfileForm(forms.ModelForm):
             'first_name',
             'last_name',
             'middle_name',
+            'photo',
             'institute',
             # 'direction',
             # 'department',
@@ -74,5 +75,31 @@ class ProfileForm(forms.ModelForm):
             'first_name': 'Имя',
             'last_name': 'Фамилия',
             'middle_name': 'Отчество',
+            'photo': 'Фото профиля',
             'group': 'Группа',
+        }
+        widgets = {
+            'photo': forms.FileInput(attrs={'accept': 'image/*'}),
+        }
+
+
+class TeacherProfileForm(forms.ModelForm):
+    class Meta:
+        model = TeacherData
+        fields = [
+            'first_name',
+            'last_name',
+            'middle_name',
+            'photo',
+            'institute',
+        ]
+        labels = {
+            'first_name': 'Имя',
+            'last_name': 'Фамилия',
+            'middle_name': 'Отчество',
+            'photo': 'Фото профиля',
+            'institute': 'Институт',
+        }
+        widgets = {
+            'photo': forms.FileInput(attrs={'accept': 'image/*'}),
         }

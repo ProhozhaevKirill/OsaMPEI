@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}АСТРА - Платформа тестирования{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/dark-theme.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/fontawesome/css/all.min.css' %}">
     {% block extra_css %}{% endblock %}
     <script src="{% static 'js/header.js' %}" defer></script>
+    <script src="{% static 'js/theme-switcher.js' %}" defer></script>
     {% block extra_js %}{% endblock %}
 </head>
-<body>
+<body data-theme="{{ user.theme|default:'light' }}" data-user-theme="{{ user.theme|default:'light' }}">
 <header class="app-header">
     <div class="header-container">
         <div class="header-brand">
@@ -49,13 +51,25 @@
             </div>
             <div class="profile-dropdown">
                 <button class="profile-btn" id="profileBtn">
-                    <div class="avatar"><i class="fas fa-user"></i></div>
+                    <div class="avatar">
+                        {% if user.get_photo_url %}
+                            <img src="{{ user.get_photo_url }}" alt="Фото профиля" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                        {% else %}
+                            <i class="fas fa-user"></i>
+                        {% endif %}
+                    </div>
                     <span class="username">{{ user.get_full_name }}</span>
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="profile-menu hidden" id="profileMenu">
                     <div class="profile-info">
-                        <div class="avatar large"><i class="fas fa-user"></i></div>
+                        <div class="avatar large">
+                            {% if user.get_photo_url %}
+                                <img src="{{ user.get_photo_url }}" alt="Фото профиля" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                            {% else %}
+                                <i class="fas fa-user"></i>
+                            {% endif %}
+                        </div>
                         <div class="user-details">
                             <h4>{{ user.get_full_name }}</h4>
                             <small>{% if user.role == 'teacher' %}Преподаватель{% else %}Студент{% endif %}</small>
@@ -67,11 +81,11 @@
                                 <i class="fas fa-user"></i>
                                 <span>Мой профиль</span>
                             </a>
-                            <a href="#" class="menu-link">
+                            <a href="/settings/" class="menu-link">
                                 <i class="fas fa-cog"></i>
                                 <span>Настройки</span>
                             </a>
-                            <a href="#" class="menu-link">
+                            <a href="/help/" class="menu-link">
                                 <i class="fas fa-question-circle"></i>
                                 <span>Помощь</span>
                             </a>
@@ -97,7 +111,13 @@
 
 <div class="mobile-menu hidden" id="mobileMenu">
     <div class="mobile-menu-header">
-        <div class="avatar"><i class="fas fa-user"></i></div>
+        <div class="avatar">
+            {% if user.get_photo_url %}
+                <img src="{{ user.get_photo_url }}" alt="Фото профиля" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            {% else %}
+                <i class="fas fa-user"></i>
+            {% endif %}
+        </div>
         <span class="username">{{ user.get_full_name }}</span>
         <button class="close-menu-btn" id="closeMenuBtn"><i class="fas fa-times"></i></button>
     </div>

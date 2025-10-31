@@ -19,8 +19,14 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    THEME_CHOICES = [
+        ('light', 'Светлая'),
+        ('dark', 'Тёмная'),
+    ]
+
     email = models.EmailField(unique=True)
     role = models.CharField(max_length=10, choices=[('student', 'Student'), ('teacher', 'Teacher')])
+    theme = models.CharField(max_length=10, choices=THEME_CHOICES, default='light')
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -31,6 +37,20 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    def get_full_name(self):
+        if self.role == 'student' and hasattr(self, 'studentdata'):
+            return f"{self.studentdata.last_name} {self.studentdata.first_name}"
+        elif self.role == 'teacher' and hasattr(self, 'teacherdata'):
+            return f"{self.teacherdata.last_name} {self.teacherdata.first_name}"
+        return self.email
+
+    def get_photo_url(self):
+        if self.role == 'student' and hasattr(self, 'studentdata') and self.studentdata.photo:
+            return self.studentdata.photo.url
+        elif self.role == 'teacher' and hasattr(self, 'teacherdata') and self.teacherdata.photo:
+            return self.teacherdata.photo.url
+        return None
 
 
 # class Subject(models.Model):
@@ -59,6 +79,7 @@ class StudentData(models.Model):
     first_name = models.CharField(max_length=50, blank=False)
     last_name = models.CharField(max_length=50, blank=False)
     middle_name = models.CharField(max_length=50, blank=True)
+    photo = models.ImageField(upload_to='user_photos/', blank=True, null=True)
 
     training_status = models.BooleanField(default=True)
     count_solve = models.IntegerField(default=0)
@@ -75,13 +96,14 @@ class WhiteList(models.Model):
     teacher_mail = models.EmailField(unique=True)
 
     def __str__(self):
-        return self.teacherMail
+        return self.teacher_mail
 
 
 class TeacherData(models.Model):
     first_name = models.CharField(max_length=50, blank=False)
     last_name = models.CharField(max_length=50, blank=False)
     middle_name = models.CharField(max_length=50)
+    photo = models.ImageField(upload_to='user_photos/', blank=True, null=True)
     institute = models.ForeignKey(StudentInstitute, default=6, on_delete=models.PROTECT)
 
     data_map = models.OneToOneField(CustomUser, on_delete=models.CASCADE)

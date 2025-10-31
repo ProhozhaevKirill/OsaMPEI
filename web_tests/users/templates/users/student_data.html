@@ -16,7 +16,15 @@
         {% if is_student %}Профиль студента{% else %}Профиль преподавателя{% endif %}
     </h1>
 
-    <form method="POST" class="profile-form">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" style="padding: 10px; margin: 10px 0; border-radius: 4px; background: {% if message.tags == 'success' %}#d4edda; color: #155724;{% else %}#f8d7da; color: #721c24;{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data" class="profile-form">
         {% csrf_token %}
 
         <div class="form-section">
@@ -29,6 +37,22 @@
 
         <div class="form-section">
             <h2>Личные данные</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Фото профиля</label>
+                    {% if data.photo %}
+                        <div class="current-photo">
+                            <img src="{{ data.photo.url }}" alt="Текущее фото" style="max-width: 150px; max-height: 150px; border-radius: 50%; object-fit: cover;">
+                            <p>Текущее фото</p>
+                            <button type="submit" name="delete_photo" class="delete-photo-btn" onclick="return confirm('Вы уверены, что хотите удалить фото?')" style="background: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin-top: 10px;">
+                                <i class="fas fa-trash"></i> Удалить фото
+                            </button>
+                        </div>
+                    {% endif %}
+                    <input type="file" name="photo" accept="image/*">
+                    <small>Загрузите новое фото (необязательно)</small>
+                </div>
+            </div>
             <div class="form-row">
                 <div class="form-group">
                     <label>Фамилия</label>

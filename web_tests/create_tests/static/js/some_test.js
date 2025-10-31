@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     confirmDeleteBtn.addEventListener('click', function() {
         if (currentTestSlug) {
-            fetch(`/delete-test/${currentTestSlug}/`, {
+            fetch(`/TestsCreate/delete-test/${currentTestSlug}/`, {
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': getCookie('csrftoken'),
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const slug = this.getAttribute('data-slug');
             if (slug) {
-                window.location.href = `/edit-test/${slug}/`;
+                window.location.href = `/TestsCreate/edit-test/${slug}/`;
             }
         });
     });
@@ -88,9 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
             header.addEventListener('click', function(e) {
                 if (e.target.classList.contains('group-checkbox') ||
                     e.target.tagName === 'LABEL' ||
-                    e.target.tagName === 'INPUT') {
-                    return;
-                }
+                    e.target.tagName === 'INPUT') return;
 
                 const card = this.closest('.institute-card');
                 const toggleBtn = this.querySelector('.btn-toggle');
@@ -125,9 +123,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    publishModal.addEventListener('click', function() {
-        initializeGroupSelection();
-    }, { once: true });
+    // Инициализация при открытии модального окна публикации
+    publishModal.addEventListener('click', () => initializeGroupSelection(), { once: true });
 
     confirmPublishBtn.addEventListener('click', function() {
         const selectedGroups = Array.from(document.querySelectorAll('.group-checkbox:checked'));
@@ -143,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        fetch(`/publish-test/${currentTestSlug}/`, {
+        fetch(`/TestsCreate/publish-test/${currentTestSlug}/`, {
             method: 'POST',
             headers: {
                 'X-CSRFToken': getCookie('csrftoken'),

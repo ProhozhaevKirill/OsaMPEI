@@ -31,7 +31,16 @@ class MasterMatrix:
             elif expr[i:i + self.lenght] == self.mark and not flag:
                 bound = np.append(bound, i - self.lenght)
 
-        print(expr[bound[0]:bound[1]])
+        # Проверяем, что найдены оба маркера
+        if len(bound) < 2:
+            print(f"Ошибка: не найдены маркеры matrix в выражении: {expr}")
+            return np.array([0, 0])  # Возвращаем безопасные индексы
+
+        try:
+            print(expr[bound[0]:bound[1]])
+        except (IndexError, ValueError) as e:
+            print(f"Ошибка доступа к границам bound: {bound}, expr длина: {len(expr)}, ошибка: {e}")
+            return np.array([0, 0])
 
         return bound
 
@@ -39,15 +48,25 @@ class MasterMatrix:
         res = np.array([])
 
         bound = self.get_tex_matr(expr)
+
+        # Дополнительная проверка
+        if len(bound) < 2 or bound[0] >= bound[1]:
+            print(f"Ошибка: неверные границы для выражения: {expr}")
+            return np.array([[0]])  # Возвращаем матрицу по умолчанию
+
         matr = expr[bound[0]:bound[1]]
         matr = matr.replace(' ', '').split('\\\\')
         print(matr)
         count_row = len(matr)
 
-        for row in matr:
-            numbers = [float(x) for x in row.split('&')]  # строки → float
-            res = np.append(res, numbers)
-        res = res.reshape(count_row, -1)
+        try:
+            for row in matr:
+                numbers = [float(x) for x in row.split('&')]  # строки → float
+                res = np.append(res, numbers)
+            res = res.reshape(count_row, -1)
+        except (ValueError, IndexError) as e:
+            print(f"Ошибка при обработке матрицы: {e}")
+            return np.array([[0]])  # Возвращаем матрицу по умолчанию
 
         print(res)
 

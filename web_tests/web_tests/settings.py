@@ -128,10 +128,13 @@ LOGIN_URL = ''
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
-# Для production (автоматически определяется)
-if not DEBUG:
+# Media files (User uploaded files)
+MEDIA_URL = '/media/'
+if DEBUG:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+else:
+    # Для production
     STATIC_ROOT = '/var/www/static/'
-    MEDIA_URL = '/media/'
     MEDIA_ROOT = '/var/www/media/'
 
 

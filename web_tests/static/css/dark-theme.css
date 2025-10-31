@@ -1,0 +1,362 @@
+/* Тёмная тема для АСТРА */
+
+[data-theme="dark"] {
+    /* Основные цвета */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --bg-tertiary: #3a3a3a;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --text-muted: #808080;
+    --border-color: #404040;
+    --accent-color: #3498db;
+    --accent-hover: #2980b9;
+    --success-color: #27ae60;
+    --error-color: #e74c3c;
+    --warning-color: #f39c12;
+}
+
+/* Применяем тёмную тему */
+[data-theme="dark"] body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Шапка */
+[data-theme="dark"] .app-header {
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .logo-text {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .nav-link {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .nav-link:hover,
+[data-theme="dark"] .nav-link.active {
+    color: var(--accent-color);
+    background-color: var(--bg-tertiary);
+}
+
+[data-theme="dark"] .profile-btn {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .profile-btn:hover {
+    background-color: var(--bg-primary);
+}
+
+[data-theme="dark"] .profile-menu {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .menu-link {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .menu-link:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .divider {
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .logout-btn {
+    background-color: var(--error-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .logout-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Основной контент */
+[data-theme="dark"] .app-main {
+    background-color: var(--bg-primary);
+}
+
+/* Карточки и секции */
+[data-theme="dark"] .settings-section,
+[data-theme="dark"] .help-section,
+[data-theme="dark"] .profile-form,
+[data-theme="dark"] .form-section,
+[data-theme="dark"] .dashboard-container,
+[data-theme="dark"] .stat-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .settings-title,
+[data-theme="dark"] .help-title,
+[data-theme="dark"] .profile-title,
+[data-theme="dark"] .section-title,
+[data-theme="dark"] .welcome-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .section-title {
+    border-bottom-color: var(--border-color);
+}
+
+/* Формы */
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="email"],
+[data-theme="dark"] input[type="password"],
+[data-theme="dark"] input[type="file"],
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] input[type="text"]:focus,
+[data-theme="dark"] input[type="email"]:focus,
+[data-theme="dark"] input[type="password"]:focus,
+[data-theme="dark"] select:focus,
+[data-theme="dark"] textarea:focus {
+    border-color: var(--accent-color);
+    background-color: var(--bg-secondary);
+}
+
+[data-theme="dark"] label {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .form-group label,
+[data-theme="dark"] .setting-label {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .setting-description,
+[data-theme="dark"] small {
+    color: var(--text-muted);
+}
+
+/* Кнопки */
+[data-theme="dark"] .btn-primary,
+[data-theme="dark"] .save-btn {
+    background-color: var(--accent-color);
+    color: var(--text-primary);
+    border: none;
+}
+
+[data-theme="dark"] .btn-primary:hover,
+[data-theme="dark"] .save-btn:hover {
+    background-color: var(--accent-hover);
+}
+
+[data-theme="dark"] .delete-photo-btn {
+    background-color: var(--error-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .delete-photo-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Уведомления */
+[data-theme="dark"] .alert {
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .alert-success {
+    background-color: #1e4620;
+    color: #4cd964;
+    border-color: #27ae60;
+}
+
+[data-theme="dark"] .alert-error {
+    background-color: #4a1f1f;
+    color: #ff6b6b;
+    border-color: #e74c3c;
+}
+
+/* Таблицы */
+[data-theme="dark"] .results-table {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .results-table th {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .results-table td {
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .results-table tr:hover {
+    background-color: var(--bg-tertiary);
+}
+
+/* FAQ */
+[data-theme="dark"] .faq-question {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .faq-question:hover {
+    color: var(--accent-color);
+}
+
+[data-theme="dark"] .faq-answer {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .faq-item {
+    border-bottom-color: var(--border-color);
+}
+
+/* Контактная информация */
+[data-theme="dark"] .contact-info {
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .contact-item {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .contact-item i {
+    color: var(--accent-color);
+}
+
+/* Списки функций */
+[data-theme="dark"] .feature-list li {
+    color: var(--text-secondary);
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .feature-list li i {
+    color: var(--success-color);
+}
+
+/* Статистические карточки */
+[data-theme="dark"] .stats-grid .stat-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .stat-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .stat-icon {
+    color: var(--accent-color);
+}
+
+/* Мобильное меню */
+[data-theme="dark"] .mobile-menu {
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .mobile-menu-header {
+    border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .mobile-nav-link {
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .mobile-nav-link:hover,
+[data-theme="dark"] .mobile-nav-link.active {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .mobile-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Переключатель темы */
+.theme-toggle {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+}
+
+.theme-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.theme-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 30px;
+}
+
+.theme-slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .theme-slider {
+    background-color: var(--accent-color);
+}
+
+input:checked + .theme-slider:before {
+    transform: translateX(30px);
+}
+
+[data-theme="dark"] .theme-slider {
+    background-color: #2196F3;
+}
+
+[data-theme="dark"] .theme-slider:before {
+    background-color: #fff;
+}
+
+/* Плавные переходы */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Скроллбар для темной темы */
+[data-theme="dark"] ::-webkit-scrollbar {
+    width: 8px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: var(--border-color);
+}

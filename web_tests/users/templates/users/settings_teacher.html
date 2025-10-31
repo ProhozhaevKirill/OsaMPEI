@@ -1,0 +1,193 @@
+{% extends 'create_tests/header.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <link rel="stylesheet" href='{% static "css/student_data.css" %}'>
+    <style>
+        .settings-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .settings-section {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .settings-title {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .section-title {
+            color: #34495e;
+            margin-bottom: 16px;
+            font-size: 20px;
+            font-weight: 600;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 8px;
+        }
+
+        .setting-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .setting-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        .setting-description {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="settings-container">
+    <h1 class="settings-title">
+        <i class="fas fa-cog"></i> Настройки
+    </h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" style="padding: 10px; margin: 10px 0; border-radius: 4px; background: {% if message.tags == 'success' %}#d4edda; color: #155724;{% else %}#f8d7da; color: #721c24;{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Настройки аккаунта -->
+    <div class="settings-section">
+        <h2 class="section-title">
+            <i class="fas fa-user"></i> Настройки аккаунта
+        </h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="setting-item">
+                <div class="setting-label">Email адрес</div>
+                <div class="setting-description">
+                    Ваш email адрес используется для входа в систему
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" value="{{ user.email }}" required style="width: 100%; max-width: 400px; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary">
+                <i class="fas fa-save"></i> Сохранить изменения
+            </button>
+        </form>
+    </div>
+
+    <!-- Настройки профиля -->
+    <div class="settings-section">
+        <h2 class="section-title">
+            <i class="fas fa-id-card"></i> Профиль
+        </h2>
+
+        <div class="setting-item">
+            <div class="setting-label">Личные данные</div>
+            <div class="setting-description">
+                Редактировать имя, фамилию, отчество и фото профиля
+            </div>
+            <a href="/teacher_profile/" class="btn-primary">
+                <i class="fas fa-edit"></i> Редактировать профиль
+            </a>
+        </div>
+    </div>
+
+    <!-- Настройки интерфейса -->
+    <div class="settings-section">
+        <h2 class="section-title">
+            <i class="fas fa-palette"></i> Интерфейс
+        </h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="theme">
+            <div class="setting-item">
+                <div class="setting-label">Тема оформления</div>
+                <div class="setting-description">
+                    Выберите светлую или тёмную тему для интерфейса
+                </div>
+                <label class="theme-toggle">
+                    <input type="checkbox" name="theme" value="dark" {% if user.theme == 'dark' %}checked{% endif %} onchange="this.form.submit()">
+                    <span class="theme-slider"></span>
+                </label>
+                <span style="margin-left: 10px; color: #7f8c8d;">
+                    {% if user.theme == 'dark' %}Тёмная тема{% else %}Светлая тема{% endif %}
+                </span>
+            </div>
+        </form>
+    </div>
+
+    <!-- Настройки уведомлений -->
+    <div class="settings-section">
+        <h2 class="section-title">
+            <i class="fas fa-bell"></i> Уведомления
+        </h2>
+
+        <div class="setting-item">
+            <div class="setting-label">Email уведомления</div>
+            <div class="setting-description">
+                Получать уведомления о новых тестах и результатах на email
+            </div>
+            <label style="display: flex; align-items: center; cursor: pointer;">
+                <input type="checkbox" checked style="margin-right: 8px;">
+                <span>Включены</span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Безопасность -->
+    <div class="settings-section">
+        <h2 class="section-title">
+            <i class="fas fa-shield-alt"></i> Безопасность
+        </h2>
+
+        <div class="setting-item">
+            <div class="setting-label">Пароль</div>
+            <div class="setting-description">
+                Изменить пароль для входа в систему
+            </div>
+            <button type="button" class="btn-primary" onclick="alert('Функция смены пароля будет добавлена в следующем обновлении')">
+                <i class="fas fa-key"></i> Изменить пароль
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}

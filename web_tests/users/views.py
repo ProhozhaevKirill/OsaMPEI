@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from .forms import SignUpForm, EmailAuthenticationForm
+from .forms import SignUpForm, EmailAuthenticationForm, ProfileForm, TeacherProfileForm
 from .models import WhiteList, CustomUser, StudentData, TeacherData, StudentGroup, StudentInstitute
 from create_tests.models import AboutTest, PublishedGroup
 from solving_tests.models import StudentResult
@@ -319,23 +319,6 @@ def account_view2(request):
         teacher_data.published_tests_count = published_tests_count
         teacher_data.students_count = students_count
 
-    if request.method == 'POST':
-        user.email = request.POST.get('email', user.email)
-
-        if teacher_data is None:
-            teacher_data = TeacherData.objects.create(
-                data_map=user,
-                first_name='',
-                last_name='',
-                middle_name=''
-            )
-
-        teacher_data.first_name = request.POST.get('first_name', teacher_data.first_name)
-        teacher_data.last_name = request.POST.get('last_name', teacher_data.last_name)
-        teacher_data.middle_name = request.POST.get('middle_name', teacher_data.middle_name)
-        teacher_data.save()
-        user.save()
-        return redirect('teacher_account_view')
 
     return render(request, 'users/teacher_account.html', context)
 
@@ -437,6 +420,7 @@ def data(request):
                 'perc_of_correct_ans': "0"
             }
         )
+        form = ProfileForm(instance=data)
     else:
         data, created = TeacherData.objects.get_or_create(
             data_map=user,
@@ -446,34 +430,39 @@ def data(request):
                 'middle_name': ''
             }
         )
+        form = TeacherProfileForm(instance=data)
 
     if request.method == 'POST':
+        # Обработка удаления фото
+        if 'delete_photo' in request.POST:
+            if data.photo:
+                data.photo.delete()
+                data.photo = None
+                data.save()
+                messages.success(request, "Фото успешно удалено!")
+                return redirect('data')
+
         user.email = request.POST.get('email', user.email)
 
         if user.role == 'student':
-            data.first_name = request.POST.get('first_name', '')
-            data.last_name = request.POST.get('last_name', '')
-            data.middle_name = request.POST.get('middle_name', '')
-
-            institute_id = request.POST.get('institute')
-            if institute_id:
-                data.institute = StudentInstitute.objects.get(id=institute_id)
-
-            group_id = request.POST.get('group')
-            if group_id:
-                data.group = StudentGroup.objects.get(id=group_id)
+            form = ProfileForm(request.POST, request.FILES, instance=data)
+            if form.is_valid():
+                form.save()
+                user.save()
+                messages.success(request, "Профиль успешно обновлен!")
+                return redirect('data')
         else:
-            data.first_name = request.POST.get('first_name', '')
-            data.last_name = request.POST.get('last_name', '')
-            data.middle_name = request.POST.get('middle_name', '')
-
-        user.save()
-        data.save()
-        return redirect('data')
+            form = TeacherProfileForm(request.POST, request.FILES, instance=data)
+            if form.is_valid():
+                form.save()
+                user.save()
+                messages.success(request, "Профиль успешно обновлен!")
+                return redirect('data')
 
     # Подготовка контекста
     context['user'] = user
     context['data'] = data
+    context['form'] = form
     context['is_student'] = user.role == 'student'
 
     if user.role == 'student':
@@ -494,6 +483,121 @@ def data(request):
 @role_required(['student', 'admin'])
 def material_view(request):
     return render(request, 'users/material.html')
+
+
+@login_required
+@role_required(['teacher', 'admin'])
+def teacher_profile_view(request):
+    user = request.user
+
+    try:
+        teacher_data = user.teacherdata
+    except TeacherData.DoesNotExist:
+        teacher_data = None
+
+    if teacher_data is None:
+        default_institute = StudentInstitute.objects.first()
+        teacher_data = TeacherData.objects.create(
+            data_map=user,
+            first_name='',
+            last_name='',
+            middle_name='',
+            institute=default_institute
+        )
+
+    institutes = StudentInstitute.objects.all()
+    form = TeacherProfileForm(instance=teacher_data)
+
+    if request.method == 'POST':
+        # Обработка удаления фото
+        if 'delete_photo' in request.POST:
+            if teacher_data.photo:
+                teacher_data.photo.delete()
+                teacher_data.photo = None
+                teacher_data.save()
+                messages.success(request, "Фото успешно удалено!")
+                return redirect('teacher_profile')
+
+        # Обработка формы профиля
+        form = TeacherProfileForm(request.POST, request.FILES, instance=teacher_data)
+        if form.is_valid():
+            user.email = request.POST.get('email', user.email)
+
+            # Обновляем институт отдельно
+            institute_id = request.POST.get('institute')
+            if institute_id:
+                teacher_data.institute = StudentInstitute.objects.get(id=institute_id)
+
+            form.save()
+            user.save()
+            messages.success(request, "Профиль успешно обновлен!")
+            return redirect('teacher_profile')
+
+    context = {
+        'user': user,
+        'data': teacher_data,
+        'form': form,
+        'institutes': institutes,
+    }
+
+    return render(request, 'users/teacher_profile.html', context)
+
+
+@login_required
+def settings_view(request):
+    """Страница настроек пользователя"""
+    user = request.user
+
+    if request.method == 'POST':
+        action = request.POST.get('action')
+
+        if action == 'theme':
+            # Обработка изменения темы
+            theme = request.POST.get('theme')
+            if theme == 'dark':
+                user.theme = 'dark'
+            else:
+                user.theme = 'light'
+            user.save()
+            messages.success(request, f"Тема изменена на {'тёмную' if user.theme == 'dark' else 'светлую'}!")
+        else:
+            # Обработка изменения email
+            new_email = request.POST.get('email', '').strip()
+            if new_email and new_email != user.email:
+                if CustomUser.objects.filter(email=new_email).exclude(id=user.id).exists():
+                    messages.error(request, "Этот email уже используется другим пользователем.")
+                else:
+                    user.email = new_email
+                    user.save()
+                    messages.success(request, "Email успешно обновлен!")
+
+        return redirect('settings')
+
+    context = {
+        'user': user,
+    }
+
+    # Определяем шаблон в зависимости от роли
+    if user.role == 'student':
+        return render(request, 'users/settings_student.html', context)
+    else:
+        return render(request, 'users/settings_teacher.html', context)
+
+
+@login_required
+def help_view(request):
+    """Страница помощи"""
+    user = request.user
+
+    context = {
+        'user': user,
+    }
+
+    # Определяем шаблон в зависимости от роли
+    if user.role == 'student':
+        return render(request, 'users/help_student.html', context)
+    else:
+        return render(request, 'users/help_teacher.html', context)
 
 
 @login_required

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест локальных библиотек</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'libs/fontawesome/css/all.min.css' %}">
+
+    <!-- MathLive -->
+    <link rel="stylesheet" href="{% static 'libs/mathlive/mathlive.css' %}">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-section h2 {
+            color: #333;
+            border-bottom: 2px solid #007acc;
+            padding-bottom: 10px;
+        }
+        .math-field {
+            margin: 10px 0;
+            min-height: 50px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+        }
+        .icon-test {
+            font-size: 1.5em;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Тест локальных библиотек ASTRO</h1>
+
+    <!-- Тест Font Awesome -->
+    <div class="test-section">
+        <h2><i class="fas fa-icons"></i> Font Awesome Icons</h2>
+        <p>Тест иконок:</p>
+        <div class="icon-test">
+            <i class="fas fa-home"></i> Домой
+            <i class="fas fa-user"></i> Пользователь
+            <i class="fas fa-save"></i> Сохранить
+            <i class="fas fa-edit"></i> Редактировать
+            <i class="fas fa-trash"></i> Удалить
+            <i class="fas fa-plus"></i> Добавить
+            <i class="fas fa-times"></i> Закрыть
+            <i class="fas fa-check"></i> Проверить
+        </div>
+    </div>
+
+    <!-- Тест MathJax -->
+    <div class="test-section">
+        <h2>MathJax LaTeX</h2>
+        <p>Тест рендеринга LaTeX:</p>
+        <p>Inline формула: $x^2 + y^2 = z^2$</p>
+        <p>Display формула:</p>
+        $$\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}$$
+        <p>Дроби: $\frac{a+b}{c+d}$</p>
+        <p>Греческие буквы: $\alpha + \beta = \gamma$</p>
+        <p>Матрица: $$\begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$$</p>
+    </div>
+
+    <!-- Тест MathLive -->
+    <div class="test-section">
+        <h2>MathLive Input Fields</h2>
+        <p>Математические поля ввода:</p>
+        <div>
+            <label>Простое выражение:</label>
+            <math-field class="math-field" placeholder="Введите формулу...">x^2 + 1</math-field>
+        </div>
+        <div>
+            <label>Дробь:</label>
+            <math-field class="math-field" placeholder="Введите дробь...">\frac{1}{2}</math-field>
+        </div>
+        <div>
+            <label>Интеграл:</label>
+            <math-field class="math-field" placeholder="Введите интеграл...">\int_0^1 x^2 dx</math-field>
+        </div>
+    </div>
+
+    <!-- JavaScript библиотеки -->
+    <script src="{% static 'libs/mathjax/tex-mml-chtml.js' %}"></script>
+    <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
+
+    <script>
+        // Инициализация после загрузки
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Тестовая страница загружена');
+
+            // Проверим MathJax
+            if (window.MathJax) {
+                console.log('MathJax загружен:', window.MathJax.version || 'локальная версия');
+            } else {
+                console.log('MathJax не найден');
+            }
+
+            // Проверим MathLive
+            if (window.MathLive) {
+                console.log('MathLive загружен:', window.MathLive.version || 'локальная версия');
+            } else {
+                console.log('MathLive не найден');
+            }
+        });
+    </script>
+</body>
+</html>

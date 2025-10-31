@@ -1,22 +1,23 @@
 {% extends 'create_tests/header.html' %}
 
 {% load static %}
+{% load test_extras %}
 
 {% block title %}{{ test.name_tests }}{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static '/css/some_test.css' %}">
-    <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.core.css">
+    <link rel="stylesheet" href="{% static 'libs/mathlive/mathlive.css' %}">
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
 {% endblock %}
 
 {% block extra_js %}
     <script src="{% static '/js/some_test.js' %}"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="{% static 'libs/polyfill/polyfill.min.js' %}"></script>
+    <script id="MathJax-script" async src="{% static 'libs/mathjax/tex-mml-chtml.js' %}"></script>
     <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
     <script src="{% static 'js/macros-mathJax.js' %}"></script>
-    <script src='https://unpkg.com/mathlive/dist/mathlive.min.js'></script>
+    <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
 
     <script src="{% static 'js/all_test_for_teach.js' %}" defer></script>
     <script src="{% static 'js/macros-mathJax.js' %}"></script>
@@ -41,24 +42,74 @@
 </div>
 
 <div class="main-content">
-    <ul class="list-expr">
-        {% for ex in test.expressions.all %}
-        <li>
-            <p>Номер {{ forloop.counter }}</p>
-            <p>$$ {{ ex.user_expression }} $$</p>
-            <div class="sec-info">
-                <p>Ответ: $$ {{ ex.user_ans }} $$</p>
-                <p>
-                    {% if ex.user_eps == '0' %}
-                        Ответ точный
-                    {% else %}
-                        Точность: {{ ex.user_eps }}
+    {% if task_groups_data %}
+        <!-- Новая система отображения: по группам заданий -->
+        <div class="task-groups">
+            {% for group in task_groups_data %}
+            <div class="task-group">
+                <div class="group-header">
+                    <h3>Задание {{ group.number }} ({{ group.points_for_solve }} баллов)</h3>
+                    {% if group.variants|length > 1 %}
+                        <span class="variants-count">{{ group.variants|length }} вариантов</span>
                     {% endif %}
-                </p>
+                </div>
+
+                <div class="group-variants">
+                    {% for variant in group.variants %}
+                    <div class="variant-item">
+                        {% if group.variants|length > 1 %}
+                            <h4>Вариант {{ forloop.counter }}</h4>
+                        {% endif %}
+
+                        <div class="variant-content">
+                            <p>$$ {{ variant.user_expression }} $$</p>
+
+                            {% if variant.exist_select %}
+                                <!-- Задание с вариантами ответов -->
+                                <div class="sec-info">
+                                    <p><strong>Варианты ответов:</strong></p>
+                                    {% with variant.user_ans|split:";" as options %}
+                                    {% with variant.true_ans|split:";" as correct_flags %}
+                                    <ul class="answer-options">
+                                        {% for option in options %}
+                                        <li class="{% if correct_flags|get_item:forloop.counter0 == '1' %}correct-option{% endif %}">
+                                            $$ {{ option }} $$
+                                            {% if correct_flags|get_item:forloop.counter0 == '1' %}
+                                                <span class="correct-mark">✓</span>
+                                            {% endif %}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endwith %}
+                                    {% endwith %}
+                                </div>
+                            {% else %}
+                                <!-- Обычное задание -->
+                                <div class="sec-info">
+                                    <p><strong>Ответ:</strong> $$ {{ variant.user_ans }} $$</p>
+                                    <p>
+                                        {% if variant.user_eps == '0' or variant.user_eps == '0.0' %}
+                                            <strong>Ответ точный</strong>
+                                        {% else %}
+                                            <strong>Точность:</strong> {{ variant.user_eps }}
+                                        {% endif %}
+                                    </p>
+                                    <p><strong>Тип ответа:</strong> {{ variant.user_type.type_name }}</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
-        </li>
-        {% endfor %}
-    </ul>
+            {% endfor %}
+        </div>
+    {% else %}
+        <!-- Fallback: если нет данных -->
+        <div class="no-tasks">
+            <p>В этом тесте пока нет заданий.</p>
+        </div>
+    {% endif %}
 
     <div class="actions">
         <button class="btn btn-publish publish-btn" data-slug="{{ test.name_slug_tests }}">Опубликовать</button>

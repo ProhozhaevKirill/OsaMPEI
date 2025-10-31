@@ -6,14 +6,14 @@
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/writing_tests.css' %}">
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
-    <link rel="stylesheet" href="https://unpkg.com/mathlive/dist/mathlive.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'libs/mathlive/mathlive.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/fontawesome/css/all.min.css' %}">
 {% endblock %}
 
 {% block extra_js %}
     <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
     <script src="{% static 'js/writing_tests.js' %}"></script>
-    <script src="https://unpkg.com/mathlive"></script>
+    <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
     <script src="{% static 'js/mathJax-rus.js' %}"></script>
 {% endblock %}
 

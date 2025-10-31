@@ -48,6 +48,135 @@ body {
   transform: translateY(-3px);
 }
 
+/* Стили для новой системы отображения заданий */
+.task-groups {
+  padding: 0;
+}
+
+.task-group {
+  background: #ffffff;
+  border: 1px solid #dfe6e9;
+  border-left: 5px solid #4a6fa5;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.group-header {
+  background: linear-gradient(135deg, #4a6fa5 0%, #5a7fb5 100%);
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.group-header h3 {
+  margin: 0;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.variants-count {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.85em;
+  font-weight: 500;
+}
+
+.group-variants {
+  padding: 0;
+}
+
+.variant-item {
+  border-bottom: 1px solid #ecf0f1;
+  padding: 20px;
+}
+
+.variant-item:last-child {
+  border-bottom: none;
+}
+
+.variant-item h4 {
+  color: #4a6fa5;
+  margin: 0 0 15px 0;
+  font-size: 1em;
+  font-weight: 600;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #ecf0f1;
+}
+
+.variant-content {
+  margin-left: 0;
+}
+
+/* Убрал специальные стили для .expression - теперь формулы отображаются как обычный текст */
+
+.sec-info {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f1f3f4;
+  border-radius: 6px;
+}
+
+.sec-info p {
+  margin: 8px 0;
+  font-size: 0.95em;
+}
+
+.sec-info strong {
+  color: #2c3e50;
+}
+
+/* Стили для вариантов ответов в заданиях с множественным выбором */
+.answer-options {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+
+.answer-options li {
+  padding: 10px 15px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+}
+
+.answer-options li.correct-option {
+  background: #d4edda;
+  border-color: #27ae60;
+  color: #155724;
+}
+
+.correct-mark {
+  background: #27ae60;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+/* Стили для пустого состояния */
+.no-tasks {
+  text-align: center;
+  padding: 60px 20px;
+  color: #7f8c8d;
+}
+
+.no-tasks p {
+  font-size: 1.1em;
+  margin: 0;
+}
+
 .list-expr p {
   margin: 10px 0;
   font-size: 1.05rem;
@@ -128,48 +257,294 @@ body {
 }
 
 /* Стили для модальных окон */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
-}
-
-.modal.active {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+:root {
+    --primary-color: #4a6fa5;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
 }
 
 .modal-overlay {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    right: 0;
+    bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: none;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    display: none;
+    opacity: 0;
+    transition: var(--transition);
+    max-height: 90vh;
+    overflow-y: auto;
+    width: 90%;
+    max-width: 700px;
+}
+
+.modal.wide {
+    max-width: 800px;
+}
+
+.modal.active {
+    display: block;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .modal-overlay.active {
     display: block;
+    opacity: 1;
 }
 
 .modal-content {
-    background-color: white;
     padding: 20px;
-    border-radius: 8px;
-    max-width: 500px;
-    width: 90%;
-    z-index: 1001;
 }
 
-.modal-content.wide {
-    max-width: 800px;
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+    font-size: 20px;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-header .close-modal {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--secondary-color);
+    transition: var(--transition);
+}
+
+.modal-header .close-modal:hover {
+    color: var(--danger-color);
+}
+
+.modal-body {
+    margin-bottom: 20px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.warning-text {
+    color: var(--danger-color);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+/* Стили для выбора групп */
+.groups-section {
+    margin-top: 20px;
+    border: 1px solid #eee;
+    border-radius: var(--border-radius);
+    padding: 15px;
+}
+
+.search-filter-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.institutes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.institute-card {
+    border: 1px solid #eee;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.institute-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.institute-info h4 {
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+
+.institute-info .full-name {
+    font-size: 12px;
+    color: var(--secondary-color);
+}
+
+.institute-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.groups-count {
+    font-size: 12px;
+    color: var(--secondary-color);
+}
+
+.btn-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--secondary-color);
+    transition: var(--transition);
+}
+
+.btn-toggle i {
+    transition: var(--transition);
+}
+
+.institute-card.active .btn-toggle i {
+    transform: rotate(180deg);
+}
+
+.groups-list {
+    display: none;
+    padding: 10px 15px;
+    background-color: white;
+}
+
+.institute-card.active .groups-list {
+    display: block;
+}
+
+.group-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.group-item:last-child {
+    border-bottom: none;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+}
+
+.form-check-input {
+    margin-right: 10px;
+}
+
+.form-check-label {
+    cursor: pointer;
+}
+
+.students-count {
+    font-size: 12px;
+    color: var(--secondary-color);
+    margin-left: 5px;
+}
+
+/* Дополнительные стили кнопок */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #3a5a8a;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Стили для поиска */
+.search-box {
+    position: relative;
+}
+
+.search-box i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary-color);
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 15px 10px 40px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.search-box input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+}
+
+/* Стили для алертов/ошибок */
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px 16px;
+    border: 1px solid #f5c6cb;
+    border-radius: var(--border-radius);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.alert-error i {
+    color: var(--danger-color);
 }
 
 /* Снять с публикации */

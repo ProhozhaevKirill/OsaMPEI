@@ -283,14 +283,94 @@ def test_list(request):
 @role_required(['teacher', 'admin'])
 def some_test(request, slug_name):
     test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
-    expressions = test.expressions.all()
-    numbered_expressions = [
-        {"number": idx + 1, "expression": ex} for idx, ex in enumerate(expressions)
-    ]
-    return render(request, 'create_tests/some_test.html', {
-        'test': test,
-        'numbered_expressions': numbered_expressions
-    })
+
+    # Получаем данные для модального окна публикации
+    all_groups = StudentGroup.objects.all().select_related('institute')
+    institutes = StudentInstitute.objects.all().prefetch_related('studentgroup_set')
+
+    # Проверяем, какую систему использует тест
+    task_groups = test.task_groups.all()
+
+    if task_groups.exists():
+        # Новая система: TaskGroup и TaskVariant
+        task_groups_data = []
+        for group in task_groups.order_by('number'):
+            variants_data = []
+            for variant in group.variants.all():
+                # Получаем норму матрицы, если есть
+                norm_for_variant = TypeNormForTaskVariant.objects.filter(task_variant=variant).first()
+
+                variants_data.append({
+                    'id': variant.id,
+                    'user_expression': variant.user_expression,
+                    'user_ans': variant.user_ans,
+                    'true_ans': variant.true_ans,
+                    'user_eps': variant.user_eps,
+                    'user_type': variant.user_type,
+                    'exist_select': variant.exist_select,
+                    'matrix_norm': norm_for_variant.matrix_norms if norm_for_variant else None,
+                })
+
+            task_groups_data.append({
+                'id': group.id,
+                'number': group.number,
+                'points_for_solve': group.points_for_solve,
+                'variants': variants_data
+            })
+
+        return render(request, 'create_tests/some_test.html', {
+            'test': test,
+            'task_groups_data': task_groups_data,
+            'uses_new_system': True,
+            'institutes': institutes,
+            'all_groups': all_groups
+        })
+    else:
+        # Старая система: AboutExpressions
+        from collections import defaultdict
+
+        expressions_by_block = defaultdict(list)
+        for expr in test.expressions.all().order_by('block_expression_num', 'number'):
+            block_num = expr.block_expression_num if hasattr(expr, 'block_expression_num') and expr.block_expression_num else 1
+            expressions_by_block[block_num].append(expr)
+
+        # Преобразуем в формат для отображения
+        task_groups_data = []
+        for block_num in sorted(expressions_by_block.keys()):
+            expressions = expressions_by_block[block_num]
+            if not expressions:
+                continue
+
+            variants_data = []
+            for expr in expressions:
+                # Получаем норму матрицы, если есть
+                norm_for_matrix = TypeNormForMatrix.objects.filter(num_expr=expr).first()
+
+                variants_data.append({
+                    'id': expr.id,
+                    'user_expression': expr.user_expression,
+                    'user_ans': expr.user_ans,
+                    'true_ans': expr.true_ans,
+                    'user_eps': expr.user_eps,
+                    'user_type': expr.user_type,
+                    'exist_select': expr.exist_select,
+                    'matrix_norm': norm_for_matrix.matrix_norms if norm_for_matrix else None,
+                })
+
+            task_groups_data.append({
+                'id': f'block_{block_num}',
+                'number': block_num,
+                'points_for_solve': expressions[0].points_for_solve,
+                'variants': variants_data
+            })
+
+        return render(request, 'create_tests/some_test.html', {
+            'test': test,
+            'task_groups_data': task_groups_data,
+            'uses_new_system': False,
+            'institutes': institutes,
+            'all_groups': all_groups
+        })
 
 
 @login_required
@@ -300,12 +380,30 @@ def delete_test(request, slug_name):
         try:
             test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
 
-            # Удаляем связанные выражения
-            expressions = test.expressions.all()
-            for expr in expressions:
-                expr.delete()
+            # Удаляем связанные данные в зависимости от системы
+            task_groups = test.task_groups.all()
 
-            # Теперь удаляем тест
+            if task_groups.exists():
+                # Новая система: удаляем TaskGroup и TaskVariant (каскадно)
+                for task_group in task_groups:
+                    # TaskVariant удалятся автоматически через каскадное удаление
+                    # TypeNormForTaskVariant тоже удалятся автоматически
+                    task_group.delete()
+            else:
+                # Старая система: удаляем AboutExpressions
+                expressions = test.expressions.all()
+                for expr in expressions:
+                    # TypeNormForMatrix удалятся автоматически через каскадное удаление
+                    expr.delete()
+
+            # Удаляем связанные результаты студентов
+            from solving_tests.models import StudentResult
+            StudentResult.objects.filter(test=test).delete()
+
+            # Удаляем связанные публикации
+            PublishedGroup.objects.filter(test_name=test).delete()
+
+            # Теперь удаляем сам тест
             test.delete()
 
             return JsonResponse({"success": True})

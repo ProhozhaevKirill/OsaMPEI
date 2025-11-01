@@ -18,6 +18,12 @@ class SignUpForm(forms.ModelForm):
         cleaned_data = super().clean()
         password1 = cleaned_data.get("password1")
         password2 = cleaned_data.get("password2")
+
+        # Приводим email к нижнему регистру
+        email = cleaned_data.get("email")
+        if email:
+            cleaned_data["email"] = email.lower()
+
         if password1 != password2:
             raise forms.ValidationError("Пароли не совпадают.")
         return cleaned_data
@@ -42,6 +48,10 @@ class EmailAuthenticationForm(forms.Form):
         password = cleaned_data.get("password")
 
         if email and password:
+            # Приводим email к нижнему регистру для проверки
+            email = email.lower()
+            cleaned_data["email"] = email
+
             # Попытка аутентификации с использованием почты
             user = authenticate(username=email, password=password)  # Используем email как username
             if user is None:

@@ -251,6 +251,53 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.modal.active').forEach(modal => closeModal(modal));
     });
 
+    // Функция фильтрации групп
+    function filterGroups() {
+        const searchTerm = document.getElementById('groupSearch').value.toLowerCase();
+        const educationLevel = document.getElementById('educationLevelFilter').value;
+        const course = document.getElementById('courseFilter').value;
+
+        document.querySelectorAll('.group-item').forEach(item => {
+            const groupName = item.querySelector('.form-check-label').textContent.toLowerCase();
+            const itemEducationLevel = item.getAttribute('data-education-level');
+            const itemCourse = item.getAttribute('data-course');
+
+            const matchesSearch = groupName.includes(searchTerm);
+            const matchesEducationLevel = !educationLevel || itemEducationLevel === educationLevel;
+            const matchesCourse = !course || itemCourse === course;
+
+            const shouldShow = matchesSearch && matchesEducationLevel && matchesCourse;
+            item.style.display = shouldShow ? 'block' : 'none';
+        });
+
+        // Обновляем видимость институтов (скрываем если нет видимых групп)
+        document.querySelectorAll('.institute-card').forEach(card => {
+            const visibleGroups = card.querySelectorAll('.group-item[style="display: block"], .group-item:not([style*="display: none"])');
+            const hasVisibleGroups = visibleGroups.length > 0;
+            card.style.display = hasVisibleGroups ? 'block' : 'none';
+        });
+    }
+
+    // Инициализация поиска и фильтров
+    function initializeFiltering() {
+        const groupSearch = document.getElementById('groupSearch');
+        const educationLevelFilter = document.getElementById('educationLevelFilter');
+        const courseFilter = document.getElementById('courseFilter');
+
+        if (groupSearch) {
+            groupSearch.addEventListener('input', filterGroups);
+        }
+        if (educationLevelFilter) {
+            educationLevelFilter.addEventListener('change', filterGroups);
+        }
+        if (courseFilter) {
+            courseFilter.addEventListener('change', filterGroups);
+        }
+    }
+
     // Инициализация при открытии модального окна публикации
-    publishModal.addEventListener('click', () => initializeGroupSelection(), { once: true });
+    publishModal.addEventListener('click', () => {
+        initializeGroupSelection();
+        initializeFiltering();
+    }, { once: true });
 });

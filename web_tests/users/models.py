@@ -6,7 +6,7 @@ class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, role=None, **extra_fields):
         if not email:
             raise ValueError('Users must have an email address')
-        email = self.normalize_email(email)
+        email = self.normalize_email(email).lower()  # Приводим к нижнему регистру
         user = self.model(email=email, role=role, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
@@ -34,6 +34,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['role']
+
+    def save(self, *args, **kwargs):
+        # Приводим email к нижнему регистру при сохранении
+        if self.email:
+            self.email = self.email.lower()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.email
@@ -68,8 +74,22 @@ class StudentInstitute(models.Model):
 
 
 class StudentGroup(models.Model):
+    EDUCATION_LEVEL_CHOICES = [
+        ('bachelor', 'Бакалавриат'),
+        ('master', 'Магистратура'),
+    ]
+
+    COURSE_CHOICES = [
+        (1, '1 курс'),
+        (2, '2 курс'),
+        (3, '3 курс'),
+        (4, '4 курс'),
+    ]
+
     name = models.CharField(max_length=20, unique=True)
     name_inst = models.ForeignKey(StudentInstitute, on_delete=models.PROTECT)
+    education_level = models.CharField(max_length=8, choices=EDUCATION_LEVEL_CHOICES, default='bachelor')
+    course = models.IntegerField(choices=COURSE_CHOICES, default=1)
 
     def __str__(self):
         return self.name

@@ -15,7 +15,7 @@ def login_view(request):
     if request.method == 'POST':
         form = EmailAuthenticationForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
+            email = form.cleaned_data['email'].lower()  # Приводим к нижнему регистру
             password = form.cleaned_data['password']
             user = authenticate(request, username=email, password=password)
 
@@ -41,17 +41,17 @@ def register_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data.get('email')
+            email = form.cleaned_data.get('email').lower()  # Приводим к нижнему регистру
             password = form.cleaned_data.get('password1')
 
-            # Проверка на существующий email
-            if CustomUser.objects.filter(email=email).exists():
+            # Проверка на существующий email (с учетом регистра)
+            if CustomUser.objects.filter(email__iexact=email).exists():
                 form.add_error('email', 'Этот email уже зарегистрирован.')
                 return render(request, 'users/registration.html', {'form': form})
 
             user = form.save(commit=False)
 
-            if WhiteList.objects.filter(teacher_mail=email).exists():
+            if WhiteList.objects.filter(teacher_mail__iexact=email).exists():
                 user.role = 'teacher'
             else:
                 user.role = 'student'
@@ -562,9 +562,9 @@ def settings_view(request):
             messages.success(request, f"Тема изменена на {'тёмную' if user.theme == 'dark' else 'светлую'}!")
         else:
             # Обработка изменения email
-            new_email = request.POST.get('email', '').strip()
+            new_email = request.POST.get('email', '').strip().lower()  # Приводим к нижнему регистру
             if new_email and new_email != user.email:
-                if CustomUser.objects.filter(email=new_email).exclude(id=user.id).exists():
+                if CustomUser.objects.filter(email__iexact=new_email).exclude(id=user.id).exists():
                     messages.error(request, "Этот email уже используется другим пользователем.")
                 else:
                     user.email = new_email

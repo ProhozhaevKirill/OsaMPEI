@@ -1,5 +1,15 @@
 /* Тёмная тема для АСТРА */
 
+/* Предотвращение белых краев при загрузке */
+html[data-theme="dark"],
+body[data-theme="dark"] {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transition: none !important;
+}
+
 [data-theme="dark"] {
     /* Основные цвета */
     --bg-primary: #1a1a1a;
@@ -359,4 +369,739 @@ input:checked + .theme-slider:before {
 
 [data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
     background: var(--border-color);
+}
+
+/* Дополнительные стили для элементов, которые не темнеют */
+
+/* Контейнеры и div элементы */
+[data-theme="dark"] .container,
+[data-theme="dark"] .tests-container,
+[data-theme="dark"] .search-filter,
+[data-theme="dark"] .filter-box,
+[data-theme="dark"] .filter-controls,
+[data-theme="dark"] .actions,
+[data-theme="dark"] .header {
+    background-color: transparent;
+    color: var(--text-primary);
+}
+
+/* Карточки тестов */
+[data-theme="dark"] .test-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .test-main,
+[data-theme="dark"] .test-info,
+[data-theme="dark"] .test-meta,
+[data-theme="dark"] .test-actions,
+[data-theme="dark"] .test-description {
+    background-color: transparent;
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .test-meta span,
+[data-theme="dark"] .test-number,
+[data-theme="dark"] .test-subj {
+    color: var(--text-secondary);
+}
+
+/* Модальные окна */
+[data-theme="dark"] .modal,
+[data-theme="dark"] .modal-overlay {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+[data-theme="dark"] .modal-content,
+[data-theme="dark"] .modal-header,
+[data-theme="dark"] .modal-body,
+[data-theme="dark"] .modal-footer {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+[data-theme="dark"] .modal-header {
+    border-bottom-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .modal-footer {
+    border-top-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .modal-header h3 {
+    color: var(--accent-color) !important;
+}
+
+[data-theme="dark"] .close-modal {
+    color: var(--text-secondary) !important;
+    background: none !important;
+    border: none !important;
+}
+
+[data-theme="dark"] .close-modal:hover {
+    color: var(--error-color) !important;
+}
+
+/* Модальные окна подтверждения удаления */
+[data-theme="dark"] .confirmation-modal {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+[data-theme="dark"] .confirmation-content {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+[data-theme="dark"] .confirmation-title {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .confirmation-message {
+    color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .confirm-btn {
+    background-color: var(--error-color) !important;
+    color: var(--text-primary) !important;
+    border: none !important;
+}
+
+[data-theme="dark"] .confirm-btn:hover {
+    background-color: #c0392b !important;
+}
+
+[data-theme="dark"] .cancel-btn {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+[data-theme="dark"] .cancel-btn:hover {
+    background-color: var(--bg-primary) !important;
+}
+
+/* Выпадающие списки и фильтры */
+[data-theme="dark"] .filter-select,
+[data-theme="dark"] #testFilter,
+[data-theme="dark"] #educationLevelFilter,
+[data-theme="dark"] #courseFilter {
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .filter-select:focus,
+[data-theme="dark"] #testFilter:focus,
+[data-theme="dark"] #educationLevelFilter:focus,
+[data-theme="dark"] #courseFilter:focus {
+    border-color: var(--accent-color);
+    background-color: var(--bg-secondary);
+}
+
+[data-theme="dark"] .filter-select option,
+[data-theme="dark"] #testFilter option,
+[data-theme="dark"] #educationLevelFilter option,
+[data-theme="dark"] #courseFilter option {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+/* Поиск */
+[data-theme="dark"] .search-box input,
+[data-theme="dark"] #testSearch,
+[data-theme="dark"] #groupSearch {
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .search-box input:focus,
+[data-theme="dark"] #testSearch:focus,
+[data-theme="dark"] #groupSearch:focus {
+    border-color: var(--accent-color);
+    background-color: var(--bg-secondary);
+}
+
+[data-theme="dark"] .search-box input::placeholder,
+[data-theme="dark"] #testSearch::placeholder,
+[data-theme="dark"] #groupSearch::placeholder {
+    color: var(--text-muted);
+}
+
+/* Институты и группы */
+[data-theme="dark"] .institutes-list,
+[data-theme="dark"] .institute-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .institute-header,
+[data-theme="dark"] .institute-info,
+[data-theme="dark"] .institute-actions {
+    background-color: transparent;
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .groups-count {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .groups-list {
+    background-color: var(--bg-primary);
+    border-top: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .group-item {
+    border-bottom: 1px solid var(--border-color);
+    background-color: transparent;
+}
+
+[data-theme="dark"] .group-item:last-child {
+    border-bottom: none;
+}
+
+[data-theme="dark"] .form-check-label {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .group-info,
+[data-theme="dark"] .students-count {
+    color: var(--text-secondary);
+}
+
+/* Чекбоксы */
+[data-theme="dark"] .form-check-input {
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .form-check-input:checked {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+[data-theme="dark"] .form-check-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+/* Кнопки переключения */
+[data-theme="dark"] .btn-toggle {
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .btn-toggle:hover {
+    background-color: var(--bg-primary);
+    color: var(--accent-color);
+}
+
+/* Empty state */
+[data-theme="dark"] .empty-state {
+    background-color: transparent;
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .empty-state h3 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .empty-state p {
+    color: var(--text-secondary);
+}
+
+/* Ошибки и уведомления */
+[data-theme="dark"] .alert-error {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+}
+
+[data-theme="dark"] .edit-disabled-notice {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+}
+
+/* Исправление базовых элементов */
+[data-theme="dark"] html {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Принудительное исправление белых фонов для основных элементов */
+[data-theme="dark"] div:not([style*="background"]),
+[data-theme="dark"] span:not(.fa):not(.fas):not(.far):not(.fab):not([style*="background"]) {
+    background-color: transparent;
+}
+
+/* Исправление фонов для элементов с белым фоном */
+[data-theme="dark"] [style*="background-color: white"],
+[data-theme="dark"] [style*="background-color: #fff"],
+[data-theme="dark"] [style*="background-color: #ffffff"],
+[data-theme="dark"] [style*="background: white"],
+[data-theme="dark"] [style*="background: #fff"],
+[data-theme="dark"] [style*="background: #ffffff"] {
+    background-color: var(--bg-secondary) !important;
+}
+
+/* Исправление границ */
+[data-theme="dark"] [style*="border-color: #eee"],
+[data-theme="dark"] [style*="border-color: #ddd"],
+[data-theme="dark"] [style*="border-color: #ccc"],
+[data-theme="dark"] [style*="border: 1px solid #eee"],
+[data-theme="dark"] [style*="border: 1px solid #ddd"],
+[data-theme="dark"] [style*="border: 1px solid #ccc"] {
+    border-color: var(--border-color) !important;
+}
+
+/* Переопределение базовых цветов для всех элементов */
+[data-theme="dark"] .container,
+[data-theme="dark"] .main-content,
+[data-theme="dark"] .content-wrapper {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Дополнительные элементы для полного покрытия */
+[data-theme="dark"] .groups-section,
+[data-theme="dark"] .groups-container,
+[data-theme="dark"] .search-filter-row {
+    background-color: transparent;
+    color: var(--text-primary);
+}
+
+/* Стили для всех остальных страниц */
+
+/* Элементы аутентификации */
+[data-theme="dark"] .auth-container,
+[data-theme="dark"] .auth-form,
+[data-theme="dark"] .login-form,
+[data-theme="dark"] .registration-form {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+/* Элементы создания и редактирования тестов */
+[data-theme="dark"] .test-creation-form,
+[data-theme="dark"] .question-item,
+[data-theme="dark"] .answer-option,
+[data-theme="dark"] .test-preview,
+[data-theme="dark"] .expression-input,
+[data-theme="dark"] .math-input {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+/* Элементы решения тестов */
+[data-theme="dark"] .test-container,
+[data-theme="dark"] .question-container,
+[data-theme="dark"] .answer-list,
+[data-theme="dark"] .test-progress,
+[data-theme="dark"] .test-timer,
+[data-theme="dark"] .result-container {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+/* Навигация и пагинация */
+[data-theme="dark"] .pagination,
+[data-theme="dark"] .page-link,
+[data-theme="dark"] .breadcrumb,
+[data-theme="dark"] .breadcrumb-item {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .page-link:hover,
+[data-theme="dark"] .page-link.active {
+    background-color: var(--accent-color);
+    color: var(--text-primary);
+}
+
+/* Карточки и виджеты */
+[data-theme="dark"] .widget,
+[data-theme="dark"] .card,
+[data-theme="dark"] .panel,
+[data-theme="dark"] .box,
+[data-theme="dark"] .block {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+/* Списки и элементы списков */
+[data-theme="dark"] .list-group,
+[data-theme="dark"] .list-group-item,
+[data-theme="dark"] .item-list,
+[data-theme="dark"] .test-list,
+[data-theme="dark"] .student-list {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .list-group-item:hover {
+    background-color: var(--bg-tertiary);
+}
+
+/* Кнопки и интерактивные элементы */
+[data-theme="dark"] .btn-outline-primary,
+[data-theme="dark"] .btn-outline-secondary,
+[data-theme="dark"] .btn-outline-success,
+[data-theme="dark"] .btn-outline-danger {
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    background-color: transparent;
+}
+
+[data-theme="dark"] .btn-outline-primary:hover {
+    background-color: var(--accent-color);
+    color: var(--text-primary);
+}
+
+/* Дропдауны и меню */
+[data-theme="dark"] .dropdown,
+[data-theme="dark"] .dropdown-menu,
+[data-theme="dark"] .dropdown-item {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+/* Тултипы и всплывающие подсказки */
+[data-theme="dark"] .tooltip,
+[data-theme="dark"] .popover,
+[data-theme="dark"] .tooltip-inner,
+[data-theme="dark"] .popover-body {
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+/* Прогресс-бары */
+[data-theme="dark"] .progress {
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .progress-bar {
+    background-color: var(--accent-color);
+}
+
+/* Исправление для всех элементов с фиксированными светлыми цветами */
+[data-theme="dark"] * {
+    scrollbar-color: var(--bg-tertiary) var(--bg-primary);
+}
+
+/* Дополнительные исправления для специфичных элементов */
+[data-theme="dark"] .well,
+[data-theme="dark"] .jumbotron,
+[data-theme="dark"] .hero,
+[data-theme="dark"] .banner {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+/* Исправление для элементов с важными стилями */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] p,
+[data-theme="dark"] span:not(.fa):not(.fas):not(.far):not(.fab),
+[data-theme="dark"] div:not([class*="fa-"]) {
+    color: inherit;
+}
+
+/* Стили для MathLive полей */
+[data-theme="dark"] math-field,
+[data-theme="dark"] .ML__container,
+[data-theme="dark"] .ML__base,
+[data-theme="dark"] .ML__latex {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+    --_placeholder-color: var(--text-muted) !important;
+    --_text-font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
+}
+
+[data-theme="dark"] math-field:focus,
+[data-theme="dark"] .ML__container:focus-within {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2) !important;
+}
+
+/* Стили для элементов внутри MathLive */
+[data-theme="dark"] .ML__text,
+[data-theme="dark"] .ML__cmr,
+[data-theme="dark"] .ML__mathit,
+[data-theme="dark"] .ML__mathbf,
+[data-theme="dark"] .ML__mathbfit,
+[data-theme="dark"] .ML__ams,
+[data-theme="dark"] .ML__bb,
+[data-theme="dark"] .ML__cal,
+[data-theme="dark"] .ML__frak,
+[data-theme="dark"] .ML__tt,
+[data-theme="dark"] .ML__script,
+[data-theme="dark"] .ML__sans {
+    color: var(--text-primary) !important;
+    background-color: transparent !important;
+}
+
+[data-theme="dark"] .ML__placeholder {
+    color: var(--text-muted) !important;
+    opacity: 0.6 !important;
+}
+
+/* Дополнительные стили для MathLive элементов */
+[data-theme="dark"] .ML__vlist,
+[data-theme="dark"] .ML__vlist-r,
+[data-theme="dark"] .ML__vlist-t,
+[data-theme="dark"] .ML__mfrac,
+[data-theme="dark"] .ML__left-right,
+[data-theme="dark"] .ML__rule,
+[data-theme="dark"] .ML__op-group {
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+}
+
+/* Исправление для курсора и выделения в MathLive */
+[data-theme="dark"] math-field .ML__latex .ML__cursor {
+    border-color: var(--accent-color) !important;
+}
+
+[data-theme="dark"] math-field .ML__latex .ML__selection {
+    background-color: rgba(52, 152, 219, 0.3) !important;
+}
+
+/* Исправление для белых краев при обновлении страницы */
+[data-theme="dark"] html,
+[data-theme="dark"] body {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+    margin: 0 !important;
+    padding-top: 70px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Исправление для основных контейнеров */
+[data-theme="dark"] .app-main,
+[data-theme="dark"] .main-content,
+[data-theme="dark"] .container-fluid,
+[data-theme="dark"] .content-area {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+    min-height: 100vh !important;
+}
+
+/* Принудительное исправление всех белых элементов */
+[data-theme="dark"] *:not(.fa):not(.fas):not(.far):not(.fab) {
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] *[style*="background: white"],
+[data-theme="dark"] *[style*="background: #fff"],
+[data-theme="dark"] *[style*="background: #ffffff"],
+[data-theme="dark"] *[style*="background-color: white"],
+[data-theme="dark"] *[style*="background-color: #fff"],
+[data-theme="dark"] *[style*="background-color: #ffffff"] {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Попап создания теста */
+[data-theme="dark"] .popup {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+[data-theme="dark"] .popup_content,
+[data-theme="dark"] .popup_body {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+[data-theme="dark"] .popup_content[style*="background-color"],
+[data-theme="dark"] .popup_body[style*="background-color"] {
+    background-color: var(--bg-secondary) !important;
+}
+
+[data-theme="dark"] .popup .test-header,
+[data-theme="dark"] .popup .centered-inputs,
+[data-theme="dark"] .popup .popup_title,
+[data-theme="dark"] .popup .btn_option {
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .popup .wide-input,
+[data-theme="dark"] .popup .time-input {
+    background-color: var(--bg-tertiary) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .popup .wide-input:focus,
+[data-theme="dark"] .popup .time-input:focus {
+    border-color: var(--accent-color) !important;
+    background-color: var(--bg-primary) !important;
+}
+
+[data-theme="dark"] .popup .changeTest {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+[data-theme="dark"] .popup .changeTest:hover {
+    background-color: var(--bg-primary) !important;
+}
+
+[data-theme="dark"] .popup .save-and-go-to-list {
+    background-color: var(--accent-color) !important;
+    color: var(--text-primary) !important;
+    border: none !important;
+}
+
+[data-theme="dark"] .popup .save-and-go-to-list:hover {
+    background-color: var(--accent-hover) !important;
+}
+
+/* Выпадающее меню профиля */
+[data-theme="dark"] .profile-menu {
+    background-color: var(--bg-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme="dark"] .profile-info {
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+[data-theme="dark"] .user-details h4 {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .user-details small {
+    color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .menu-links {
+    background-color: transparent !important;
+}
+
+[data-theme="dark"] .menu-link {
+    color: var(--text-secondary) !important;
+    background-color: transparent !important;
+}
+
+[data-theme="dark"] .menu-link:hover {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Все типы модальных окон */
+[data-theme="dark"] .modal,
+[data-theme="dark"] .popup,
+[data-theme="dark"] .dialog,
+[data-theme="dark"] .modal-dialog,
+[data-theme="dark"] .modal-backdrop,
+[data-theme="dark"] .overlay {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+[data-theme="dark"] .modal .modal-content,
+[data-theme="dark"] .popup .popup-content,
+[data-theme="dark"] .dialog .dialog-content,
+[data-theme="dark"] .modal-dialog .modal-content {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+/* Модальные окна публикации и удаления */
+[data-theme="dark"] #publishModal,
+[data-theme="dark"] #deleteModal,
+[data-theme="dark"] #editModal,
+[data-theme="dark"] #confirmModal {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+[data-theme="dark"] #publishModal .modal-content,
+[data-theme="dark"] #deleteModal .modal-content,
+[data-theme="dark"] #editModal .modal-content,
+[data-theme="dark"] #confirmModal .modal-content {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+/* Общие стили для всех модальных окон */
+[data-theme="dark"] .modal-title,
+[data-theme="dark"] .popup-title,
+[data-theme="dark"] .dialog-title {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .modal-body,
+[data-theme="dark"] .popup-body,
+[data-theme="dark"] .dialog-body {
+    background-color: transparent !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .modal-footer,
+[data-theme="dark"] .popup-footer,
+[data-theme="dark"] .dialog-footer {
+    background-color: transparent !important;
+    border-top: 1px solid var(--border-color) !important;
+}
+
+/* Кнопки в модальных окнах */
+[data-theme="dark"] .modal .btn-primary,
+[data-theme="dark"] .popup .btn-primary,
+[data-theme="dark"] .dialog .btn-primary {
+    background-color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .modal .btn-secondary,
+[data-theme="dark"] .popup .btn-secondary,
+[data-theme="dark"] .dialog .btn-secondary {
+    background-color: var(--bg-tertiary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .modal .btn-danger,
+[data-theme="dark"] .popup .btn-danger,
+[data-theme="dark"] .dialog .btn-danger {
+    background-color: var(--error-color) !important;
+    border-color: var(--error-color) !important;
+    color: var(--text-primary) !important;
 }

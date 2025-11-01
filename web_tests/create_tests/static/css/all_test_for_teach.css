@@ -24,6 +24,7 @@ body {
     line-height: 1.6;
     color: #333;
     background-color: #f5f7fa;
+    padding-top: 70px !important;
 }
 
 .container {
@@ -478,6 +479,37 @@ a {
     display: flex;
     gap: 15px;
     margin-bottom: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filter-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.filter-select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    background: white;
+    font-size: 14px;
+    min-width: 140px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(74, 111, 165, 0.2);
+}
+
+.group-info {
+    color: #666;
+    font-size: 0.9em;
+    font-style: italic;
 }
 
 .institutes-list {

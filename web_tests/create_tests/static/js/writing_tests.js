@@ -475,8 +475,7 @@ $(document).ready(function () {
 
         const h = String(parseInt($('#hours').val() || '0')).padStart(2, '0');
         const m = String(parseInt($('#minutes').val() || '0')).padStart(2, '0');
-        const s = String(parseInt($('#seconds').val() || '0')).padStart(2, '0');
-        $('#hidden_time_solve').val(`${h}:${m}:${s}`);
+        $('#hidden_time_solve').val(`${h}:${m}:00`);
 
         console.log('Данные собраны и помещены в скрытые поля (старый формат)');
     }
@@ -488,13 +487,85 @@ $(document).ready(function () {
 
         const h = parseInt($('#hours').val()) || 0;
         const m = parseInt($('#minutes').val()) || 0;
-        const s = parseInt($('#seconds').val()) || 0;
 
         if (h < 0) { $('#hours').addClass('invalid'); valid = false; }
         if (m < 0 || m > 59) { $('#minutes').addClass('invalid'); valid = false; }
-        if (s < 0 || s > 59) { $('#seconds').addClass('invalid'); valid = false; }
 
         return valid;
+    }
+
+    // Валидация всех полей формы
+    function validateFormFields() {
+        let isValid = true;
+
+        // Убираем предыдущие ошибки
+        $('.wide-input, .time-input, math-field').removeClass('invalid');
+
+        // Проверяем название теста
+        const testName = $('#testNameInput').val().trim();
+        if (!testName) {
+            $('#testNameInput').addClass('invalid');
+            isValid = false;
+        }
+
+        // Проверяем предмет
+        const subject = $('#subj_test').val();
+        if (!subject) {
+            $('#subj_test').addClass('invalid');
+            isValid = false;
+        }
+
+        // Проверяем время
+        const hours = parseInt($('#hours').val()) || 0;
+        const minutes = parseInt($('#minutes').val()) || 0;
+        if (hours === 0 && minutes === 0) {
+            $('#hours, #minutes').addClass('invalid');
+            isValid = false;
+        }
+
+        // Проверяем количество попыток
+        const attempts = $('#num_attempts').val().trim();
+        if (!attempts || parseInt(attempts) <= 0) {
+            $('#num_attempts').addClass('invalid');
+            isValid = false;
+        }
+
+        // Проверяем баллы за задания
+        $('.task-group').each(function() {
+            const points = $(this).find('[id^="group_points"]').val().trim();
+            if (!points || parseFloat(points) <= 0) {
+                $(this).find('[id^="group_points"]').addClass('invalid');
+                isValid = false;
+            }
+        });
+
+        // Проверяем заполненность математических полей
+        $('.task-group').each(function() {
+            const expression = $(this).find('[id^="expr"]')[0];
+            if (expression && (!expression.value || expression.value.trim() === '')) {
+                $(expression).addClass('invalid');
+                isValid = false;
+            }
+
+            // Проверяем ответы
+            $(this).find('.answer-field').each(function() {
+                if (!this.value || this.value.trim() === '') {
+                    $(this).addClass('invalid');
+                    isValid = false;
+                }
+            });
+
+            // Проверяем точность
+            $(this).find('.accuracy-field').each(function() {
+                const accuracy = $(this).val().trim();
+                if (!accuracy) {
+                    $(this).addClass('invalid');
+                    isValid = false;
+                }
+            });
+        });
+
+        return isValid;
     }
 
     // Добавляем стиль для ошибок времени
@@ -507,9 +578,15 @@ $(document).ready(function () {
     $(document).on('click', '.save-and-go-to-list', function (e) {
         console.log('Save button clicked!');
 
+        if (!validateFormFields()) {
+            e.preventDefault();
+            alert("Пожалуйста, заполните все обязательные поля (отмечены красной рамкой).");
+            return;
+        }
+
         if (!isValidTime()) {
             e.preventDefault();
-            alert("Пожалуйста, введите корректное время (часы ≥ 0, минуты и секунды от 0 до 59).");
+            alert("Пожалуйста, введите корректное время (часы ≥ 0, минуты от 0 до 59).");
             return;
         }
 

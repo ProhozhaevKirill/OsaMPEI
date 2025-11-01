@@ -27,6 +27,7 @@ body {
     line-height: 1.6;
     color: var(--dark-color);
     background-color: #f5f7fa;
+    padding-top: 70px !important;
 }
 
 /* Базовый сброс */

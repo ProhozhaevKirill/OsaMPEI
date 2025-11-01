@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
+    'users.backends.CaseInsensitiveEmailBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 

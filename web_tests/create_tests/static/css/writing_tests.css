@@ -540,7 +540,7 @@ body {
   background: white;
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-  width: 90%;
+  width: 100%;
   max-width: 500px;
   padding: 30px;
   position: relative;
@@ -611,7 +611,7 @@ body {
 }
 
 .time-input {
-  width: 117px;
+  width: 209px;
   padding: 12px;
   text-align: center;
   border: 1px solid #ddd;
@@ -859,17 +859,23 @@ body {
 .expression math-field.invalid,
 .answer-field.invalid,
 .accuracy-field.invalid,
-.type-field.invalid {
-  border-color: #ff6b6b;
-  background-color: #fff5f5;
+.type-field.invalid,
+.wide-input.invalid,
+.time-input.invalid {
+  border-color: #ff6b6b !important;
+  background-color: #fff5f5 !important;
+  box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.1) !important;
 }
 
 .expression math-field.valid,
 .answer-field.valid,
 .accuracy-field.valid,
-.type-field.valid {
-  border-color: #51cf66;
-  background-color: #f0fff4;
+.type-field.valid,
+.wide-input.valid,
+.time-input.valid {
+  border-color: #51cf66 !important;
+  background-color: #f0fff4 !important;
+  box-shadow: 0 0 0 2px rgba(81, 207, 102, 0.1) !important;
 }
 
 /* Скроллбар для боковой панели */

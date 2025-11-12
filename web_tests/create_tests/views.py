@@ -48,6 +48,7 @@ def create_test(request):
             count_attempts = request.POST.get('num_attempts')
             description_test = request.POST.get('description_test', '')
             subj_id = request.POST.get('subj_test')
+            result_display_mode = request.POST.get('result_display_mode', 'only_score')
 
             logger.info(f"Basic fields - name: '{test_name}', time: '{time_to_sol_raw}', attempts: '{count_attempts}', subj_id: '{subj_id}'")
 
@@ -160,6 +161,7 @@ def create_test(request):
                 subj=subj,
                 description=description_test,
                 creator=teacher,
+                result_display_mode=result_display_mode,
             )
 
             # Проверяем, есть ли хотя бы одно валидное выражение
@@ -265,7 +267,22 @@ def test_list(request):
     all_groups = StudentGroup.objects.all().select_related('institute')
     institutes = StudentInstitute.objects.all().prefetch_related('studentgroup_set')
 
-    tests = AboutTest.objects.all()
+    # Получаем текущего учителя
+    current_teacher = get_object_or_404(TeacherData, data_map=request.user)
+
+    # Параметр фильтрации: 'my' для моих тестов, 'all' для всех тестов
+    filter_type = request.GET.get('filter', 'my')
+
+    if filter_type == 'my':
+        # Показываем только тесты текущего преподавателя
+        tests = AboutTest.objects.filter(creator=current_teacher).select_related('creator')
+        # Если у преподавателя нет собственных тестов, показываем все тесты и меняем фильтр
+        if not tests.exists():
+            tests = AboutTest.objects.all().select_related('creator')
+            filter_type = 'all'  # Меняем тип фильтра для корректного отображения в UI
+    else:
+        # Показываем все тесты с информацией о создателе
+        tests = AboutTest.objects.all().select_related('creator')
 
     published = PublishedGroup.objects.select_related('group_name', 'test_name')
     published_groups = [pg.group_name for pg in published]
@@ -275,7 +292,9 @@ def test_list(request):
         'all_groups': all_groups,
         'institutes': institutes,
         'groups': published_groups,
-        'published': published
+        'published': published,
+        'current_teacher': current_teacher,
+        'filter_type': filter_type,
     })
 
 
@@ -283,6 +302,9 @@ def test_list(request):
 @role_required(['teacher', 'admin'])
 def some_test(request, slug_name):
     test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
+
+    # Получаем текущего преподавателя для проверки прав доступа
+    current_teacher = get_object_or_404(TeacherData, data_map=request.user)
 
     # Получаем данные для модального окна публикации
     all_groups = StudentGroup.objects.all().select_related('institute')
@@ -323,7 +345,8 @@ def some_test(request, slug_name):
             'task_groups_data': task_groups_data,
             'uses_new_system': True,
             'institutes': institutes,
-            'all_groups': all_groups
+            'all_groups': all_groups,
+            'current_teacher': current_teacher
         })
     else:
         # Старая система: AboutExpressions
@@ -369,7 +392,8 @@ def some_test(request, slug_name):
             'task_groups_data': task_groups_data,
             'uses_new_system': False,
             'institutes': institutes,
-            'all_groups': all_groups
+            'all_groups': all_groups,
+            'current_teacher': current_teacher
         })
 
 
@@ -501,6 +525,7 @@ def edit_test(request, slug_name):
             test.name_tests = request.POST.get('name_test', test.name_tests)
             test.num_of_attempts = int(request.POST.get('num_attempts', test.num_of_attempts))
             test.description = request.POST.get('description_test', test.description)
+            test.result_display_mode = request.POST.get('result_display_mode', test.result_display_mode)
 
             # Обновляем предмет
             subj_id = request.POST.get('subj_test')
@@ -792,3 +817,292 @@ def edit_test(request, slug_name):
         'seconds': seconds,
     }
     return render(request, 'create_tests/editing_tests.html', context)
+
+
+@login_required
+@role_required(['teacher', 'admin'])
+def save_group_set(request):
+    """Сохранение набора групп в базу данных"""
+    if request.method == 'POST':
+        try:
+            name = request.POST.get('name', '').strip()
+            groups_ids = request.POST.getlist('groups')
+
+            # Получаем текущего преподавателя
+            teacher = TeacherData.objects.get(data_map=request.user)
+
+            # Валидация данных
+            if not name:
+                return JsonResponse({'success': False, 'error': 'Название набора не может быть пустым'})
+
+            if not groups_ids:
+                return JsonResponse({'success': False, 'error': 'Необходимо выбрать хотя бы одну группу'})
+
+            # Проверяем, что все группы существуют
+            groups = StudentGroup.objects.filter(id__in=groups_ids)
+            if len(groups) != len(groups_ids):
+                return JsonResponse({'success': False, 'error': 'Некоторые группы не найдены'})
+
+            # Проверяем, что набор с таким именем у данного преподавателя не существует
+            from .models import GroupList
+            if GroupList.objects.filter(name=name, teacher=teacher).exists():
+                return JsonResponse({'success': False, 'error': 'Набор с таким названием уже существует'})
+
+            # Создаем набор групп
+            group_list = GroupList.objects.create(
+                name=name,
+                teacher=teacher
+            )
+
+            # Добавляем группы к набору
+            group_list.groups.set(groups)
+
+            return JsonResponse({
+                'success': True,
+                'message': 'Набор групп успешно сохранен',
+                'group_list_id': group_list.id
+            })
+
+        except TeacherData.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Преподаватель не найден'})
+        except Exception as e:
+            logger.error(f"Ошибка при сохранении набора групп: {str(e)}")
+            return JsonResponse({'success': False, 'error': 'Произошла ошибка при сохранении'})
+
+    return JsonResponse({'success': False, 'error': 'Метод не поддерживается'})
+
+
+def get_randomized_test_for_teacher(test, teacher_id):
+    """
+    Генерирует рандомизированный вариант теста для преподавателя
+    Использует логику аналогичную студентам, но со случайным seed
+    """
+    import random
+    import time
+
+    # Создаем seed на основе текущего времени и ID преподавателя
+    seed = int(time.time()) + teacher_id
+    random.seed(seed)
+
+    randomized_expressions = []
+
+    # Проверяем, использует ли тест новую систему TaskGroup
+    task_groups = test.task_groups.all()
+
+    if task_groups.exists():
+        # Новая система: используем TaskGroup и TaskVariant
+        for task_group in task_groups.order_by('number'):
+            variants = task_group.variants.all()
+            if variants:
+                # Выбираем случайный вариант из группы
+                selected_variant = random.choice(list(variants))
+
+                # Получаем норму матрицы для TaskVariant
+                norm_for_task = TypeNormForTaskVariant.objects.filter(task_variant=selected_variant).first()
+
+                randomized_expressions.append({
+                    'user_expression': selected_variant.user_expression,
+                    'user_ans': selected_variant.user_ans,
+                    'true_ans': selected_variant.true_ans,
+                    'user_eps': selected_variant.user_eps,
+                    'user_type': selected_variant.user_type,
+                    'points_for_solve': task_group.points_for_solve,
+                    'exist_select': selected_variant.exist_select,
+                    'matrix_norm': norm_for_task.matrix_norms if norm_for_task else None,
+                    'number': task_group.number,
+                    'block_expression_num': task_group.number
+                })
+    else:
+        # Старая система: используем AboutExpressions
+        from collections import defaultdict
+        blocks = defaultdict(list)
+
+        for ex in test.expressions.all():
+            blocks[ex.block_expression_num].append(ex)
+
+        # Из каждого блока выбираем случайное задание
+        selected_expressions = []
+        for block_num, expressions in blocks.items():
+            if expressions:
+                # Выбираем случайное задание из блока
+                selected_expression = random.choice(expressions)
+                selected_expressions.append(selected_expression)
+
+        # Сортируем по полю number для правильного порядка
+        selected_expressions.sort(key=lambda x: x.number)
+
+        # Формируем окончательный список
+        for ex in selected_expressions:
+            norm_for_matrix = TypeNormForMatrix.objects.filter(num_expr=ex).first()
+            randomized_expressions.append({
+                'user_expression': ex.user_expression,
+                'user_ans': ex.user_ans,
+                'true_ans': ex.true_ans,
+                'user_eps': ex.user_eps,
+                'user_type': ex.user_type,
+                'points_for_solve': ex.points_for_solve,
+                'exist_select': ex.exist_select,
+                'matrix_norm': norm_for_matrix.matrix_norms if norm_for_matrix else None,
+                'number': ex.number,
+                'block_expression_num': ex.block_expression_num
+            })
+
+    return randomized_expressions
+
+
+@login_required
+@role_required(['teacher', 'admin'])
+def solve_test_teacher(request, slug_name):
+    """Решение теста преподавателем"""
+    test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
+    teacher = request.user
+
+    # Получаем рандомизированный вариант теста для преподавателя
+    expressions_data = get_randomized_test_for_teacher(test, teacher.id)
+
+    if request.method == 'POST':
+        raw = request.POST.get('binaryAnswers', '[]')
+        try:
+            teacher_answers = json.loads(raw)
+        except json.JSONDecodeError:
+            teacher_answers = []
+
+        n = len(expressions_data)
+        if len(teacher_answers) < n:
+            teacher_answers += [''] * (n - len(teacher_answers))
+        elif len(teacher_answers) > n:
+            teacher_answers = teacher_answers[:n]
+
+        result_score = 0
+        all_points = sum(expr['points_for_solve'] for expr in expressions_data)
+
+        # Используем ту же логику проверки, что и для студентов
+        from logic_of_expression.check_sympy_expr import CheckAnswer
+
+        for i, expr_data in enumerate(expressions_data):
+            user_ans = teacher_answers[i]
+
+            if expr_data['exist_select']:
+                # Multiple choice question - проверяем правильность выбранных вариантов
+                # Разбираем варианты ответов и правильные ответы
+                available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+                correct_answers = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
+
+                # Получаем выбранные пользователем варианты
+                if isinstance(user_ans, str):
+                    selected_options = user_ans.split(';') if user_ans else []
+                elif isinstance(user_ans, list):
+                    selected_options = user_ans
+                else:
+                    selected_options = []
+
+                # Проверяем правильность
+                res = 1  # Начинаем с полного балла
+
+                # Создаем множества для сравнения
+                selected_set = set(selected_options)
+
+                # Определяем какие варианты должны быть выбраны
+                should_be_selected = set()
+                for j, is_correct in enumerate(correct_answers):
+                    if j < len(available_options) and is_correct == '1':
+                        should_be_selected.add(available_options[j])
+
+                # Проверяем точное совпадение
+                if selected_set != should_be_selected:
+                    res = 0
+            else:
+                # Single answer question
+                if expr_data['user_type'].type_code == 4:  # Matrix type
+                    if expr_data['matrix_norm']:
+                        res = CheckAnswer(expr_data['user_ans'], user_ans, False,
+                                        expression=expr_data['user_expression'],
+                                        type_ans=expr_data['user_type'].type_code,
+                                        type_norm=expr_data['matrix_norm']).compare_answer()
+                    else:
+                        res = CheckAnswer(expr_data['user_ans'], user_ans, False,
+                                        expression=expr_data['user_expression'],
+                                        type_ans=expr_data['user_type'].type_code).compare_answer()
+                else:
+                    res = CheckAnswer(expr_data['user_ans'], user_ans, False,
+                                    expression=expr_data['user_expression'],
+                                    type_ans=expr_data['user_type'].type_code).compare_answer()
+
+            result_score += res * expr_data['points_for_solve']
+
+        score_in_pr = result_score / all_points * 100 if all_points > 0 else 0
+
+        if score_in_pr >= 80:
+            grade = 5
+        elif score_in_pr >= 60:
+            grade = 4
+        elif score_in_pr >= 35:
+            grade = 3
+        else:
+            grade = 2
+
+        request.session['teacher_test_result'] = {
+            'result': result_score,
+            'score': grade,
+            'test_name': test.name_tests,
+            'all_points': all_points,
+        }
+
+        return redirect('create_tests:show_result_teacher', slug_name=slug_name)
+
+    # Подготавливаем данные для отображения
+    expressions_with_options = []
+    for i, expr_data in enumerate(expressions_data):
+        options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+        expressions_with_options.append({
+            'expression': expr_data,
+            'options': options,
+            'exist_select': expr_data['exist_select'],
+            'display_number': i + 1,
+            'original_number': expr_data.get('number', i + 1)
+        })
+
+    return render(request, 'create_tests/solve_test_teacher.html', {
+        'test': test,
+        'expressions_with_options': expressions_with_options,
+    })
+
+
+@login_required
+@role_required(['teacher', 'admin'])
+def show_result_teacher(request, slug_name):
+    """Показ результатов прохождения теста преподавателем"""
+    test_result = request.session.get('teacher_test_result')
+
+    if not test_result:
+        return redirect('create_tests:test_list')
+
+    test = AboutTest.objects.get(name_slug_tests=slug_name)
+
+    # Подсчитываем общее количество баллов (используем ту же логику что и для студентов)
+    task_groups = test.task_groups.all()
+
+    if task_groups.exists():
+        # Новая система: используем TaskGroup
+        from django.db.models import Sum
+        count = task_groups.aggregate(Sum('points_for_solve'))['points_for_solve__sum'] or 0
+    else:
+        # Старая система: используем AboutExpressions
+        from collections import defaultdict
+
+        groups = defaultdict(list)
+        for expr in test.expressions.all():
+            groups[expr.block_expression_num].append(expr)
+
+        count = 0
+        for block_num, expr_list in groups.items():
+            if expr_list:
+                count += expr_list[0].points_for_solve
+
+    return render(request, 'create_tests/result_teacher.html', {
+        'test_name': test_result['test_name'],
+        'result': test_result['result'],
+        'score': test_result['score'],
+        'count': count,
+        'slug_name': slug_name,
+    })

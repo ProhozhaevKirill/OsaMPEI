@@ -95,6 +95,11 @@ class TaskVariant(models.Model):
 
 
 class AboutTest(models.Model):
+    RESULT_DISPLAY_CHOICES = [
+        ('only_score', 'Только баллы'),
+        ('show_correct', 'Показывать правильные ответы'),
+    ]
+
     objects = None
     name_tests = models.CharField(max_length=255, blank=False)  # Название теста
     creator = models.ForeignKey(TeacherData, on_delete=models.PROTECT, null=True, blank=True,
@@ -107,6 +112,7 @@ class AboutTest(models.Model):
     is_published = models.IntegerField(default=0)
     is_done = models.IntegerField(default=1)
     is_draft = models.BooleanField(default=False)
+    result_display_mode = models.CharField(max_length=20, choices=RESULT_DISPLAY_CHOICES, default='only_score')  # Режим отображения результатов
     subj = models.ForeignKey(Subjects,
                              on_delete=models.PROTECT,
                              default=1)
@@ -139,6 +145,21 @@ class PublishedGroup(models.Model):
     group_name = ForeignKey(StudentGroup, on_delete=models.PROTECT)
     test_name = ForeignKey(AboutTest, on_delete=models.PROTECT)
     teacher_name = ForeignKey(TeacherData, on_delete=models.PROTECT)
+
+
+class GroupList(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Название списка")
+    teacher = models.ForeignKey(TeacherData, on_delete=models.CASCADE, verbose_name="Преподаватель")
+    groups = models.ManyToManyField(StudentGroup, verbose_name="Группы")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+
+    class Meta:
+        verbose_name = "Список групп для публикации"
+        verbose_name_plural = "Списки групп для публикации"
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.name} ({self.teacher.data_map.username})"
 
 
 @receiver(pre_delete, sender=AboutTest)

@@ -25,9 +25,325 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 100px 20px 40px; /* отступ сверху, чтобы не прятаться под хедером */
+}
+
+/* Результаты */
+.results-section {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.results-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.results-card h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.info-note {
+    color: #7f8c8d;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.return-link {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 24px;
+    background: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.return-link:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+}
+
+/* Детальные результаты */
+.detailed-results-section {
+    margin-top: 30px;
+    border-top: 2px solid #ecf0f1;
+    padding-top: 30px;
+}
+
+.detailed-results-section h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+}
+
+.question-result {
+    background: #f8f9fa;
+    margin-bottom: 25px;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
+.question-header {
     display: flex;
-    gap: 40px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.question-number {
+    font-weight: bold;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+.question-points {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.question-text {
+    margin-bottom: 15px;
+    padding: 10px 0;
+}
+
+.question-text strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #34495e;
+}
+
+.answer-comparison {
+    display: grid;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.student-answer, .correct-answer {
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.student-answer {
+    background: #fff;
+}
+
+.correct-answer {
+    background: #e8f5e8;
+    border-color: #27ae60;
+}
+
+.student-answer strong, .correct-answer strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.answer-text {
+    padding: 8px;
+    border-radius: 4px;
+    background: #fff;
+    display: block;
+    border: 1px solid #ddd;
+}
+
+.answer-text.correct {
+    background: #d5f5d5;
+    border-color: #27ae60;
+}
+
+.correct-math {
+    border: 1px solid #27ae60 !important;
+    background: #f0f9f0 !important;
+}
+
+.options-list {
+    background: #f1f2f3;
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+.options-list strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #2c3e50;
+}
+
+.options-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.options-list li {
+    background: #fff;
+    margin: 4px 0;
+    padding: 6px 10px;
+    border-radius: 4px;
+    border-left: 3px solid #bdc3c7;
+}
+
+/* MathLive поля только для чтения */
+math-field[readonly] {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+    background: #f8f9fa;
+    min-height: 40px;
+    display: block;
+}
+
+/* Стили для неправильных ответов */
+.incorrect-results-section {
+    margin-top: 30px;
+    border-top: 2px solid #dc3545;
+    padding-top: 30px;
+}
+
+.incorrect-results-section h3 {
+    color: #dc3545;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+}
+
+.question-result.incorrect {
+    background: #fff5f5;
+    margin-bottom: 25px;
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #dc3545;
+    border-left: 6px solid #dc3545;
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
     flex-wrap: wrap;
+    gap: 10px;
+}
+
+.incorrect-badge {
+    background: #dc3545;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.incorrect-badge i {
+    font-size: 0.8rem;
+}
+
+.student-answer-only {
+    margin-bottom: 15px;
+}
+
+.student-answer.incorrect-answer {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 6px;
+    padding: 12px;
+}
+
+.student-answer.incorrect-answer strong {
+    color: #721c24;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.incorrect-answer .answer-text {
+    background: #fff;
+    border: 1px solid #dc3545;
+    border-radius: 4px;
+    padding: 8px;
+    display: block;
+    color: #721c24;
+}
+
+.incorrect-answer math-field[readonly] {
+    background: #fff !important;
+    border: 1px solid #dc3545 !important;
+    color: #721c24 !important;
+}
+
+/* Сообщение об отсутствии ошибок */
+.no-incorrect-section {
+    margin-top: 30px;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.success-message {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border: 2px solid #28a745;
+    border-radius: 12px;
+    padding: 30px;
+    display: inline-block;
+    min-width: 300px;
+}
+
+.success-message i {
+    color: #28a745;
+    font-size: 3rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.success-message h3 {
+    color: #155724;
+    margin: 0 0 10px 0;
+    font-size: 1.5rem;
+}
+
+.success-message p {
+    color: #155724;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+/* Информационная секция */
+.info-section {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #6c757d;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 80px 10px 20px;
+    }
+
+    .results-card {
+        padding: 20px;
+    }
+
+    .question-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .answer-comparison {
+        gap: 10px;
+    }
 }
 
 /* Секция с выражениями (слева) */

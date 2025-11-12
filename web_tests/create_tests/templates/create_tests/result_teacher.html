@@ -1,0 +1,161 @@
+{% extends 'create_tests/header.html' %}
+
+{% load static %}
+
+{% block title %}Результаты решения теста{% endblock %}
+
+{% block extra_css %}
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/result.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/mathlive/mathlive.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'libs/polyfill/polyfill.min.js' %}"></script>
+    <script id="MathJax-script" async src="{% static 'libs/mathjax/tex-mml-chtml.js' %}"></script>
+    <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
+    <script src="{% static 'js/result.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <main class="main-content">
+        <section class="results-section">
+            <div class="results-card">
+                <div class="teacher-badge">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    Режим преподавателя
+                </div>
+                <h2>Результат решения теста</h2>
+                <h3>{{ test_name }}</h3>
+                <div class="result-details">
+                    <p>Вы получили <strong>{{ result }}</strong> из <strong>{{ count }}</strong> возможных баллов</p>
+                    <p>Ваша оценка: <strong>{{ score }}</strong></p>
+                </div>
+                <div class="action-buttons">
+                    <a href="{% url 'create_tests:solve_test' slug_name %}" class="btn btn-primary">
+                        <i class="fas fa-redo"></i> Решить еще раз
+                    </a>
+                    <a href="{% url 'create_tests:some_test' slug_name %}" class="btn btn-secondary">
+                        <i class="fas fa-eye"></i> Посмотреть тест
+                    </a>
+                    <a href="{% url 'create_tests:test_list' %}" class="btn btn-outline">
+                        <i class="fas fa-arrow-left"></i> Вернуться к списку тестов
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <style>
+        .teacher-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .results-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        .results-card h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .results-card h3 {
+            color: #666;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .result-details {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .result-details p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        .result-details strong {
+            color: #2c3e50;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: #666;
+            border: 2px solid #ddd;
+        }
+
+        .btn-outline:hover {
+            background-color: #f8f9fa;
+            border-color: #bbb;
+        }
+
+        @media (max-width: 768px) {
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+        }
+    </style>
+{% endblock %}

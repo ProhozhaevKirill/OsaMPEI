@@ -1,15 +1,19 @@
 import json
+import logging
 import random
 from django.contrib.auth import logout
 from django.shortcuts import render, get_object_or_404, redirect
 from create_tests.models import AboutExpressions, AboutTest, PublishedGroup, TypeNormForMatrix
 from users.models import StudentGroup, StudentData
-from .models import StudentResult
+from .models import StudentResult, StudentTaskAnswer
 from logic_of_expression.check_sympy_expr import CheckAnswer
 import numpy as np
 from .decorators import role_required
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
+
+# Настройка логгера
+logger = logging.getLogger(__name__)
 
 
 @login_required
@@ -159,9 +163,6 @@ def some_test_for_student(request, slug_name):
 
             if expr_data['exist_select']:
                 # Multiple choice question - проверяем правильность выбранных вариантов
-                import logging
-                logger = logging.getLogger(__name__)
-
                 # Разбираем варианты ответов и правильные ответы
                 available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
                 correct_answers = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
@@ -233,7 +234,7 @@ def some_test_for_student(request, slug_name):
             test=test,
             attempt_number=attempt_count + 1,
             result_points=result_score,
-            res_answer=str(student_answers),
+            res_answer=json.dumps(student_answers),
         )
 
         return redirect('solving_tests:show_result', slug_name=slug_name)
@@ -287,13 +288,90 @@ def show_result(request, slug_name):
                 # Берем баллы от первого выражения в группе (все варианты имеют одинаковые баллы)
                 count += expr_list[0].points_for_solve
 
-    return render(request, 'solving_tests/result.html', {
+    # Получаем настройки отображения результатов
+    result_display_mode = getattr(test, 'result_display_mode', 'only_score')
+
+    # Базовый контекст
+    context = {
         'test_name': test_result['test_name'],
         'result': test_result['result'],
         'score': test_result['score'],
         'count': count,
         'slug_name': slug_name,
-    })
+        'result_display_mode': result_display_mode,
+    }
+
+    # Добавляем дополнительную информацию в зависимости от режима отображения
+    if result_display_mode == 'show_correct':
+        # Показываем правильные ответы - получаем детальные результаты
+        student = request.user
+
+        # Получаем последний результат студента для этого теста
+        latest_result = StudentResult.objects.filter(student=student, test=test).order_by('-attempt_number').first()
+
+        if latest_result:
+            # Получаем рандомизированный вариант теста, который проходил студент
+            expressions_data = get_randomized_test_for_student(test, student.id, latest_result.attempt_number)
+
+            # Получаем ответы студента
+            try:
+                student_answers = json.loads(latest_result.res_answer)
+            except (json.JSONDecodeError, ValueError):
+                # Пытаемся обработать старый формат (строковое представление Python списка)
+                try:
+                    # Используем ast.literal_eval для безопасной оценки строкового представления Python
+                    import ast
+                    student_answers = ast.literal_eval(latest_result.res_answer)
+                except (ValueError, SyntaxError):
+                    student_answers = []
+
+            # Подготавливаем детальную информацию для каждого вопроса
+            detailed_results = []
+            for i, expr_data in enumerate(expressions_data):
+                student_answer = student_answers[i] if i < len(student_answers) else ''
+
+                # Получаем правильные ответы
+                if expr_data['exist_select']:
+                    # Для вопросов с множественным выбором
+                    available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+                    correct_answers = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
+
+                    correct_options = []
+                    for j, is_correct in enumerate(correct_answers):
+                        if j < len(available_options) and is_correct == '1':
+                            correct_options.append(available_options[j])
+
+                    detailed_results.append({
+                        'question_number': i + 1,
+                        'question': expr_data['user_expression'],
+                        'student_answer': student_answer,
+                        'correct_answer': '; '.join(correct_options),
+                        'is_multiple_choice': True,
+                        'options': available_options,
+                        'points': expr_data['points_for_solve']
+                    })
+                else:
+                    # Для обычных вопросов
+                    detailed_results.append({
+                        'question_number': i + 1,
+                        'question': expr_data['user_expression'],
+                        'student_answer': student_answer,
+                        'correct_answer': expr_data['user_ans'],
+                        'is_multiple_choice': False,
+                        'options': [],
+                        'points': expr_data['points_for_solve']
+                    })
+
+            context['detailed_results'] = detailed_results
+            context['show_correct_answers'] = True
+        else:
+            context['show_correct_answers'] = False
+    else:  # only_score
+        # Показываем только баллы
+        context['show_correct_answers'] = False
+        context['show_student_answers'] = False
+
+    return render(request, 'solving_tests/result.html', context)
 
 
 @login_required

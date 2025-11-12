@@ -67,6 +67,7 @@
                             {% if variant.exist_select %}
                                 <!-- Задание с вариантами ответов -->
                                 <div class="sec-info">
+                                    <p><strong>Тип ответа:</strong> {{ variant.user_type.name }}</p>
                                     <p><strong>Варианты ответов:</strong></p>
                                     {% with variant.user_ans|split:";" as options %}
                                     {% with variant.true_ans|split:";" as correct_flags %}
@@ -94,7 +95,7 @@
                                             <strong>Точность:</strong> {{ variant.user_eps }}
                                         {% endif %}
                                     </p>
-                                    <p><strong>Тип ответа:</strong> {{ variant.user_type.type_name }}</p>
+                                    <p><strong>Тип ответа:</strong> {{ variant.user_type.name }}</p>
                                 </div>
                             {% endif %}
                         </div>
@@ -111,11 +112,20 @@
         </div>
     {% endif %}
 
-    <div class="actions">
-        <button class="btn btn-publish publish-btn" data-slug="{{ test.name_slug_tests }}">Опубликовать</button>
-        <button class="btn btn-edit edit-btn" data-slug="{{ test.name_slug_tests }}">Редактировать</button>
-        <button class="btn btn-danger delete-btn" data-slug="{{ test.name_slug_tests }}">Удалить</button>
-    </div>
+    {% if test.creator == current_teacher %}
+        <!-- Кнопки управления только для собственных тестов -->
+        <div class="actions">
+            <button class="btn btn-publish publish-btn" data-slug="{{ test.name_slug_tests }}">Опубликовать</button>
+            <button class="btn btn-edit edit-btn" data-slug="{{ test.name_slug_tests }}">Редактировать</button>
+            <button class="btn btn-danger delete-btn" data-slug="{{ test.name_slug_tests }}">Удалить</button>
+        </div>
+    {% else %}
+        <!-- Уведомление для чужих тестов -->
+        <div class="external-test-notice">
+            <i class="fas fa-info-circle"></i>
+            <span>Чужой тест - только просмотр и копирование заданий</span>
+        </div>
+    {% endif %}
 </div>
 
 <!-- Модальное окно подтверждения удаления -->
@@ -150,6 +160,9 @@
                         <i class="fas fa-search"></i>
                         <input type="text" id="groupSearch" placeholder="Поиск групп...">
                     </div>
+                    <button class="btn btn-secondary" id="createGroupListBtn">
+                        <i class="fas fa-list"></i> Сформировать список групп
+                    </button>
                 </div>
 
                 <div class="groups-container">
@@ -192,6 +205,32 @@
             <button class="btn btn-secondary cancel-publish">Отмена</button>
             <button class="btn btn-primary confirm-publish">
                 <i class="fas fa-share-square"></i> Опубликовать тест
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно создания списка групп -->
+<div id="groupListModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-list"></i> Создать список групп</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="groupListName">Название списка:</label>
+                <input type="text" id="groupListName" class="form-control" placeholder="Введите название списка групп">
+            </div>
+            <p>Выберите группы для добавления в список:</p>
+            <div id="selectedGroupsDisplay" class="selected-groups">
+                <!-- Здесь будут отображаться выбранные группы -->
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" id="cancelGroupList">Отмена</button>
+            <button class="btn btn-primary" id="saveGroupList">
+                <i class="fas fa-save"></i> Сохранить список
             </button>
         </div>
     </div>

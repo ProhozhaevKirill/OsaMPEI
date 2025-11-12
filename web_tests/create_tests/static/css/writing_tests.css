@@ -420,6 +420,43 @@ body {
   resize: vertical;
 }
 
+/* Исправление отображения скобок матриц в MathLive */
+math-field .ML__container .ML__latex {
+  font-feature-settings: "liga" 1, "kern" 1;
+}
+
+math-field .ML__container .ML__base .ML__bracket {
+  font-family: "Computer Modern", "Latin Modern Math", "KaTeX_Main", serif !important;
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+math-field .ML__container .ML__base .ML__delim-size1,
+math-field .ML__container .ML__base .ML__delim-size2,
+math-field .ML__container .ML__base .ML__delim-size3,
+math-field .ML__container .ML__base .ML__delim-size4 {
+  font-family: "Computer Modern", "Latin Modern Math", "KaTeX_Main", serif !important;
+}
+
+/* Специфические стили для скобок матриц */
+math-field .ML__container .ML__base .ML__close,
+math-field .ML__container .ML__base .ML__open {
+  font-family: "Computer Modern", "Latin Modern Math", "KaTeX_Main", serif !important;
+  font-size: 1.1em;
+  vertical-align: baseline;
+}
+
+/* Исправление отображения больших скобок */
+math-field .ML__container .ML__base .ML__delim-size4 .ML__char {
+  font-size: 1em;
+  line-height: 1;
+}
+
+/* Дополнительная поддержка для правильного отображения скобок */
+math-field .ML__container .ML__latex .ML__latex-command {
+  font-feature-settings: normal;
+}
+
 .meta-fields {
   display: flex;
   flex-direction: column;

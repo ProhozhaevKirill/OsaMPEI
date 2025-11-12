@@ -117,7 +117,7 @@
                             </div>
 
                             <div class="add-answer-footer">
-                                <button class="btn-add-answer">
+                                <button type="button" class="btn-add-answer">
                                     <i class="fas fa-plus-circle"></i> Добавить вариант ответа
                                 </button>
                             </div>
@@ -125,7 +125,7 @@
                     </div>
 
                     <div class="add-variant-footer">
-                        <button class="btn-add-variant">
+                        <button type="button" class="btn-add-variant">
                             <i class="fas fa-plus"></i> Добавить вариант задания
                         </button>
                     </div>
@@ -166,6 +166,14 @@
 
                     <input type="text" name="num_attempts" id="num_attempts" placeholder="Количество попыток" class="wide-input">
                     <input type="text" name="description_test" id="description_test" placeholder="Описание теста" class="wide-input">
+
+                    <div class="result-display-section">
+                        <label for="result_display_mode" class="result-display-label">Отображение результатов:</label>
+                        <select name="result_display_mode" id="result_display_mode" class="wide-input">
+                            <option value="only_score" selected>Только баллы</option>
+                            <option value="show_correct">Показывать правильные ответы</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -180,6 +188,7 @@
                         <input type="hidden" name="num_attempts" id="hidden_num_attempts">
                         <input type="hidden" name="subj_test" id="hidden_subj_test">
                         <input type="hidden" name="description_test" id="hidden_description_test">
+                        <input type="hidden" name="result_display_mode" id="hidden_result_display_mode">
                         <input type="hidden" name="point_solve" id="hidden_point_solve1">
                         <input type="hidden" name="user_expression" id="hidden_expr1">
                         <input type="hidden" name="user_ans" id="hidden_ans1">

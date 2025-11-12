@@ -39,117 +39,97 @@ a {
     color: white;
 }
 
+/* Утилиты */
+.hidden {
+    display: none !important;
+}
+
+/* Стили для выбранных групп */
+.group-item.selected {
+    background-color: #e3f2fd !important;
+    border-left: 3px solid var(--primary-color) !important;
+}
+
+.group-item.selected .form-check-label {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Алерты для ошибок */
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border: 1px solid #f5c6cb;
+    border-radius: var(--border-radius);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.alert-error i {
+    margin-right: 8px;
+}
+
 .base_info {
     display: grid;
 }
 
-.btn-watch{
-    background-color: #4a6fa5
-}
-
-.btn-watch:hover{
-    background-color: #3a5a8a;
-}
-
-/* Кнопки */
+/* Единая система кнопок */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 16px;
+    padding: 6px 12px;
     border: none;
     border-radius: var(--border-radius);
     font-weight: 500;
     cursor: pointer;
     transition: var(--transition);
-    gap: 8px;
-}
-
-.btn i {
-    font-size: 14px;
-}
-
-.btn-primary {
+    gap: 6px;
+    min-width: 115px;
+    min-height: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    text-decoration: none;
+    color: white;
     background-color: var(--primary-color);
-    color: white;
+    border: 2px solid transparent;
 }
 
-.btn-primary:hover {
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(74, 111, 165, 0.25);
+}
+
+/* Специфические цвета кнопок при наведении */
+.btn-watch:hover {
     background-color: #3a5a8a;
-    transform: translateY(-2px);
-}
-
-.btn-secondary {
-    background-color: var(--secondary-color);
-    color: white;
-}
-
-.btn-secondary:hover {
-    background-color: #5a6268;
-}
-
-.btn-success {
-    background-color: var(--success-color);
-    color: white;
-}
-
-.btn-success:hover {
-    background-color: #218838;
-}
-
-.btn-danger {
-    background-color: #4a6fa5;
-    color: white;
-}
-
-.btn-danger:hover {
-    background-color: var(--danger-color);
-}
-
-.btn-warning {
-    background-color: var(--warning-color);
-    color: #212529;
-}
-
-.btn-warning:hover {
-    background-color: #e0a800;
-}
-
-.btn-info {
-    background-color: var(--info-color);
-    color: white;
 }
 
 .btn-info:hover {
     background-color: #138496;
 }
 
-.btn-publish {
-    background-color: #4a6fa5;
-    color: white;
-}
-
-.btn-publish:hover{
+.btn-publish:hover {
     background-color: var(--success-color);
 }
 
-.btn-unpublish {
-    background-color: #4a6fa5;
-    color: white;
-    size: 150px;
-}
-
 .btn-unpublish:hover {
-  background-color: var(--warning-color)
+    background-color: var(--warning-color);
 }
 
-.btn-edit {
-    background-color: #4a6fa5;
-    color: white;
+.btn-danger:hover {
+    background-color: var(--danger-color);
 }
 
-.btn-edit:hover{
+.btn-edit:hover {
     background-color: #ffc107;
+}
+
+.btn i {
+    font-size: 14px;
+    margin-right: 0;
 }
 
 /* Заголовок */
@@ -214,8 +194,16 @@ a {
     box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
 }
 
+.filter-box {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    min-width: 350px;
+}
+
 .filter-box select {
-    width: 100%;
+    min-width: 160px;
     padding: 10px 15px;
     border: 1px solid #ddd;
     border-radius: var(--border-radius);
@@ -261,7 +249,7 @@ a {
 }
 
 .test-info {
-    flex: 1;
+    flex: 2;
 }
 
 .test-number {
@@ -301,9 +289,12 @@ a {
 }
 
 .test-actions {
-    gap: 10px;
+    display: flex;
+    gap: 6px;
     flex-wrap: wrap;
     justify-content: flex-end;
+    align-items: center;
+    min-width: 0;
 }
 
 .test-description {
@@ -687,40 +678,112 @@ a {
 .edit-disabled-notice {
     background-color: #f8d7da;
     color: #721c24;
-    padding: 0px 17px;
+    padding: 6px 12px;
     border-radius: var(--border-radius);
     border: 2px solid #f5c6cb;
-    font-size: 16px;
+    font-size: 12px;
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    font-family: inherit;
+    gap: 6px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     letter-spacing: 0.3px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    min-height: 36px;
+    min-height: 40px;
+    min-width: 100px;
+    justify-content: center;
+    font-weight: 500;
 }
 
 .edit-disabled-notice i {
     color: #dc3545;
-    font-size: 20px;
+    font-size: 14px;
     flex-shrink: 0;
+}
+
+.div.edit-disabled-notice {
+    width: 235px;
 }
 
 .edit-disabled-notice span {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 15px;
+    font-size: 12px;
     line-height: 1.4;
 }
 
-.btn {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 14px;
+/* Стили для поля отображения результатов */
+.result-display-section {
+    margin: 15px 0;
 }
 
-.btn i {
-    font-size: 16px;
-    margin-right: 10px;
+.result-display-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Дополнительные стили для результатов */
+.info-note {
+    background-color: #e7f3ff;
+    color: #0c5460;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    font-style: italic;
+    border-left: 4px solid #bee5eb;
+}
+
+.correct-answers-section {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    border: 1px solid #dee2e6;
+}
+
+.correct-answers-section h3 {
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+.coming-soon {
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Стили для информации об авторе теста */
+.external-author {
+    color: #dc3545;
+    font-weight: 600;
+    font-size: 11px;
+    margin-left: 5px;
+}
+
+.external-test-notice {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 6px 12px;
+    border-radius: var(--border-radius);
+    border: 2px solid #ffeaa7;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    min-height: 40px;
+    min-width: 100px;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.external-test-notice i {
+    color: #856404;
+    font-size: 14px;
+    flex-shrink: 0;
 }
 
 /* Адаптивность для мобильных устройств */
@@ -730,10 +793,22 @@ a {
         justify-content: center;
     }
 
-    .edit-disabled-notice {
+    .edit-disabled-notice, .external-test-notice {
         margin-left: 0;
         margin-top: 10px;
         width: 100%;
         justify-content: center;
+    }
+
+    .filter-box {
+        flex-direction: column;
+        align-items: flex-start;
+        min-width: auto;
+        width: 100%;
+    }
+
+    .filter-box select {
+        width: 100%;
+        min-width: auto;
     }
 }

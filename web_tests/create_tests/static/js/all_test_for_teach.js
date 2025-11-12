@@ -27,6 +27,16 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.classList.remove('active');
         modalOverlay.classList.remove('active');
         document.body.style.overflow = '';
+
+        // Очищаем выбранные группы при закрытии модального окна публикации
+        if (modal === publishModal) {
+            document.querySelectorAll('.group-checkbox:checked').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            document.querySelectorAll('.group-item.selected').forEach(item => {
+                item.classList.remove('selected');
+            });
+        }
     }
 
     // Обработчики удаления теста
@@ -74,17 +84,32 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function(e) {
             e.preventDefault();
             currentTestSlug = this.getAttribute('data-slug');
+            // Инициализируем выбор групп и фильтрацию при открытии модального окна
+            initializeGroupSelection();
+            initializeFiltering();
             openModal(publishModal);
         });
     });
 
     confirmPublishBtn.addEventListener('click', function() {
+        console.log('Confirm publish button clicked');
+
         const selectedGroups = Array.from(document.querySelectorAll('.group-checkbox:checked'));
         const selectedGroupIds = selectedGroups.map(checkbox => checkbox.value);
-        const publishUrl = document.querySelector(`.publish-btn[data-slug="${currentTestSlug}"]`).dataset.url;
+        const publishBtn = document.querySelector(`.publish-btn[data-slug="${currentTestSlug}"]`);
+        const publishUrl = publishBtn ? publishBtn.dataset.url : null;
+
+        console.log('Current test slug:', currentTestSlug);
+        console.log('Selected groups:', selectedGroupIds);
+        console.log('Publish URL:', publishUrl);
 
         if (!currentTestSlug) {
             showError(publishModal, 'Не выбран тест для публикации');
+            return;
+        }
+
+        if (!publishUrl) {
+            showError(publishModal, 'Не найден URL для публикации');
             return;
         }
 
@@ -92,6 +117,8 @@ document.addEventListener('DOMContentLoaded', function() {
             showError(publishModal, 'Выберите хотя бы одну группу');
             return;
         }
+
+        console.log('Sending publish request...');
 
         fetch(publishUrl, {
             method: 'POST',
@@ -102,10 +129,12 @@ document.addEventListener('DOMContentLoaded', function() {
             body: JSON.stringify({ groups: selectedGroupIds })
         })
         .then(response => {
+            console.log('Response received:', response.status, response.statusText);
             if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
             return response.json();
         })
         .then(data => {
+            console.log('Response data:', data);
             if (data.success) {
                 window.location.reload();
             } else {
@@ -149,6 +178,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Инициализация выбора групп
     function initializeGroupSelection() {
+        console.log('Initializing group selection...');
+
+        // Очищаем предыдущие слушатели событий
+        document.querySelectorAll('.institute-header').forEach(header => {
+            const newHeader = header.cloneNode(true);
+            header.parentNode.replaceChild(newHeader, header);
+        });
+
         document.querySelectorAll('.institute-header').forEach(header => {
             header.style.cursor = 'pointer';
 
@@ -172,6 +209,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
+        // Очищаем предыдущие слушатели для чекбоксов групп
+        document.querySelectorAll('.group-checkbox').forEach(checkbox => {
+            const newCheckbox = checkbox.cloneNode(true);
+            checkbox.parentNode.replaceChild(newCheckbox, checkbox);
+        });
+
         document.querySelectorAll('.group-item').forEach(item => {
             const checkbox = item.querySelector('.group-checkbox');
             const label = item.querySelector('.form-check-label');
@@ -186,8 +229,11 @@ document.addEventListener('DOMContentLoaded', function() {
             checkbox.addEventListener('click', function(e) {
                 e.stopPropagation();
                 this.closest('.group-item').classList.toggle('selected', this.checked);
+                console.log('Group checkbox clicked:', this.value, this.checked);
             });
         });
+
+        console.log('Group selection initialized, found', document.querySelectorAll('.group-checkbox').length, 'checkboxes');
     }
 
     // Вспомогательные функции
@@ -295,9 +341,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Инициализация при открытии модального окна публикации
-    publishModal.addEventListener('click', () => {
-        initializeGroupSelection();
-        initializeFiltering();
-    }, { once: true });
+    // Инициализация уже выполняется при клике на кнопку публикации
+    // Дополнительная инициализация при загрузке страницы
+    initializeGroupSelection();
+    initializeFiltering();
 });

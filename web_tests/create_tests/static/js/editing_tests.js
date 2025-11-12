@@ -6,6 +6,37 @@ $(document).ready(function () {
         document.querySelectorAll('math-field').forEach(mf => {
             if (!mf.mathfield) {
                 console.warn("MathLive field not initialized properly");
+            } else {
+                // Настройки для правильного отображения матриц
+                mf.setOptions({
+                    'fontsDirectory': '/static/libs/mathlive/fonts/',
+                    'mathModeSpace': '\\,',
+                    'smartMode': true,
+                    'smartFence': true,
+                    'smartSuperscript': true,
+                    'virtualKeyboardMode': 'manual',
+                    'virtualKeyboard': 'auto',
+                    'locale': 'ru',
+                    // Специальная настройка для матриц
+                    'macros': {
+                        '\\pmatrix': '\\begin{pmatrix}#1\\end{pmatrix}',
+                        '\\bmatrix': '\\begin{bmatrix}#1\\end{bmatrix}',
+                        '\\vmatrix': '\\begin{vmatrix}#1\\end{vmatrix}',
+                        '\\Vmatrix': '\\begin{Vmatrix}#1\\end{Vmatrix}'
+                    }
+                });
+
+                // Фикс для правильного отображения скобок
+                mf.addEventListener('input', function() {
+                    // Принудительно обновляем рендеринг для матриц
+                    const value = mf.getValue();
+                    if (value.includes('\\begin{pmatrix}') || value.includes('\\begin{bmatrix}') ||
+                        value.includes('\\begin{vmatrix}') || value.includes('\\begin{Vmatrix}')) {
+                        setTimeout(() => {
+                            mf.redraw();
+                        }, 50);
+                    }
+                });
             }
         });
     }
@@ -489,6 +520,9 @@ $(document).ready(function () {
         const s = String(parseInt($('#seconds').val() || '0')).padStart(2, '0');
         $('#hidden_time_solve').val(`${h}:${m}:${s}`);
 
+        // Добавляем обработку режима отображения результатов
+        $('#hidden_result_display_mode').val($('#result_display_mode').val());
+
         console.log('Данные собраны и помещены в скрытые поля (старый формат)');
     }
 
@@ -537,5 +571,6 @@ $(document).ready(function () {
         console.log('subj_test:', $('#hidden_subj_test').val());
         console.log('num_attempts:', $('#hidden_num_attempts').val());
         console.log('time_solve:', $('#hidden_time_solve').val());
+        console.log('result_display_mode:', $('#hidden_result_display_mode').val());
     });
 });

@@ -15,6 +15,9 @@
 {% endblock %}
 
 {% block content %}
+<!-- Добавляем CSRF токен для AJAX запросов -->
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
 <div class="container">
     <div class="header">
         <h1><i class="fas fa-tasks"></i> Управление тестами</h1>
@@ -22,6 +25,9 @@
             <a href="{% url 'create_tests:create_test' %}" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Создать тест
             </a>
+            <button class="btn btn-secondary" id="createGroupListBtn">
+                <i class="fas fa-list"></i> Сформировать набор групп
+            </button>
         </div>
     </div>
 
@@ -31,8 +37,12 @@
             <input type="text" id="testSearch" placeholder="Поиск тестов...">
         </div>
         <div class="filter-box">
+            <select id="authorFilter" onchange="handleAuthorFilter()">
+                <option value="my" {% if filter_type == 'my' %}selected{% endif %}>Мои тесты</option>
+                <option value="all" {% if filter_type == 'all' %}selected{% endif %}>Все тесты</option>
+            </select>
             <select id="testFilter">
-                <option value="all">Все тесты</option>
+                <option value="all">Все</option>
                 <option value="published">Опубликованные</option>
                 <option value="unpublished">Неопубликованные</option>
             </select>
@@ -52,6 +62,14 @@
                             </div>
                             <div class="test-meta">
                                 <span><i class="far fa-calendar-alt"></i> Создан: {{ test.created_at|date:"d.m.Y" }}</span>
+                                {% if test.creator %}
+                                <span><i class="fas fa-user"></i>
+                                    Автор: {{ test.creator.first_name }} {{ test.creator.last_name }}
+                                    {% if test.creator != current_teacher %}
+                                        <span class="external-author">(чужой тест)</span>
+                                    {% endif %}
+                                </span>
+                                {% endif %}
                                 <span><i class="fas fa-users"></i>
                                     Доступ:
                                     {% with found=0 %}
@@ -70,31 +88,44 @@
                             <a href="{% url 'create_tests:some_test' test.name_slug_tests %}" class="btn btn-watch">
                                 <i class="fa-solid fa-eye"></i> Посмотреть
                             </a>
-                            {% if not test.is_published %}
-                                <button class="btn btn-publish publish-btn"
-                                        data-slug="{{ test.name_slug_tests }}"
-                                        data-url="{% url 'create_tests:publish_test' test.name_slug_tests %}">
-                                    <i class="fas fa-share-square"></i> Опубликовать
-                                </button>
+                            <a href="{% url 'create_tests:solve_test' test.name_slug_tests %}" class="btn btn-info">
+                                <i class="fas fa-play"></i> Решить
+                            </a>
 
-                                <button class="btn btn-danger delete-btn"
-                                        data-slug="{{ test.name_slug_tests }}"
-                                        data-url="{% url 'create_tests:delete_test' test.name_slug_tests %}">
-                                    <i class="fas fa-trash-alt"></i> Удалить
-                                </button>
-                                <a href="{% url 'create_tests:edit_test' test.name_slug_tests %}" class="btn btn-edit">
-                                    <i class="fas fa-edit"></i> Редактировать
-                                </a>
+                            {% if test.creator == current_teacher %}
+                                <!-- Действия для собственных тестов -->
+                                {% if not test.is_published %}
+                                    <button class="btn btn-publish publish-btn"
+                                            data-slug="{{ test.name_slug_tests }}"
+                                            data-url="{% url 'create_tests:publish_test' test.name_slug_tests %}">
+                                        <i class="fas fa-share-square"></i> Опубликовать
+                                    </button>
+
+                                    <button class="btn btn-danger delete-btn"
+                                            data-slug="{{ test.name_slug_tests }}"
+                                            data-url="{% url 'create_tests:delete_test' test.name_slug_tests %}">
+                                        <i class="fas fa-trash-alt"></i> Удалить
+                                    </button>
+                                    <a href="{% url 'create_tests:edit_test' test.name_slug_tests %}" class="btn btn-edit">
+                                        <i class="fas fa-edit"></i> Редактировать
+                                    </a>
                                 {% else %}
                                     <button class="btn btn-unpublish unpublish-btn"
                                             data-url="{% url 'create_tests:unpublish_test' test.name_slug_tests %}">
                                         <i class="fa-solid fa-eye-slash"></i> Снять с публикации
                                     </button>
-                                    <div class="edit-disabled-notice">
+                                    <div class="edit-disabled-notice" style="width: 215px;">
                                         <i class="fas fa-exclamation-circle"></i>
                                         <span>Изменения недоступны</span>
                                     </div>
                                 {% endif %}
+                            {% else %}
+                                <!-- Действия для чужих тестов - только просмотр -->
+                                <div class="external-test-notice">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Чужой тест - только просмотр</span>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                     {% if test.description %}
@@ -216,5 +247,354 @@
     </div>
 </div>
 
+<!-- Модальное окно создания набора групп -->
+<div id="groupSetModal" class="modal">
+    <div class="modal-content wide">
+        <div class="modal-header">
+            <h3><i class="fas fa-list"></i> Создать набор групп</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="groupSetName">Название набора:</label>
+                <input type="text" id="groupSetName" class="form-control" placeholder="Введите название набора групп">
+            </div>
+
+            <div class="groups-selection">
+                <div class="search-filter-row">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="groupSetSearch" placeholder="Поиск групп...">
+                    </div>
+                    <div class="filter-controls">
+                        <select id="groupSetEducationFilter" class="filter-select">
+                            <option value="">Все уровни</option>
+                            <option value="bachelor">Бакалавриат</option>
+                            <option value="master">Магистратура</option>
+                        </select>
+                        <select id="groupSetCourseFilter" class="filter-select">
+                            <option value="">Все курсы</option>
+                            <option value="1">1 курс</option>
+                            <option value="2">2 курс</option>
+                            <option value="3">3 курс</option>
+                            <option value="4">4 курс</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="groups-container">
+                    <div class="institutes-list">
+                        {% for institute in institutes %}
+                        <div class="institute-card" data-id="{{ institute.id }}">
+                            <div class="institute-header">
+                                <div class="institute-info">
+                                    <span class="full-name">{{ institute.name }}</span>
+                                </div>
+                                <div class="institute-actions">
+                                    <span class="groups-count">групп: {{ institute.studentgroup_set.all.count }}</span>
+                                    <button class="btn btn-toggle">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="groups-list">
+                                {% for group in institute.studentgroup_set.all %}
+                                <div class="group-item"
+                                     data-education-level="{{ group.education_level }}"
+                                     data-course="{{ group.course }}">
+                                    <div class="form-check">
+                                        <input type="checkbox" name="groupset_groups" class="form-check-input groupset-checkbox"
+                                               id="groupset-{{ group.id }}" value="{{ group.id }}">
+                                        <label class="form-check-label" for="groupset-{{ group.id }}">
+                                            {{ group.name }}
+                                            <span class="group-info">
+                                                ({{ group.get_education_level_display }}, {{ group.get_course_display }})
+                                            </span>
+                                            <span class="students-count">(студентов: {{ group.students.count }})</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="selected-groups-preview">
+                <h4>Выбранные группы: <span id="selectedGroupsCount">0</span></h4>
+                <div id="selectedGroupsList" class="selected-groups-list">
+                    <!-- Здесь будут отображаться выбранные группы -->
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" id="cancelGroupSet">Отмена</button>
+            <button class="btn btn-primary" id="saveGroupSet">
+                <i class="fas fa-save"></i> Сохранить набор
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно успешного сохранения -->
+<div id="successModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-check-circle"></i> Успешно сохранено</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>Набор групп успешно сохранен!</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary close-success">ОК</button>
+        </div>
+    </div>
+</div>
+
 <div class="modal-overlay"></div>
+
+<script>
+// Функция для обработки фильтра по автору
+function handleAuthorFilter() {
+    const filterType = document.getElementById('authorFilter').value;
+    const url = new URL(window.location);
+    url.searchParams.set('filter', filterType);
+    window.location.href = url.toString();
+}
+
+// Простая функция для открытия модального окна
+function openGroupModal() {
+    console.log('openGroupModal called');
+    const modal = document.getElementById('groupSetModal');
+    const overlay = document.querySelector('.modal-overlay');
+    if (modal) {
+        modal.classList.add('active');
+        console.log('Modal opened via function');
+    }
+    if (overlay) {
+        overlay.classList.add('active');
+        console.log('Overlay shown via function');
+    }
+}
+
+// Проверяем наличие jQuery и добавляем обработчики
+if (typeof $ !== 'undefined') {
+    $(document).ready(function() {
+        // Открытие модального окна создания набора групп
+        $('#createGroupListBtn').on('click', function() {
+            $('#groupSetModal').addClass('active');
+            $('.modal-overlay').addClass('active');
+        });
+} else {
+    // Fallback на чистый JavaScript если jQuery не загружен
+    document.addEventListener('DOMContentLoaded', function() {
+        // Открытие модального окна создания набора групп
+        const createBtn = document.getElementById('createGroupListBtn');
+        if (createBtn) {
+            createBtn.addEventListener('click', function() {
+                const modal = document.getElementById('groupSetModal');
+                const overlay = document.querySelector('.modal-overlay');
+                if (modal) modal.classList.add('active');
+                if (overlay) overlay.classList.add('active');
+            });
+        }
+    });
+}
+
+// jQuery код (если jQuery доступен)
+if (typeof $ !== 'undefined') {
+$(document).ready(function() {
+
+    // Закрытие модальных окон
+    $('.close-modal, #cancelGroupSet, .modal-overlay').on('click', function(e) {
+        if (e.target === this) {
+            $('.modal').removeClass('active');
+            $('.modal-overlay').removeClass('active');
+        }
+    });
+
+    $('.close-success').on('click', function() {
+        $('#successModal').removeClass('active');
+        $('.modal-overlay').removeClass('active');
+    });
+
+    // Переключение институтов
+    $('.btn-toggle').on('click', function() {
+        const instituteCard = $(this).closest('.institute-card');
+        const groupsList = instituteCard.find('.groups-list');
+        const icon = $(this).find('i');
+
+        groupsList.toggle();
+        icon.toggleClass('fa-chevron-down fa-chevron-up');
+    });
+
+    // Отслеживание выбранных групп
+    $('.groupset-checkbox').on('change', function() {
+        updateSelectedGroups();
+    });
+
+    // Поиск групп
+    $('#groupSetSearch').on('input', function() {
+        const searchTerm = $(this).val().toLowerCase();
+        $('.group-item').each(function() {
+            const groupName = $(this).find('label').text().toLowerCase();
+            if (groupName.includes(searchTerm)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    // Фильтрация по уровню образования
+    $('#groupSetEducationFilter').on('change', function() {
+        const selectedLevel = $(this).val();
+        $('.group-item').each(function() {
+            const itemLevel = $(this).data('education-level');
+            if (!selectedLevel || itemLevel === selectedLevel) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    // Фильтрация по курсу
+    $('#groupSetCourseFilter').on('change', function() {
+        const selectedCourse = $(this).val();
+        $('.group-item').each(function() {
+            const itemCourse = $(this).data('course').toString();
+            if (!selectedCourse || itemCourse === selectedCourse) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    // Функция обновления списка выбранных групп
+    function updateSelectedGroups() {
+        const selectedGroups = $('.groupset-checkbox:checked');
+        const count = selectedGroups.length;
+
+        $('#selectedGroupsCount').text(count);
+
+        const selectedList = $('#selectedGroupsList');
+        selectedList.empty();
+
+        selectedGroups.each(function() {
+            const label = $(this).next('label').clone();
+            const groupId = $(this).val();
+            const groupItem = $('<div class="selected-group-item"></div>');
+            groupItem.append(label);
+            groupItem.append(`<button class="btn btn-sm btn-danger remove-group" data-group-id="${groupId}"><i class="fas fa-times"></i></button>`);
+            selectedList.append(groupItem);
+        });
+    }
+
+    // Удаление группы из выбранных
+    $(document).on('click', '.remove-group', function() {
+        const groupId = $(this).data('group-id');
+        $(`#groupset-${groupId}`).prop('checked', false);
+        updateSelectedGroups();
+    });
+
+    // Сохранение набора групп
+    $('#saveGroupSet').on('click', function() {
+        const groupSetName = $('#groupSetName').val().trim();
+        const selectedGroups = $('.groupset-checkbox:checked').map(function() {
+            return $(this).val();
+        }).get();
+
+        if (!groupSetName) {
+            alert('Пожалуйста, введите название набора групп');
+            return;
+        }
+
+        if (selectedGroups.length === 0) {
+            alert('Пожалуйста, выберите хотя бы одну группу');
+            return;
+        }
+
+        // Отправка данных на сервер
+        $.ajax({
+            url: '{% url "create_tests:save_group_set" %}',
+            method: 'POST',
+            data: {
+                'name': groupSetName,
+                'groups': selectedGroups,
+                'csrfmiddlewaretoken': $('[name=csrfmiddlewaretoken]').val() || '{{ csrf_token }}'
+            },
+            success: function(response) {
+                if (response.success) {
+                    $('#groupSetModal').removeClass('active');
+                    $('#successModal').addClass('active');
+
+                    // Очистка формы
+                    $('#groupSetName').val('');
+                    $('.groupset-checkbox').prop('checked', false);
+                    updateSelectedGroups();
+                } else {
+                    alert('Ошибка при сохранении: ' + (response.error || 'Неизвестная ошибка'));
+                }
+            },
+            error: function() {
+                alert('Ошибка при отправке данных на сервер');
+            }
+        });
+    });
+});
+} // Закрытие второго if для jQuery
+
+// Дополнительная проверка на случай если jQuery загружается позже
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, checking button...');
+    const createBtn = document.getElementById('createGroupListBtn');
+    if (createBtn) {
+        console.log('Button found!');
+        // Проверяем, был ли уже добавлен обработчик
+        if (!createBtn.hasAttribute('data-handler-added')) {
+            createBtn.setAttribute('data-handler-added', 'true');
+            createBtn.addEventListener('click', function(e) {
+                console.log('Button clicked!');
+                e.preventDefault();
+                const modal = document.getElementById('groupSetModal');
+                const overlay = document.querySelector('.modal-overlay');
+                if (modal) {
+                    modal.classList.add('active');
+                    console.log('Modal opened');
+                }
+                if (overlay) {
+                    overlay.classList.add('active');
+                    console.log('Overlay shown');
+                }
+            });
+        }
+    } else {
+        console.log('Button not found!');
+    }
+
+    // Добавляем обработчики закрытия модального окна
+    const closeButtons = document.querySelectorAll('.close-modal, #cancelGroupSet');
+    closeButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.modal').forEach(modal => modal.classList.remove('active'));
+            const overlay = document.querySelector('.modal-overlay');
+            if (overlay) overlay.classList.remove('active');
+        });
+    });
+
+    const overlay = document.querySelector('.modal-overlay');
+    if (overlay) {
+        overlay.addEventListener('click', function() {
+            document.querySelectorAll('.modal').forEach(modal => modal.classList.remove('active'));
+            overlay.classList.remove('active');
+        });
+    }
+});
+</script>
+
 {% endblock %}

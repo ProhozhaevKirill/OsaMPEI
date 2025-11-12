@@ -22,8 +22,86 @@
         <section class="results-section">
             <div class="results-card">
                 <h2>Результат</h2>
-                <p>Вы получили <strong>{{ result }}</strong> из <strong>{{ count }}</strong> возможных баллов</p>
-                <p>Ваша оценка: <strong>{{ score }}</strong></p>
+
+                {% if result_display_mode == 'only_score' %}
+                    <!-- Показываем только баллы -->
+                    <p>Вы получили <strong>{{ result }}</strong> из <strong>{{ count }}</strong> возможных баллов</p>
+                    <p>Ваша оценка: <strong>{{ score }}</strong></p>
+
+                {% elif result_display_mode == 'show_correct' %}
+                    <!-- Показываем результат с правильными ответами -->
+                    <p>Вы получили <strong>{{ result }}</strong> из <strong>{{ count }}</strong> возможных баллов</p>
+                    <p>Ваша оценка: <strong>{{ score }}</strong></p>
+
+                    {% if detailed_results %}
+                        <div class="detailed-results-section">
+                            <h3>Детальные результаты</h3>
+                            {% for question_result in detailed_results %}
+                                <div class="question-result">
+                                    <div class="question-header">
+                                        <span class="question-number">Задание {{ question_result.question_number }}</span>
+                                        <span class="question-points">({{ question_result.points }} балл{{ question_result.points|pluralize:",,ов" }})</span>
+                                    </div>
+
+                                    <div class="question-text">
+                                        <strong>Вопрос:</strong>
+                                        <math-field readonly="true">{{ question_result.question }}</math-field>
+                                    </div>
+
+                                    <div class="answer-comparison">
+                                        <div class="student-answer">
+                                            <strong>Ваш ответ:</strong>
+                                            {% if question_result.is_multiple_choice %}
+                                                {% if question_result.student_answer is not None %}
+                                                    <span class="answer-text">{% if question_result.student_answer %}{{ question_result.student_answer }}{% else %}Не выбрано{% endif %}</span>
+                                                {% else %}
+                                                    <span class="answer-text">Не выбрано</span>
+                                                {% endif %}
+                                            {% else %}
+                                                {% if question_result.student_answer is not None %}
+                                                    <math-field readonly="true">{% if question_result.student_answer %}{{ question_result.student_answer }}{% else %}Не указано{% endif %}</math-field>
+                                                {% else %}
+                                                    <math-field readonly="true">Не указано</math-field>
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="correct-answer">
+                                            <strong>Правильный ответ:</strong>
+                                            {% if question_result.is_multiple_choice %}
+                                                <span class="answer-text correct">{{ question_result.correct_answer }}</span>
+                                            {% else %}
+                                                <math-field readonly="true" class="correct-math">{{ question_result.correct_answer }}</math-field>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    {% if question_result.is_multiple_choice and question_result.options %}
+                                        <div class="options-list">
+                                            <strong>Доступные варианты:</strong>
+                                            <ul>
+                                                {% for option in question_result.options %}
+                                                    <li>{{ option }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="correct-answers-section">
+                            <h3>Детальные результаты недоступны</h3>
+                            <p class="info-note">Не удалось загрузить детальную информацию о ваших ответах.</p>
+                        </div>
+                    {% endif %}
+
+                {% else %}
+                    <!-- Резервный вариант -->
+                    <p>Вы получили <strong>{{ result }}</strong> из <strong>{{ count }}</strong> возможных баллов</p>
+                    <p>Ваша оценка: <strong>{{ score }}</strong></p>
+                {% endif %}
+
                 <a href="{% url 'solving_tests:list_test' %}" class="return-link">Вернуться к списку заданий</a>
             </div>
         </section>

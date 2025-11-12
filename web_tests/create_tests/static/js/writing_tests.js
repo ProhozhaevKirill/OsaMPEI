@@ -6,6 +6,37 @@ $(document).ready(function () {
         document.querySelectorAll('math-field').forEach(mf => {
             if (!mf.mathfield) {
                 console.warn("MathLive field not initialized properly");
+            } else {
+                // Настройки для правильного отображения матриц
+                mf.setOptions({
+                    'fontsDirectory': '/static/libs/mathlive/fonts/',
+                    'mathModeSpace': '\\,',
+                    'smartMode': true,
+                    'smartFence': true,
+                    'smartSuperscript': true,
+                    'virtualKeyboardMode': 'manual',
+                    'virtualKeyboard': 'auto',
+                    'locale': 'ru',
+                    // Специальная настройка для матриц
+                    'macros': {
+                        '\\pmatrix': '\\begin{pmatrix}#1\\end{pmatrix}',
+                        '\\bmatrix': '\\begin{bmatrix}#1\\end{bmatrix}',
+                        '\\vmatrix': '\\begin{vmatrix}#1\\end{vmatrix}',
+                        '\\Vmatrix': '\\begin{Vmatrix}#1\\end{Vmatrix}'
+                    }
+                });
+
+                // Фикс для правильного отображения скобок
+                mf.addEventListener('input', function() {
+                    // Принудительно обновляем рендеринг для матриц
+                    const value = mf.getValue();
+                    if (value.includes('\\begin{pmatrix}') || value.includes('\\begin{bmatrix}') ||
+                        value.includes('\\begin{vmatrix}') || value.includes('\\begin{Vmatrix}')) {
+                        setTimeout(() => {
+                            mf.redraw();
+                        }, 50);
+                    }
+                });
             }
         });
     }
@@ -472,6 +503,7 @@ $(document).ready(function () {
         $('#hidden_description_test').val($('#description_test').val());
         $('#hidden_subj_test').val($('#subj_test').val());
         $('#hidden_num_attempts').val($('#num_attempts').val());
+        $('#hidden_result_display_mode').val($('#result_display_mode').val());
 
         const h = String(parseInt($('#hours').val() || '0')).padStart(2, '0');
         const m = String(parseInt($('#minutes').val() || '0')).padStart(2, '0');

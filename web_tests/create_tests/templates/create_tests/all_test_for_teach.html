@@ -52,89 +52,206 @@
     <div class="tests-container">
         {% if tests %}
             <ul class="tests-list">
-                {% for test in tests %}
-                <li class="test-card" data-slug="{{ test.name_slug_tests }}" data-published="{% if test.is_published %}true{% else %}false{% endif %}">
-                    <div class="test-main">
-                        <div class="test-info">
-                            <div class="base_info">
-                                <span class="test-subj">{{ forloop.counter }}. {{ test.name_tests }}.</span>
-                                <span class="test-number">Предмет: {{ test.subj }}.</span>
-                            </div>
-                            <div class="test-meta">
-                                <span><i class="far fa-calendar-alt"></i> Создан: {{ test.created_at|date:"d.m.Y" }}</span>
-                                {% if test.creator %}
-                                <span><i class="fas fa-user"></i>
-                                    Автор: {{ test.creator.first_name }} {{ test.creator.last_name }}
-                                    {% if test.creator != current_teacher %}
-                                        <span class="external-author">(чужой тест)</span>
-                                    {% endif %}
-                                </span>
-                                {% endif %}
-                                <span><i class="fas fa-users"></i>
-                                    Доступ:
-                                    {% with found=0 %}
-                                        {% for pub in published %}
-                                            {% if pub.test_name.id == test.id %}
-                                                {{ pub.group_name.name }}
-                                                {% with found=1 %}{% endwith %}
-                                            {% endif %}
-                                        {% endfor %}
-                                        {% if not test.is_published %}Ограничен{% endif %}
-                                    {% endwith %}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="test-actions">
-                            <a href="{% url 'create_tests:some_test' test.name_slug_tests %}" class="btn btn-watch">
-                                <i class="fa-solid fa-eye"></i> Посмотреть
-                            </a>
-                            <a href="{% url 'create_tests:solve_test' test.name_slug_tests %}" class="btn btn-info">
-                                <i class="fas fa-play"></i> Решить
-                            </a>
-
-                            {% if test.creator == current_teacher %}
-                                <!-- Действия для собственных тестов -->
-                                {% if not test.is_published %}
-                                    <button class="btn btn-publish publish-btn"
-                                            data-slug="{{ test.name_slug_tests }}"
-                                            data-url="{% url 'create_tests:publish_test' test.name_slug_tests %}">
-                                        <i class="fas fa-share-square"></i> Опубликовать
-                                    </button>
-
-                                    <button class="btn btn-danger delete-btn"
-                                            data-slug="{{ test.name_slug_tests }}"
-                                            data-url="{% url 'create_tests:delete_test' test.name_slug_tests %}">
-                                        <i class="fas fa-trash-alt"></i> Удалить
-                                    </button>
-                                    <a href="{% url 'create_tests:edit_test' test.name_slug_tests %}" class="btn btn-edit">
-                                        <i class="fas fa-edit"></i> Редактировать
-                                    </a>
-                                {% else %}
-                                    <button class="btn btn-unpublish unpublish-btn"
-                                            data-url="{% url 'create_tests:unpublish_test' test.name_slug_tests %}">
-                                        <i class="fa-solid fa-eye-slash"></i> Снять с публикации
-                                    </button>
-                                    <div class="edit-disabled-notice" style="width: 215px;">
-                                        <i class="fas fa-exclamation-circle"></i>
-                                        <span>Изменения недоступны</span>
+                {% if filter_type == "all" %}
+                    <!-- Сначала показываем тесты преподавателя -->
+                    {% for test in tests %}
+                        {% if test.creator == current_teacher %}
+                        <li class="test-card" data-slug="{{ test.name_slug_tests }}" data-published="{% if test.is_published %}true{% else %}false{% endif %}">
+                            <div class="test-main">
+                                <div class="test-info">
+                                    <div class="base_info">
+                                        <span class="test-subj">{{ forloop.counter }}. {{ test.name_tests }}.</span>
+                                        <span class="test-number">Предмет: {{ test.subj }}.</span>
                                     </div>
-                                {% endif %}
-                            {% else %}
-                                <!-- Действия для чужих тестов - только просмотр -->
-                                <div class="external-test-notice">
-                                    <i class="fas fa-info-circle"></i>
-                                    <span>Чужой тест - только просмотр</span>
+                                    <div class="test-meta">
+                                        <span><i class="far fa-calendar-alt"></i> Создан: {{ test.created_at|date:"d.m.Y" }}</span>
+                                        <span><i class="fas fa-user"></i>Автор: {{ test.creator.first_name }} {{ test.creator.last_name }}</span>
+                                        <span><i class="fas fa-users"></i>
+                                            Доступ:
+                                            {% with found=0 %}
+                                                {% for pub in published %}
+                                                    {% if pub.test_name.id == test.id %}
+                                                        {{ pub.group_name.name }}
+                                                        {% with found=1 %}{% endwith %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% if not test.is_published %}Ограничен{% endif %}
+                                            {% endwith %}
+                                        </span>
+                                    </div>
                                 </div>
+                                <div class="test-actions">
+                                    <a href="{% url 'create_tests:some_test' test.name_slug_tests %}" class="btn btn-watch">
+                                        <i class="fa-solid fa-eye"></i> Посмотреть
+                                    </a>
+                                    <a href="{% url 'create_tests:solve_test' test.name_slug_tests %}" class="btn btn-info">
+                                        <i class="fas fa-play"></i> Решить
+                                    </a>
+
+                                    <!-- Действия для собственных тестов -->
+                                    {% if not test.is_published %}
+                                        <button class="btn btn-publish publish-btn"
+                                                data-slug="{{ test.name_slug_tests }}"
+                                                data-url="{% url 'create_tests:publish_test' test.name_slug_tests %}">
+                                            <i class="fas fa-share-square"></i> Опубликовать
+                                        </button>
+
+                                        <button class="btn btn-danger delete-btn"
+                                                data-slug="{{ test.name_slug_tests }}"
+                                                data-url="{% url 'create_tests:delete_test' test.name_slug_tests %}">
+                                            <i class="fas fa-trash-alt"></i> Удалить
+                                        </button>
+                                        <a href="{% url 'create_tests:edit_test' test.name_slug_tests %}" class="btn btn-edit">
+                                            <i class="fas fa-edit"></i> Редактировать
+                                        </a>
+                                    {% else %}
+                                        <button class="btn btn-unpublish unpublish-btn"
+                                                data-url="{% url 'create_tests:unpublish_test' test.name_slug_tests %}">
+                                            <i class="fa-solid fa-eye-slash"></i> Снять с публикации
+                                        </button>
+                                        <div class="edit-disabled-notice" style="width: 215px;">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            <span>Изменения недоступны</span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if test.description %}
+                            <div class="test-description">
+                                <p>{{ test.description }}</p>
+                            </div>
                             {% endif %}
-                        </div>
-                    </div>
-                    {% if test.description %}
-                    <div class="test-description">
-                        <p>{{ test.description }}</p>
-                    </div>
-                    {% endif %}
-                </li>
-                {% endfor %}
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    <!-- Затем тесты других преподавателей -->
+                    {% for test in tests %}
+                        {% if test.creator != current_teacher %}
+                        <li class="test-card" data-slug="{{ test.name_slug_tests }}" data-published="{% if test.is_published %}true{% else %}false{% endif %}">
+                            <div class="test-main">
+                                <div class="test-info">
+                                    <div class="base_info">
+                                        <span class="test-subj">{{ forloop.counter }}. {{ test.name_tests }}.</span>
+                                        <span class="test-number">Предмет: {{ test.subj }}.</span>
+                                    </div>
+                                    <div class="test-meta">
+                                        <span><i class="far fa-calendar-alt"></i> Создан: {{ test.created_at|date:"d.m.Y" }}</span>
+                                        <span><i class="fas fa-user"></i>
+                                            Автор: {{ test.creator.first_name }} {{ test.creator.last_name }}
+                                            <span class="external-author">(чужой тест)</span>
+                                        </span>
+                                        <span><i class="fas fa-users"></i>
+                                            Доступ:
+                                            {% with found=0 %}
+                                                {% for pub in published %}
+                                                    {% if pub.test_name.id == test.id %}
+                                                        {{ pub.group_name.name }}
+                                                        {% with found=1 %}{% endwith %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% if not test.is_published %}Ограничен{% endif %}
+                                            {% endwith %}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="test-actions">
+                                    <a href="{% url 'create_tests:some_test' test.name_slug_tests %}" class="btn btn-watch">
+                                        <i class="fa-solid fa-eye"></i> Посмотреть
+                                    </a>
+                                    <a href="{% url 'create_tests:solve_test' test.name_slug_tests %}" class="btn btn-info">
+                                        <i class="fas fa-play"></i> Решить
+                                    </a>
+
+                                    <!-- Действия для чужих тестов - только просмотр -->
+                                    <div class="external-test-notice">
+                                        <i class="fas fa-info-circle"></i>
+                                        <span>Чужой тест - только просмотр</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if test.description %}
+                            <div class="test-description">
+                                <p>{{ test.description }}</p>
+                            </div>
+                            {% endif %}
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+
+                {% elif filter_type == "my" %}
+                    <!-- Только мои тесты -->
+                    {% for test in tests %}
+                        {% if test.creator == current_teacher %}
+                        <li class="test-card" data-slug="{{ test.name_slug_tests }}" data-published="{% if test.is_published %}true{% else %}false{% endif %}">
+                            <div class="test-main">
+                                <div class="test-info">
+                                    <div class="base_info">
+                                        <span class="test-subj">{{ forloop.counter }}. {{ test.name_tests }}.</span>
+                                        <span class="test-number">Предмет: {{ test.subj }}.</span>
+                                    </div>
+                                    <div class="test-meta">
+                                        <span><i class="far fa-calendar-alt"></i> Создан: {{ test.created_at|date:"d.m.Y" }}</span>
+                                        <span><i class="fas fa-user"></i>Автор: {{ test.creator.first_name }} {{ test.creator.last_name }}</span>
+                                        <span><i class="fas fa-users"></i>
+                                            Доступ:
+                                            {% with found=0 %}
+                                                {% for pub in published %}
+                                                    {% if pub.test_name.id == test.id %}
+                                                        {{ pub.group_name.name }}
+                                                        {% with found=1 %}{% endwith %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {% if not test.is_published %}Ограничен{% endif %}
+                                            {% endwith %}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="test-actions">
+                                    <a href="{% url 'create_tests:some_test' test.name_slug_tests %}" class="btn btn-watch">
+                                        <i class="fa-solid fa-eye"></i> Посмотреть
+                                    </a>
+                                    <a href="{% url 'create_tests:solve_test' test.name_slug_tests %}" class="btn btn-info">
+                                        <i class="fas fa-play"></i> Решить
+                                    </a>
+
+                                    <!-- Действия для собственных тестов -->
+                                    {% if not test.is_published %}
+                                        <button class="btn btn-publish publish-btn"
+                                                data-slug="{{ test.name_slug_tests }}"
+                                                data-url="{% url 'create_tests:publish_test' test.name_slug_tests %}">
+                                            <i class="fas fa-share-square"></i> Опубликовать
+                                        </button>
+
+                                        <button class="btn btn-danger delete-btn"
+                                                data-slug="{{ test.name_slug_tests }}"
+                                                data-url="{% url 'create_tests:delete_test' test.name_slug_tests %}">
+                                            <i class="fas fa-trash-alt"></i> Удалить
+                                        </button>
+                                        <a href="{% url 'create_tests:edit_test' test.name_slug_tests %}" class="btn btn-edit">
+                                            <i class="fas fa-edit"></i> Редактировать
+                                        </a>
+                                    {% else %}
+                                        <button class="btn btn-unpublish unpublish-btn"
+                                                data-url="{% url 'create_tests:unpublish_test' test.name_slug_tests %}">
+                                            <i class="fa-solid fa-eye-slash"></i> Снять с публикации
+                                        </button>
+                                        <div class="edit-disabled-notice" style="width: 215px;">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            <span>Изменения недоступны</span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if test.description %}
+                            <div class="test-description">
+                                <p>{{ test.description }}</p>
+                            </div>
+                            {% endif %}
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
             </ul>
         {% else %}
             <div class="empty-state">

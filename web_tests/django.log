@@ -7504,3 +7504,261 @@ NameError: name 'logger' is not defined
 [WARNING] 2025-11-13 00:39:42,639 django.server 22292 16600 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
 [INFO] 2025-11-13 00:39:50,114 django.server 22292 5360 "GET /TestsCreate/listTests/ HTTP/1.1" 200 232837
 [INFO] 2025-11-13 00:39:50,304 django.server 22292 5360 "GET /static/css/all_test_for_teach.css HTTP/1.1" 304 0
+[INFO] 2025-11-13 01:11:47,407 django.utils.autoreload 13772 20184 Watching for file changes with StatReloader
+[INFO] 2025-11-13 01:11:51,986 django.server 13772 13172 "GET /personaInf/ HTTP/1.1" 200 7552
+[INFO] 2025-11-13 01:11:52,529 django.server 13772 13172 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-11-13 01:11:52,536 django.server 13772 22460 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-11-13 01:11:52,538 django.server 13772 4056 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-11-13 01:11:52,541 django.server 13772 22232 "GET /static/css/teacher_account.css HTTP/1.1" 200 5060
+[INFO] 2025-11-13 01:11:52,563 django.server 13772 16568 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-11-13 01:11:52,596 django.server 13772 16568 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-11-13 01:11:52,597 django.server 13772 22232 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-11-13 01:11:52,660 django.server 13772 22232 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2025-11-13 01:11:52,667 django.server 13772 4056 "GET /static/js/teacher_account.js HTTP/1.1" 404 1822
+[INFO] 2025-11-13 01:11:52,937 django.server 13772 22232 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-11-13 01:11:54,992 django.server 13772 22232 "GET /TestsCreate/listTests/ HTTP/1.1" 200 232837
+[INFO] 2025-11-13 01:11:55,162 django.server 13772 22232 "GET /static/css/all_test_for_teach.css HTTP/1.1" 304 0
+[INFO] 2025-11-13 01:11:55,215 django.server 13772 22232 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-11-13 01:11:56,799 django.server 13772 22232 "GET /TestsCreate/solve-test/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 10228
+[WARNING] 2025-11-13 01:11:57,148 django.server 13772 22232 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[WARNING] 2025-11-13 01:11:57,420 django.server 13772 16568 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-11-13 01:12:02,189 django.server 13772 6364 "GET /TestsCreate/solve-test/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 10323
+[INFO] 2025-11-13 01:12:02,341 django.server 13772 6364 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-11-13 01:12:02,373 django.server 13772 2144 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-11-13 01:12:02,379 django.server 13772 14844 "GET /static/css/specific_test.css HTTP/1.1" 200 4391
+[INFO] 2025-11-13 01:12:02,388 django.server 13772 12144 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-11-13 01:12:02,389 django.server 13772 2140 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2025-11-13 01:12:02,392 django.server 13772 10812 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2025-11-13 01:12:02,404 django.server 13772 2144 "GET /static/js/specific_test.js HTTP/1.1" 200 4365
+[INFO] 2025-11-13 01:12:02,411 django.server 13772 12144 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 268
+[INFO] 2025-11-13 01:12:02,414 django.server 13772 14844 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-11-13 01:12:02,449 django.server 13772 2140 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-11-13 01:12:02,471 django.server 13772 6364 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2025-11-13 01:12:02,494 django.server 13772 6364 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-11-13 01:12:02,515 django.server 13772 6364 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-11-13 01:12:02,596 django.server 13772 6364 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2025-11-13 01:12:02,711 django.server 13772 6364 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2025-11-13 01:12:02,775 django.server 13772 2140 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[WARNING] 2025-11-13 01:12:03,296 django.server 13772 6364 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-11-13 01:12:03,303 django.server 13772 14844 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-11-13 01:12:05,562 django.server 13772 14844 "GET /TestsCreate/solve-test/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 10304
+[INFO] 2025-11-13 01:12:05,720 django.server 13772 14844 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-11-13 01:12:05,768 django.server 13772 12144 "GET /static/css/specific_test.css HTTP/1.1" 200 4391
+[INFO] 2025-11-13 01:12:05,770 django.server 13772 10812 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2025-11-13 01:12:05,771 django.server 13772 14844 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-11-13 01:12:05,775 django.server 13772 20624 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2025-11-13 01:12:05,778 django.server 13772 2144 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-11-13 01:12:05,790 django.server 13772 14844 "GET /static/js/specific_test.js HTTP/1.1" 200 4365
+[INFO] 2025-11-13 01:12:05,801 django.server 13772 12144 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 268
+[INFO] 2025-11-13 01:12:05,806 django.server 13772 20624 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-11-13 01:12:05,850 django.server 13772 2144 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-11-13 01:12:05,879 django.server 13772 15700 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2025-11-13 01:12:05,884 django.server 13772 2144 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-11-13 01:12:05,918 django.server 13772 2144 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-11-13 01:12:05,990 django.server 13772 2144 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2025-11-13 01:12:06,147 django.server 13772 2144 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2025-11-13 01:12:06,208 django.server 13772 2144 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[WARNING] 2025-11-13 01:12:06,554 django.server 13772 15700 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-11-13 01:12:06,577 django.server 13772 20624 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-11-13 01:12:08,148 django.server 13772 20624 "GET /TestsCreate/solve-test/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 10371
+[INFO] 2025-11-13 01:12:08,289 django.server 13772 20624 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-11-13 01:12:08,314 django.server 13772 10812 "GET /static/css/specific_test.css HTTP/1.1" 200 4391
+[INFO] 2025-11-13 01:12:08,316 django.server 13772 12144 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-11-13 01:12:08,321 django.server 13772 14844 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-11-13 01:12:08,324 django.server 13772 14360 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2025-11-13 01:12:08,325 django.server 13772 1796 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2025-11-13 01:12:08,335 django.server 13772 20624 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2025-11-13 01:12:08,347 django.server 13772 12144 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-11-13 01:12:08,348 django.server 13772 1796 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 268
+[INFO] 2025-11-13 01:12:08,349 django.server 13772 14360 "GET /static/js/specific_test.js HTTP/1.1" 200 4365
+[INFO] 2025-11-13 01:12:08,377 django.server 13772 10812 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-11-13 01:12:08,443 django.server 13772 10812 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-11-13 01:12:08,465 django.server 13772 10812 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-11-13 01:12:08,530 django.server 13772 10812 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2025-11-13 01:12:08,611 django.server 13772 10812 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2025-11-13 01:12:08,648 django.server 13772 20624 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2025-11-13 01:12:09,070 django.server 13772 10812 "GET /static/favicon.ico HTTP/1.1" 200 976
+[WARNING] 2025-11-13 01:12:09,107 django.server 13772 14360 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-11-13 01:12:11,149 django.server 13772 19420 "GET /TestsCreate/solve-test/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 10228
+[INFO] 2025-11-13 01:12:11,291 django.server 13772 19420 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-11-13 01:12:11,299 django.server 13772 6168 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-11-13 01:12:11,328 django.server 13772 10592 "GET /static/css/specific_test.css HTTP/1.1" 200 4391
+[INFO] 2025-11-13 01:12:11,329 django.server 13772 10400 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2025-11-13 01:12:11,332 django.server 13772 18512 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2025-11-13 01:12:11,336 django.server 13772 1480 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-11-13 01:12:11,339 django.server 13772 6168 "GET /static/js/specific_test.js HTTP/1.1" 200 4365
+[INFO] 2025-11-13 01:12:11,357 django.server 13772 18512 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 268
+[INFO] 2025-11-13 01:12:11,360 django.server 13772 10400 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-11-13 01:12:11,379 django.server 13772 6168 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-11-13 01:12:11,387 django.server 13772 19420 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2025-11-13 01:12:11,444 django.server 13772 19420 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-11-13 01:12:11,466 django.server 13772 19420 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-11-13 01:12:11,539 django.server 13772 19420 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2025-11-13 01:12:11,674 django.server 13772 19420 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2025-11-13 01:12:11,676 django.server 13772 6168 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[WARNING] 2025-11-13 01:12:11,940 django.server 13772 19420 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-11-13 01:12:11,963 django.server 13772 10400 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-11-13 01:12:13,390 django.server 13772 10400 "GET /TestsCreate/solve-test/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 10228
+[INFO] 2025-11-13 01:12:13,522 django.server 13772 10400 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-11-13 01:12:13,546 django.server 13772 10592 "GET /static/css/specific_test.css HTTP/1.1" 200 4391
+[INFO] 2025-11-13 01:12:13,547 django.server 13772 18512 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-11-13 01:12:13,550 django.server 13772 1480 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-11-13 01:12:13,551 django.server 13772 18500 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2025-11-13 01:12:13,563 django.server 13772 11160 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2025-11-13 01:12:13,566 django.server 13772 18512 "GET /static/js/specific_test.js HTTP/1.1" 200 4365
+[INFO] 2025-11-13 01:12:13,579 django.server 13772 18500 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-11-13 01:12:13,581 django.server 13772 1480 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 268
+[INFO] 2025-11-13 01:12:13,600 django.server 13772 10400 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2025-11-13 01:12:13,602 django.server 13772 11160 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-11-13 01:12:13,648 django.server 13772 10400 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-11-13 01:12:13,671 django.server 13772 10400 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-11-13 01:12:13,749 django.server 13772 10400 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2025-11-13 01:12:13,851 django.server 13772 10400 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2025-11-13 01:12:13,858 django.server 13772 11160 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[WARNING] 2025-11-13 01:12:14,135 django.server 13772 10400 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-11-13 01:12:14,495 django.server 13772 1480 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-11-13 01:12:15,832 django.server 13772 1480 "GET /TestsCreate/solve-test/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 10392
+[INFO] 2025-11-13 01:12:15,978 django.server 13772 18500 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-11-13 01:12:15,979 django.server 13772 1480 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-11-13 01:12:16,001 django.server 13772 19280 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2025-11-13 01:12:16,002 django.server 13772 10592 "GET /static/css/specific_test.css HTTP/1.1" 200 4391
+[INFO] 2025-11-13 01:12:16,009 django.server 13772 18512 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-11-13 01:12:16,032 django.server 13772 18500 "GET /static/js/specific_test.js HTTP/1.1" 200 4365
+[INFO] 2025-11-13 01:12:16,039 django.server 13772 1480 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2025-11-13 01:12:16,041 django.server 13772 10592 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-11-13 01:12:16,043 django.server 13772 19280 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 268
+[INFO] 2025-11-13 01:12:16,051 django.server 13772 18512 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-11-13 01:12:16,072 django.server 13772 6900 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2025-11-13 01:12:16,099 django.server 13772 6900 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-11-13 01:12:16,130 django.server 13772 6900 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-11-13 01:12:16,207 django.server 13772 6900 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2025-11-13 01:12:16,322 django.server 13772 6900 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2025-11-13 01:12:16,350 django.server 13772 18512 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[WARNING] 2025-11-13 01:12:16,775 django.server 13772 6900 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-11-13 01:12:16,820 django.server 13772 10592 "GET /static/favicon.ico HTTP/1.1" 200 976
+[WARNING] 2025-11-13 01:12:23,718 django.request 13772 1884 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-11-13 01:12:23,721 django.server 13772 1884 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[INFO] 2025-11-13 01:12:44,278 django.server 13772 14724 "GET /TestsCreate/solve-test/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 10303
+[WARNING] 2025-11-13 01:12:44,432 django.request 13772 14724 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-11-13 01:12:44,434 django.server 13772 14724 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[INFO] 2025-11-13 01:12:44,480 django.server 13772 14724 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-11-13 01:12:44,538 django.server 13772 12524 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2025-11-13 01:12:44,538 django.server 13772 14724 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-11-13 01:12:44,548 django.server 13772 14144 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-11-13 01:12:44,564 django.server 13772 14724 "GET /static/js/specific_test.js HTTP/1.1" 200 4365
+[INFO] 2025-11-13 01:12:44,575 django.server 13772 14144 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 268
+[INFO] 2025-11-13 01:12:44,577 django.server 13772 12524 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-11-13 01:12:44,594 django.server 13772 11012 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2025-11-13 01:12:44,596 django.server 13772 19076 "GET /static/css/specific_test.css HTTP/1.1" 200 4391
+[INFO] 2025-11-13 01:12:44,616 django.server 13772 14724 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-11-13 01:12:44,689 django.server 13772 14724 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-11-13 01:12:44,736 django.server 13772 20944 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2025-11-13 01:12:44,761 django.server 13772 20944 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-11-13 01:12:44,896 django.server 13772 20944 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2025-11-13 01:12:45,135 django.server 13772 20944 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2025-11-13 01:12:45,190 django.server 13772 20944 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[WARNING] 2025-11-13 01:12:45,843 django.server 13772 14724 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-11-13 01:12:46,259 django.server 13772 11012 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-11-13 01:12:52,537 django.server 13772 18268 "GET /TestsCreate/listTests/ HTTP/1.1" 200 232837
+[INFO] 2025-11-13 01:12:52,765 django.server 13772 18268 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-11-13 01:15:46,068 django.utils.autoreload 13772 20184 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\logic_of_expression\check_sympy_expr.py changed, reloading.
+[INFO] 2025-11-13 01:15:48,591 django.utils.autoreload 15764 3712 Watching for file changes with StatReloader
+[INFO] 2025-11-15 13:59:51,346 django.server 15764 5032 "GET /static/favicon.ico HTTP/1.1" 304 0
+[INFO] 2025-11-17 13:22:49,173 django.utils.autoreload 31612 31184 Watching for file changes with StatReloader
+[INFO] 2025-11-19 22:52:25,271 django.utils.autoreload 13696 19632 Watching for file changes with StatReloader
+[INFO] 2025-11-19 22:52:31,098 django.server 13696 13832 "GET / HTTP/1.1" 200 1969
+[INFO] 2025-11-19 22:52:31,972 django.server 13696 23608 "GET /static/css/registration.css HTTP/1.1" 200 2951
+[INFO] 2025-11-19 22:52:31,981 django.server 13696 2376 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2025-11-19 22:52:32,029 django.server 13696 7680 "GET /static/js/registration.js HTTP/1.1" 200 798
+[INFO] 2025-11-19 22:52:32,035 django.server 13696 12480 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-11-19 22:52:32,255 django.server 13696 12480 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-11-19 22:52:38,858 django.server 13696 3724 "GET / HTTP/1.1" 200 1969
+[INFO] 2025-11-19 22:52:39,875 django.server 13696 3724 "GET /static/favicon.ico HTTP/1.1" 304 0
+[INFO] 2025-11-19 22:52:43,322 django.server 13696 16756 "POST / HTTP/1.1" 302 0
+[INFO] 2025-11-19 22:52:43,405 django.server 13696 16756 "GET /TestsCreate/listTests/ HTTP/1.1" 200 232829
+[INFO] 2025-11-19 22:52:43,509 django.server 13696 16756 "GET /static/css/header.css HTTP/1.1" 304 0
+[INFO] 2025-11-19 22:52:43,511 django.server 13696 3676 "GET /static/css/dark-theme.css HTTP/1.1" 304 0
+[INFO] 2025-11-19 22:52:43,512 django.server 13696 17620 "GET /static/css/all_test_for_teach.css HTTP/1.1" 304 0
+[INFO] 2025-11-19 22:52:43,513 django.server 13696 24264 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 304 0
+[INFO] 2025-11-19 22:52:43,595 django.server 13696 17620 "GET /static/js/theme-switcher.js HTTP/1.1" 304 0
+[INFO] 2025-11-19 22:52:43,599 django.server 13696 24264 "GET /static/js/header.js HTTP/1.1" 304 0
+[INFO] 2025-11-19 22:52:43,622 django.server 13696 24264 "GET /static/js/all_test_for_teach.js HTTP/1.1" 304 0
+[INFO] 2025-11-19 22:52:43,743 django.server 13696 17620 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 304 0
+[INFO] 2025-11-19 22:52:43,743 django.server 13696 24264 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 304 0
+[INFO] 2025-11-19 22:52:51,824 django.server 13696 21440 "GET /TestsCreate/ HTTP/1.1" 200 20224
+[INFO] 2025-11-19 22:52:51,982 django.server 13696 21440 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2025-11-19 22:52:52,043 django.server 13696 10140 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2025-11-19 22:52:52,049 django.server 13696 18872 "GET /static/css/writing_tests.css HTTP/1.1" 304 0
+[INFO] 2025-11-19 22:52:52,066 django.server 13696 23612 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-11-19 22:52:52,111 django.server 13696 5964 "GET /static/js/writing_tests.js HTTP/1.1" 304 0
+[WARNING] 2025-11-19 22:52:52,574 django.server 13696 5964 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2025-11-19 22:53:26,341 create_tests.views 13696 12808 === CREATE TEST DEBUG START ===
+[INFO] 2025-11-19 22:53:26,342 create_tests.views 13696 12808 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'result_display_mode', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans', 'number', 'block_expression_num']
+[INFO] 2025-11-19 22:53:26,344 create_tests.views 13696 12808 POST data: {'csrfmiddlewaretoken': ['loMrpLRaqes8K80Uc6UfqSAXOcRiYj8FU5labJauNr9Gf0aTDvozAKRSdz5aRE8t'], 'name_test': ['Проверка уровней доступа'], 'time_solve': ['01:00:00'], 'num_attempts': ['13'], 'subj_test': ['1'], 'description_test': [''], 'result_display_mode': ['only_score'], 'point_solve': ['["1"]'], 'user_expression': ['["1"]'], 'user_ans': ['["1"]'], 'user_eps': ['["0"]'], 'user_type': ['["1"]'], 'user_norm': ['[""]'], 'user_bool_ans': ['["0"]'], 'number': ['[1]'], 'block_expression_num': ['[1]']}
+[INFO] 2025-11-19 22:53:26,345 create_tests.views 13696 12808 Basic fields - name: 'Проверка уровней доступа', time: '01:00:00', attempts: '13', subj_id: '1'
+[INFO] 2025-11-19 22:53:26,348 create_tests.views 13696 12808 Raw task_groups_data: []
+[INFO] 2025-11-19 22:53:26,349 create_tests.views 13696 12808 Parsed task_groups_data: []
+[INFO] 2025-11-19 22:53:26,350 create_tests.views 13696 12808 Raw data - points: ["1"], expressions: ["1"]
+[INFO] 2025-11-19 22:53:26,351 create_tests.views 13696 12808 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-11-19 22:53:26,372 create_tests.views 13696 12808 Found 1 valid expressions out of 1
+[INFO] 2025-11-19 22:53:26,373 create_tests.views 13696 12808 Numbers raw: [1], Block nums raw: [1]
+[INFO] 2025-11-19 22:53:26,373 create_tests.views 13696 12808 Processing expression 1: 1...
+[INFO] 2025-11-19 22:53:26,373 create_tests.views 13696 12808 Data: ans='1', bool_ans='0', eps='0', type_id='1', point='1', norm_id=''
+[INFO] 2025-11-19 22:53:26,374 create_tests.views 13696 12808 flag_select = False
+[INFO] 2025-11-19 22:53:26,375 create_tests.views 13696 12808 type_obj = Целые
+[INFO] 2025-11-19 22:53:26,384 create_tests.views 13696 12808 Created expression instance: 1 with number=1, block=1
+[INFO] 2025-11-19 22:53:26,395 create_tests.views 13696 12808 Added expression 1 successfully
+[INFO] 2025-11-19 22:53:26,404 create_tests.views 13696 12808 === CREATE TEST DEBUG END ===
+[INFO] 2025-11-19 22:53:26,406 django.server 13696 12808 "POST /TestsCreate/ HTTP/1.1" 302 0
+[INFO] 2025-11-19 22:53:26,470 django.server 13696 12808 "GET /TestsCreate/listTests/ HTTP/1.1" 200 204638
+[WARNING] 2025-11-19 22:53:32,255 django.request 13696 12808 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-11-19 22:53:32,256 django.server 13696 12808 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[INFO] 2025-11-19 22:55:50,690 django.server 13696 22940 "POST /TestsCreate/delete-test/proverka-urovnei-dostupa/ HTTP/1.1" 200 17
+[INFO] 2025-11-19 22:55:51,007 django.server 13696 1296 "GET /TestsCreate/listTests/ HTTP/1.1" 200 232837
+[INFO] 2025-11-19 22:55:51,285 django.server 13696 1296 "GET /static/favicon.svg HTTP/1.1" 304 0
+[INFO] 2025-11-19 22:56:03,798 django.server 13696 10060 "GET /TestsCreate/listTests/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 82691
+[INFO] 2025-11-19 22:56:03,901 django.server 13696 10060 "GET /static/css/some_test.css HTTP/1.1" 304 0
+[INFO] 2025-11-19 22:56:03,917 django.server 13696 10060 "GET /static/js/some_test.js HTTP/1.1" 304 0
+[INFO] 2025-11-19 22:56:03,920 django.server 13696 22564 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2025-11-19 22:56:03,921 django.server 13696 7212 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 268
+[INFO] 2025-11-19 22:56:03,965 django.server 13696 7212 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[WARNING] 2025-11-19 22:56:05,594 django.server 13696 7212 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-11-19 22:56:12,139 django.server 13696 23048 "GET /TestsCreate/listTests/ HTTP/1.1" 200 232837
+[INFO] 2025-11-19 22:56:17,264 django.server 13696 23048 "GET /TestsCreate/ HTTP/1.1" 200 20224
+[WARNING] 2025-11-19 22:56:17,443 django.server 13696 23048 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2025-11-19 22:56:48,457 create_tests.views 13696 17736 === CREATE TEST DEBUG START ===
+[INFO] 2025-11-19 22:56:48,458 create_tests.views 13696 17736 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'result_display_mode', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans', 'number', 'block_expression_num']
+[INFO] 2025-11-19 22:56:48,458 create_tests.views 13696 17736 POST data: {'csrfmiddlewaretoken': ['NlRBMZj9cMXzYTLpbOCtnUnclYIHH57fm2qkyXCtzZE7tLVoCd6NxME7KlWzAq73'], 'name_test': ['Тест областей видимости'], 'time_solve': ['01:00:00'], 'num_attempts': ['15'], 'subj_test': ['1'], 'description_test': [''], 'result_display_mode': ['only_score'], 'point_solve': ['["1"]'], 'user_expression': ['["1"]'], 'user_ans': ['["1"]'], 'user_eps': ['["0"]'], 'user_type': ['["1"]'], 'user_norm': ['[""]'], 'user_bool_ans': ['["0"]'], 'number': ['[1]'], 'block_expression_num': ['[1]']}
+[INFO] 2025-11-19 22:56:48,459 create_tests.views 13696 17736 Basic fields - name: 'Тест областей видимости', time: '01:00:00', attempts: '15', subj_id: '1'
+[INFO] 2025-11-19 22:56:48,461 create_tests.views 13696 17736 Raw task_groups_data: []
+[INFO] 2025-11-19 22:56:48,462 create_tests.views 13696 17736 Parsed task_groups_data: []
+[INFO] 2025-11-19 22:56:48,462 create_tests.views 13696 17736 Raw data - points: ["1"], expressions: ["1"]
+[INFO] 2025-11-19 22:56:48,463 create_tests.views 13696 17736 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-11-19 22:56:48,486 create_tests.views 13696 17736 Found 1 valid expressions out of 1
+[INFO] 2025-11-19 22:56:48,487 create_tests.views 13696 17736 Numbers raw: [1], Block nums raw: [1]
+[INFO] 2025-11-19 22:56:48,487 create_tests.views 13696 17736 Processing expression 1: 1...
+[INFO] 2025-11-19 22:56:48,487 create_tests.views 13696 17736 Data: ans='1', bool_ans='0', eps='0', type_id='1', point='1', norm_id=''
+[INFO] 2025-11-19 22:56:48,488 create_tests.views 13696 17736 flag_select = False
+[INFO] 2025-11-19 22:56:48,490 create_tests.views 13696 17736 type_obj = Целые
+[INFO] 2025-11-19 22:56:48,502 create_tests.views 13696 17736 Created expression instance: 1 with number=1, block=1
+[INFO] 2025-11-19 22:56:48,511 create_tests.views 13696 17736 Added expression 1 successfully
+[INFO] 2025-11-19 22:56:48,519 create_tests.views 13696 17736 === CREATE TEST DEBUG END ===
+[INFO] 2025-11-19 22:56:48,521 django.server 13696 17736 "POST /TestsCreate/ HTTP/1.1" 302 0
+[INFO] 2025-11-19 22:56:48,576 django.server 13696 17736 "GET /TestsCreate/listTests/ HTTP/1.1" 200 204636
+[INFO] 2025-11-19 23:02:23,312 django.server 13696 26072 "GET /TestsCreate/listTests/ HTTP/1.1" 200 211755
+[INFO] 2025-11-19 23:02:23,447 django.server 13696 26072 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-11-19 23:02:23,447 django.server 13696 10596 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-11-19 23:02:23,474 django.server 13696 14756 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-11-19 23:02:23,477 django.server 13696 23568 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-11-19 23:02:23,480 django.server 13696 4332 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 15849
+[INFO] 2025-11-19 23:02:23,498 django.server 13696 23568 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-11-19 23:02:23,512 django.server 13696 4332 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-11-19 23:02:23,513 django.server 13696 14756 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 14925
+[INFO] 2025-11-19 23:02:23,574 django.server 13696 26072 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-11-19 23:02:23,581 django.server 13696 23568 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2025-11-19 23:02:23,694 django.server 13696 23568 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-11-19 23:02:26,717 django.server 13696 4904 "GET /TestsCreate/listTests/?filter=all HTTP/1.1" 200 243257
+[INFO] 2025-11-19 23:02:38,550 django.server 13696 12820 "GET /TestsCreate/listTests/?filter=my HTTP/1.1" 200 211755
+[INFO] 2025-11-19 23:02:39,725 django.server 13696 12820 "GET /TestsCreate/listTests/?filter=all HTTP/1.1" 200 243257
+[INFO] 2025-11-19 23:02:45,905 django.server 13696 12820 "GET /TestsCreate/listTests/?filter=my HTTP/1.1" 200 211755
+[INFO] 2025-11-19 23:02:47,749 django.server 13696 20556 "GET /TestsCreate/listTests/?filter=all HTTP/1.1" 200 243257

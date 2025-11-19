@@ -36,10 +36,13 @@ class CheckAnswer:
             return int(self.teach_raw == self.stud_raw)
 
         match self.type_ans:
-            case 1: # int
+            case 1:  # int
                 try:
-                    return self.teach_raw == self.stud_raw
-                except ValueError:
+                    # Преобразуем в числа перед сравнением
+                    teach_num = int(self.teach_raw)
+                    stud_num = int(self.stud_raw)
+                    return teach_num == stud_num
+                except (ValueError, TypeError):
                     return 0
 
             case 2: # float

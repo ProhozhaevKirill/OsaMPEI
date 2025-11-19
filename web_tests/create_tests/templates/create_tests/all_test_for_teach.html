@@ -38,8 +38,8 @@
         </div>
         <div class="filter-box">
             <select id="authorFilter" onchange="handleAuthorFilter()">
-                <option value="my" {% if filter_type == 'my' %}selected{% endif %}>Мои тесты</option>
-                <option value="all" {% if filter_type == 'all' %}selected{% endif %}>Все тесты</option>
+                <option value="my" {% if filter_type == "my" %}selected{% endif %}>Мои тесты</option>
+                <option value="all" {% if filter_type == "all" %}selected{% endif %}>Все тесты</option>
             </select>
             <select id="testFilter">
                 <option value="all">Все</option>
@@ -380,103 +380,41 @@ function openGroupModal() {
     }
 }
 
-// Проверяем наличие jQuery и добавляем обработчики
-if (typeof $ !== 'undefined') {
-    $(document).ready(function() {
-        // Открытие модального окна создания набора групп
-        $('#createGroupListBtn').on('click', function() {
-            $('#groupSetModal').addClass('active');
-            $('.modal-overlay').addClass('active');
-        });
-} else {
-    // Fallback на чистый JavaScript если jQuery не загружен
-    document.addEventListener('DOMContentLoaded', function() {
-        // Открытие модального окна создания набора групп
-        const createBtn = document.getElementById('createGroupListBtn');
-        if (createBtn) {
-            createBtn.addEventListener('click', function() {
-                const modal = document.getElementById('groupSetModal');
-                const overlay = document.querySelector('.modal-overlay');
-                if (modal) modal.classList.add('active');
-                if (overlay) overlay.classList.add('active');
-            });
-        }
+// Основная функция инициализации
+function initializeModalHandlers() {
+    // Закрытие модальных окон
+    const closeModal = function() {
+        document.querySelectorAll('.modal').forEach(modal => modal.classList.remove('active'));
+        const overlay = document.querySelector('.modal-overlay');
+        if (overlay) overlay.classList.remove('active');
+    };
+
+    // Обработчики закрытия
+    const closeButtons = document.querySelectorAll('.close-modal, #cancelGroupSet, .close-success');
+    closeButtons.forEach(btn => {
+        btn.addEventListener('click', closeModal);
     });
+
+    const overlay = document.querySelector('.modal-overlay');
+    if (overlay) {
+        overlay.addEventListener('click', closeModal);
+    }
+
+    // Обработчик для кнопки создания группы
+    const createBtn = document.getElementById('createGroupListBtn');
+    if (createBtn && !createBtn.hasAttribute('data-handler-added')) {
+        createBtn.setAttribute('data-handler-added', 'true');
+        createBtn.addEventListener('click', function(e) {
+            console.log('Button clicked!');
+            e.preventDefault();
+            openGroupModal();
+        });
+    }
 }
 
-// jQuery код (если jQuery доступен)
-if (typeof $ !== 'undefined') {
-$(document).ready(function() {
-
-    // Закрытие модальных окон
-    $('.close-modal, #cancelGroupSet, .modal-overlay').on('click', function(e) {
-        if (e.target === this) {
-            $('.modal').removeClass('active');
-            $('.modal-overlay').removeClass('active');
-        }
-    });
-
-    $('.close-success').on('click', function() {
-        $('#successModal').removeClass('active');
-        $('.modal-overlay').removeClass('active');
-    });
-
-    // Переключение институтов
-    $('.btn-toggle').on('click', function() {
-        const instituteCard = $(this).closest('.institute-card');
-        const groupsList = instituteCard.find('.groups-list');
-        const icon = $(this).find('i');
-
-        groupsList.toggle();
-        icon.toggleClass('fa-chevron-down fa-chevron-up');
-    });
-
-    // Отслеживание выбранных групп
-    $('.groupset-checkbox').on('change', function() {
-        updateSelectedGroups();
-    });
-
-    // Поиск групп
-    $('#groupSetSearch').on('input', function() {
-        const searchTerm = $(this).val().toLowerCase();
-        $('.group-item').each(function() {
-            const groupName = $(this).find('label').text().toLowerCase();
-            if (groupName.includes(searchTerm)) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    });
-
-    // Фильтрация по уровню образования
-    $('#groupSetEducationFilter').on('change', function() {
-        const selectedLevel = $(this).val();
-        $('.group-item').each(function() {
-            const itemLevel = $(this).data('education-level');
-            if (!selectedLevel || itemLevel === selectedLevel) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    });
-
-    // Фильтрация по курсу
-    $('#groupSetCourseFilter').on('change', function() {
-        const selectedCourse = $(this).val();
-        $('.group-item').each(function() {
-            const itemCourse = $(this).data('course').toString();
-            if (!selectedCourse || itemCourse === selectedCourse) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
-    });
-
-    // Функция обновления списка выбранных групп
-    function updateSelectedGroups() {
+// Функции для работы с группами (общие для jQuery и pure JS)
+function updateSelectedGroups() {
+    if (typeof $ !== 'undefined') {
         const selectedGroups = $('.groupset-checkbox:checked');
         const count = selectedGroups.length;
 
@@ -493,108 +431,322 @@ $(document).ready(function() {
             groupItem.append(`<button class="btn btn-sm btn-danger remove-group" data-group-id="${groupId}"><i class="fas fa-times"></i></button>`);
             selectedList.append(groupItem);
         });
-    }
+    } else {
+        // Pure JS реализация
+        const selectedGroups = document.querySelectorAll('.groupset-checkbox:checked');
+        const count = selectedGroups.length;
 
-    // Удаление группы из выбранных
-    $(document).on('click', '.remove-group', function() {
-        const groupId = $(this).data('group-id');
-        $(`#groupset-${groupId}`).prop('checked', false);
-        updateSelectedGroups();
-    });
+        const countElement = document.getElementById('selectedGroupsCount');
+        if (countElement) countElement.textContent = count;
 
-    // Сохранение набора групп
-    $('#saveGroupSet').on('click', function() {
-        const groupSetName = $('#groupSetName').val().trim();
-        const selectedGroups = $('.groupset-checkbox:checked').map(function() {
-            return $(this).val();
-        }).get();
+        const selectedList = document.getElementById('selectedGroupsList');
+        if (selectedList) {
+            selectedList.innerHTML = '';
 
-        if (!groupSetName) {
-            alert('Пожалуйста, введите название набора групп');
-            return;
-        }
+            selectedGroups.forEach(checkbox => {
+                const label = checkbox.nextElementSibling.cloneNode(true);
+                const groupId = checkbox.value;
+                const groupItem = document.createElement('div');
+                groupItem.className = 'selected-group-item';
+                groupItem.appendChild(label);
 
-        if (selectedGroups.length === 0) {
-            alert('Пожалуйста, выберите хотя бы одну группу');
-            return;
-        }
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'btn btn-sm btn-danger remove-group';
+                removeBtn.setAttribute('data-group-id', groupId);
+                removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                groupItem.appendChild(removeBtn);
 
-        // Отправка данных на сервер
-        $.ajax({
-            url: '{% url "create_tests:save_group_set" %}',
-            method: 'POST',
-            data: {
-                'name': groupSetName,
-                'groups': selectedGroups,
-                'csrfmiddlewaretoken': $('[name=csrfmiddlewaretoken]').val() || '{{ csrf_token }}'
-            },
-            success: function(response) {
-                if (response.success) {
-                    $('#groupSetModal').removeClass('active');
-                    $('#successModal').addClass('active');
-
-                    // Очистка формы
-                    $('#groupSetName').val('');
-                    $('.groupset-checkbox').prop('checked', false);
-                    updateSelectedGroups();
-                } else {
-                    alert('Ошибка при сохранении: ' + (response.error || 'Неизвестная ошибка'));
-                }
-            },
-            error: function() {
-                alert('Ошибка при отправке данных на сервер');
-            }
-        });
-    });
-});
-} // Закрытие второго if для jQuery
-
-// Дополнительная проверка на случай если jQuery загружается позже
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, checking button...');
-    const createBtn = document.getElementById('createGroupListBtn');
-    if (createBtn) {
-        console.log('Button found!');
-        // Проверяем, был ли уже добавлен обработчик
-        if (!createBtn.hasAttribute('data-handler-added')) {
-            createBtn.setAttribute('data-handler-added', 'true');
-            createBtn.addEventListener('click', function(e) {
-                console.log('Button clicked!');
-                e.preventDefault();
-                const modal = document.getElementById('groupSetModal');
-                const overlay = document.querySelector('.modal-overlay');
-                if (modal) {
-                    modal.classList.add('active');
-                    console.log('Modal opened');
-                }
-                if (overlay) {
-                    overlay.classList.add('active');
-                    console.log('Overlay shown');
-                }
+                selectedList.appendChild(groupItem);
             });
         }
-    } else {
-        console.log('Button not found!');
     }
+}
 
-    // Добавляем обработчики закрытия модального окна
-    const closeButtons = document.querySelectorAll('.close-modal, #cancelGroupSet');
-    closeButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.modal').forEach(modal => modal.classList.remove('active'));
-            const overlay = document.querySelector('.modal-overlay');
-            if (overlay) overlay.classList.remove('active');
+// Проверяем наличие jQuery и добавляем обработчики
+if (typeof $ !== 'undefined') {
+    $(document).ready(function() {
+        // Открытие модального окна создания набора групп
+        $('#createGroupListBtn').on('click', function() {
+            $('#groupSetModal').addClass('active');
+            $('.modal-overlay').addClass('active');
         });
+
+        // Закрытие модальных окон
+        $('.close-modal, #cancelGroupSet, .modal-overlay').on('click', function(e) {
+            if (e.target === this) {
+                $('.modal').removeClass('active');
+                $('.modal-overlay').removeClass('active');
+            }
+        });
+
+        $('.close-success').on('click', function() {
+            $('#successModal').removeClass('active');
+            $('.modal-overlay').removeClass('active');
+        });
+
+        // Переключение институтов
+        $('.btn-toggle').on('click', function() {
+            const instituteCard = $(this).closest('.institute-card');
+            const groupsList = instituteCard.find('.groups-list');
+            const icon = $(this).find('i');
+
+            groupsList.toggle();
+            icon.toggleClass('fa-chevron-down fa-chevron-up');
+        });
+
+        // Отслеживание выбранных групп
+        $('.groupset-checkbox').on('change', function() {
+            updateSelectedGroups();
+        });
+
+        // Поиск групп
+        $('#groupSetSearch').on('input', function() {
+            const searchTerm = $(this).val().toLowerCase();
+            $('.group-item').each(function() {
+                const groupName = $(this).find('label').text().toLowerCase();
+                if (groupName.includes(searchTerm)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+
+        // Фильтрация по уровню образования
+        $('#groupSetEducationFilter').on('change', function() {
+            const selectedLevel = $(this).val();
+            $('.group-item').each(function() {
+                const itemLevel = $(this).data('education-level');
+                if (!selectedLevel || itemLevel === selectedLevel) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+
+        // Фильтрация по курсу
+        $('#groupSetCourseFilter').on('change', function() {
+            const selectedCourse = $(this).val();
+            $('.group-item').each(function() {
+                const itemCourse = $(this).data('course').toString();
+                if (!selectedCourse || itemCourse === selectedCourse) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+
+        // Удаление группы из выбранных
+        $(document).on('click', '.remove-group', function() {
+            const groupId = $(this).data('group-id');
+            $(`#groupset-${groupId}`).prop('checked', false);
+            updateSelectedGroups();
+        });
+
+        // Сохранение набора групп
+        $('#saveGroupSet').on('click', function() {
+            const groupSetName = $('#groupSetName').val().trim();
+            const selectedGroups = $('.groupset-checkbox:checked').map(function() {
+                return $(this).val();
+            }).get();
+
+            if (!groupSetName) {
+                alert('Пожалуйста, введите название набора групп');
+                return;
+            }
+
+            if (selectedGroups.length === 0) {
+                alert('Пожалуйста, выберите хотя бы одну группу');
+                return;
+            }
+
+            // Отправка данных на сервер
+            $.ajax({
+                url: '{% url "create_tests:save_group_set" %}',
+                method: 'POST',
+                data: {
+                    'name': groupSetName,
+                    'groups': selectedGroups,
+                    'csrfmiddlewaretoken': $('[name=csrfmiddlewaretoken]').val() || '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('#groupSetModal').removeClass('active');
+                        $('#successModal').addClass('active');
+
+                        // Очистка формы
+                        $('#groupSetName').val('');
+                        $('.groupset-checkbox').prop('checked', false);
+                        updateSelectedGroups();
+                    } else {
+                        alert('Ошибка при сохранении: ' + (response.error || 'Неизвестная ошибка'));
+                    }
+                },
+                error: function() {
+                    alert('Ошибка при отправке данных на сервер');
+                }
+            });
+        });
+
+        // Инициализация при использовании jQuery
+        initializeModalHandlers();
     });
+} else {
+    // Fallback на чистый JavaScript если jQuery не загружен
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM loaded, initializing pure JS handlers...');
 
-    const overlay = document.querySelector('.modal-overlay');
-    if (overlay) {
-        overlay.addEventListener('click', function() {
-            document.querySelectorAll('.modal').forEach(modal => modal.classList.remove('active'));
-            overlay.classList.remove('active');
+        // Инициализация основных обработчиков модальных окон
+        initializeModalHandlers();
+
+        // Обработчики для pure JS функциональности
+        const groupCheckboxes = document.querySelectorAll('.groupset-checkbox');
+        groupCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateSelectedGroups);
         });
-    }
-});
+
+        // Обработчик удаления групп
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.remove-group')) {
+                const removeBtn = e.target.closest('.remove-group');
+                const groupId = removeBtn.getAttribute('data-group-id');
+                const checkbox = document.getElementById(`groupset-${groupId}`);
+                if (checkbox) {
+                    checkbox.checked = false;
+                    updateSelectedGroups();
+                }
+            }
+        });
+
+        // Поиск групп
+        const searchInput = document.getElementById('groupSetSearch');
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const groupItems = document.querySelectorAll('.group-item');
+
+                groupItems.forEach(item => {
+                    const label = item.querySelector('label');
+                    const groupName = label ? label.textContent.toLowerCase() : '';
+                    if (groupName.includes(searchTerm)) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Фильтрация по уровню образования
+        const educationFilter = document.getElementById('groupSetEducationFilter');
+        if (educationFilter) {
+            educationFilter.addEventListener('change', function() {
+                const selectedLevel = this.value;
+                const groupItems = document.querySelectorAll('.group-item');
+
+                groupItems.forEach(item => {
+                    const itemLevel = item.getAttribute('data-education-level');
+                    if (!selectedLevel || itemLevel === selectedLevel) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Фильтрация по курсу
+        const courseFilter = document.getElementById('groupSetCourseFilter');
+        if (courseFilter) {
+            courseFilter.addEventListener('change', function() {
+                const selectedCourse = this.value;
+                const groupItems = document.querySelectorAll('.group-item');
+
+                groupItems.forEach(item => {
+                    const itemCourse = item.getAttribute('data-course');
+                    if (!selectedCourse || itemCourse === selectedCourse) {
+                        item.style.display = '';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Переключение институтов
+        const toggleButtons = document.querySelectorAll('.btn-toggle');
+        toggleButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const instituteCard = this.closest('.institute-card');
+                const groupsList = instituteCard.querySelector('.groups-list');
+                const icon = this.querySelector('i');
+
+                if (groupsList && icon) {
+                    groupsList.style.display = groupsList.style.display === 'none' ? '' : 'none';
+                    icon.classList.toggle('fa-chevron-down');
+                    icon.classList.toggle('fa-chevron-up');
+                }
+            });
+        });
+
+        // Сохранение набора групп
+        const saveButton = document.getElementById('saveGroupSet');
+        if (saveButton) {
+            saveButton.addEventListener('click', function() {
+                const groupSetName = document.getElementById('groupSetName').value.trim();
+                const selectedGroups = Array.from(document.querySelectorAll('.groupset-checkbox:checked'))
+                    .map(checkbox => checkbox.value);
+
+                if (!groupSetName) {
+                    alert('Пожалуйста, введите название набора групп');
+                    return;
+                }
+
+                if (selectedGroups.length === 0) {
+                    alert('Пожалуйста, выберите хотя бы одну группу');
+                    return;
+                }
+
+                // Отправка данных на сервер (нужно будет адаптировать под ваш бэкенд)
+                const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || '{{ csrf_token }}';
+
+                fetch('{% url "create_tests:save_group_set" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: new URLSearchParams({
+                        'name': groupSetName,
+                        'groups': selectedGroups.join(',')
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('groupSetModal').classList.remove('active');
+                        document.getElementById('successModal').classList.add('active');
+
+                        // Очистка формы
+                        document.getElementById('groupSetName').value = '';
+                        document.querySelectorAll('.groupset-checkbox').forEach(checkbox => {
+                            checkbox.checked = false;
+                        });
+                        updateSelectedGroups();
+                    } else {
+                        alert('Ошибка при сохранении: ' + (data.error || 'Неизвестная ошибка'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Ошибка при отправке данных на сервер');
+                });
+            });
+        }
+    });
+}
 </script>
 
 {% endblock %}

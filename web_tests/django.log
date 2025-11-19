@@ -7762,3 +7762,32 @@ NameError: name 'logger' is not defined
 [INFO] 2025-11-19 23:02:39,725 django.server 13696 12820 "GET /TestsCreate/listTests/?filter=all HTTP/1.1" 200 243257
 [INFO] 2025-11-19 23:02:45,905 django.server 13696 12820 "GET /TestsCreate/listTests/?filter=my HTTP/1.1" 200 211755
 [INFO] 2025-11-19 23:02:47,749 django.server 13696 20556 "GET /TestsCreate/listTests/?filter=all HTTP/1.1" 200 243257
+[INFO] 2025-11-19 23:34:27,729 django.server 13696 13768 "GET /TestsCreate/listTests/?filter=all HTTP/1.1" 200 243257
+[INFO] 2025-11-19 23:34:29,405 django.server 13696 13768 "GET /TestsCreate/listTests/?filter=my HTTP/1.1" 200 211755
+[INFO] 2025-11-19 23:34:30,650 django.server 13696 13768 "GET /TestsCreate/listTests/?filter=all HTTP/1.1" 200 243257
+[INFO] 2025-11-19 23:34:34,312 django.server 13696 9672 "GET /TestsCreate/listTests/?filter=my HTTP/1.1" 200 211755
+[INFO] 2025-11-19 23:34:37,538 django.server 13696 24056 "GET /TestsCreate/listTests/?filter=all HTTP/1.1" 200 243257
+[INFO] 2025-11-19 23:46:12,027 django.server 13696 7452 "GET /TestsCreate/listTests/?filter=all HTTP/1.1" 200 246619
+[INFO] 2025-11-19 23:46:12,155 django.server 13696 23896 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-11-19 23:46:12,156 django.server 13696 7452 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-11-19 23:46:12,159 django.server 13696 23440 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-11-19 23:46:12,162 django.server 13696 19484 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 15849
+[INFO] 2025-11-19 23:46:12,175 django.server 13696 13948 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-11-19 23:46:12,210 django.server 13696 19484 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-11-19 23:46:12,211 django.server 13696 13948 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-11-19 23:46:12,214 django.server 13696 23440 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 14925
+[INFO] 2025-11-19 23:46:12,227 django.server 13696 23896 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-11-19 23:46:12,232 django.server 13696 19484 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2025-11-19 23:46:12,631 django.server 13696 19484 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-11-19 23:46:21,174 django.server 13696 19484 "GET /TestsCreate/listTests/?filter=my HTTP/1.1" 200 211996
+[INFO] 2025-11-19 23:46:22,382 django.server 13696 22996 "GET /TestsCreate/listTests/?filter=all HTTP/1.1" 200 246619
+[INFO] 2025-11-20 00:28:02,305 django.utils.autoreload 20900 15184 Watching for file changes with StatReloader
+[INFO] 2025-11-20 00:28:08,922 django.server 20900 22924 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2025-11-20 00:28:08,964 django.server 20900 22924 "GET / HTTP/1.1" 200 1969
+[INFO] 2025-11-20 00:28:10,298 django.server 20900 22924 "GET /register/ HTTP/1.1" 200 2254
+[INFO] 2025-11-20 00:28:30,470 django.server 20900 8556 "POST /register/ HTTP/1.1" 200 5100
+[WARNING] 2025-11-20 00:28:35,717 django.security.csrf 20900 24428 Forbidden (CSRF token from POST incorrect.): /register/
+[WARNING] 2025-11-20 00:28:35,719 django.server 20900 24428 "POST /register/ HTTP/1.1" 403 2559
+[WARNING] 2025-11-20 00:28:35,920 django.request 20900 24428 Not Found: /favicon.ico
+[WARNING] 2025-11-20 00:28:35,922 django.server 20900 24428 "GET /favicon.ico HTTP/1.1" 404 4379
+[INFO] 2025-11-20 00:28:37,662 django.server 20900 24428 "GET /register/ HTTP/1.1" 200 2254

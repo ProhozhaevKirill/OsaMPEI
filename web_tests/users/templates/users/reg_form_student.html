@@ -7,6 +7,7 @@
     <title>Профиль студента</title>
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reg_form_students.css' %}">
     <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
 </head>
 <body>
@@ -46,7 +47,7 @@
 
             <div class="form-group">
                 <label for="institute">Институт</label>
-                <select name="institute" id="institute" class="input-text" required>
+                <select name="institute" id="institute" class="input-text" style="width: 100%;height: 50px;" required>
                     {% for institute in institutes %}
                         <option value="{{ institute.id }}" {% if request.user.studentdata.institute.id == institute.id %} selected{% endif %}>
                             {{ institute.name }} {{ institute.short_name }}

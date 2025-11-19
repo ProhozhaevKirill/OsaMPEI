@@ -171,3 +171,8 @@ select.input-text:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 5px rgba(74, 111, 165, 0.5);
 }
+
+.institute {
+    width: 100%;
+    height: 50px;
+}

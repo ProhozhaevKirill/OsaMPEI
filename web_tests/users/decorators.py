@@ -47,7 +47,7 @@ def anonymous_required(view_func):
         if request.user.is_authenticated:
             # Если пользователь уже авторизован, перенаправляем на главную
             from django.shortcuts import redirect
-            if hasattr(request.user, 'role'):
+            if hasattr(request.user, 'role') and request.user.role:
                 role = getattr(request.user, 'role', 'no_role')
                 print(f"DEBUG anonymous_required: user has role={role}")
                 if request.user.role == 'student':
@@ -56,8 +56,9 @@ def anonymous_required(view_func):
                 elif request.user.role == 'teacher':
                     print("DEBUG anonymous_required: redirecting to /TestsCreate/listTests/")
                     return redirect('/TestsCreate/listTests/')
-            print("DEBUG anonymous_required: redirecting to /")
-            return redirect('/')
+            print("DEBUG anonymous_required: user has no role, allowing access to complete registration")
+            # Если у пользователя нет роли, разрешаем доступ к странице для завершения регистрации
+            return view_func(request, *args, **kwargs)
         print("DEBUG anonymous_required: allowing anonymous access")
         return view_func(request, *args, **kwargs)
     return _wrapped_view

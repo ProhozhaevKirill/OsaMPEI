@@ -11,6 +11,25 @@ from django.contrib.auth import logout as auth_logout
 from create_tests.views import some_test
 
 
+def fix_user_roles(request):
+    """Временная функция для исправления ролей пользователей"""
+    from django.http import HttpResponse
+
+    users_fixed = 0
+    for user in CustomUser.objects.filter(role__isnull=True).union(
+        CustomUser.objects.filter(role='')
+    ):
+        if WhiteList.objects.filter(teacher_mail__iexact=user.email).exists():
+            user.role = 'teacher'
+        else:
+            user.role = 'student'
+        user.save()
+        users_fixed += 1
+        print(f"Fixed role for {user.email}: {user.role}")
+
+    return HttpResponse(f"Fixed {users_fixed} users")
+
+
 @anonymous_required
 def login_view(request):
     print(f"DEBUG login_view: path={request.path}, method={request.method}, authenticated={request.user.is_authenticated}")
@@ -42,6 +61,15 @@ def login_view(request):
 @anonymous_required
 def register_view(request):
     if request.method == 'POST':
+        # Проверка на повторную отправку формы
+        if 'pending_registration' in request.session:
+            messages.warning(request, "Регистрация уже начата. Завершите заполнение данных.")
+            institutes = StudentInstitute.objects.all().prefetch_related('studentgroup_set')
+            if request.session['pending_registration']['is_teacher']:
+                return render(request, 'users/teacher_registration.html', {'institutes': institutes})
+            else:
+                return render(request, 'users/reg_form_student.html', {'institutes': institutes})
+
         form = SignUpForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data.get('email').lower()  # Приводим к нижнему регистру
@@ -62,7 +90,7 @@ def register_view(request):
             institutes = StudentInstitute.objects.all().prefetch_related('studentgroup_set')
 
             if request.session['pending_registration']['is_teacher']:
-                return render(request, 'users/teacher_account.html', {'institutes': institutes})
+                return render(request, 'users/teacher_registration.html', {'institutes': institutes})
             else:
                 return render(request, 'users/reg_form_student.html', {'institutes': institutes})
 
@@ -164,7 +192,7 @@ def form_registration_teacher(request):
 
             if not all([first_name, last_name, institute_id]):
                 messages.error(request, "Заполните все обязательные поля!")
-                return render(request, 'users/teacher_account.html',
+                return render(request, 'users/teacher_registration.html',
                               {'institutes': institutes})
 
             institute = StudentInstitute.objects.get(id=institute_id)
@@ -202,7 +230,7 @@ def form_registration_teacher(request):
         except Exception as e:
             messages.error(request, f"Ошибка регистрации: {str(e)}")
 
-    return render(request, 'users/teacher_account.html',
+    return render(request, 'users/teacher_registration.html',
                   {'institutes': institutes})
 
 

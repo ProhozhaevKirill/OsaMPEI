@@ -31,7 +31,7 @@
     <p> Описание: {{ test.description }}</p>
     <p> Время на решение: {{ test.time_to_solution }}</p>
     <p> Количество попыток: {{test.num_of_attempts}} </p>
-    <p> Последнее изменение: {{ test.time_last_change }}</p>
+    <p> Количество заданий: {{ total_tasks }} ({{ total_variants }} вариантов) </p>
     <p>Статус:
         {% if ex.is_public == 1 %}
             Опубликован
@@ -165,6 +165,36 @@
                     </button>
                 </div>
 
+                <!-- Кнопка "Мои группы" с выпадающим списком -->
+                {% if saved_group_lists %}
+                <div class="my-groups-section">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="myGroupsDropdown" data-toggle="dropdown">
+                            <i class="fas fa-bookmark"></i> Мои группы
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-menu" id="myGroupsMenu">
+                            {% for group_list in saved_group_lists %}
+                            <div class="dropdown-item saved-list-item" data-list-id="{{ group_list.id }}">
+                                <div class="list-info">
+                                    <strong>{{ group_list.name }}</strong>
+                                    <span class="groups-count">({{ group_list.groups.count }} групп)</span>
+                                </div>
+                                <div class="list-actions">
+                                    <button class="btn btn-sm btn-primary apply-saved-list" data-list-id="{{ group_list.id }}">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger delete-saved-list" data-list-id="{{ group_list.id }}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
                 <div class="groups-container">
                     <div class="institutes-list">
                         {% for institute in institutes %}
@@ -212,7 +242,7 @@
 
 <!-- Модальное окно создания списка групп -->
 <div id="groupListModal" class="modal">
-    <div class="modal-content">
+    <div class="modal-content wide">
         <div class="modal-header">
             <h3><i class="fas fa-list"></i> Создать список групп</h3>
             <button class="close-modal">&times;</button>
@@ -222,9 +252,50 @@
                 <label for="groupListName">Название списка:</label>
                 <input type="text" id="groupListName" class="form-control" placeholder="Введите название списка групп">
             </div>
+
             <p>Выберите группы для добавления в список:</p>
-            <div id="selectedGroupsDisplay" class="selected-groups">
-                <!-- Здесь будут отображаться выбранные группы -->
+
+            <!-- Поиск групп -->
+            <div class="search-filter-row">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="groupListSearch" placeholder="Поиск групп...">
+                </div>
+            </div>
+
+            <!-- Список групп для выбора -->
+            <div class="groups-container" style="max-height: 400px; overflow-y: auto;">
+                <div class="institutes-list" id="groupListInstitutes">
+                    {% for institute in institutes %}
+                    <div class="institute-card" data-id="{{ institute.id }}">
+                        <div class="institute-header">
+                            <div class="institute-info">
+                                <span class="full-name">{{ institute.name }}</span>
+                            </div>
+                            <div class="institute-actions">
+                                <span class="groups-count">групп: {{ institute.studentgroup_set.all.count }}</span>
+                                <button class="btn btn-toggle" type="button">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="groups-list">
+                            {% for all_groups in institute.studentgroup_set.all %}
+                            <div class="group-item">
+                                <div class="form-check">
+                                    <input type="checkbox" name="groupsForList" class="form-check-input group-list-checkbox"
+                                           id="grouplist-{{ all_groups.id }}" value="{{ all_groups.id }}">
+                                    <label class="form-check-label" for="grouplist-{{ all_groups.id }}">
+                                        {{ all_groups.name }}
+                                        <span class="students-count">(студентов: {{ all_groups.students.count }})</span>
+                                    </label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         <div class="modal-footer">
@@ -237,4 +308,325 @@
 </div>
 
 <div class="modal-overlay"></div>
+
+<script>
+// JavaScript для работы с сохраненными списками групп
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('some_test.html DOMContentLoaded fired');
+    // Применение сохраненного списка групп
+    document.querySelectorAll('.apply-saved-list').forEach(button => {
+        button.addEventListener('click', function() {
+            const listId = this.getAttribute('data-list-id');
+
+            // Получаем список групп для данного сохраненного списка
+            fetch(`/TestsCreate/get-group-list/${listId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Снимаем все выделения
+                        document.querySelectorAll('.group-checkbox').forEach(checkbox => {
+                            checkbox.checked = false;
+                        });
+
+                        // Выбираем группы из сохраненного списка
+                        data.groups.forEach(groupId => {
+                            const checkbox = document.querySelector(`#group-${groupId}`);
+                            if (checkbox) {
+                                checkbox.checked = true;
+                            }
+                        });
+
+                        // Показываем уведомление
+                        alert(`Применен список: ${data.name} (${data.groups.length} групп)`);
+                    } else {
+                        alert('Ошибка при загрузке списка групп: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                    alert('Произошла ошибка при загрузке списка групп');
+                });
+        });
+    });
+
+    // Удаление сохраненного списка групп
+    document.querySelectorAll('.delete-saved-list').forEach(button => {
+        button.addEventListener('click', function() {
+            const listId = this.getAttribute('data-list-id');
+            const listItem = this.closest('.saved-list-item');
+            const listName = listItem.querySelector('strong').textContent;
+
+            if (confirm(`Вы уверены, что хотите удалить список "${listName}"?`)) {
+                fetch(`/TestsCreate/delete-group-list/${listId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value ||
+                                       document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Удаляем элемент из DOM
+                        listItem.remove();
+
+                        // Если больше нет сохраненных списков, скрываем всю секцию "Мои группы"
+                        const myGroupsSection = document.querySelector('.my-groups-section');
+                        const myGroupsMenu = document.getElementById('myGroupsMenu');
+                        if (myGroupsMenu && myGroupsMenu.querySelectorAll('.saved-list-item').length === 0) {
+                            if (myGroupsSection) {
+                                myGroupsSection.style.display = 'none';
+                            }
+                        }
+
+                        alert('Список успешно удален');
+                    } else {
+                        alert('Ошибка при удалении списка: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                    alert('Произошла ошибка при удалении списка');
+                });
+            }
+        });
+    });
+
+    // Создание списка групп
+    const saveGroupListBtn = document.getElementById('saveGroupList');
+    const cancelGroupListBtn = document.getElementById('cancelGroupList');
+    const createGroupListBtn = document.getElementById('createGroupListBtn');
+    const groupListModal = document.getElementById('groupListModal');
+
+    console.log('Group list elements found:');
+    console.log('saveGroupListBtn:', saveGroupListBtn);
+    console.log('cancelGroupListBtn:', cancelGroupListBtn);
+    console.log('createGroupListBtn:', createGroupListBtn);
+    console.log('groupListModal:', groupListModal);
+
+    // Поиск элементов альтернативными способами
+    console.log('Alternative search:');
+    console.log('saveGroupList by query:', document.querySelector('#saveGroupList'));
+    console.log('groupListModal by query:', document.querySelector('#groupListModal'));
+    console.log('All elements with id containing "group":', document.querySelectorAll('[id*="group"]'));
+
+    // Инициализация взаимодействия с группами в модальном окне создания списка
+    function initializeGroupListModal() {
+        // Инициализируем скрытие/показ групп институтов в модальном окне списка
+        document.querySelectorAll('#groupListInstitutes .institute-header').forEach(header => {
+            header.style.cursor = 'pointer';
+
+            header.addEventListener('click', function(e) {
+                if (e.target.classList.contains('group-list-checkbox') ||
+                    e.target.tagName === 'LABEL' ||
+                    e.target.tagName === 'INPUT') return;
+
+                const card = this.closest('.institute-card');
+                const toggleBtn = this.querySelector('.btn-toggle');
+                toggleGroupsInModal(card, toggleBtn);
+            });
+
+            const toggleBtn = header.querySelector('.btn-toggle');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const card = this.closest('.institute-card');
+                    toggleGroupsInModal(card, this);
+                });
+            }
+        });
+
+        // Инициализируем чекбоксы групп в модальном окне списка
+        document.querySelectorAll('.group-list-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.closest('.group-item').classList.toggle('selected', this.checked);
+            });
+        });
+
+        // Поиск групп в модальном окне создания списка
+        const groupListSearch = document.getElementById('groupListSearch');
+        if (groupListSearch) {
+            groupListSearch.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+
+                document.querySelectorAll('#groupListInstitutes .group-item').forEach(item => {
+                    const groupName = item.querySelector('.form-check-label').textContent.toLowerCase();
+                    const shouldShow = groupName.includes(searchTerm);
+                    item.style.display = shouldShow ? 'block' : 'none';
+                });
+
+                // Обновляем видимость институтов
+                document.querySelectorAll('#groupListInstitutes .institute-card').forEach(card => {
+                    const visibleGroups = card.querySelectorAll('.group-item[style="display: block"], .group-item:not([style*="display: none"])');
+                    const hasVisibleGroups = visibleGroups.length > 0;
+                    card.style.display = hasVisibleGroups ? 'block' : 'none';
+                });
+            });
+        }
+    }
+
+    function toggleGroupsInModal(card, toggleBtn) {
+        card.classList.toggle('active');
+        const icon = toggleBtn.querySelector('i');
+        icon.classList.toggle('fa-chevron-down');
+        icon.classList.toggle('fa-chevron-up');
+    }
+
+    if (createGroupListBtn && groupListModal) {
+        createGroupListBtn.addEventListener('click', function() {
+            // Очищаем предыдущие выборы
+            document.querySelectorAll('.group-list-checkbox:checked').forEach(checkbox => {
+                checkbox.checked = false;
+                checkbox.closest('.group-item').classList.remove('selected');
+            });
+
+            // Инициализируем модальное окно
+            initializeGroupListModal();
+
+            // Открываем модальное окно создания списка
+            groupListModal.classList.add('active');
+            document.querySelector('.modal-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+
+    if (saveGroupListBtn) {
+        console.log('Save group list button found and listener added');
+        saveGroupListBtn.addEventListener('click', function() {
+            console.log('Save group list button clicked!');
+
+            const groupListName = document.getElementById('groupListName');
+            const name = groupListName ? groupListName.value.trim() : '';
+
+            console.log('Group list name:', name);
+
+            if (!name) {
+                alert('Введите название списка групп');
+                return;
+            }
+
+            // Получаем выбранные группы из модального окна создания списка
+            const selectedGroups = Array.from(document.querySelectorAll('.group-list-checkbox:checked'));
+            const groupIds = selectedGroups.map(checkbox => checkbox.value);
+
+            console.log('Selected groups:', selectedGroups);
+            console.log('Group IDs:', groupIds);
+
+            if (groupIds.length === 0) {
+                alert('Выберите хотя бы одну группу');
+                return;
+            }
+
+            // Создаем FormData для отправки
+            const formData = new FormData();
+            formData.append('name', name);
+            groupIds.forEach(groupId => {
+                console.log('Adding group to FormData:', groupId);
+                formData.append('groups', groupId);
+            });
+
+            // Проверим что в FormData
+            console.log('FormData contents:');
+            for (let pair of formData.entries()) {
+                console.log(pair[0], pair[1]);
+            }
+
+            // Отправляем данные на сервер
+            fetch('/TestsCreate/save-group-set/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value ||
+                                   document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Список групп успешно сохранен!');
+
+                    // Закрываем модальное окно
+                    groupListModal.classList.remove('active');
+                    document.querySelector('.modal-overlay').classList.remove('active');
+                    document.body.style.overflow = '';
+
+                    // Очищаем поле названия
+                    groupListName.value = '';
+
+                    // Перезагружаем страницу чтобы обновить список сохраненных групп
+                    window.location.reload();
+                } else {
+                    alert('Ошибка при сохранении списка: ' + (data.error || 'Неизвестная ошибка'));
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+                alert('Произошла ошибка при сохранении списка групп');
+            });
+        });
+    }
+
+    if (cancelGroupListBtn && groupListModal) {
+        cancelGroupListBtn.addEventListener('click', function() {
+            // Закрываем модальное окно
+            groupListModal.classList.remove('active');
+            document.querySelector('.modal-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+
+            // Очищаем поле названия и выборы
+            const groupListName = document.getElementById('groupListName');
+            if (groupListName) {
+                groupListName.value = '';
+            }
+
+            document.querySelectorAll('.group-list-checkbox:checked').forEach(checkbox => {
+                checkbox.checked = false;
+                checkbox.closest('.group-item').classList.remove('selected');
+            });
+        });
+    }
+
+    // Функциональность выпадающего списка "Мои группы"
+    const myGroupsDropdown = document.getElementById('myGroupsDropdown');
+    const myGroupsMenu = document.getElementById('myGroupsMenu');
+
+    if (myGroupsDropdown && myGroupsMenu) {
+        myGroupsDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+
+            const isActive = this.classList.contains('active');
+
+            // Закрываем все другие выпадающие списки
+            document.querySelectorAll('.dropdown-toggle.active').forEach(toggle => {
+                toggle.classList.remove('active');
+            });
+            document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+                menu.classList.remove('show');
+            });
+
+            // Переключаем состояние текущего выпадающего списка
+            if (!isActive) {
+                this.classList.add('active');
+                myGroupsMenu.classList.add('show');
+            }
+        });
+
+        // Закрываем выпадающий список при клике вне его
+        document.addEventListener('click', function(e) {
+            if (!myGroupsDropdown.contains(e.target) && !myGroupsMenu.contains(e.target)) {
+                myGroupsDropdown.classList.remove('active');
+                myGroupsMenu.classList.remove('show');
+            }
+        });
+
+        // Предотвращаем закрытие при клике внутри меню
+        myGroupsMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+});
+</script>
+
 {% endblock %}

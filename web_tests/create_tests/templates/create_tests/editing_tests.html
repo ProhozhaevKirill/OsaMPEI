@@ -88,7 +88,7 @@
                                         <div class="answer-content">
                                             <math-field class="answer-field" placeholder="Ответ">{{ answer.user_ans }}</math-field>
                                             <div class="meta-fields" {% if variant.answers|length > 1 %}style="display: none;"{% endif %}>
-                                                <input type="text" class="accuracy-field" placeholder="Точность" value="{{ answer.user_eps }}">
+                                                <input type="text" class="accuracy-field" placeholder="Погрешность" value="{{ answer.user_eps }}">
                                                 <select name="user_type" class="type-field" id="type-select" required>
                                                     <option value="" disabled hidden>Тип ответа</option>
                                                     {% for t in all_types_answer %}
@@ -119,7 +119,7 @@
                                         <div class="answer-content">
                                             <math-field class="answer-field" placeholder="Ответ"></math-field>
                                             <div class="meta-fields">
-                                                <input type="text" class="accuracy-field" placeholder="Точность">
+                                                <input type="text" class="accuracy-field" placeholder="Погрешность">
                                                 <select name="user_type" class="type-field" id="type-select" required>
                                                     <option value="" disabled selected hidden>Тип ответа</option>
                                                     {% for t in all_types_answer %}
@@ -199,7 +199,7 @@
                                         <div class="answer-content">
                                             <math-field class="answer-field" placeholder="Ответ"></math-field>
                                             <div class="meta-fields">
-                                                <input type="text" class="accuracy-field" placeholder="Точность">
+                                                <input type="text" class="accuracy-field" placeholder="Погрешность">
                                                 <select name="user_type" class="type-field" id="type-select" required>
                                                     <option value="" disabled selected hidden>Тип ответа</option>
                                                     {% for t in all_types_answer %}

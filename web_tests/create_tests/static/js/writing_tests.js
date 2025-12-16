@@ -1,42 +1,11 @@
 $(document).ready(function () {
     MathfieldElement.locale = 'ru';
 
-    // Инициализация MathLive-полей
+    // Инициализация MathLive-полей (как в старой версии)
     function initMathFields() {
         document.querySelectorAll('math-field').forEach(mf => {
             if (!mf.mathfield) {
-                console.warn("MathLive field not initialized properly");
-            } else {
-                // Настройки для правильного отображения матриц
-                mf.setOptions({
-                    'fontsDirectory': '/static/libs/mathlive/fonts/',
-                    'mathModeSpace': '\\,',
-                    'smartMode': true,
-                    'smartFence': true,
-                    'smartSuperscript': true,
-                    'virtualKeyboardMode': 'manual',
-                    'virtualKeyboard': 'auto',
-                    'locale': 'ru',
-                    // Специальная настройка для матриц
-                    'macros': {
-                        '\\pmatrix': '\\begin{pmatrix}#1\\end{pmatrix}',
-                        '\\bmatrix': '\\begin{bmatrix}#1\\end{bmatrix}',
-                        '\\vmatrix': '\\begin{vmatrix}#1\\end{vmatrix}',
-                        '\\Vmatrix': '\\begin{Vmatrix}#1\\end{Vmatrix}'
-                    }
-                });
-
-                // Фикс для правильного отображения скобок
-                mf.addEventListener('input', function() {
-                    // Принудительно обновляем рендеринг для матриц
-                    const value = mf.getValue();
-                    if (value.includes('\\begin{pmatrix}') || value.includes('\\begin{bmatrix}') ||
-                        value.includes('\\begin{vmatrix}') || value.includes('\\begin{Vmatrix}')) {
-                        setTimeout(() => {
-                            mf.redraw();
-                        }, 50);
-                    }
-                });
+                new MathfieldElement(mf);  // Простая инициализация
             }
         });
     }
@@ -621,19 +590,5 @@ $(document).ready(function () {
             alert("Пожалуйста, введите корректное время (часы ≥ 0, минуты от 0 до 59).");
             return;
         }
-
-        console.log('Time validation passed, collecting data...');
-        collectTestData();
-
-        console.log('Data collected, checking hidden fields:');
-        console.log('user_expression:', $('#hidden_expr1').val());
-        console.log('user_ans:', $('#hidden_ans1').val());
-        console.log('user_type:', $('#hidden_type1').val());
-        console.log('point_solve:', $('#hidden_point_solve1').val());
-        console.log('name_test:', $('#hidden_name_test').val());
-        console.log('description_test:', $('#hidden_description_test').val());
-        console.log('subj_test:', $('#hidden_subj_test').val());
-        console.log('num_attempts:', $('#hidden_num_attempts').val());
-        console.log('time_solve:', $('#hidden_time_solve').val());
     });
 });

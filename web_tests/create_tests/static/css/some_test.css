@@ -608,6 +608,91 @@ body {
   max-width: 100%;
 }
 
+/* Стили для сохраненных списков групп */
+.saved-group-lists {
+    margin-bottom: 25px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.saved-group-lists h4 {
+    margin-bottom: 15px;
+    color: #495057;
+    font-size: 1.1rem;
+}
+
+.saved-lists-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.saved-list-item {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.saved-list-item:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.list-info {
+    flex-grow: 1;
+}
+
+.list-info strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #343a40;
+}
+
+.list-preview {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.group-tag {
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+}
+
+.more-groups {
+    background-color: #6c757d;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+}
+
+.list-actions {
+    display: flex;
+    gap: 8px;
+    margin-left: 15px;
+}
+
+.btn-sm {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+}
+
+.btn-sm i {
+    font-size: 0.8rem;
+}
+
 @media (max-width: 768px) {
   .main-content {
     padding: 15px;
@@ -621,4 +706,143 @@ body {
     flex-direction: column;
     gap: 10px;
   }
+
+  .saved-lists-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .saved-list-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .list-actions {
+    margin-left: 0;
+    justify-content: center;
+  }
+}
+
+/* CSS for group tags in the selected groups display */
+.selected-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  min-height: 50px;
+}
+
+.group-tag {
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.group-tag:hover {
+  background-color: #0056b3;
+}
+
+/* CSS for "Мои группы" dropdown */
+.my-groups-section {
+  margin-bottom: 20px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.dropdown-toggle:hover {
+  background-color: #5a6268;
+}
+
+.dropdown-toggle.active {
+  background-color: #5a6268;
+}
+
+.dropdown-toggle .fa-chevron-down {
+  transition: transform 0.3s ease;
+}
+
+.dropdown-toggle.active .fa-chevron-down {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 300px;
+  background-color: white;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  display: none;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid #f1f3f4;
+  cursor: default;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.dropdown-item .list-info {
+  flex: 1;
+}
+
+.dropdown-item .list-info strong {
+  display: block;
+  font-size: 0.9rem;
+  color: #2c3e50;
+}
+
+.dropdown-item .groups-count {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.dropdown-item .list-actions {
+  display: flex;
+  gap: 4px;
+  margin-left: 10px;
 }

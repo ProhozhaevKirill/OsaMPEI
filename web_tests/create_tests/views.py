@@ -2,7 +2,7 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.text import slugify
-from .models import AboutExpressions, AboutTest, Subjects, PublishedGroup, TypeAnswer, TypeNorm, TypeNormForMatrix, TaskGroup, TaskVariant, TypeNormForTaskVariant
+from .models import AboutExpressions, AboutTest, Subjects, PublishedGroup, TypeAnswer, TypeNorm, TypeNormForMatrix, TaskGroup, TaskVariant, TypeNormForTaskVariant, GroupList
 from users.models import StudentGroup, StudentInstitute, TeacherData
 import json
 from django.http import JsonResponse
@@ -116,8 +116,11 @@ def create_test(request):
                             else:
                                 boolAns.append('0')
 
-                        types.append(variant.get('types', ''))
-                        norms.append(variant.get('norms', ''))
+                        # Проверяем, что типы и нормы не пустые
+                        variant_type = variant.get('types', '')
+                        variant_norm = variant.get('norms', '')
+                        types.append(variant_type if variant_type else None)
+                        norms.append(variant_norm if variant_norm else None)
                         points.append(group_points)
 
                         # Номер варианта внутри группы (1, 2, 3...)
@@ -167,7 +170,7 @@ def create_test(request):
             # Проверяем, есть ли хотя бы одно валидное выражение
             valid_expressions = []
             for i, (expr, ans, bool_ans, eps, type_id, point, norm_id) in enumerate(zip(expressions, answers, boolAns, epsilons, types, points, norms)):
-                if expr.strip() and type_id:  # Проверяем и выражение, и тип
+                if expr.strip() and type_id and type_id != '' and type_id is not None:  # Проверяем выражение и тип
                     valid_expressions.append((expr, ans, bool_ans, eps, type_id, point, norm_id))
 
             logger.info(f"Found {len(valid_expressions)} valid expressions out of {len(expressions)}")
@@ -196,6 +199,11 @@ def create_test(request):
                         flag_select = ';' in bool_ans
                         logger.info(f"flag_select = {flag_select}")
 
+                        # Проверяем, что type_id не пустой и не None
+                        if not type_id or type_id == '' or type_id is None:
+                            logger.error(f"Empty type_id for expression {i+1}")
+                            continue
+
                         type_obj = TypeAnswer.objects.get(id=type_id)
                         logger.info(f"type_obj = {type_obj}")
 
@@ -220,7 +228,7 @@ def create_test(request):
                         logger.info(f"Added expression {i+1} successfully")
 
                         # Добавляем норму матрицы, если тип ответа - матрицы (type_code = 4) и указана норма
-                        if type_obj.type_code == 4 and norm_id:
+                        if type_obj.type_code == 4 and norm_id and norm_id != '' and norm_id is not None:
                             try:
                                 norm_obj = TypeNorm.objects.get(id=norm_id)
                                 TypeNormForMatrix.objects.create(
@@ -236,6 +244,14 @@ def create_test(request):
                         raise
             else:
                 logger.warning("No valid expressions found")
+                # Удаляем тест, если нет валидных выражений
+                new_test.delete()
+                return render(request, 'create_tests/writing_tests.html', {
+                    'all_subj': all_subj,
+                    'all_types_answer': all_types_answer,
+                    'all_norms': all_norms,
+                    'error_msg': 'Не найдено ни одного валидного задания. Проверьте, что все поля заполнены корректно.'
+                })
 
             new_test.save()
             logger.info("=== CREATE TEST DEBUG END ===")
@@ -287,12 +303,17 @@ def test_list(request):
     published = PublishedGroup.objects.select_related('group_name', 'test_name')
     published_groups = [pg.group_name for pg in published]
 
+    # Получаем сохраненные списки групп для текущего преподавателя
+    from .models import GroupList
+    saved_group_lists = GroupList.objects.filter(teacher=current_teacher).prefetch_related('groups')
+
     return render(request, 'create_tests/all_test_for_teach.html', {
         'tests': tests,
         'all_groups': all_groups,
         'institutes': institutes,
         'groups': published_groups,
         'published': published,
+        'saved_group_lists': saved_group_lists,
         'current_teacher': current_teacher,
         'filter_type': filter_type,
     })
@@ -309,6 +330,10 @@ def some_test(request, slug_name):
     # Получаем данные для модального окна публикации
     all_groups = StudentGroup.objects.all().select_related('institute')
     institutes = StudentInstitute.objects.all().prefetch_related('studentgroup_set')
+
+    # Получаем сохраненные списки групп для текущего преподавателя
+    from .models import GroupList
+    saved_group_lists = GroupList.objects.filter(teacher=current_teacher).prefetch_related('groups')
 
     # Проверяем, какую систему использует тест
     task_groups = test.task_groups.all()
@@ -340,12 +365,19 @@ def some_test(request, slug_name):
                 'variants': variants_data
             })
 
+        # Подсчет количества заданий и общего количества вариантов для новой системы
+        total_tasks = len(task_groups_data)  # Количество групп заданий
+        total_variants = sum(len(group['variants']) for group in task_groups_data)  # Общее количество вариантов
+
         return render(request, 'create_tests/some_test.html', {
             'test': test,
             'task_groups_data': task_groups_data,
+            'total_tasks': total_tasks,
+            'total_variants': total_variants,
             'uses_new_system': True,
             'institutes': institutes,
             'all_groups': all_groups,
+            'saved_group_lists': saved_group_lists,
             'current_teacher': current_teacher
         })
     else:
@@ -387,12 +419,19 @@ def some_test(request, slug_name):
                 'variants': variants_data
             })
 
+        # Подсчет количества заданий и общего количества вариантов для старой системы
+        total_tasks = len(task_groups_data)  # Количество блоков заданий
+        total_variants = sum(len(group['variants']) for group in task_groups_data)  # Общее количество выражений
+
         return render(request, 'create_tests/some_test.html', {
             'test': test,
             'task_groups_data': task_groups_data,
+            'total_tasks': total_tasks,
+            'total_variants': total_variants,
             'uses_new_system': False,
             'institutes': institutes,
             'all_groups': all_groups,
+            'saved_group_lists': saved_group_lists,
             'current_teacher': current_teacher
         })
 
@@ -844,7 +883,6 @@ def save_group_set(request):
                 return JsonResponse({'success': False, 'error': 'Некоторые группы не найдены'})
 
             # Проверяем, что набор с таким именем у данного преподавателя не существует
-            from .models import GroupList
             if GroupList.objects.filter(name=name, teacher=teacher).exists():
                 return JsonResponse({'success': False, 'error': 'Набор с таким названием уже существует'})
 
@@ -868,6 +906,82 @@ def save_group_set(request):
         except Exception as e:
             logger.error(f"Ошибка при сохранении набора групп: {str(e)}")
             return JsonResponse({'success': False, 'error': 'Произошла ошибка при сохранении'})
+
+    return JsonResponse({'success': False, 'error': 'Метод не поддерживается'})
+
+
+@login_required
+@role_required(['teacher', 'admin'])
+def get_group_lists(request):
+    """Получение всех сохраненных списков групп преподавателя"""
+    try:
+        teacher = TeacherData.objects.get(data_map=request.user)
+        group_lists = GroupList.objects.filter(teacher=teacher).prefetch_related('groups')
+
+        lists_data = []
+        for group_list in group_lists:
+            lists_data.append({
+                'id': group_list.id,
+                'name': group_list.name,
+                'groups_count': group_list.groups.count(),
+                'groups': list(group_list.groups.values('id', 'name'))
+            })
+
+        return JsonResponse({
+            'success': True,
+            'group_lists': lists_data
+        })
+
+    except TeacherData.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Преподаватель не найден'})
+    except Exception as e:
+        logger.error(f"Ошибка при получении списков групп: {str(e)}")
+        return JsonResponse({'success': False, 'error': 'Произошла ошибка при загрузке списков'})
+
+
+@login_required
+@role_required(['teacher', 'admin'])
+def get_group_list(request, list_id):
+    """Получение информации о сохраненном списке групп"""
+    try:
+        teacher = TeacherData.objects.get(data_map=request.user)
+        group_list = get_object_or_404(GroupList, id=list_id, teacher=teacher)
+
+        return JsonResponse({
+            'success': True,
+            'name': group_list.name,
+            'groups': list(group_list.groups.values_list('id', flat=True))
+        })
+
+    except TeacherData.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Преподаватель не найден'})
+    except Exception as e:
+        logger.error(f"Ошибка при получении списка групп: {str(e)}")
+        return JsonResponse({'success': False, 'error': 'Произошла ошибка при загрузке списка'})
+
+
+@login_required
+@role_required(['teacher', 'admin'])
+def delete_group_list(request, list_id):
+    """Удаление сохраненного списка групп"""
+    if request.method == 'POST':
+        try:
+            teacher = TeacherData.objects.get(data_map=request.user)
+            group_list = get_object_or_404(GroupList, id=list_id, teacher=teacher)
+
+            group_list_name = group_list.name
+            group_list.delete()
+
+            return JsonResponse({
+                'success': True,
+                'message': f'Список "{group_list_name}" успешно удален'
+            })
+
+        except TeacherData.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Преподаватель не найден'})
+        except Exception as e:
+            logger.error(f"Ошибка при удалении списка групп: {str(e)}")
+            return JsonResponse({'success': False, 'error': 'Произошла ошибка при удалении списка'})
 
     return JsonResponse({'success': False, 'error': 'Метод не поддерживается'})
 

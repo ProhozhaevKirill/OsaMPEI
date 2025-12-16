@@ -49,9 +49,11 @@ AUTHENTICATION_BACKENDS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'users.middleware.CleanURLMiddleware',  # Убирает некрасивые параметры из URL
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'users.middleware.AuthenticationMiddleware',  # Наш кастомный middleware
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -62,7 +64,7 @@ ROOT_URLCONF = 'web_tests.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # Добавляем глобальную папку templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,7 +123,9 @@ USE_TZ = True
 
 TIME_ZONE = 'UTC'
 
-LOGIN_URL = '/accounts/login/'
+# Настройки аутентификации
+LOGIN_URL = '/'  # Красивый URL для логина
+LOGIN_REDIRECT_URL = '/Home/'  # Перенаправление после логина
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -186,3 +190,8 @@ LOGGING = {
         },
     },
 }
+
+# Обработчики ошибок
+handler403 = 'users.error_handlers.handler403'
+handler404 = 'users.error_handlers.handler404'
+handler500 = 'users.error_handlers.handler500'

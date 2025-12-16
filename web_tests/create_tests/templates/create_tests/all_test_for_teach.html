@@ -64,8 +64,7 @@
                                         <span class="test-number">Предмет: {{ test.subj }}.</span>
                                     </div>
                                     <div class="test-meta">
-                                        <span><i class="far fa-calendar-alt"></i> Создан: {{ test.created_at|date:"d.m.Y" }}</span>
-                                        <span><i class="fas fa-user"></i>Автор: {{ test.creator.first_name }} {{ test.creator.last_name }}</span>
+                                        <span><i class="fas fa-user"></i>Автор: {{ test.creator.first_name }} {{ test.creator.middle_name }}</span>
                                         <span><i class="fas fa-users"></i>
                                             Доступ:
                                             {% with found=0 %}
@@ -136,9 +135,8 @@
                                         <span class="test-number">Предмет: {{ test.subj }}.</span>
                                     </div>
                                     <div class="test-meta">
-                                        <span><i class="far fa-calendar-alt"></i> Создан: {{ test.created_at|date:"d.m.Y" }}</span>
                                         <span><i class="fas fa-user"></i>
-                                            Автор: {{ test.creator.first_name }} {{ test.creator.last_name }}
+                                            Автор: {{ test.creator.first_name }} {{ test.creator.middle_name }}
                                             <span class="external-author">(чужой тест)</span>
                                         </span>
                                         <span><i class="fas fa-users"></i>
@@ -191,8 +189,7 @@
                                         <span class="test-number">Предмет: {{ test.subj }}.</span>
                                     </div>
                                     <div class="test-meta">
-                                        <span><i class="far fa-calendar-alt"></i> Создан: {{ test.created_at|date:"d.m.Y" }}</span>
-                                        <span><i class="fas fa-user"></i>Автор: {{ test.creator.first_name }} {{ test.creator.last_name }}</span>
+                                        <span><i class="fas fa-user"></i>Автор: {{ test.creator.first_name }} {{ test.creator.middle_name }}</span>
                                         <span><i class="fas fa-users"></i>
                                             Доступ:
                                             {% with found=0 %}
@@ -311,6 +308,17 @@
                             <option value="3">3 курс</option>
                             <option value="4">4 курс</option>
                         </select>
+                        <button class="btn btn-info" id="loadSavedGroupsBtn">
+                            <i class="fas fa-bookmark"></i> Мои наборы
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Сохраненные списки групп -->
+                <div id="savedGroupsSection" class="saved-groups-section" style="display: none;">
+                    <h4><i class="fas fa-bookmark"></i> Сохраненные наборы групп:</h4>
+                    <div id="savedGroupsList" class="saved-groups-list">
+                        <!-- Здесь будут загружаться сохраненные списки -->
                     </div>
                 </div>
 
@@ -680,14 +688,19 @@ if (typeof $ !== 'undefined') {
             }
 
             // Отправка данных на сервер
+            const formData = new FormData();
+            formData.append('name', groupSetName);
+            selectedGroups.forEach(function(groupId) {
+                formData.append('groups', groupId);
+            });
+            formData.append('csrfmiddlewaretoken', $('[name=csrfmiddlewaretoken]').val() || '{{ csrf_token }}');
+
             $.ajax({
                 url: '{% url "create_tests:save_group_set" %}',
                 method: 'POST',
-                data: {
-                    'name': groupSetName,
-                    'groups': selectedGroups,
-                    'csrfmiddlewaretoken': $('[name=csrfmiddlewaretoken]').val() || '{{ csrf_token }}'
-                },
+                data: formData,
+                processData: false,
+                contentType: false,
                 success: function(response) {
                     if (response.success) {
                         $('#groupSetModal').removeClass('active');
@@ -829,16 +842,18 @@ if (typeof $ !== 'undefined') {
                 // Отправка данных на сервер (нужно будет адаптировать под ваш бэкенд)
                 const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || '{{ csrf_token }}';
 
+                const formData = new FormData();
+                formData.append('name', groupSetName);
+                selectedGroups.forEach(groupId => {
+                    formData.append('groups', groupId);
+                });
+
                 fetch('{% url "create_tests:save_group_set" %}', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
                         'X-CSRFToken': csrfToken
                     },
-                    body: new URLSearchParams({
-                        'name': groupSetName,
-                        'groups': selectedGroups.join(',')
-                    })
+                    body: formData
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -864,6 +879,172 @@ if (typeof $ !== 'undefined') {
         }
     });
 }
+
+// Функциональность для работы с сохраненными списками групп в модальном окне публикации
+function initializeSavedGroupsFeature() {
+    const loadSavedGroupsBtn = document.getElementById('loadSavedGroupsBtn');
+    const savedGroupsSection = document.getElementById('savedGroupsSection');
+    const savedGroupsList = document.getElementById('savedGroupsList');
+
+    if (loadSavedGroupsBtn && savedGroupsSection && savedGroupsList) {
+        loadSavedGroupsBtn.addEventListener('click', function() {
+            // Переключаем видимость секции
+            const isVisible = savedGroupsSection.style.display !== 'none';
+            if (isVisible) {
+                savedGroupsSection.style.display = 'none';
+                this.innerHTML = '<i class="fas fa-bookmark"></i> Мои наборы';
+            } else {
+                loadSavedGroups();
+                savedGroupsSection.style.display = 'block';
+                this.innerHTML = '<i class="fas fa-bookmark"></i> Скрыть наборы';
+            }
+        });
+    }
+}
+
+function loadSavedGroups() {
+    const savedGroupsList = document.getElementById('savedGroupsList');
+    if (!savedGroupsList) return;
+
+    // Показываем индикатор загрузки
+    savedGroupsList.innerHTML = '<div class="loading">Загрузка...</div>';
+
+    fetch('{% url "create_tests:get_group_lists" %}')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                displaySavedGroups(data.group_lists);
+            } else {
+                savedGroupsList.innerHTML = '<div class="error">Ошибка: ' + data.error + '</div>';
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка при загрузке списков групп:', error);
+            savedGroupsList.innerHTML = '<div class="error">Произошла ошибка при загрузке списков групп</div>';
+        });
+}
+
+function displaySavedGroups(groupLists) {
+    const savedGroupsList = document.getElementById('savedGroupsList');
+    if (!savedGroupsList) return;
+
+    if (groupLists.length === 0) {
+        savedGroupsList.innerHTML = '<div class="no-groups">У вас пока нет сохраненных наборов групп.</div>';
+        return;
+    }
+
+    let html = '';
+    groupLists.forEach(groupList => {
+        html += `
+            <div class="saved-group-item" data-list-id="${groupList.id}">
+                <div class="group-list-info">
+                    <h5>${groupList.name}</h5>
+                    <span class="groups-count">${groupList.groups_count} групп</span>
+                    <div class="group-preview">
+                        ${groupList.groups.slice(0, 3).map(group => `<span class="group-tag">${group.name}</span>`).join('')}
+                        ${groupList.groups.length > 3 ? `<span class="more-groups">+${groupList.groups.length - 3}</span>` : ''}
+                    </div>
+                </div>
+                <div class="group-list-actions">
+                    <button class="btn btn-sm btn-primary apply-group-list" data-list-id="${groupList.id}">
+                        <i class="fas fa-check"></i> Применить
+                    </button>
+                    <button class="btn btn-sm btn-danger delete-group-list" data-list-id="${groupList.id}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+
+    savedGroupsList.innerHTML = html;
+
+    // Добавляем обработчики событий
+    addSavedGroupsEventListeners();
+}
+
+function addSavedGroupsEventListeners() {
+    // Обработчики для применения списков групп
+    document.querySelectorAll('.apply-group-list').forEach(button => {
+        button.addEventListener('click', function() {
+            const listId = this.getAttribute('data-list-id');
+            applyGroupList(listId);
+        });
+    });
+
+    // Обработчики для удаления списков групп
+    document.querySelectorAll('.delete-group-list').forEach(button => {
+        button.addEventListener('click', function() {
+            const listId = this.getAttribute('data-list-id');
+            const listItem = this.closest('.saved-group-item');
+            const listName = listItem.querySelector('h5').textContent;
+
+            deleteGroupList(listId, listItem);
+        });
+    });
+}
+
+function applyGroupList(listId) {
+    fetch(`{% url "create_tests:get_group_list" list_id=0 %}`.replace('0', listId))
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Очищаем все выборы
+                document.querySelectorAll('.group-checkbox').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+
+                // Выбираем группы из списка
+                data.groups.forEach(groupId => {
+                    const checkbox = document.querySelector(`#group-${groupId}`);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                    }
+                });
+
+                alert(`Применен список: ${data.name} (${data.groups.length} групп)`);
+            } else {
+                alert('Ошибка при применении списка: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            alert('Произошла ошибка при применении списка групп');
+        });
+}
+
+function deleteGroupList(listId, listItem) {
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || '{{ csrf_token }}';
+
+    fetch(`{% url "create_tests:delete_group_list" list_id=0 %}`.replace('0', listId), {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken,
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            listItem.remove();
+
+            // Если больше нет списков, показываем сообщение
+            const savedGroupsList = document.getElementById('savedGroupsList');
+            if (savedGroupsList && savedGroupsList.querySelectorAll('.saved-group-item').length === 0) {
+                savedGroupsList.innerHTML = '<div class="no-groups">У вас пока нет сохраненных наборов групп.</div>';
+            }
+        } else {
+            alert('Ошибка при удалении списка: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+        alert('Произошла ошибка при удалении списка');
+    });
+}
+
+// Инициализируем функциональность сохраненных списков
+initializeSavedGroupsFeature();
 </script>
 
 {% endblock %}

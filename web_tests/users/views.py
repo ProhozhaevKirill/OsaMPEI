@@ -2,16 +2,18 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from .forms import SignUpForm, EmailAuthenticationForm, ProfileForm, TeacherProfileForm
 from .models import WhiteList, CustomUser, StudentData, TeacherData, StudentGroup, StudentInstitute
-from create_tests.models import AboutTest, PublishedGroup
+from create_tests.models import AboutTest, PublishedGroup, AboutExpressions, TaskVariant
 from solving_tests.models import StudentResult
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .decorators import role_required
+from .decorators import role_required, anonymous_required
 from django.contrib.auth import logout as auth_logout
 from create_tests.views import some_test
 
 
+@anonymous_required
 def login_view(request):
+    print(f"DEBUG login_view: path={request.path}, method={request.method}, authenticated={request.user.is_authenticated}")
     if request.method == 'POST':
         form = EmailAuthenticationForm(request.POST)
         if form.is_valid():
@@ -25,10 +27,10 @@ def login_view(request):
                 user = CustomUser.objects.get(pk=user.pk)
                 if hasattr(user, 'role'):
                     if user.role == 'student':
-                        return redirect('Home/')
+                        return redirect('/Home/')
                     elif user.role == 'teacher':
-                        return redirect('TestsCreate/listTests/')
-                return redirect('Home/')  # Дефолтный редирект
+                        return redirect('/TestsCreate/listTests/')
+                return redirect('/Home/')  # Дефолтный редирект
             else:
                 form.add_error(None, 'Неверный email или пароль.')
         return render(request, 'users/authentication.html', {'form': form})
@@ -37,6 +39,7 @@ def login_view(request):
     return render(request, 'users/authentication.html', {'form': form})
 
 
+@anonymous_required
 def register_view(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -198,6 +201,15 @@ def account_view(request):
         # 2. Сколько решено (есть хотя бы одна попытка)
         solved_tests = len(set(result.test_id for result in student_results))
 
+        # Подсчет общего количества заданий
+        total_tasks = 0
+        for test in published_tests:
+            # Считаем AboutExpressions для каждого теста
+            expressions_count = test.expressions.count()
+            # Считаем TaskVariant для каждого теста через task_groups
+            task_variants_count = TaskVariant.objects.filter(task_group__in=test.task_groups.all()).count()
+            total_tasks += expressions_count + task_variants_count
+
         # 3. Успеваемость на основе оценок
         def get_grade_weight(points):
             if points >= 90:
@@ -223,6 +235,7 @@ def account_view(request):
         context.update({
             'total_tests': total_tests,
             'solved_tests': solved_tests,
+            'total_tasks': total_tasks,
             'success_rate': success_rate,
             'student_data': student_data,
             'institutes': institutes,

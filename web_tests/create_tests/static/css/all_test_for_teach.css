@@ -812,3 +812,114 @@ a {
         min-width: auto;
     }
 }
+
+/* Стили для секции сохраненных списков групп */
+.saved-groups-section {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: var(--border-radius);
+    border: 1px solid #dee2e6;
+}
+
+.saved-groups-section h4 {
+    margin: 0 0 15px 0;
+    color: #495057;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.saved-groups-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.saved-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background-color: white;
+    border: 1px solid #dee2e6;
+    border-radius: var(--border-radius);
+    transition: all 0.2s ease;
+}
+
+.saved-group-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-color: #007bff;
+}
+
+.group-list-info {
+    flex: 1;
+}
+
+.group-list-info h5 {
+    margin: 0 0 5px 0;
+    color: #495057;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.groups-count {
+    color: #6c757d;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    display: inline-block;
+}
+
+.group-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.group-tag {
+    background-color: #007bff;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.more-groups {
+    background-color: #6c757d;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.group-list-actions {
+    display: flex;
+    gap: 8px;
+    margin-left: 15px;
+}
+
+.loading, .error, .no-groups {
+    text-align: center;
+    padding: 20px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+.error {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: var(--border-radius);
+}
+
+.btn-info {
+    color: white;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+}

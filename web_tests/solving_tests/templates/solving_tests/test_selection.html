@@ -36,19 +36,16 @@
     <div class="tests-grid">
         {% for item in tests %}
             {% with test=item.test %}
-                <div class="test-card" data-id="{{ test.id }}" data-completed="{% if test.completed %}true{% else %}false{% endif %}" data-new="{% if test.is_new %}true{% else %}false{% endif %}">
+                <div class="test-card" data-id="{{ test.id }}" data-completed="{% if item.is_completed %}true{% else %}false{% endif %}" data-new="{% if item.attempts_count == 0 %}true{% else %}false{% endif %}">
                     <div class="test-header">
-                        <div class="test-status">
-                            {% if test.completed %}
-                            <span class="badge completed"><i class="fas fa-check-circle"></i> Пройден</span>
-                            {% elif test.is_new %}
-                            <span class="badge new"><i class="fas fa-star"></i> Новый</span>
-                            {% endif %}
-                        </div>
                     </div>
                     <div class="test-body">
                         <h3 class="test-title">
-                            <a href="{% url 'solving_tests:some_test_for_student' slug_name=test.name_slug_tests %}">{{ test.name_tests }}</a>
+                            {% if item.is_completed %}
+                                <a href="{% url 'solving_tests:view_completed_result' slug_name=test.name_slug_tests %}">{{ test.name_tests }}</a>
+                            {% else %}
+                                <a href="{% url 'solving_tests:some_test_for_student' slug_name=test.name_slug_tests %}">{{ test.name_tests }}</a>
+                            {% endif %}
                         </h3>
                         <h5>Предмет: {{ test.subj }}</h5>
 
@@ -57,23 +54,33 @@
                         {% endif %}
                         <div class="test-meta">
                             <span><i class="far fa-clock"></i> Время: {{ test.time_to_solution }}</span>
-                            <span><i class="fas fa-redo"></i>
-                                {% if test.num_of_attempts == 0 %}
-                                    Количество попыток не ограниченно
+                            {% if item.is_completed %}
+                                {% if item.best_result %}
+                                    <span><i class="fas fa-chart-line"></i> Лучший результат: {{ item.best_result.result_points|floatformat:1 }} баллов</span>
                                 {% else %}
-                                    Попыток: {{ item.remaining_attempts }}
+                                    <span><i class="fas fa-chart-line"></i> Результат недоступен</span>
                                 {% endif %}
-                            </span>
+                            {% else %}
+                                <span><i class="fas fa-redo"></i>
+                                    {% if test.num_of_attempts == 0 %}
+                                        Количество попыток не ограниченно
+                                    {% else %}
+                                        Попыток: {{ item.remaining_attempts }}
+                                    {% endif %}
+                                </span>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="test-footer">
-                        <a href="{% url 'solving_tests:some_test_for_student' slug_name=test.name_slug_tests %}" class="btn start-btn">
-                            {% if test.completed %}
-                            <i class="fas fa-redo"></i> Повторить
-                            {% else %}
-                            <i class="fas fa-play"></i> Начать
-                            {% endif %}
-                        </a>
+                        {% if item.is_completed %}
+                            <a href="{% url 'solving_tests:view_completed_result' slug_name=test.name_slug_tests %}" class="btn start-btn">
+                                <i class="fas fa-chart-bar"></i> Результаты
+                            </a>
+                        {% else %}
+                            <a href="{% url 'solving_tests:some_test_for_student' slug_name=test.name_slug_tests %}" class="btn start-btn">
+                                <i class="fas fa-play"></i> Начать
+                            </a>
+                        {% endif %}
                         <button class="btn info-btn" data-test-id="{{ test.id }}">
                             <i class="fas fa-info-circle"></i> Подробнее
                         </button>

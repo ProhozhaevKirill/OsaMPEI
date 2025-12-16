@@ -26,21 +26,25 @@
 
 <div class="stats-grid">
     <div class="stat-card">
-        <div class="stat-icon tests">
-            <i class="fas fa-tasks"></i>
-        </div>
-        <div class="stat-info">
-            <div class="stat-title">Созданные тесты: {{ teacher_data.created_tests_count }}</div>
-        </div>
+        <a href="{% url 'create_tests:test_list' %}?filter=my&status=all" class="stat-card-link">
+            <div class="stat-icon tests">
+                <i class="fas fa-tasks"></i>
+            </div>
+            <div class="stat-info">
+                <div class="stat-title">Созданные тесты: {{ teacher_data.created_tests_count }}</div>
+            </div>
+        </a>
     </div>
 
     <div class="stat-card">
-        <div class="stat-icon results">
-            <i class="fas fa-check-circle"></i>
-        </div>
-        <div class="stat-info">
-            <div class="stat-title">Опубликованные тесты: {{ teacher_data.published_tests_count }}</div>
-        </div>
+        <a href="{% url 'create_tests:test_list' %}?filter=my&status=published" class="stat-card-link">
+            <div class="stat-icon results">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stat-info">
+                <div class="stat-title">Опубликованные тесты: {{ teacher_data.published_tests_count }}</div>
+            </div>
+        </a>
     </div>
 </div>
 

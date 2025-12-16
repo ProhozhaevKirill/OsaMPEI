@@ -1,6 +1,11 @@
 $(document).ready(function () {
     MathfieldElement.locale = 'ru';
 
+    // Настройки MathLive для отключения загрузки шрифтов
+    if (window.MathfieldElement) {
+        window.MathfieldElement.fontsDirectory = null;
+    }
+
     // Инициализация MathLive-полей (как в старой версии)
     function initMathFields() {
         document.querySelectorAll('math-field').forEach(mf => {
@@ -435,6 +440,12 @@ $(document).ready(function () {
                 const typeValue = firstAnswerType || typeList[0] || '';
                 const normValue = firstAnswerNorm || normList[0] || '';
 
+                // Проверяем, что тип ответа обязательно выбран
+                if (!typeValue || typeValue === '') {
+                    console.log(`    Пропускаю вариант без выбранного типа ответа`);
+                    return; // Пропускаем варианты без типа ответа
+                }
+
                 answers.push(ansString);
                 epsilons.push(epsString);
                 types.push(typeValue);  // Одиночное значение, не строка с ;
@@ -564,6 +575,15 @@ $(document).ready(function () {
                     isValid = false;
                 }
             });
+
+            // Проверяем выбор типа ответа
+            $(this).find('.type-field').each(function() {
+                const typeValue = $(this).val();
+                if (!typeValue || typeValue === '') {
+                    $(this).addClass('invalid');
+                    isValid = false;
+                }
+            });
         });
 
         return isValid;
@@ -590,5 +610,8 @@ $(document).ready(function () {
             alert("Пожалуйста, введите корректное время (часы ≥ 0, минуты от 0 до 59).");
             return;
         }
+
+        // Собираем данные перед отправкой
+        collectTestData();
     });
 });

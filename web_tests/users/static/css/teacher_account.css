@@ -102,6 +102,24 @@ h3 {
     box-shadow: var(--shadow-md);
 }
 
+.stat-card-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none !important;
+    color: inherit;
+    width: 100%;
+}
+
+.stat-card-link:hover,
+.stat-card-link:focus,
+.stat-card-link:active,
+.stat-card-link:visited {
+    text-decoration: none !important;
+    color: inherit;
+    outline: none;
+}
+
 .stat-icon {
     width: 50px;
     height: 50px;

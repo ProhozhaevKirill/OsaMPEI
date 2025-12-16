@@ -204,7 +204,11 @@ def create_test(request):
                             logger.error(f"Empty type_id for expression {i+1}")
                             continue
 
-                        type_obj = TypeAnswer.objects.get(id=type_id)
+                        try:
+                            type_obj = TypeAnswer.objects.get(id=int(type_id))
+                        except (ValueError, TypeError, TypeAnswer.DoesNotExist):
+                            logger.error(f"Invalid type_id '{type_id}' for expression {i+1}")
+                            continue
                         logger.info(f"type_obj = {type_obj}")
 
                         # Получаем номер задания и номер блока
@@ -651,7 +655,11 @@ def edit_test(request, slug_name):
                             continue
 
                         flag_select = ';' in true_ans
-                        type_obj = TypeAnswer.objects.get(id=type_id)
+                        try:
+                            type_obj = TypeAnswer.objects.get(id=int(type_id))
+                        except (ValueError, TypeError, TypeAnswer.DoesNotExist):
+                            logger.error(f"Invalid type_id '{type_id}' for variant {variant_index + 1}")
+                            continue
 
                         # Создаем TaskVariant
                         task_variant = TaskVariant.objects.create(
@@ -731,8 +739,12 @@ def edit_test(request, slug_name):
                             flag_select = ';' in bool_ans
                             logger.info(f"flag_select = {flag_select}")
 
-                            type_obj = TypeAnswer.objects.get(id=type_id)
-                            logger.info(f"type_obj = {type_obj}")
+                            try:
+                                type_obj = TypeAnswer.objects.get(id=int(type_id))
+                                logger.info(f"type_obj = {type_obj}")
+                            except (ValueError, TypeError, TypeAnswer.DoesNotExist):
+                                logger.error(f"Invalid type_id '{type_id}' for expression {i+1}")
+                                continue
 
                             # Получаем номер задания и номер блока
                             task_number = numbers[i] if i < len(numbers) else i + 1

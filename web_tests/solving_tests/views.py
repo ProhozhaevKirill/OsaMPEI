@@ -26,20 +26,28 @@ def list_test(request):
         student_group = student.group
         all_tests = AboutTest.objects.filter(publishedgroup__group_name=student_group).distinct()
 
-        tests_with_attempts = []
+        tests_with_status = []
         for test in all_tests:
             attempts = StudentResult.objects.filter(student=user, test=test).count()
-            if attempts < test.num_of_attempts:
-                tests_with_attempts.append({
-                    'test': test,
-                    'remaining_attempts': test.num_of_attempts - attempts
-                })
+            remaining_attempts = test.num_of_attempts - attempts
+
+            # Получаем лучший результат студента
+            best_result = StudentResult.objects.filter(student=user, test=test).order_by('-result_points').first()
+
+            test_data = {
+                'test': test,
+                'remaining_attempts': remaining_attempts,
+                'is_completed': attempts >= test.num_of_attempts,
+                'attempts_count': attempts,
+                'best_result': best_result
+            }
+            tests_with_status.append(test_data)
 
     except StudentData.DoesNotExist:
-        tests_with_attempts = []
+        tests_with_status = []
 
     return render(request, 'solving_tests/test_selection.html', {
-        'tests': tests_with_attempts
+        'tests': tests_with_status
     })
 
 
@@ -136,7 +144,7 @@ def some_test_for_student(request, slug_name):
 
     attempt_count = StudentResult.objects.filter(student=student, test=test).count()
     if attempt_count >= test.num_of_attempts:
-        return redirect('solving_tests:show_result', slug_name=slug_name)
+        return redirect('solving_tests:view_completed_result', slug_name=slug_name)
 
     # Получаем рандомизированный вариант теста для студента
     # Номер попытки = количество уже выполненных попыток + 1
@@ -234,6 +242,7 @@ def some_test_for_student(request, slug_name):
             test=test,
             attempt_number=attempt_count + 1,
             result_points=result_score,
+            max_points=all_points,
             res_answer=json.dumps(student_answers),
         )
 
@@ -267,26 +276,14 @@ def show_result(request, slug_name):
 
     test = AboutTest.objects.get(name_slug_tests=slug_name)
 
-    # Подсчитываем общее количество баллов в зависимости от используемой системы
-    task_groups = test.task_groups.all()
+    # Получаем максимальные баллы из сохранённого результата
+    student = request.user
+    latest_result = StudentResult.objects.filter(student=student, test=test).order_by('-attempt_number').first()
 
-    if task_groups.exists():
-        # Новая система: используем TaskGroup - считаем по группам заданий
-        count = task_groups.aggregate(Sum('points_for_solve'))['points_for_solve__sum'] or 0
+    if latest_result:
+        count = latest_result.max_points
     else:
-        # Старая система: используем AboutExpressions
-        # ВАЖНО: группируем по block_expression_num, чтобы не считать варианты как отдельные задания
-        from collections import defaultdict
-
-        groups = defaultdict(list)
-        for expr in test.expressions.all():
-            groups[expr.block_expression_num].append(expr)
-
         count = 0
-        for block_num, expr_list in groups.items():
-            if expr_list:
-                # Берем баллы от первого выражения в группе (все варианты имеют одинаковые баллы)
-                count += expr_list[0].points_for_solve
 
     # Получаем настройки отображения результатов
     result_display_mode = getattr(test, 'result_display_mode', 'only_score')
@@ -376,23 +373,92 @@ def show_result(request, slug_name):
 
 @login_required
 @role_required(['student', 'admin'])
-def finished_tests(request):
-    user = request.user
-    finished = []
+def view_completed_result(request, slug_name):
+    """Просмотр результатов пройденного теста"""
+    test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
+    student = request.user
 
-    try:
-        student = StudentData.objects.get(data_map=user)
-        student_group = student.group
-        all_tests = AboutTest.objects.filter(publishedgroup__group_name=student_group).distinct()
+    # Получаем результаты студента для этого теста
+    results = StudentResult.objects.filter(student=student, test=test).order_by('-attempt_number')
 
-        for test in all_tests:
-            attempts = StudentResult.objects.filter(student=user, test=test).count()
-            if attempts >= test.num_of_attempts:
-                finished.append(test)
+    if not results.exists():
+        return redirect('solving_tests:list_test')
 
-    except StudentData.DoesNotExist:
-        pass
+    # Берем лучший результат
+    best_result = results.order_by('-result_points').first()
 
-    return render(request, 'solving_tests/finished_tests.html', {
-        'finished_tests': finished
-    })
+    # Используем сохранённые максимальные баллы
+    count = best_result.max_points
+
+    # Получаем настройки отображения результатов
+    result_display_mode = getattr(test, 'result_display_mode', 'only_score')
+
+    # Базовый контекст
+    context = {
+        'test_name': test.name_tests,
+        'test': test,
+        'result': best_result.result_points,
+        'score': 5 if best_result.result_points/count*100 >= 80 else 4 if best_result.result_points/count*100 >= 60 else 3 if best_result.result_points/count*100 >= 35 else 2,
+        'count': count,
+        'slug_name': slug_name,
+        'result_display_mode': result_display_mode,
+        'best_result': best_result,
+        'all_results': results,
+    }
+
+    # Добавляем дополнительную информацию в зависимости от режима отображения
+    if result_display_mode == 'show_correct':
+        # Получаем рандомизированный вариант теста, который проходил студент
+        expressions_data = get_randomized_test_for_student(test, student.id, best_result.attempt_number)
+
+        # Получаем ответы студента
+        try:
+            student_answers = json.loads(best_result.res_answer)
+        except (json.JSONDecodeError, ValueError):
+            try:
+                import ast
+                student_answers = ast.literal_eval(best_result.res_answer)
+            except (ValueError, SyntaxError):
+                student_answers = []
+
+        # Подготавливаем детальную информацию для каждого вопроса
+        detailed_results = []
+        for i, expr_data in enumerate(expressions_data):
+            student_answer = student_answers[i] if i < len(student_answers) else ''
+
+            if expr_data['exist_select']:
+                available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+                correct_answers = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
+
+                correct_options = []
+                for j, is_correct in enumerate(correct_answers):
+                    if j < len(available_options) and is_correct == '1':
+                        correct_options.append(available_options[j])
+
+                detailed_results.append({
+                    'question_number': i + 1,
+                    'question': expr_data['user_expression'],
+                    'student_answer': student_answer,
+                    'correct_answer': '; '.join(correct_options),
+                    'is_multiple_choice': True,
+                    'options': available_options,
+                    'points': expr_data['points_for_solve']
+                })
+            else:
+                detailed_results.append({
+                    'question_number': i + 1,
+                    'question': expr_data['user_expression'],
+                    'student_answer': student_answer,
+                    'correct_answer': expr_data['user_ans'],
+                    'is_multiple_choice': False,
+                    'options': [],
+                    'points': expr_data['points_for_solve']
+                })
+
+        context['detailed_results'] = detailed_results
+        context['show_correct_answers'] = True
+    else:
+        context['show_correct_answers'] = False
+        context['show_student_answers'] = False
+
+    return render(request, 'solving_tests/result.html', context)

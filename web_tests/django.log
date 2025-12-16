@@ -9458,3 +9458,1045 @@ NameError: name 'logger' is not defined
 [WARNING] 2025-12-16 19:52:41,262 django.server 19828 18880 "GET /static/js/teacher_account.js HTTP/1.1" 404 1822
 [INFO] 2025-12-16 19:52:42,977 django.server 19828 17864 "GET /TestsCreate/listTests/ HTTP/1.1" 200 254136
 [INFO] 2025-12-16 19:53:27,470 django.server 19828 332 "GET /TestsCreate/listTests/ HTTP/1.1" 200 254136
+[INFO] 2025-12-16 20:20:52,833 django.utils.autoreload 26444 676 Watching for file changes with StatReloader
+[INFO] 2025-12-16 20:21:51,492 django.server 26444 20128 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 17918
+[INFO] 2025-12-16 20:21:51,493 django.server 26444 13148 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 20:21:51,498 django.server 26444 4644 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-12-16 20:21:51,503 django.server 26444 5984 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 20:21:51,513 django.server 26444 19820 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-12-16 20:21:51,548 django.server 26444 4644 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 20:21:51,549 django.server 26444 19820 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 20:21:51,556 django.server 26444 5984 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 14925
+[INFO] 2025-12-16 20:21:51,589 django.server 26444 5984 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2025-12-16 20:22:05,461 django.server 26444 5564 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2025-12-16 20:22:05,504 django.server 26444 5564 "GET / HTTP/1.1" 200 1969
+[INFO] 2025-12-16 22:41:52,107 django.utils.autoreload 8984 20108 Watching for file changes with StatReloader
+[INFO] 2025-12-16 22:42:16,233 django.server 8984 20232 "GET / HTTP/1.1" 200 1969
+[INFO] 2025-12-16 22:42:18,824 django.server 8984 20232 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-12-16 22:42:25,081 django.server 8984 20232 "POST / HTTP/1.1" 302 0
+[INFO] 2025-12-16 22:42:25,428 django.server 8984 20232 "GET /Home/ HTTP/1.1" 200 10044
+[INFO] 2025-12-16 22:42:25,591 django.server 8984 20232 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-12-16 22:42:25,594 django.server 8984 19516 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 22:42:25,618 django.server 8984 19240 "GET /static/css/student_account.css HTTP/1.1" 200 10393
+[INFO] 2025-12-16 22:42:25,624 django.server 8984 15496 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 22:42:25,751 django.server 8984 19240 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 22:42:25,755 django.server 8984 15496 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 22:42:25,771 django.server 8984 20232 "GET /static/js/student_account.js HTTP/1.1" 200 703
+[INFO] 2025-12-16 22:42:26,492 django.server 8984 20232 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2025-12-16 22:42:28,209 django.server 8984 20232 "GET /TestsSolving/ HTTP/1.1" 200 8999
+[INFO] 2025-12-16 22:42:28,340 django.server 8984 20232 "GET /static/css/test_selection.css HTTP/1.1" 200 8223
+[INFO] 2025-12-16 22:42:28,367 django.server 8984 15496 "GET /static/js/test_selection.js HTTP/1.1" 200 4477
+[INFO] 2025-12-16 22:42:28,613 django.server 8984 15496 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-12-16 22:45:55,682 django.utils.autoreload 8984 20108 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2025-12-16 22:45:57,716 django.utils.autoreload 18448 8636 Watching for file changes with StatReloader
+[INFO] 2025-12-16 22:47:02,773 django.utils.autoreload 18448 8636 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2025-12-16 22:47:04,501 django.utils.autoreload 10428 4588 Watching for file changes with StatReloader
+[INFO] 2025-12-16 22:47:20,709 django.utils.autoreload 10428 4588 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\urls.py changed, reloading.
+[INFO] 2025-12-16 22:47:22,184 django.utils.autoreload 3308 2008 Watching for file changes with StatReloader
+[INFO] 2025-12-16 22:50:15,724 django.server 3308 5308 "GET /TestsSolving/ HTTP/1.1" 200 10815
+[WARNING] 2025-12-16 22:50:31,203 django.request 3308 11700 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-12-16 22:50:31,205 django.server 3308 11700 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[INFO] 2025-12-16 22:53:48,799 django.server 3308 1560 "GET /TestsSolving/ HTTP/1.1" 200 10815
+[INFO] 2025-12-16 22:53:49,039 django.server 3308 7980 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 22:53:49,044 django.server 3308 1560 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-12-16 22:53:49,047 django.server 3308 12792 "GET /static/css/test_selection.css HTTP/1.1" 200 8223
+[INFO] 2025-12-16 22:53:49,051 django.server 3308 1200 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 22:53:49,056 django.server 3308 18836 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-12-16 22:53:49,083 django.server 3308 18836 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 22:53:49,091 django.server 3308 1200 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 22:53:49,094 django.server 3308 12792 "GET /static/js/test_selection.js HTTP/1.1" 200 4477
+[INFO] 2025-12-16 22:53:49,109 django.server 3308 1200 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-12-16 22:53:49,116 django.server 3308 12792 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2025-12-16 22:53:49,185 django.server 3308 12792 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-12-16 22:54:11,119 django.server 3308 2580 "GET /TestsSolving/ HTTP/1.1" 200 10560
+[INFO] 2025-12-16 22:54:11,193 django.server 3308 2580 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-12-16 22:54:11,206 django.server 3308 10540 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 22:54:11,206 django.server 3308 17212 "GET /static/css/test_selection.css HTTP/1.1" 200 8223
+[INFO] 2025-12-16 22:54:11,210 django.server 3308 11564 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 22:54:11,212 django.server 3308 20312 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-12-16 22:54:11,229 django.server 3308 17212 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 22:54:11,230 django.server 3308 20312 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 22:54:11,231 django.server 3308 11564 "GET /static/js/test_selection.js HTTP/1.1" 200 4477
+[INFO] 2025-12-16 22:54:11,279 django.server 3308 20312 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2025-12-16 22:54:11,282 django.server 3308 11564 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-12-16 22:54:11,336 django.server 3308 20312 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-12-16 22:54:15,982 django.server 3308 2228 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/view-result/ HTTP/1.1" 200 7259
+[INFO] 2025-12-16 22:54:16,094 django.server 3308 2228 "GET /static/css/result.css HTTP/1.1" 200 8695
+[INFO] 2025-12-16 22:54:16,098 django.server 3308 19956 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2025-12-16 22:54:16,108 django.server 3308 18692 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2025-12-16 22:54:16,110 django.server 3308 9840 "GET /static/js/result.js HTTP/1.1" 200 340
+[INFO] 2025-12-16 22:54:16,145 django.server 3308 9840 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2025-12-16 22:54:16,168 django.server 3308 14764 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[WARNING] 2025-12-16 22:54:16,462 django.server 3308 14764 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 22:54:32,859 django.server 3308 8696 "GET /TestsSolving/ HTTP/1.1" 200 10560
+[INFO] 2025-12-16 22:55:35,914 django.utils.autoreload 3308 2008 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2025-12-16 22:55:37,373 django.utils.autoreload 16988 17672 Watching for file changes with StatReloader
+[INFO] 2025-12-16 22:56:00,108 django.utils.autoreload 16988 17672 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2025-12-16 22:56:01,375 django.utils.autoreload 6156 17148 Watching for file changes with StatReloader
+[INFO] 2025-12-16 22:56:13,610 django.server 6156 16796 "GET /TestsSolving/ HTTP/1.1" 200 10560
+[INFO] 2025-12-16 22:56:13,835 django.server 6156 16796 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-12-16 22:56:13,846 django.server 6156 18760 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 22:56:13,850 django.server 6156 8944 "GET /static/css/test_selection.css HTTP/1.1" 200 8223
+[INFO] 2025-12-16 22:56:13,857 django.server 6156 2972 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 22:56:13,861 django.server 6156 7456 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-12-16 22:56:13,875 django.server 6156 7456 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 22:56:13,881 django.server 6156 2972 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 22:56:13,883 django.server 6156 8944 "GET /static/js/test_selection.js HTTP/1.1" 200 4477
+[INFO] 2025-12-16 22:56:13,921 django.server 6156 8944 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2025-12-16 22:56:13,935 django.server 6156 2972 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-12-16 22:56:13,993 django.server 6156 8944 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-12-16 22:56:14,770 django.server 6156 8944 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/view-result/ HTTP/1.1" 200 7259
+[WARNING] 2025-12-16 22:56:15,094 django.server 6156 8944 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 22:56:17,360 django.server 6156 2972 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/view-result/ HTTP/1.1" 200 7259
+[INFO] 2025-12-16 22:56:17,425 django.server 6156 2972 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-12-16 22:56:17,445 django.server 6156 16796 "GET /static/css/result.css HTTP/1.1" 200 8695
+[INFO] 2025-12-16 22:56:17,446 django.server 6156 1636 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2025-12-16 22:56:17,448 django.server 6156 7456 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 22:56:17,448 django.server 6156 9044 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2025-12-16 22:56:17,453 django.server 6156 18760 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 22:56:17,454 django.server 6156 16796 "GET /static/js/result.js HTTP/1.1" 200 340
+[INFO] 2025-12-16 22:56:17,469 django.server 6156 9044 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-12-16 22:56:17,481 django.server 6156 2972 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2025-12-16 22:56:17,508 django.server 6156 2972 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 22:56:17,517 django.server 6156 2972 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 22:56:17,550 django.server 6156 2972 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2025-12-16 22:56:17,571 django.server 6156 2972 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2025-12-16 22:56:17,750 django.server 6156 2972 "GET /static/favicon.ico HTTP/1.1" 200 976
+[WARNING] 2025-12-16 22:56:17,765 django.server 6156 9044 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 22:56:25,371 django.server 6156 3512 "GET /TestsSolving/ HTTP/1.1" 200 10560
+[INFO] 2025-12-16 22:56:25,470 django.server 6156 3512 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-12-16 23:08:34,019 django.server 6156 6480 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/view-result/ HTTP/1.1" 200 7259
+[WARNING] 2025-12-16 23:08:34,447 django.server 6156 6480 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 23:09:04,664 django.server 6156 10996 "GET /admin HTTP/1.1" 301 0
+[INFO] 2025-12-16 23:09:04,708 django.server 6156 18912 "GET /admin/ HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:09:04,803 django.server 6156 18912 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3919
+[INFO] 2025-12-16 23:09:04,911 django.server 6156 18912 "GET /static/admin/css/base.css HTTP/1.1" 200 21544
+[INFO] 2025-12-16 23:09:04,919 django.server 6156 10852 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2682
+[INFO] 2025-12-16 23:09:04,925 django.server 6156 12304 "GET /static/admin/css/login.css HTTP/1.1" 200 958
+[INFO] 2025-12-16 23:09:04,926 django.server 6156 18156 "GET /static/admin/css/responsive.css HTTP/1.1" 200 17905
+[INFO] 2025-12-16 23:09:04,928 django.server 6156 18484 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+[INFO] 2025-12-16 23:09:04,946 django.server 6156 18484 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+[INFO] 2025-12-16 23:09:04,946 django.server 6156 18156 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+[WARNING] 2025-12-16 23:09:05,039 django.request 6156 18156 Not Found: /favicon.ico
+[WARNING] 2025-12-16 23:09:05,042 django.server 6156 18156 "GET /favicon.ico HTTP/1.1" 404 4379
+[INFO] 2025-12-16 23:09:08,443 django.server 6156 18156 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:09:08,484 django.server 6156 18156 "GET /admin/ HTTP/1.1" 200 15811
+[INFO] 2025-12-16 23:09:08,575 django.server 6156 18484 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+[INFO] 2025-12-16 23:09:08,595 django.server 6156 12304 "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+[INFO] 2025-12-16 23:09:08,596 django.server 6156 18484 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+[INFO] 2025-12-16 23:09:08,596 django.server 6156 18156 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+[INFO] 2025-12-16 23:09:23,117 django.server 6156 7988 "GET /admin/solving_tests/studentresult/ HTTP/1.1" 200 20764
+[INFO] 2025-12-16 23:09:23,221 django.server 6156 19024 "GET /static/admin/css/changelists.css HTTP/1.1" 200 6811
+[INFO] 2025-12-16 23:09:23,225 django.server 6156 12808 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+[INFO] 2025-12-16 23:09:23,228 django.server 6156 11320 "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+[INFO] 2025-12-16 23:09:23,231 django.server 6156 11376 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9042
+[INFO] 2025-12-16 23:09:23,245 django.server 6156 19024 "GET /static/admin/js/actions.js HTTP/1.1" 200 8067
+[INFO] 2025-12-16 23:09:23,249 django.server 6156 12808 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+[INFO] 2025-12-16 23:09:23,250 django.server 6156 19904 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-12-16 23:09:23,250 django.server 6156 11376 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+[INFO] 2025-12-16 23:09:23,259 django.server 6156 7988 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+[INFO] 2025-12-16 23:09:23,270 django.server 6156 11320 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+[INFO] 2025-12-16 23:09:23,295 django.server 6156 11320 "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+[INFO] 2025-12-16 23:09:23,363 django.server 6156 11320 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+[INFO] 2025-12-16 23:09:34,696 django.server 6156 17444 "GET /admin/solving_tests/studentresult/5/change/ HTTP/1.1" 200 30762
+[INFO] 2025-12-16 23:09:34,783 django.server 6156 4200 "GET /static/admin/css/forms.css HTTP/1.1" 200 9090
+[INFO] 2025-12-16 23:09:34,791 django.server 6156 17444 "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+[INFO] 2025-12-16 23:09:34,794 django.server 6156 11032 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-12-16 23:09:34,795 django.server 6156 4300 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+[INFO] 2025-12-16 23:09:34,798 django.server 6156 4200 "GET /static/admin/css/widgets.css HTTP/1.1" 200 11800
+[INFO] 2025-12-16 23:09:34,803 django.server 6156 4300 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+[INFO] 2025-12-16 23:09:34,813 django.server 6156 4200 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+[INFO] 2025-12-16 23:09:34,880 django.server 6156 4200 "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+[INFO] 2025-12-16 23:09:34,984 django.server 6156 4300 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+[INFO] 2025-12-16 23:09:34,985 django.server 6156 4200 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+[INFO] 2025-12-16 23:09:39,451 django.server 6156 4200 "GET /admin/solving_tests/studentresult/ HTTP/1.1" 200 20764
+[INFO] 2025-12-16 23:09:41,488 django.server 6156 4200 "GET /admin/solving_tests/studentresult/4/change/ HTTP/1.1" 200 30743
+[INFO] 2025-12-16 23:09:41,566 django.server 6156 4300 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-12-16 23:09:43,573 django.server 6156 20056 "GET /admin/solving_tests/studentresult/ HTTP/1.1" 200 20764
+[INFO] 2025-12-16 23:09:44,406 django.server 6156 20056 "GET /admin/solving_tests/studentresult/1/change/ HTTP/1.1" 200 30749
+[INFO] 2025-12-16 23:09:44,464 django.server 6156 20056 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-12-16 23:09:55,153 django.server 6156 18732 "GET /admin/solving_tests/studentresult/ HTTP/1.1" 200 20764
+[INFO] 2025-12-16 23:10:29,043 django.server 6156 16264 "GET /admin/solving_tests/studentresult/5/change/ HTTP/1.1" 200 30762
+[INFO] 2025-12-16 23:10:29,131 django.server 6156 3876 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-12-16 23:10:45,583 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,610 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,624 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,638 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,650 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,665 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,678 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,691 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,702 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,714 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,727 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,741 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,753 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,767 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,780 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,793 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,807 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,823 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,840 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:45,857 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:46,940 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:46,950 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:46,965 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:46,979 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:46,990 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,002 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,015 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,029 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,041 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,051 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,065 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,076 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,087 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,098 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,108 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,118 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,129 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,140 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,151 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,160 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,323 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,334 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,347 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,359 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,371 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,383 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,397 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,409 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,420 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,436 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,446 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,457 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,466 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,476 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,485 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,495 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,504 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,514 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,525 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:47,533 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,596 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,609 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,620 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,634 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,645 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,654 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,663 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,675 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,685 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,696 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,707 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,717 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,728 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,741 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,754 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,766 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,779 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,804 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,815 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:52,827 django.server 6156 11168 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:53,331 django.server 6156 12768 "GET /admin/ HTTP/1.1" 200 15811
+[INFO] 2025-12-16 23:10:55,183 django.server 6156 12768 "POST /admin/logout/ HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:55,196 django.server 6156 12768 "GET / HTTP/1.1" 200 1969
+[INFO] 2025-12-16 23:10:59,688 django.server 6156 12768 "POST / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:10:59,716 django.server 6156 12768 "GET /Home/ HTTP/1.1" 200 10044
+[INFO] 2025-12-16 23:11:02,323 django.server 6156 12768 "GET /TestsSolving/ HTTP/1.1" 200 10560
+[INFO] 2025-12-16 23:11:05,633 django.server 6156 14192 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/view-result/ HTTP/1.1" 200 7259
+[WARNING] 2025-12-16 23:11:05,904 django.server 6156 14192 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 23:12:11,232 django.utils.autoreload 6156 17148 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2025-12-16 23:12:13,011 django.utils.autoreload 14136 19604 Watching for file changes with StatReloader
+[INFO] 2025-12-16 23:12:24,823 django.server 14136 19140 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/view-result/ HTTP/1.1" 200 7259
+[WARNING] 2025-12-16 23:12:25,094 django.server 14136 19140 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 23:12:26,829 django.server 14136 10056 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/view-result/ HTTP/1.1" 200 7259
+[INFO] 2025-12-16 23:12:27,062 django.server 14136 10056 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-12-16 23:12:27,085 django.server 14136 10056 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2025-12-16 23:12:27,103 django.server 14136 14860 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 23:12:27,105 django.server 14136 10056 "GET /static/js/result.js HTTP/1.1" 200 340
+[INFO] 2025-12-16 23:12:27,105 django.server 14136 17960 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2025-12-16 23:12:27,107 django.server 14136 19408 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 23:12:27,113 django.server 14136 16772 "GET /static/css/result.css HTTP/1.1" 200 8695
+[INFO] 2025-12-16 23:12:27,113 django.server 14136 17560 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2025-12-16 23:12:27,131 django.server 14136 19408 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-12-16 23:12:27,158 django.server 14136 19408 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 23:12:27,164 django.server 14136 16772 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 23:12:27,203 django.server 14136 16772 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2025-12-16 23:12:27,208 django.server 14136 19408 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2025-12-16 23:12:27,392 django.server 14136 19408 "GET /static/favicon.ico HTTP/1.1" 200 976
+[WARNING] 2025-12-16 23:12:27,401 django.server 14136 16772 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 23:12:33,341 django.server 14136 8672 "GET /TestsSolving/ HTTP/1.1" 200 10560
+[INFO] 2025-12-16 23:12:33,443 django.server 14136 8672 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-12-16 23:12:36,091 django.server 14136 8672 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:12:36,114 django.server 14136 8672 "GET / HTTP/1.1" 200 1969
+[INFO] 2025-12-16 23:12:40,498 django.server 14136 8672 "POST / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:12:40,584 django.server 14136 8672 "GET /TestsCreate/listTests/ HTTP/1.1" 200 254136
+[INFO] 2025-12-16 23:12:40,681 django.server 14136 8672 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 17918
+[INFO] 2025-12-16 23:12:40,691 django.server 14136 8672 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 14925
+[INFO] 2025-12-16 23:12:43,488 django.server 14136 19220 "POST /TestsCreate/unpublish/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 17
+[INFO] 2025-12-16 23:12:43,570 django.server 14136 19220 "GET /TestsCreate/listTests/ HTTP/1.1" 200 249145
+[INFO] 2025-12-16 23:12:44,882 django.server 14136 19220 "GET /TestsCreate/edit-test/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 43864
+[INFO] 2025-12-16 23:12:44,955 django.server 14136 19220 "GET /static/css/writing_tests.css HTTP/1.1" 200 17593
+[INFO] 2025-12-16 23:12:44,964 django.server 14136 5748 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-12-16 23:12:44,969 django.server 14136 2416 "GET /static/js/editing_tests.js HTTP/1.1" 200 27253
+[WARNING] 2025-12-16 23:12:45,107 django.server 14136 2416 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[WARNING] 2025-12-16 23:12:45,129 django.server 14136 19220 "GET /static/libs/mathlive/fonts/KaTeX_Size1-Regular.woff2 HTTP/1.1" 404 1894
+[WARNING] 2025-12-16 23:12:45,130 django.server 14136 5748 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 404 1888
+[WARNING] 2025-12-16 23:12:45,151 django.server 14136 20068 "GET /static/libs/mathlive/fonts/KaTeX_Size4-Regular.woff2 HTTP/1.1" 404 1894
+[WARNING] 2025-12-16 23:12:45,230 django.server 14136 3052 "GET /static/libs/mathlive/fonts/KaTeX_Size3-Regular.woff2 HTTP/1.1" 404 1894
+[INFO] 2025-12-16 23:12:50,881 create_tests.views 14136 12732 POST data received: <QueryDict: {'csrfmiddlewaretoken': ['V7R52vKuZRRvrn50zYs0h99yZCquUnZdQ7npA4tIlsg3nQEEqBYnmZXRVn9lxVd2'], 'name_test': ['Контрольное мероприятие №1'], 'time_solve': ['01:00:00'], 'num_attempts': ['5'], 'subj_test': ['2'], 'description_test': ['Проверка базовых знаний по линейной алгебре и анализу'], 'result_display_mode': ['only_score'], 'point_solve': ['["1","1","1","1","1","1"]'], 'user_expression': ['["\\\\displaylines{Даны\\\\;векторы\\\\;a=\\\\begin{pmatrix}1 & 2 & 2\\\\end{pmatrix},\\\\;b=\\\\begin{pmatrix}3 & 0 & 4\\\\end{pmatrix}.\\\\;Найдите\\\\;проекцию\\\\;вектора\\\\;a\\\\;на\\\\;b.\\\\;\\\\\\\\ В\\\\;ответ\\\\;запишите\\\\;сумму\\\\;получившихся\\\\;элементов.}","Найдите\\\\;ранг\\\\;матрицы\\\\;C=\\\\begin{pmatrix}1 & 2 & 3\\\\\\\\ 2 & 4 & 6\\\\\\\\ 0 & 1 & 1\\\\end{pmatrix}.","Найдите\\\\;определитель\\\\;матрицы\\\\;A=\\\\begin{pmatrix}2 & -1\\\\\\\\ 3 & 4\\\\end{pmatrix}.","Даны\\\\;векторы\\\\;u=\\\\begin{pmatrix}1 & -2 & 3\\\\end{pmatrix},\\\\;v=\\\\begin{pmatrix}4 & 0 & -1\\\\end{pmatrix}.\\\\;Вычислите\\\\;их\\\\;скалярное\\\\;произведение.","\\\\displaylines{Дана\\\\;матрица\\\\;A=\\\\begin{pmatrix}2 & -1 & 3\\\\\\\\ 0 & 4 & -2\\\\\\\\ 1 & 5 & -3\\\\end{pmatrix}.\\\\;Найдите\\\\;след\\\\;матрицы\\\\;A.}","\\\\displaylines{\\\\\\\\ 1}"]'], 'user_ans': ['["\\\\frac{77}{25}","2","11","1","3","1"]'], 'user_eps': ['["0","0","0","0","0","1"]'], 'user_type': ['["2","1","1","1","1","2"]'], 'user_norm': ['["1","1","1","1","1","1"]'], 'user_bool_ans': ['["1","1","1","1","1","1"]'], 'number': ['[1,2,3,4,5,6]'], 'block_expression_num': ['[1,1,1,1,1,1]']}>
+[INFO] 2025-12-16 23:12:50,883 create_tests.views 14136 12732 Raw task_groups_data: []
+[INFO] 2025-12-16 23:12:50,884 create_tests.views 14136 12732 Parsed task_groups_data: []
+[INFO] 2025-12-16 23:12:50,885 create_tests.views 14136 12732 Raw data - points: ["1","1","1","1","1","1"], expressions: ["\\displaylines{Даны\\;векторы\\;a=\\begin{pmatrix}1 & 2 & 2\\end{pmatrix},\\;b=\\begin{pmatrix}3 & 0 & 4\\end{pmatrix}.\\;Найдите\\;проекцию\\;вектора\\;a\\;на\\;b.\\;\\\\ В\\;ответ\\;запишите\\;сумму\\;получившихся\\;элементов.}","Найдите\\;ранг\\;матрицы\\;C=\\begin{pmatrix}1 & 2 & 3\\\\ 2 & 4 & 6\\\\ 0 & 1 & 1\\end{pmatrix}.","Найдите\\;определитель\\;матрицы\\;A=\\begin{pmatrix}2 & -1\\\\ 3 & 4\\end{pmatrix}.","Даны\\;векторы\\;u=\\begin{pmatrix}1 & -2 & 3\\end{pmatrix},\\;v=\\begin{pmatrix}4 & 0 & -1\\end{pmatrix}.\\;Вычислите\\;их\\;скалярное\\;произведение.","\\displaylines{Дана\\;матрица\\;A=\\begin{pmatrix}2 & -1 & 3\\\\ 0 & 4 & -2\\\\ 1 & 5 & -3\\end{pmatrix}.\\;Найдите\\;след\\;матрицы\\;A.}","\\displaylines{\\\\ 1}"]
+[INFO] 2025-12-16 23:12:50,886 create_tests.views 14136 12732 Parsed data - expressions count: 6, points count: 6
+[INFO] 2025-12-16 23:12:50,886 create_tests.views 14136 12732 Found 6 valid expressions out of 6
+[INFO] 2025-12-16 23:12:50,887 create_tests.views 14136 12732 Deleting old expressions...
+[INFO] 2025-12-16 23:12:50,902 create_tests.views 14136 12732 Processing expression 1: \displaylines{Даны\;векторы\;a=\begin{pmatrix}1 & ...
+[INFO] 2025-12-16 23:12:50,902 create_tests.views 14136 12732 Data: ans='\frac{77}{25}', bool_ans='1', eps='0', type_id='2', point='1', norm_id='1'
+[INFO] 2025-12-16 23:12:50,902 create_tests.views 14136 12732 flag_select = False
+[INFO] 2025-12-16 23:12:50,904 create_tests.views 14136 12732 type_obj = Нецелые
+[INFO] 2025-12-16 23:12:50,913 create_tests.views 14136 12732 Created expression instance: \displaylines{Даны\;векторы\;a=\begin{pmatrix}1 & 2 & 2\end{pmatrix},\;b=\begin{pmatrix}3 & 0 & 4\end{pmatrix}.\;Найдите\;проекцию\;вектора\;a\;на\;b.\;\\ В\;ответ\;запишите\;сумму\;получившихся\;элементов.} with number=1, block=1
+[INFO] 2025-12-16 23:12:50,923 create_tests.views 14136 12732 Added expression 1 successfully
+[INFO] 2025-12-16 23:12:50,923 create_tests.views 14136 12732 Processing expression 2: Найдите\;ранг\;матрицы\;C=\begin{pmatrix}1 & 2 & 3...
+[INFO] 2025-12-16 23:12:50,923 create_tests.views 14136 12732 Data: ans='2', bool_ans='1', eps='0', type_id='1', point='1', norm_id='1'
+[INFO] 2025-12-16 23:12:50,924 create_tests.views 14136 12732 flag_select = False
+[INFO] 2025-12-16 23:12:50,925 create_tests.views 14136 12732 type_obj = Целые
+[INFO] 2025-12-16 23:12:50,934 create_tests.views 14136 12732 Created expression instance: Найдите\;ранг\;матрицы\;C=\begin{pmatrix}1 & 2 & 3\\ 2 & 4 & 6\\ 0 & 1 & 1\end{pmatrix}. with number=2, block=1
+[INFO] 2025-12-16 23:12:50,944 create_tests.views 14136 12732 Added expression 2 successfully
+[INFO] 2025-12-16 23:12:50,944 create_tests.views 14136 12732 Processing expression 3: Найдите\;определитель\;матрицы\;A=\begin{pmatrix}2...
+[INFO] 2025-12-16 23:12:50,945 create_tests.views 14136 12732 Data: ans='11', bool_ans='1', eps='0', type_id='1', point='1', norm_id='1'
+[INFO] 2025-12-16 23:12:50,945 create_tests.views 14136 12732 flag_select = False
+[INFO] 2025-12-16 23:12:50,946 create_tests.views 14136 12732 type_obj = Целые
+[INFO] 2025-12-16 23:12:50,954 create_tests.views 14136 12732 Created expression instance: Найдите\;определитель\;матрицы\;A=\begin{pmatrix}2 & -1\\ 3 & 4\end{pmatrix}. with number=3, block=1
+[INFO] 2025-12-16 23:12:50,964 create_tests.views 14136 12732 Added expression 3 successfully
+[INFO] 2025-12-16 23:12:50,965 create_tests.views 14136 12732 Processing expression 4: Даны\;векторы\;u=\begin{pmatrix}1 & -2 & 3\end{pma...
+[INFO] 2025-12-16 23:12:50,965 create_tests.views 14136 12732 Data: ans='1', bool_ans='1', eps='0', type_id='1', point='1', norm_id='1'
+[INFO] 2025-12-16 23:12:50,965 create_tests.views 14136 12732 flag_select = False
+[INFO] 2025-12-16 23:12:50,967 create_tests.views 14136 12732 type_obj = Целые
+[INFO] 2025-12-16 23:12:50,976 create_tests.views 14136 12732 Created expression instance: Даны\;векторы\;u=\begin{pmatrix}1 & -2 & 3\end{pmatrix},\;v=\begin{pmatrix}4 & 0 & -1\end{pmatrix}.\;Вычислите\;их\;скалярное\;произведение. with number=4, block=1
+[INFO] 2025-12-16 23:12:50,987 create_tests.views 14136 12732 Added expression 4 successfully
+[INFO] 2025-12-16 23:12:50,987 create_tests.views 14136 12732 Processing expression 5: \displaylines{Дана\;матрица\;A=\begin{pmatrix}2 & ...
+[INFO] 2025-12-16 23:12:50,987 create_tests.views 14136 12732 Data: ans='3', bool_ans='1', eps='0', type_id='1', point='1', norm_id='1'
+[INFO] 2025-12-16 23:12:50,988 create_tests.views 14136 12732 flag_select = False
+[INFO] 2025-12-16 23:12:50,989 create_tests.views 14136 12732 type_obj = Целые
+[INFO] 2025-12-16 23:12:51,000 create_tests.views 14136 12732 Created expression instance: \displaylines{Дана\;матрица\;A=\begin{pmatrix}2 & -1 & 3\\ 0 & 4 & -2\\ 1 & 5 & -3\end{pmatrix}.\;Найдите\;след\;матрицы\;A.} with number=5, block=1
+[INFO] 2025-12-16 23:12:51,009 create_tests.views 14136 12732 Added expression 5 successfully
+[INFO] 2025-12-16 23:12:51,009 create_tests.views 14136 12732 Processing expression 6: \displaylines{\\ 1}...
+[INFO] 2025-12-16 23:12:51,010 create_tests.views 14136 12732 Data: ans='1', bool_ans='1', eps='1', type_id='2', point='1', norm_id='1'
+[INFO] 2025-12-16 23:12:51,010 create_tests.views 14136 12732 flag_select = False
+[INFO] 2025-12-16 23:12:51,011 create_tests.views 14136 12732 type_obj = Нецелые
+[INFO] 2025-12-16 23:12:51,020 create_tests.views 14136 12732 Created expression instance: \displaylines{\\ 1} with number=6, block=1
+[INFO] 2025-12-16 23:12:51,029 create_tests.views 14136 12732 Added expression 6 successfully
+[INFO] 2025-12-16 23:12:51,036 create_tests.views 14136 12732 Test saved successfully
+[INFO] 2025-12-16 23:12:51,038 django.server 14136 12732 "POST /TestsCreate/edit-test/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:12:51,102 django.server 14136 12732 "GET /TestsCreate/listTests/ HTTP/1.1" 200 249145
+[INFO] 2025-12-16 23:12:54,374 django.server 14136 14384 "GET /TestsCreate/get-group-lists/ HTTP/1.1" 200 336
+[INFO] 2025-12-16 23:12:55,142 django.server 14136 14384 "GET /TestsCreate/get-group-list/4/ HTTP/1.1" 200 129
+[INFO] 2025-12-16 23:12:58,923 django.server 14136 14384 "POST /TestsCreate/publish-test/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 17
+[INFO] 2025-12-16 23:12:58,996 django.server 14136 14384 "GET /TestsCreate/listTests/ HTTP/1.1" 200 254136
+[INFO] 2025-12-16 23:13:00,850 django.server 14136 14384 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:13:00,862 django.server 14136 14384 "GET / HTTP/1.1" 200 1969
+[INFO] 2025-12-16 23:13:05,621 django.server 14136 19832 "POST / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:13:05,681 django.server 14136 19832 "GET /TestsCreate/listTests/ HTTP/1.1" 200 252081
+[INFO] 2025-12-16 23:13:17,833 django.server 14136 11616 "GET /TestsCreate/ HTTP/1.1" 200 20230
+[INFO] 2025-12-16 23:13:17,926 django.server 14136 3716 "GET /static/js/writing_tests.js HTTP/1.1" 200 27037
+[WARNING] 2025-12-16 23:13:18,014 django.server 14136 3716 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2025-12-16 23:13:53,923 create_tests.views 14136 16784 === CREATE TEST DEBUG START ===
+[INFO] 2025-12-16 23:13:53,924 create_tests.views 14136 16784 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'result_display_mode', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans']
+[INFO] 2025-12-16 23:13:53,924 create_tests.views 14136 16784 POST data: {'csrfmiddlewaretoken': ['Ps5WNW3t0JwltRPZ47BU8zaw7nrDHCDFrfTTxgXSSye9u5718dhALZHqG2D3DLs4'], 'name_test': [''], 'time_solve': [''], 'num_attempts': [''], 'subj_test': [''], 'description_test': [''], 'result_display_mode': [''], 'point_solve': [''], 'user_expression': [''], 'user_ans': [''], 'user_eps': [''], 'user_type': [''], 'user_norm': [''], 'user_bool_ans': ['']}
+[INFO] 2025-12-16 23:13:53,925 create_tests.views 14136 16784 Basic fields - name: '', time: '', attempts: '', subj_id: ''
+[ERROR] 2025-12-16 23:13:53,926 create_tests.views 14136 16784 CREATE TEST ERROR: Field 'id' expected a number but got ''.
+[ERROR] 2025-12-16 23:13:53,926 create_tests.views 14136 16784 Exception type: <class 'ValueError'>
+[ERROR] 2025-12-16 23:13:53,954 create_tests.views 14136 16784 Full traceback: Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2117, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\create_tests\views.py", line 55, in create_test
+    subj = Subjects.objects.get(id=subj_id)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1613, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1645, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1559, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1389, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 364, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2119, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+
+[INFO] 2025-12-16 23:13:53,967 django.server 14136 16784 "POST /TestsCreate/ HTTP/1.1" 200 20529
+[WARNING] 2025-12-16 23:13:54,117 django.server 14136 16784 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2025-12-16 23:15:08,848 django.utils.autoreload 14136 19604 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2025-12-16 23:15:12,275 django.utils.autoreload 3364 17972 Watching for file changes with StatReloader
+[INFO] 2025-12-16 23:15:31,064 django.utils.autoreload 3364 17972 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2025-12-16 23:15:32,571 django.utils.autoreload 18668 7508 Watching for file changes with StatReloader
+[INFO] 2025-12-16 23:16:02,510 django.utils.autoreload 18668 7508 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2025-12-16 23:16:03,650 django.utils.autoreload 7248 19144 Watching for file changes with StatReloader
+[INFO] 2025-12-16 23:16:21,166 create_tests.views 7248 10956 === CREATE TEST DEBUG START ===
+[INFO] 2025-12-16 23:16:21,167 create_tests.views 7248 10956 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'result_display_mode', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans']
+[INFO] 2025-12-16 23:16:21,168 create_tests.views 7248 10956 POST data: {'csrfmiddlewaretoken': ['Ps5WNW3t0JwltRPZ47BU8zaw7nrDHCDFrfTTxgXSSye9u5718dhALZHqG2D3DLs4'], 'name_test': [''], 'time_solve': [''], 'num_attempts': [''], 'subj_test': [''], 'description_test': [''], 'result_display_mode': [''], 'point_solve': [''], 'user_expression': [''], 'user_ans': [''], 'user_eps': [''], 'user_type': [''], 'user_norm': [''], 'user_bool_ans': ['']}
+[INFO] 2025-12-16 23:16:21,169 create_tests.views 7248 10956 Basic fields - name: '', time: '', attempts: '', subj_id: ''
+[ERROR] 2025-12-16 23:16:21,171 create_tests.views 7248 10956 CREATE TEST ERROR: Field 'id' expected a number but got ''.
+[ERROR] 2025-12-16 23:16:21,172 create_tests.views 7248 10956 Exception type: <class 'ValueError'>
+[ERROR] 2025-12-16 23:16:21,193 create_tests.views 7248 10956 Full traceback: Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2117, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\create_tests\views.py", line 55, in create_test
+    subj = Subjects.objects.get(id=subj_id)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1613, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1645, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1559, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1389, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 364, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2119, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+
+[INFO] 2025-12-16 23:16:21,242 django.server 7248 10956 "POST /TestsCreate/ HTTP/1.1" 200 20529
+[INFO] 2025-12-16 23:16:21,532 django.server 7248 10956 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-12-16 23:16:21,539 django.server 7248 10956 "GET /static/js/writing_tests.js HTTP/1.1" 200 27037
+[INFO] 2025-12-16 23:16:21,553 django.server 7248 7476 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 23:16:21,557 django.server 7248 12800 "GET /static/css/writing_tests.css HTTP/1.1" 200 17593
+[INFO] 2025-12-16 23:16:21,559 django.server 7248 17196 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 23:16:21,570 django.server 7248 20276 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2025-12-16 23:16:21,572 django.server 7248 7476 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-12-16 23:16:21,580 django.server 7248 10956 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2025-12-16 23:16:21,583 django.server 7248 19772 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2025-12-16 23:16:21,604 django.server 7248 7476 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-12-16 23:16:21,634 django.server 7248 7476 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 23:16:21,650 django.server 7248 19772 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 23:16:21,686 django.server 7248 19772 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2025-12-16 23:16:21,743 django.server 7248 19772 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2025-12-16 23:16:21,815 django.server 7248 7476 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-12-16 23:16:23,566 django.server 7248 7476 "GET /TestsCreate/listTests/ HTTP/1.1" 200 252081
+[INFO] 2025-12-16 23:16:26,828 django.server 7248 7476 "GET /TestsCreate/ HTTP/1.1" 200 20230
+[WARNING] 2025-12-16 23:16:27,016 django.server 7248 7476 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2025-12-16 23:16:39,719 create_tests.views 7248 8796 === CREATE TEST DEBUG START ===
+[INFO] 2025-12-16 23:16:39,719 create_tests.views 7248 8796 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'result_display_mode', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans']
+[INFO] 2025-12-16 23:16:39,720 create_tests.views 7248 8796 POST data: {'csrfmiddlewaretoken': ['N0pldTL5oKf1iNE8Io7QL4H3NkzK8J3jpNdiXdFugzXPj1WaMuNwoueXmZLa4SSI'], 'name_test': [''], 'time_solve': [''], 'num_attempts': [''], 'subj_test': [''], 'description_test': [''], 'result_display_mode': [''], 'point_solve': [''], 'user_expression': [''], 'user_ans': [''], 'user_eps': [''], 'user_type': [''], 'user_norm': [''], 'user_bool_ans': ['']}
+[INFO] 2025-12-16 23:16:39,720 create_tests.views 7248 8796 Basic fields - name: '', time: '', attempts: '', subj_id: ''
+[ERROR] 2025-12-16 23:16:39,721 create_tests.views 7248 8796 CREATE TEST ERROR: Field 'id' expected a number but got ''.
+[ERROR] 2025-12-16 23:16:39,721 create_tests.views 7248 8796 Exception type: <class 'ValueError'>
+[ERROR] 2025-12-16 23:16:39,725 create_tests.views 7248 8796 Full traceback: Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2117, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\create_tests\views.py", line 55, in create_test
+    subj = Subjects.objects.get(id=subj_id)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1613, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1645, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1559, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1389, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 364, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2119, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+
+[INFO] 2025-12-16 23:16:39,733 django.server 7248 8796 "POST /TestsCreate/ HTTP/1.1" 200 20529
+[WARNING] 2025-12-16 23:16:39,868 django.server 7248 8796 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[WARNING] 2025-12-16 23:16:54,835 django.request 7248 5884 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-12-16 23:16:54,836 django.server 7248 5884 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[INFO] 2025-12-16 23:19:34,933 django.server 7248 11296 "GET /personaInf/ HTTP/1.1" 200 7552
+[WARNING] 2025-12-16 23:19:35,030 django.request 7248 11296 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-12-16 23:19:35,033 django.server 7248 11296 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[INFO] 2025-12-16 23:19:35,035 django.server 7248 16996 "GET /static/css/teacher_account.css HTTP/1.1" 200 5060
+[WARNING] 2025-12-16 23:19:35,065 django.server 7248 16996 "GET /static/js/teacher_account.js HTTP/1.1" 404 1822
+[INFO] 2025-12-16 23:19:35,987 django.server 7248 11296 "GET /TestsCreate/listTests/ HTTP/1.1" 200 252081
+[WARNING] 2025-12-16 23:19:36,068 django.request 7248 11296 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-12-16 23:19:36,069 django.server 7248 11296 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[INFO] 2025-12-16 23:19:37,503 django.server 7248 11296 "GET /TestsCreate/ HTTP/1.1" 200 20230
+[WARNING] 2025-12-16 23:19:37,596 django.request 7248 11296 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-12-16 23:19:37,598 django.server 7248 11296 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[WARNING] 2025-12-16 23:19:37,825 django.server 7248 11296 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2025-12-16 23:20:45,833 create_tests.views 7248 9280 === CREATE TEST DEBUG START ===
+[INFO] 2025-12-16 23:20:45,834 create_tests.views 7248 9280 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'result_display_mode', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans']
+[INFO] 2025-12-16 23:20:45,835 create_tests.views 7248 9280 POST data: {'csrfmiddlewaretoken': ['FeVXEv2fRJNdK6xj7jTMXKmSGJQxRBu0h1JUoPWEJyv1LkPlbpzsAaTMfo2XNKjp'], 'name_test': [''], 'time_solve': [''], 'num_attempts': [''], 'subj_test': [''], 'description_test': [''], 'result_display_mode': [''], 'point_solve': [''], 'user_expression': [''], 'user_ans': [''], 'user_eps': [''], 'user_type': [''], 'user_norm': [''], 'user_bool_ans': ['']}
+[INFO] 2025-12-16 23:20:45,835 create_tests.views 7248 9280 Basic fields - name: '', time: '', attempts: '', subj_id: ''
+[ERROR] 2025-12-16 23:20:45,836 create_tests.views 7248 9280 CREATE TEST ERROR: Field 'id' expected a number but got ''.
+[ERROR] 2025-12-16 23:20:45,836 create_tests.views 7248 9280 Exception type: <class 'ValueError'>
+[ERROR] 2025-12-16 23:20:45,841 create_tests.views 7248 9280 Full traceback: Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2117, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\create_tests\views.py", line 55, in create_test
+    subj = Subjects.objects.get(id=subj_id)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1613, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1645, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1559, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1389, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 364, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2119, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+
+[INFO] 2025-12-16 23:20:45,859 django.server 7248 9280 "POST /TestsCreate/ HTTP/1.1" 200 20529
+[WARNING] 2025-12-16 23:20:45,954 django.request 7248 9280 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-12-16 23:20:45,957 django.server 7248 9280 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[WARNING] 2025-12-16 23:20:46,272 django.server 7248 9280 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2025-12-16 23:20:48,481 create_tests.views 7248 11836 === CREATE TEST DEBUG START ===
+[INFO] 2025-12-16 23:20:48,482 create_tests.views 7248 11836 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'result_display_mode', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans']
+[INFO] 2025-12-16 23:20:48,482 create_tests.views 7248 11836 POST data: {'csrfmiddlewaretoken': ['FeVXEv2fRJNdK6xj7jTMXKmSGJQxRBu0h1JUoPWEJyv1LkPlbpzsAaTMfo2XNKjp'], 'name_test': [''], 'time_solve': [''], 'num_attempts': [''], 'subj_test': [''], 'description_test': [''], 'result_display_mode': [''], 'point_solve': [''], 'user_expression': [''], 'user_ans': [''], 'user_eps': [''], 'user_type': [''], 'user_norm': [''], 'user_bool_ans': ['']}
+[INFO] 2025-12-16 23:20:48,483 create_tests.views 7248 11836 Basic fields - name: '', time: '', attempts: '', subj_id: ''
+[ERROR] 2025-12-16 23:20:48,485 create_tests.views 7248 11836 CREATE TEST ERROR: Field 'id' expected a number but got ''.
+[ERROR] 2025-12-16 23:20:48,485 create_tests.views 7248 11836 Exception type: <class 'ValueError'>
+[ERROR] 2025-12-16 23:20:48,490 create_tests.views 7248 11836 Full traceback: Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2117, in get_prep_value
+    return int(value)
+ValueError: invalid literal for int() with base 10: ''
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\create_tests\views.py", line 55, in create_test
+    subj = Subjects.objects.get(id=subj_id)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 635, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1613, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1645, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<7 lines>...
+        update_join_types=update_join_types,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1559, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\sql\query.py", line 1389, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 364, in get_prep_lookup
+    return super().get_prep_lookup()
+           ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\cproh\MPEI_project\OsaMPEI\.venv\Lib\site-packages\django\db\models\fields\__init__.py", line 2119, in get_prep_value
+    raise e.__class__(
+        "Field '%s' expected a number but got %r." % (self.name, value),
+    ) from e
+ValueError: Field 'id' expected a number but got ''.
+
+[INFO] 2025-12-16 23:20:48,500 django.server 7248 11836 "POST /TestsCreate/ HTTP/1.1" 200 20529
+[INFO] 2025-12-16 23:20:48,641 django.server 7248 19492 "GET /static/css/header.css HTTP/1.1" 200 11500
+[WARNING] 2025-12-16 23:20:48,649 django.request 7248 11836 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-12-16 23:20:48,658 django.server 7248 11836 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[INFO] 2025-12-16 23:20:48,663 django.server 7248 12540 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 23:20:48,666 django.server 7248 16732 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 23:20:48,675 django.server 7248 19492 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2025-12-16 23:20:48,696 django.server 7248 19492 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2025-12-16 23:20:48,702 django.server 7248 11836 "GET /static/js/writing_tests.js HTTP/1.1" 200 27900
+[INFO] 2025-12-16 23:20:48,705 django.server 7248 2952 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2025-12-16 23:20:48,706 django.server 7248 17120 "GET /static/css/writing_tests.css HTTP/1.1" 200 17593
+[INFO] 2025-12-16 23:20:48,754 django.server 7248 12540 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2025-12-16 23:20:48,759 django.server 7248 17120 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-12-16 23:20:48,829 django.server 7248 17120 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 23:20:48,830 django.server 7248 12540 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 23:20:48,928 django.server 7248 12540 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2025-12-16 23:20:49,000 django.server 7248 12540 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2025-12-16 23:20:49,133 django.server 7248 17120 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-12-16 23:20:50,318 django.server 7248 17120 "GET /personaInf/ HTTP/1.1" 200 7552
+[WARNING] 2025-12-16 23:20:50,396 django.request 7248 17120 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-12-16 23:20:50,398 django.server 7248 17120 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[WARNING] 2025-12-16 23:20:50,422 django.server 7248 17120 "GET /static/js/teacher_account.js HTTP/1.1" 404 1822
+[INFO] 2025-12-16 23:20:50,815 django.server 7248 2952 "GET /TestsCreate/listTests/ HTTP/1.1" 200 252081
+[WARNING] 2025-12-16 23:20:50,931 django.request 7248 2952 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-12-16 23:20:50,935 django.server 7248 2952 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[INFO] 2025-12-16 23:20:54,528 django.server 7248 19000 "GET /TestsCreate/ HTTP/1.1" 200 20230
+[WARNING] 2025-12-16 23:20:54,633 django.request 7248 19000 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-12-16 23:20:54,635 django.server 7248 19000 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[WARNING] 2025-12-16 23:20:54,862 django.server 7248 8468 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2025-12-16 23:22:39,513 django.server 7248 20812 "GET /TestsCreate/ HTTP/1.1" 200 20464
+[INFO] 2025-12-16 23:22:39,662 django.server 7248 20812 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-12-16 23:22:39,665 django.server 7248 20824 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 23:22:39,672 django.server 7248 20840 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 23:22:39,672 django.server 7248 20844 "GET /static/css/writing_tests.css HTTP/1.1" 200 17593
+[INFO] 2025-12-16 23:22:39,686 django.server 7248 20848 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2025-12-16 23:22:39,695 django.server 7248 20824 "GET /static/js/writing_tests.js HTTP/1.1" 200 28097
+[INFO] 2025-12-16 23:22:39,699 django.server 7248 20852 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2025-12-16 23:22:39,724 django.server 7248 20844 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[WARNING] 2025-12-16 23:22:39,770 django.request 7248 20840 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[INFO] 2025-12-16 23:22:39,776 django.server 7248 20824 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[WARNING] 2025-12-16 23:22:39,777 django.server 7248 20840 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[INFO] 2025-12-16 23:22:39,799 django.server 7248 20812 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2025-12-16 23:22:39,851 django.server 7248 20812 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 23:22:39,873 django.server 7248 20812 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 23:22:40,116 django.server 7248 20812 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2025-12-16 23:22:40,191 django.server 7248 20812 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2025-12-16 23:22:40,430 django.server 7248 20824 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-12-16 23:22:56,663 create_tests.views 7248 21308 === CREATE TEST DEBUG START ===
+[INFO] 2025-12-16 23:22:56,663 create_tests.views 7248 21308 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'result_display_mode', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans', 'number', 'block_expression_num']
+[INFO] 2025-12-16 23:22:56,665 create_tests.views 7248 21308 POST data: {'csrfmiddlewaretoken': ['QnI5SgQIrOnZYBRv7Gq1dbzOSr2MIZVnsaw2CAK7jD5NZP9xbM6HQB6Ir6ecE8KM'], 'name_test': ['111ывфвфыв'], 'time_solve': ['01:11:00'], 'num_attempts': ['12'], 'subj_test': ['2'], 'description_test': ['12'], 'result_display_mode': ['only_score'], 'point_solve': ['["1"]'], 'user_expression': ['["1"]'], 'user_ans': ['["1"]'], 'user_eps': ['["1"]'], 'user_type': ['["1"]'], 'user_norm': ['[""]'], 'user_bool_ans': ['["0"]'], 'number': ['[1]'], 'block_expression_num': ['[1]']}
+[INFO] 2025-12-16 23:22:56,668 create_tests.views 7248 21308 Basic fields - name: '111ывфвфыв', time: '01:11:00', attempts: '12', subj_id: '2'
+[INFO] 2025-12-16 23:22:56,675 create_tests.views 7248 21308 Raw task_groups_data: []
+[INFO] 2025-12-16 23:22:56,677 create_tests.views 7248 21308 Parsed task_groups_data: []
+[INFO] 2025-12-16 23:22:56,679 create_tests.views 7248 21308 Raw data - points: ["1"], expressions: ["1"]
+[INFO] 2025-12-16 23:22:56,681 create_tests.views 7248 21308 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-12-16 23:22:56,754 create_tests.views 7248 21308 Found 1 valid expressions out of 1
+[INFO] 2025-12-16 23:22:56,754 create_tests.views 7248 21308 Numbers raw: [1], Block nums raw: [1]
+[INFO] 2025-12-16 23:22:56,755 create_tests.views 7248 21308 Processing expression 1: 1...
+[INFO] 2025-12-16 23:22:56,755 create_tests.views 7248 21308 Data: ans='1', bool_ans='0', eps='1', type_id='1', point='1', norm_id=''
+[INFO] 2025-12-16 23:22:56,756 create_tests.views 7248 21308 flag_select = False
+[INFO] 2025-12-16 23:22:56,757 create_tests.views 7248 21308 type_obj = Целые
+[INFO] 2025-12-16 23:22:56,770 create_tests.views 7248 21308 Created expression instance: 1 with number=1, block=1
+[INFO] 2025-12-16 23:22:56,787 create_tests.views 7248 21308 Added expression 1 successfully
+[INFO] 2025-12-16 23:22:56,799 create_tests.views 7248 21308 === CREATE TEST DEBUG END ===
+[INFO] 2025-12-16 23:22:56,802 django.server 7248 21308 "POST /TestsCreate/ HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:22:56,890 django.server 7248 21308 "GET /TestsCreate/listTests/ HTTP/1.1" 200 220465
+[WARNING] 2025-12-16 23:22:57,036 django.request 7248 21308 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-12-16 23:22:57,039 django.server 7248 21308 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[INFO] 2025-12-16 23:23:01,227 django.server 7248 21384 "GET /TestsCreate/listTests/?filter=all HTTP/1.1" 200 255936
+[WARNING] 2025-12-16 23:23:01,357 django.request 7248 21384 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-12-16 23:23:01,359 django.server 7248 21384 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[INFO] 2025-12-16 23:23:03,147 django.server 7248 21384 "GET /TestsCreate/listTests/?filter=my HTTP/1.1" 200 220465
+[WARNING] 2025-12-16 23:23:03,246 django.request 7248 21384 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-12-16 23:23:03,248 django.server 7248 21384 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[INFO] 2025-12-16 23:23:08,712 django.server 7248 10032 "GET /TestsCreate/get-group-lists/ HTTP/1.1" 200 36
+[INFO] 2025-12-16 23:23:12,130 django.server 7248 10032 "POST /TestsCreate/delete-test/111yvfvfyv/ HTTP/1.1" 200 17
+[INFO] 2025-12-16 23:23:12,318 django.server 7248 10032 "GET /TestsCreate/listTests/?filter=my HTTP/1.1" 200 252081
+[WARNING] 2025-12-16 23:23:12,459 django.request 7248 10032 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-12-16 23:23:12,461 django.server 7248 10032 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[INFO] 2025-12-16 23:23:52,565 django.server 7248 7316 "GET /personaInf/ HTTP/1.1" 200 7552
+[WARNING] 2025-12-16 23:23:52,679 django.server 7248 7316 "GET /static/js/teacher_account.js HTTP/1.1" 404 1822
+[INFO] 2025-12-16 23:27:51,973 django.server 7248 10864 "GET /personaInf/ HTTP/1.1" 200 7806
+[WARNING] 2025-12-16 23:27:52,082 django.server 7248 10864 "GET /static/js/teacher_account.js HTTP/1.1" 404 1822
+[INFO] 2025-12-16 23:29:44,364 django.server 7248 20548 "GET /personaInf/ HTTP/1.1" 200 7806
+[WARNING] 2025-12-16 23:29:44,483 django.server 7248 20548 "GET /static/js/teacher_account.js HTTP/1.1" 404 1822
+[INFO] 2025-12-16 23:30:08,213 django.server 7248 14444 "GET /personaInf/ HTTP/1.1" 200 7806
+[INFO] 2025-12-16 23:30:08,276 django.server 7248 14444 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-12-16 23:30:08,291 django.server 7248 11700 "GET /static/css/teacher_account.css HTTP/1.1" 200 5409
+[INFO] 2025-12-16 23:30:08,293 django.server 7248 16564 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 23:30:08,295 django.server 7248 13600 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 23:30:08,299 django.server 7248 16636 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-12-16 23:30:08,321 django.server 7248 13600 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 23:30:08,324 django.server 7248 16636 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 23:30:08,339 django.server 7248 16564 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2025-12-16 23:30:08,340 django.server 7248 11700 "GET /static/js/teacher_account.js HTTP/1.1" 404 1822
+[INFO] 2025-12-16 23:30:08,415 django.server 7248 16564 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-12-16 23:30:10,510 django.server 7248 16564 "GET /TestsCreate/listTests/?filter=my&status=published HTTP/1.1" 200 252081
+[INFO] 2025-12-16 23:30:15,262 django.server 7248 16360 "GET /TestsCreate/listTests/?filter=my&status=published HTTP/1.1" 200 252081
+[INFO] 2025-12-16 23:30:18,007 django.server 7248 16360 "GET /TestsCreate/listTests/?filter=my&status=published HTTP/1.1" 200 252081
+[INFO] 2025-12-16 23:30:24,195 django.server 7248 18984 "GET /TestsCreate/listTests/?filter=my&status=published HTTP/1.1" 200 252081
+[INFO] 2025-12-16 23:30:28,372 django.server 7248 18984 "GET /TestsCreate/ HTTP/1.1" 200 20464
+[INFO] 2025-12-16 23:30:28,476 django.server 7248 18984 "GET /static/js/writing_tests.js HTTP/1.1" 304 0
+[WARNING] 2025-12-16 23:30:28,623 django.server 7248 18984 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2025-12-16 23:31:28,549 create_tests.views 7248 8168 === CREATE TEST DEBUG START ===
+[INFO] 2025-12-16 23:31:28,550 create_tests.views 7248 8168 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'result_display_mode', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans', 'number', 'block_expression_num']
+[INFO] 2025-12-16 23:31:28,551 create_tests.views 7248 8168 POST data: {'csrfmiddlewaretoken': ['kKQNTAHKrTJENzW3n5jFPmAcFZ3fsPchWxEKDUB9jIrsONe5rbZlsM76eEfFoY1G'], 'name_test': ['Тест Крымов Н.Е.'], 'time_solve': ['01:00:00'], 'num_attempts': ['10'], 'subj_test': ['1'], 'description_test': ['Тестовый на видимость и доступ'], 'result_display_mode': ['show_correct'], 'point_solve': ['["1"]'], 'user_expression': ['["1-1"]'], 'user_ans': ['["0"]'], 'user_eps': ['["0"]'], 'user_type': ['["1"]'], 'user_norm': ['[""]'], 'user_bool_ans': ['["0"]'], 'number': ['[1]'], 'block_expression_num': ['[1]']}
+[INFO] 2025-12-16 23:31:28,552 create_tests.views 7248 8168 Basic fields - name: 'Тест Крымов Н.Е.', time: '01:00:00', attempts: '10', subj_id: '1'
+[INFO] 2025-12-16 23:31:28,553 create_tests.views 7248 8168 Raw task_groups_data: []
+[INFO] 2025-12-16 23:31:28,554 create_tests.views 7248 8168 Parsed task_groups_data: []
+[INFO] 2025-12-16 23:31:28,554 create_tests.views 7248 8168 Raw data - points: ["1"], expressions: ["1-1"]
+[INFO] 2025-12-16 23:31:28,554 create_tests.views 7248 8168 Parsed data - expressions count: 1, points count: 1
+[INFO] 2025-12-16 23:31:28,565 create_tests.views 7248 8168 Found 1 valid expressions out of 1
+[INFO] 2025-12-16 23:31:28,565 create_tests.views 7248 8168 Numbers raw: [1], Block nums raw: [1]
+[INFO] 2025-12-16 23:31:28,566 create_tests.views 7248 8168 Processing expression 1: 1-1...
+[INFO] 2025-12-16 23:31:28,566 create_tests.views 7248 8168 Data: ans='0', bool_ans='0', eps='0', type_id='1', point='1', norm_id=''
+[INFO] 2025-12-16 23:31:28,566 create_tests.views 7248 8168 flag_select = False
+[INFO] 2025-12-16 23:31:28,568 create_tests.views 7248 8168 type_obj = Целые
+[INFO] 2025-12-16 23:31:28,575 create_tests.views 7248 8168 Created expression instance: 1-1 with number=1, block=1
+[INFO] 2025-12-16 23:31:28,584 create_tests.views 7248 8168 Added expression 1 successfully
+[INFO] 2025-12-16 23:31:28,593 create_tests.views 7248 8168 === CREATE TEST DEBUG END ===
+[INFO] 2025-12-16 23:31:28,596 django.server 7248 8168 "POST /TestsCreate/ HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:31:28,657 django.server 7248 8168 "GET /TestsCreate/listTests/ HTTP/1.1" 200 220543
+[INFO] 2025-12-16 23:31:30,673 django.server 7248 8168 "GET /TestsCreate/listTests/?filter=all HTTP/1.1" 200 256014
+[INFO] 2025-12-16 23:31:32,010 django.server 7248 8168 "GET /TestsCreate/listTests/?filter=my HTTP/1.1" 200 220543
+[INFO] 2025-12-16 23:31:42,618 django.server 7248 11068 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:31:42,649 django.server 7248 11068 "GET / HTTP/1.1" 200 1969
+[INFO] 2025-12-16 23:31:48,040 django.server 7248 9268 "POST / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:31:48,107 django.server 7248 9268 "GET /TestsCreate/listTests/ HTTP/1.1" 200 254136
+[INFO] 2025-12-16 23:31:56,682 django.server 7248 19256 "GET /personaInf/ HTTP/1.1" 200 10325
+[INFO] 2025-12-16 23:31:56,770 django.server 7248 19256 "GET /static/css/teacher_account.css HTTP/1.1" 304 0
+[WARNING] 2025-12-16 23:31:56,790 django.server 7248 19256 "GET /static/js/teacher_account.js HTTP/1.1" 404 1822
+[INFO] 2025-12-16 23:32:02,212 django.server 7248 12100 "GET /personaInf/ HTTP/1.1" 200 10325
+[WARNING] 2025-12-16 23:32:02,291 django.server 7248 10396 "GET /static/js/teacher_account.js HTTP/1.1" 404 1822
+[INFO] 2025-12-16 23:32:02,594 django.server 7248 12100 "GET /TestsCreate/listTests/ HTTP/1.1" 200 254136
+[INFO] 2025-12-16 23:32:05,200 django.server 7248 10076 "GET /TestsCreate/get-group-lists/ HTTP/1.1" 200 336
+[INFO] 2025-12-16 23:32:05,924 django.server 7248 10076 "GET /TestsCreate/get-group-list/4/ HTTP/1.1" 200 129
+[INFO] 2025-12-16 23:32:08,621 django.server 7248 10076 "POST /TestsCreate/publish-test/vychislenie-opredelennykh-integralov/ HTTP/1.1" 200 17
+[INFO] 2025-12-16 23:32:08,695 django.server 7248 10076 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2025-12-16 23:32:10,260 django.server 7248 10076 "GET /personaInf/ HTTP/1.1" 200 10320
+[WARNING] 2025-12-16 23:32:10,345 django.server 7248 20976 "GET /static/js/teacher_account.js HTTP/1.1" 404 1822
+[INFO] 2025-12-16 23:33:11,389 django.server 7248 11276 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2025-12-16 23:33:13,397 django.server 7248 11276 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:33:13,407 django.server 7248 11276 "GET / HTTP/1.1" 200 1969
+[INFO] 2025-12-16 23:33:18,521 django.server 7248 10932 "POST / HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:33:18,566 django.server 7248 10932 "GET /Home/ HTTP/1.1" 200 10803
+[INFO] 2025-12-16 23:33:18,661 django.server 7248 10932 "GET /static/css/student_account.css HTTP/1.1" 304 0
+[INFO] 2025-12-16 23:33:20,037 django.server 7248 10932 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:33:20,120 django.server 7248 10932 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-12-16 23:33:31,222 django.server 7248 16612 "GET /TestsSolving/vychislenie-opredelennykh-integralov/view-result/ HTTP/1.1" 200 7259
+[WARNING] 2025-12-16 23:33:31,592 django.server 7248 16612 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 23:33:35,211 django.server 7248 7188 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 9454
+[INFO] 2025-12-16 23:33:35,301 django.server 7248 7188 "GET /static/css/specific_test.css HTTP/1.1" 200 4391
+[INFO] 2025-12-16 23:33:35,303 django.server 7248 15716 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 268
+[INFO] 2025-12-16 23:33:35,304 django.server 7248 13160 "GET /static/js/specific_test.js HTTP/1.1" 200 4365
+[WARNING] 2025-12-16 23:33:35,528 django.server 7248 13160 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2025-12-16 23:33:39,927 django.server 7248 15716 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 9454
+[WARNING] 2025-12-16 23:33:40,212 django.server 7248 15716 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[WARNING] 2025-12-16 23:33:41,039 django.server 7248 7188 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 23:33:42,229 django.server 7248 16168 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 9454
+[WARNING] 2025-12-16 23:33:42,455 django.server 7248 16168 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[WARNING] 2025-12-16 23:33:42,576 django.server 7248 17456 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 23:34:32,420 django.server 7248 6580 "GET /TestsSolving/vychislenie-opredelennykh-integralov/view-result/ HTTP/1.1" 200 7259
+[WARNING] 2025-12-16 23:34:32,829 django.server 7248 6580 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 23:34:34,660 django.server 7248 6912 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:36:10,060 django.utils.autoreload 7248 19144 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2025-12-16 23:36:11,850 django.utils.autoreload 19272 10992 Watching for file changes with StatReloader
+[INFO] 2025-12-16 23:36:29,403 django.utils.autoreload 19272 10992 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2025-12-16 23:36:30,587 django.utils.autoreload 15436 9516 Watching for file changes with StatReloader
+[INFO] 2025-12-16 23:38:59,267 django.utils.autoreload 15436 9516 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2025-12-16 23:39:00,582 django.utils.autoreload 4184 9644 Watching for file changes with StatReloader
+[INFO] 2025-12-16 23:39:20,210 django.server 4184 8480 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:39:20,436 django.server 4184 8480 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-12-16 23:39:20,444 django.server 4184 20508 "GET /static/css/test_selection.css HTTP/1.1" 200 8223
+[INFO] 2025-12-16 23:39:20,447 django.server 4184 20940 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 23:39:20,454 django.server 4184 5784 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 23:39:20,456 django.server 4184 18992 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-12-16 23:39:20,471 django.server 4184 18992 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 23:39:20,472 django.server 4184 5784 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 23:39:20,474 django.server 4184 20940 "GET /static/js/test_selection.js HTTP/1.1" 200 4477
+[INFO] 2025-12-16 23:39:20,495 django.server 4184 18992 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2025-12-16 23:39:20,502 django.server 4184 5784 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-12-16 23:39:20,600 django.server 4184 18992 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-12-16 23:39:21,267 django.server 4184 18992 "GET /TestsSolving/vychislenie-opredelennykh-integralov/view-result/ HTTP/1.1" 200 7259
+[WARNING] 2025-12-16 23:39:21,579 django.server 4184 18992 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 23:39:22,348 django.server 4184 5784 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:39:23,570 django.server 4184 5784 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:39:23,612 django.server 4184 5784 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-12-16 23:39:23,624 django.server 4184 8480 "GET /static/css/test_selection.css HTTP/1.1" 200 8223
+[INFO] 2025-12-16 23:39:23,625 django.server 4184 20940 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 23:39:23,629 django.server 4184 20508 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 23:39:23,634 django.server 4184 5784 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-12-16 23:39:23,649 django.server 4184 20508 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 23:39:23,650 django.server 4184 5784 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 23:39:23,653 django.server 4184 8480 "GET /static/js/test_selection.js HTTP/1.1" 200 4477
+[INFO] 2025-12-16 23:39:23,667 django.server 4184 5784 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-12-16 23:39:23,669 django.server 4184 8480 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2025-12-16 23:39:23,743 django.server 4184 8480 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-12-16 23:39:24,761 django.server 4184 8480 "GET /TestsSolving/vychislenie-opredelennykh-integralov/view-result/ HTTP/1.1" 200 7259
+[WARNING] 2025-12-16 23:39:25,014 django.server 4184 8480 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 23:39:25,754 django.server 4184 5784 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:39:26,467 django.server 4184 5784 "GET /Home/ HTTP/1.1" 200 10803
+[INFO] 2025-12-16 23:39:26,754 django.server 4184 5784 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:39:27,559 django.server 4184 5784 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 9435
+[WARNING] 2025-12-16 23:39:27,824 django.server 4184 5784 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[WARNING] 2025-12-16 23:39:27,920 django.server 4184 20508 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 23:39:28,683 django.server 4184 20496 "GET /Home/ HTTP/1.1" 200 10803
+[INFO] 2025-12-16 23:39:30,134 django.server 4184 20496 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:39:32,803 django.server 4184 20496 "GET /TestsSolving/vychislenie-opredelennykh-integralov/view-result/ HTTP/1.1" 200 7259
+[WARNING] 2025-12-16 23:39:33,057 django.server 4184 20496 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 23:40:06,244 django.utils.autoreload 4184 9644 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2025-12-16 23:40:07,557 django.utils.autoreload 9316 2244 Watching for file changes with StatReloader
+[INFO] 2025-12-16 23:40:44,281 django.utils.autoreload 9316 2244 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2025-12-16 23:40:45,430 django.utils.autoreload 6064 15812 Watching for file changes with StatReloader
+[INFO] 2025-12-16 23:47:27,741 django.server 6064 9800 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:47:28,856 django.server 6064 20892 "GET /TestsSolving/vychislenie-opredelennykh-integralov/view-result/ HTTP/1.1" 200 7261
+[WARNING] 2025-12-16 23:47:29,227 django.server 6064 20892 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 23:47:30,480 django.server 6064 12060 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:47:31,677 django.server 6064 12060 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:47:31,879 django.server 6064 11752 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 23:47:31,881 django.server 6064 12060 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-12-16 23:47:31,889 django.server 6064 17188 "GET /static/css/test_selection.css HTTP/1.1" 200 8223
+[INFO] 2025-12-16 23:47:31,893 django.server 6064 12820 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 23:47:31,896 django.server 6064 11848 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-12-16 23:47:31,930 django.server 6064 12820 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 23:47:31,930 django.server 6064 11848 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 23:47:31,938 django.server 6064 17188 "GET /static/js/test_selection.js HTTP/1.1" 200 4477
+[INFO] 2025-12-16 23:47:31,954 django.server 6064 11848 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-12-16 23:47:31,962 django.server 6064 17188 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2025-12-16 23:47:32,045 django.server 6064 17188 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-12-16 23:47:33,028 django.server 6064 17188 "GET /TestsSolving/vychislenie-opredelennykh-integralov/view-result/ HTTP/1.1" 200 7261
+[WARNING] 2025-12-16 23:47:33,300 django.server 6064 17188 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 23:47:39,507 django.server 6064 11040 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:47:41,418 django.server 6064 11040 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:47:41,465 django.server 6064 11040 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-12-16 23:47:41,470 django.server 6064 19036 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 23:47:41,480 django.server 6064 20332 "GET /static/css/test_selection.css HTTP/1.1" 200 8223
+[INFO] 2025-12-16 23:47:41,482 django.server 6064 6624 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 23:47:41,488 django.server 6064 20352 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-12-16 23:47:41,493 django.server 6064 6624 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 23:47:41,552 django.server 6064 6624 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 23:47:41,553 django.server 6064 20352 "GET /static/js/test_selection.js HTTP/1.1" 200 4477
+[INFO] 2025-12-16 23:47:41,565 django.server 6064 6624 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-12-16 23:47:41,569 django.server 6064 20352 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2025-12-16 23:47:41,633 django.server 6064 20352 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-12-16 23:47:45,603 django.server 6064 20352 "GET /TestsSolving/vychislenie-opredelennykh-integralov/view-result/ HTTP/1.1" 200 7261
+[WARNING] 2025-12-16 23:47:45,866 django.server 6064 20352 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 23:47:49,361 django.server 6064 20700 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:47:50,735 django.server 6064 20700 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:47:50,781 django.server 6064 20700 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-12-16 23:47:50,799 django.server 6064 6908 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 23:47:50,799 django.server 6064 13504 "GET /static/css/test_selection.css HTTP/1.1" 200 8223
+[INFO] 2025-12-16 23:47:50,801 django.server 6064 12240 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 23:47:50,804 django.server 6064 18460 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-12-16 23:47:50,858 django.server 6064 18460 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 23:47:50,859 django.server 6064 12240 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 23:47:50,861 django.server 6064 13504 "GET /static/js/test_selection.js HTTP/1.1" 200 4477
+[INFO] 2025-12-16 23:47:50,874 django.server 6064 12240 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-12-16 23:47:50,878 django.server 6064 13504 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2025-12-16 23:47:50,956 django.server 6064 13504 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-12-16 23:47:52,487 django.server 6064 13504 "GET /TestsSolving/vychislenie-opredelennykh-integralov/view-result/ HTTP/1.1" 200 7261
+[WARNING] 2025-12-16 23:47:52,746 django.server 6064 13504 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 23:47:53,774 django.server 6064 12240 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:50:38,345 django.server 6064 11324 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:50:38,402 django.server 6064 11324 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-12-16 23:50:38,415 django.server 6064 10128 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 23:50:38,416 django.server 6064 18708 "GET /static/css/test_selection.css HTTP/1.1" 200 8223
+[INFO] 2025-12-16 23:50:38,419 django.server 6064 14856 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 23:50:38,434 django.server 6064 14856 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 23:50:38,435 django.server 6064 10128 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-12-16 23:50:38,514 django.server 6064 14856 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 23:50:38,515 django.server 6064 10128 "GET /static/js/test_selection.js HTTP/1.1" 200 4477
+[INFO] 2025-12-16 23:50:38,533 django.server 6064 14856 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-12-16 23:50:38,541 django.server 6064 10128 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2025-12-16 23:50:38,609 django.server 6064 10128 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2025-12-16 23:50:39,389 django.server 6064 17588 "GET /TestsSolving/vychislenie-opredelennykh-integralov/view-result/ HTTP/1.1" 200 7261
+[WARNING] 2025-12-16 23:50:39,661 django.server 6064 17588 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-16 23:50:40,617 django.server 6064 1068 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:51:02,441 django.server 6064 17708 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-16 23:51:02,518 django.server 6064 17708 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2025-12-16 23:51:02,530 django.server 6064 12980 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2025-12-16 23:51:02,532 django.server 6064 2268 "GET /static/css/test_selection.css HTTP/1.1" 200 8223
+[INFO] 2025-12-16 23:51:02,536 django.server 6064 7324 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2025-12-16 23:51:02,547 django.server 6064 12980 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2025-12-16 23:51:02,561 django.server 6064 2268 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2025-12-16 23:51:02,562 django.server 6064 7324 "GET /static/js/test_selection.js HTTP/1.1" 200 4477
+[INFO] 2025-12-16 23:51:02,563 django.server 6064 12980 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2025-12-16 23:51:02,573 django.server 6064 17708 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2025-12-16 23:51:02,575 django.server 6064 13504 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2025-12-16 23:51:02,678 django.server 6064 17708 "GET /static/favicon.ico HTTP/1.1" 200 976
+[WARNING] 2025-12-16 23:51:12,302 django.request 6064 11112 Not Found: /login
+[WARNING] 2025-12-16 23:51:12,305 django.server 6064 11112 "GET /login HTTP/1.1" 404 4361
+[WARNING] 2025-12-16 23:51:12,490 django.request 6064 11112 Not Found: /favicon.ico
+[WARNING] 2025-12-16 23:51:12,491 django.server 6064 11112 "GET /favicon.ico HTTP/1.1" 404 4379
+[INFO] 2025-12-16 23:51:17,708 django.server 6064 11112 "GET /admin/ HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:51:17,782 django.server 6064 11112 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3919
+[INFO] 2025-12-16 23:51:21,766 django.server 6064 4668 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[INFO] 2025-12-16 23:51:21,805 django.server 6064 4668 "GET /admin/ HTTP/1.1" 200 15811
+[INFO] 2025-12-17 00:14:23,687 django.server 6064 12772 "GET /admin/solving_tests/studentresult/ HTTP/1.1" 200 20764
+[INFO] 2025-12-17 00:14:23,939 django.server 6064 21436 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-12-17 00:14:32,855 django.server 6064 10124 "GET /admin/solving_tests/studentresult/5/change/ HTTP/1.1" 200 30858
+[INFO] 2025-12-17 00:14:32,945 django.server 6064 7260 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-12-17 00:14:42,326 django.server 6064 11740 "POST /admin/solving_tests/studentresult/5/change/ HTTP/1.1" 302 0
+[INFO] 2025-12-17 00:14:42,377 django.server 6064 11740 "GET /admin/solving_tests/studentresult/ HTTP/1.1" 200 21078
+[INFO] 2025-12-17 00:14:42,455 django.server 6064 19260 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-12-17 00:14:42,490 django.server 6064 19260 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+[INFO] 2025-12-17 00:14:46,028 django.server 6064 3736 "POST /admin/logout/ HTTP/1.1" 302 0
+[INFO] 2025-12-17 00:14:46,043 django.server 6064 3736 "GET / HTTP/1.1" 200 1969
+[INFO] 2025-12-17 00:14:50,587 django.server 6064 10520 "POST / HTTP/1.1" 302 0
+[INFO] 2025-12-17 00:14:50,621 django.server 6064 10520 "GET /Home/ HTTP/1.1" 200 10803
+[INFO] 2025-12-17 00:14:50,721 django.server 6064 5048 "GET /static/css/student_account.css HTTP/1.1" 304 0
+[INFO] 2025-12-17 00:14:51,956 django.server 6064 5048 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-17 00:14:54,169 django.server 6064 15124 "GET /TestsSolving/vychislenie-opredelennykh-integralov/view-result/ HTTP/1.1" 200 7261
+[WARNING] 2025-12-17 00:14:54,514 django.server 6064 15124 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-17 00:14:55,260 django.server 6064 10008 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-17 00:17:05,938 django.server 6064 5296 "GET /TestsSolving/vychislenie-opredelennykh-integralov/view-result/ HTTP/1.1" 200 7261
+[WARNING] 2025-12-17 00:17:06,310 django.server 6064 5296 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-17 00:17:25,221 django.server 6064 5188 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-17 00:17:33,836 django.server 6064 5188 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 9435
+[WARNING] 2025-12-17 00:17:34,227 django.server 6064 9600 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2025-12-17 00:17:37,920 django.server 6064 18228 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 9435
+[WARNING] 2025-12-17 00:17:38,033 django.server 6064 18228 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[WARNING] 2025-12-17 00:17:38,236 django.server 6064 9628 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-17 00:17:46,155 django.server 6064 5836 "POST /TestsSolving/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 302 0
+[INFO] 2025-12-17 00:17:46,179 django.server 6064 5836 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/result/ HTTP/1.1" 200 7259
+[WARNING] 2025-12-17 00:17:46,468 django.server 6064 5836 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-17 00:17:48,171 django.server 6064 11540 "GET /TestsSolving/ HTTP/1.1" 200 12416
+[INFO] 2025-12-17 00:17:51,174 django.server 6064 11540 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 9523
+[WARNING] 2025-12-17 00:17:51,311 django.server 6064 11540 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[WARNING] 2025-12-17 00:17:51,547 django.server 6064 3772 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-17 00:17:52,298 django.server 6064 3364 "POST /TestsSolving/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 302 0
+[INFO] 2025-12-17 00:17:52,316 django.server 6064 3364 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/result/ HTTP/1.1" 200 7259
+[WARNING] 2025-12-17 00:17:52,563 django.server 6064 3364 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-17 00:17:53,574 django.server 6064 9364 "GET /TestsSolving/ HTTP/1.1" 200 12413
+[INFO] 2025-12-17 00:18:19,763 django.server 6064 16616 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/view-result/ HTTP/1.1" 200 7261
+[WARNING] 2025-12-17 00:18:20,042 django.server 6064 16616 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
+[INFO] 2025-12-17 00:18:22,577 django.server 6064 9288 "GET /TestsSolving/ HTTP/1.1" 200 12413

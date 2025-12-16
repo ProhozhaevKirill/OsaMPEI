@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Инициализация фильтров из URL параметров
+    initializeFiltersFromURL();
+
     // Элементы модальных окон
     const deleteModal = document.getElementById('deleteModal');
     const publishModal = document.getElementById('publishModal');
@@ -346,3 +349,51 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeGroupSelection();
     initializeFiltering();
 });
+
+// Функция для инициализации фильтров из URL параметров
+function initializeFiltersFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const filterType = urlParams.get('filter'); // my или all
+    const statusFilter = urlParams.get('status'); // published, unpublished или all
+
+    // Устанавливаем фильтр по автору
+    const authorFilter = document.getElementById('authorFilter');
+    if (authorFilter && filterType) {
+        authorFilter.value = filterType;
+    }
+
+    // Устанавливаем фильтр по статусу
+    const testFilter = document.getElementById('testFilter');
+    if (testFilter && statusFilter) {
+        if (statusFilter === 'published') {
+            testFilter.value = 'published';
+        } else if (statusFilter === 'unpublished') {
+            testFilter.value = 'unpublished';
+        } else {
+            testFilter.value = 'all';
+        }
+
+        // Применяем фильтрацию
+        applyTestFilter(testFilter.value);
+    }
+}
+
+// Функция для применения фильтрации тестов
+function applyTestFilter(selectedValue) {
+    const testCards = document.querySelectorAll('.test-card');
+    testCards.forEach(card => {
+        const isPublished = card.getAttribute('data-published') === 'true';
+        const shouldHide =
+            (selectedValue === 'published' && !isPublished) ||
+            (selectedValue === 'unpublished' && isPublished) ||
+            (selectedValue === 'draft' && isPublished);
+
+        if (shouldHide) {
+            card.classList.add('hidden');
+            card.style.display = 'none';
+        } else {
+            card.classList.remove('hidden');
+            card.style.display = 'block';
+        }
+    });
+}

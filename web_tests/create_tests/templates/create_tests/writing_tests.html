@@ -12,8 +12,14 @@
 
 {% block extra_js %}
     <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
-    <script src="{% static 'js/writing_tests.js' %}"></script>
     <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
+    <script>
+        // Настройки MathLive для отключения загрузки шрифтов
+        if (window.MathfieldElement) {
+            window.MathfieldElement.fontsDirectory = null;
+        }
+    </script>
+    <script src="{% static 'js/writing_tests.js' %}"></script>
     <script src="{% static 'js/mathJax-rus.js' %}"></script>
 {% endblock %}
 

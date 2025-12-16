@@ -10500,3 +10500,31 @@ ValueError: Field 'id' expected a number but got ''.
 [INFO] 2025-12-17 00:18:19,763 django.server 6064 16616 "GET /TestsSolving/matematika-1-kurs-bazovyi-test/view-result/ HTTP/1.1" 200 7261
 [WARNING] 2025-12-17 00:18:20,042 django.server 6064 16616 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1858
 [INFO] 2025-12-17 00:18:22,577 django.server 6064 9288 "GET /TestsSolving/ HTTP/1.1" 200 12413
+[INFO] 2025-12-17 02:05:23,876 django.utils.autoreload 16032 19060 Watching for file changes with StatReloader
+[INFO] 2025-12-17 02:05:25,624 django.server 16032 1520 "GET / HTTP/1.1" 302 0
+[INFO] 2025-12-17 02:05:25,680 django.server 16032 1520 "GET /Home/ HTTP/1.1" 200 10787
+[INFO] 2025-12-17 02:05:25,872 django.server 16032 1520 "GET /static/css/student_account.css HTTP/1.1" 304 0
+[INFO] 2025-12-17 02:05:28,225 django.server 16032 1520 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2025-12-17 02:05:28,246 django.server 16032 1520 "GET / HTTP/1.1" 200 1969
+[INFO] 2025-12-17 02:05:29,824 django.server 16032 1520 "GET /register/ HTTP/1.1" 200 2254
+[INFO] 2025-12-17 02:05:45,890 django.server 16032 8656 "POST /register/ HTTP/1.1" 200 5203
+[WARNING] 2025-12-17 02:05:45,986 django.server 16032 8656 "GET /static/css/reg_form_students.css HTTP/1.1" 404 1834
+[WARNING] 2025-12-17 02:06:16,285 django.server 16032 18300 "GET /static/css/reg_form_students.css HTTP/1.1" 404 1834
+[WARNING] 2025-12-17 02:06:16,308 django.request 16032 19240 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-12-17 02:06:16,309 django.server 16032 19240 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[INFO] 2025-12-17 02:06:20,599 django.server 16032 18524 "GET /admin/ HTTP/1.1" 302 0
+[INFO] 2025-12-17 02:06:20,669 django.server 16032 18524 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4330
+[WARNING] 2025-12-17 02:06:20,769 django.request 16032 18524 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-12-17 02:06:20,775 django.server 16032 18524 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[WARNING] 2025-12-17 02:06:20,891 django.request 16032 18524 Not Found: /favicon.ico
+[WARNING] 2025-12-17 02:06:20,892 django.server 16032 18524 "GET /favicon.ico HTTP/1.1" 404 4379
+[INFO] 2025-12-17 02:06:24,546 django.server 16032 18524 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[INFO] 2025-12-17 02:06:24,588 django.server 16032 18524 "GET /admin/ HTTP/1.1" 200 15945
+[WARNING] 2025-12-17 02:06:24,698 django.request 16032 18524 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2025-12-17 02:06:24,699 django.server 16032 18524 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4490
+[INFO] 2025-12-17 02:06:26,358 django.server 16032 3320 "GET /admin/users/customuser/ HTTP/1.1" 200 18349
+[INFO] 2025-12-17 02:06:26,455 django.server 16032 13472 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-12-17 02:06:31,900 django.server 16032 17992 "GET /admin/solving_tests/studentresult/ HTTP/1.1" 200 21782
+[INFO] 2025-12-17 02:06:31,987 django.server 16032 14828 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
+[INFO] 2025-12-17 02:06:34,202 django.server 16032 14828 "GET /admin/users/studentdata/ HTTP/1.1" 200 15930
+[INFO] 2025-12-17 02:06:34,269 django.server 16032 17992 "GET /admin/jsi18n/ HTTP/1.1" 200 17546

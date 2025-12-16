@@ -52,42 +52,37 @@ def register_view(request):
                 form.add_error('email', 'Этот email уже зарегистрирован.')
                 return render(request, 'users/registration.html', {'form': form})
 
-            user = form.save(commit=False)
+            # Сохраняем данные в сессии для последующего использования
+            request.session['pending_registration'] = {
+                'email': email,
+                'password': password,
+                'is_teacher': WhiteList.objects.filter(teacher_mail__iexact=email).exists()
+            }
 
-            if WhiteList.objects.filter(teacher_mail__iexact=email).exists():
-                user.role = 'teacher'
+            institutes = StudentInstitute.objects.all().prefetch_related('studentgroup_set')
+
+            if request.session['pending_registration']['is_teacher']:
+                return render(request, 'users/teacher_account.html', {'institutes': institutes})
             else:
-                user.role = 'student'
-
-            user.email = email
-            user.set_password(password)  # Хэширование пароля
-            user.save()
-
-            user = authenticate(request, username=email, password=password)
-            if user is not None:
-                login(request, user)
-                institutes = StudentInstitute.objects.all().prefetch_related('studentgroup_set')
-
-                if hasattr(user, 'role') and user.role == 'teacher':
-                    return render(request, 'users/teacher_account.html', {'institutes': institutes})
-                else:
-                    return render(request, 'users/reg_form_student.html', {'institutes': institutes})
+                return render(request, 'users/reg_form_student.html', {'institutes': institutes})
 
     form = SignUpForm()
     return render(request, 'users/registration.html', {'form': form})
 
 
-@login_required
-@role_required(['student', 'admin'])
 def form_registration(request):
-    # Если данные уже есть - перенаправляем в кабинет
-    if hasattr(request.user, 'studentdata'):
+    # Проверяем, есть ли данные регистрации в сессии
+    if 'pending_registration' not in request.session:
+        messages.error(request, "Сессия регистрации истекла. Пожалуйста, зарегистрируйтесь заново.")
+        return redirect('register')
+
+    # Если пользователь уже авторизован и имеет данные - перенаправляем
+    if request.user.is_authenticated and hasattr(request.user, 'studentdata'):
         return redirect('account_view')
 
     institutes = StudentInstitute.objects.all().prefetch_related('studentgroup_set')
 
     if request.method == "POST":
-
         try:
             first_name = request.POST.get('first_name', '').strip()
             last_name = request.POST.get('last_name', '').strip()
@@ -108,28 +103,106 @@ def form_registration(request):
                 defaults={'name': group_name, 'name_inst': institute}
             )
 
-            StudentData.objects.update_or_create(
-                data_map=request.user,
-                defaults={
-                    'first_name': first_name,
-                    'last_name': last_name,
-                    'middle_name': middle_name,
-                    'institute': institute,
-                    'group': group,
-                    'training_status': True
-                }
+            # Теперь создаем пользователя в БД
+            pending_data = request.session['pending_registration']
+
+            user = CustomUser.objects.create_user(
+                email=pending_data['email'],
+                password=pending_data['password'],
+                role='teacher' if pending_data['is_teacher'] else 'student'
             )
 
-            messages.success(request, "Данные успешно сохранены!")
-            print("Данные успешно сохранены для пользователя", request.user.email)  # Логирование
-            return redirect('account_view')
+            # Создаем данные студента
+            StudentData.objects.create(
+                data_map=user,
+                first_name=first_name,
+                last_name=last_name,
+                middle_name=middle_name,
+                institute=institute,
+                group=group,
+                training_status=True
+            )
+
+            # Очищаем сессию
+            del request.session['pending_registration']
+
+            # Авторизуем пользователя
+            user = authenticate(request, username=pending_data['email'], password=pending_data['password'])
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Регистрация завершена успешно!")
+                return redirect('account_view')
 
         except StudentInstitute.DoesNotExist:
             messages.error(request, "Выбранный институт не существует")
         except Exception as e:
-            messages.error(request, f"Ошибка сохранения: {str(e)}")
+            messages.error(request, f"Ошибка регистрации: {str(e)}")
 
     return render(request, 'users/reg_form_student.html',
+                  {'institutes': institutes})
+
+
+def form_registration_teacher(request):
+    # Проверяем, есть ли данные регистрации в сессии
+    if 'pending_registration' not in request.session:
+        messages.error(request, "Сессия регистрации истекла. Пожалуйста, зарегистрируйтесь заново.")
+        return redirect('register')
+
+    # Проверяем, что пользователь действительно учитель
+    if not request.session['pending_registration']['is_teacher']:
+        messages.error(request, "Доступ запрещен.")
+        return redirect('register')
+
+    institutes = StudentInstitute.objects.all()
+
+    if request.method == "POST":
+        try:
+            first_name = request.POST.get('first_name', '').strip()
+            last_name = request.POST.get('last_name', '').strip()
+            middle_name = request.POST.get('middle_name', '').strip()
+            institute_id = request.POST.get('institute', '').strip()
+
+            if not all([first_name, last_name, institute_id]):
+                messages.error(request, "Заполните все обязательные поля!")
+                return render(request, 'users/teacher_account.html',
+                              {'institutes': institutes})
+
+            institute = StudentInstitute.objects.get(id=institute_id)
+
+            # Создаем пользователя в БД
+            pending_data = request.session['pending_registration']
+
+            user = CustomUser.objects.create_user(
+                email=pending_data['email'],
+                password=pending_data['password'],
+                role='teacher'
+            )
+
+            # Создаем данные преподавателя
+            TeacherData.objects.create(
+                data_map=user,
+                first_name=first_name,
+                last_name=last_name,
+                middle_name=middle_name,
+                institute=institute
+            )
+
+            # Очищаем сессию
+            del request.session['pending_registration']
+
+            # Авторизуем пользователя
+            user = authenticate(request, username=pending_data['email'], password=pending_data['password'])
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Регистрация завершена успешно!")
+                return redirect('/TestsCreate/listTests/')
+
+        except StudentInstitute.DoesNotExist:
+            messages.error(request, "Выбранный институт не существует")
+        except Exception as e:
+            messages.error(request, f"Ошибка регистрации: {str(e)}")
+
+    return render(request, 'users/teacher_account.html',
                   {'institutes': institutes})
 
 

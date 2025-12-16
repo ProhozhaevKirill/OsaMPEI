@@ -89,7 +89,7 @@ h3 {
 .stat-card {
     background-color: white;
     border-radius: var(--border-radius);
-    padding: 20px;
+    padding: 10px;
     box-shadow: var(--shadow-sm);
     display: flex;
     align-items: center;

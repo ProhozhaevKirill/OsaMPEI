@@ -205,6 +205,7 @@ body {
 /* Правая панель с редактором заданий */
 .task-editor-panel {
   flex: 1;
+  min-width: 0;
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -325,7 +326,8 @@ body {
 /* Поля ввода выражений */
 .expression math-field {
   width: 100%;
-  height: 120px;
+  max-width: 100%;
+  min-height: 120px;
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 15px;
@@ -333,6 +335,8 @@ body {
   background: white;
   box-sizing: border-box;
   margin-bottom: 15px;
+  display: block;
+  overflow: hidden;
 }
 
 /* Контейнер ответов - увеличенная высота */
@@ -414,48 +418,14 @@ body {
   border-radius: 4px;
   padding: 15px;
   background: white;
-  min-height: 108px; /* Увеличенная высота */
+  min-height: 60px;
   font-size: 1rem;
   min-width: 0;
-  resize: vertical;
+  max-width: 100%;
+  display: block;
+  overflow: hidden;
 }
 
-/* Исправление отображения скобок матриц в MathLive */
-math-field .ML__container .ML__latex {
-  font-feature-settings: "liga" 1, "kern" 1;
-}
-
-math-field .ML__container .ML__base .ML__bracket {
-  font-family: "Computer Modern", "Latin Modern Math", "KaTeX_Main", serif !important;
-  font-size: 1.2em;
-  line-height: 1;
-}
-
-math-field .ML__container .ML__base .ML__delim-size1,
-math-field .ML__container .ML__base .ML__delim-size2,
-math-field .ML__container .ML__base .ML__delim-size3,
-math-field .ML__container .ML__base .ML__delim-size4 {
-  font-family: "Computer Modern", "Latin Modern Math", "KaTeX_Main", serif !important;
-}
-
-/* Специфические стили для скобок матриц */
-math-field .ML__container .ML__base .ML__close,
-math-field .ML__container .ML__base .ML__open {
-  font-family: "Computer Modern", "Latin Modern Math", "KaTeX_Main", serif !important;
-  font-size: 1.1em;
-  vertical-align: baseline;
-}
-
-/* Исправление отображения больших скобок */
-math-field .ML__container .ML__base .ML__delim-size4 .ML__char {
-  font-size: 1em;
-  line-height: 1;
-}
-
-/* Дополнительная поддержка для правильного отображения скобок */
-math-field .ML__container .ML__latex .ML__latex-command {
-  font-feature-settings: normal;
-}
 
 .meta-fields {
   display: flex;

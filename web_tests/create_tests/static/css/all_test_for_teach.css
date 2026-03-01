@@ -115,6 +115,15 @@ a {
     background-color: var(--success-color);
 }
 
+.btn-results {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-results:hover {
+    background-color: #2b003d;
+}
+
 .btn-unpublish:hover {
     background-color: var(--warning-color);
 }

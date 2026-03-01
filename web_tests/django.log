@@ -10811,3 +10811,1282 @@ ValueError: Field 'id' expected a number but got ''.
 [INFO] 2025-12-17 02:36:50,690 django.server 13288 16012 "GET /admin/jsi18n/ HTTP/1.1" 200 17546
 [INFO] 2025-12-17 02:36:55,271 django.server 13288 16012 "POST /admin/logout/ HTTP/1.1" 302 0
 [INFO] 2025-12-17 02:36:55,281 django.server 13288 16012 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-01-10 00:39:24,793 django.utils.autoreload 14588 27244 Watching for file changes with StatReloader
+[INFO] 2026-01-10 00:39:41,009 django.server 14588 26392 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-01-10 00:39:42,437 django.server 14588 26392 "GET /static/css/registration.css HTTP/1.1" 200 2951
+[INFO] 2026-01-10 00:39:42,444 django.server 14588 8284 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-01-10 00:39:42,448 django.server 14588 19760 "GET /static/js/registration.js HTTP/1.1" 200 798
+[INFO] 2026-01-10 00:39:42,452 django.server 14588 24588 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-01-10 00:39:42,575 django.server 14588 19760 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-01-10 00:39:49,452 django.server 14588 19760 "POST / HTTP/1.1" 302 0
+[INFO] 2026-01-10 00:39:49,550 django.server 14588 19760 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2026-01-10 00:39:49,663 django.server 14588 26392 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 17918
+[INFO] 2026-01-10 00:39:49,665 django.server 14588 8284 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-01-10 00:39:49,666 django.server 14588 19760 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-01-10 00:39:49,667 django.server 14588 24588 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-01-10 00:39:49,704 django.server 14588 8284 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-01-10 00:39:49,707 django.server 14588 24588 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-01-10 00:39:49,724 django.server 14588 19760 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 16925
+[INFO] 2026-01-10 00:39:49,860 django.server 14588 19760 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-01-10 01:07:11,249 django.server 14588 20920 "GET /TestsCreate/edit-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 38873
+[INFO] 2026-01-10 01:07:11,413 django.server 14588 13464 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-01-10 01:07:11,416 django.server 14588 20920 "GET /static/css/writing_tests.css HTTP/1.1" 200 17593
+[INFO] 2026-01-10 01:07:11,440 django.server 14588 18992 "GET /static/js/editing_tests.js HTTP/1.1" 200 27253
+[INFO] 2026-01-10 01:07:11,448 django.server 14588 18612 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-01-10 01:07:11,493 django.server 14588 15408 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[WARNING] 2026-01-10 01:07:12,273 django.server 14588 15408 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[WARNING] 2026-01-10 01:07:12,275 django.server 14588 18992 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 404 1888
+[WARNING] 2026-01-10 01:07:12,278 django.server 14588 18612 "GET /static/libs/mathlive/fonts/KaTeX_Size2-Regular.woff2 HTTP/1.1" 404 1894
+[INFO] 2026-01-10 01:10:06,908 django.utils.autoreload 14588 27244 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\create_tests\models.py changed, reloading.
+[INFO] 2026-01-10 01:10:10,002 django.utils.autoreload 20164 10564 Watching for file changes with StatReloader
+[INFO] 2026-01-10 01:11:03,333 django.utils.autoreload 20164 10564 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-01-10 01:11:05,202 django.utils.autoreload 11348 5744 Watching for file changes with StatReloader
+[INFO] 2026-01-10 01:13:12,604 django.utils.autoreload 11348 5744 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-01-10 01:13:14,640 django.utils.autoreload 20816 20048 Watching for file changes with StatReloader
+[INFO] 2026-01-10 01:13:34,523 django.utils.autoreload 20816 20048 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-01-10 01:13:36,921 django.utils.autoreload 8848 8628 Watching for file changes with StatReloader
+[INFO] 2026-01-10 01:19:52,578 django.utils.autoreload 8848 8628 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-01-10 01:19:54,484 django.utils.autoreload 25308 26936 Watching for file changes with StatReloader
+[INFO] 2026-01-10 01:20:18,484 django.utils.autoreload 25308 26936 C:\Users\cproh\MPEI_project\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-01-10 01:20:20,712 django.utils.autoreload 3020 21168 Watching for file changes with StatReloader
+[INFO] 2026-01-10 01:21:25,518 django.server 3020 18504 "GET /personaInf/ HTTP/1.1" 200 10320
+[WARNING] 2026-01-10 01:21:25,745 django.server 3020 11520 "GET /static/js/teacher_account.js HTTP/1.1" 404 1822
+[INFO] 2026-01-10 01:21:25,776 django.server 3020 18504 "GET /static/css/teacher_account.css HTTP/1.1" 200 5409
+[INFO] 2026-01-10 01:21:27,581 django.server 3020 20668 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2026-01-10 01:21:29,503 django.server 3020 20668 "GET /TestsCreate/ HTTP/1.1" 200 22196
+[INFO] 2026-01-10 01:21:29,629 django.server 3020 25356 "GET /static/js/writing_tests.js HTTP/1.1" 200 28401
+[WARNING] 2026-01-10 01:21:29,818 django.server 3020 25356 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2026-01-10 01:21:29,901 django.server 3020 20668 "GET /static/favicon.svg HTTP/1.1" 200 947
+[INFO] 2026-01-10 01:21:43,892 django.server 3020 29248 "GET /TestsCreate/ HTTP/1.1" 200 22196
+[WARNING] 2026-01-10 01:21:44,108 django.server 3020 29248 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2026-01-10 01:22:57,271 django.server 3020 28960 "GET /TestsCreate/ HTTP/1.1" 200 22196
+[INFO] 2026-01-10 01:22:57,404 django.server 3020 29196 "GET /static/js/writing_tests.js HTTP/1.1" 304 0
+[WARNING] 2026-01-10 01:22:57,480 django.server 3020 29196 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2026-01-10 01:23:01,507 django.server 3020 28960 "GET /TestsCreate HTTP/1.1" 301 0
+[INFO] 2026-01-10 01:23:01,545 django.server 3020 10264 "GET /TestsCreate/ HTTP/1.1" 200 22196
+[WARNING] 2026-01-10 01:23:01,708 django.server 3020 10264 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2026-01-10 01:25:45,656 django.server 3020 9172 "GET /TestsCreate/ HTTP/1.1" 200 22923
+[INFO] 2026-01-10 01:25:45,854 django.server 3020 19308 "GET /static/js/writing_tests.js HTTP/1.1" 200 31073
+[WARNING] 2026-01-10 01:25:45,989 django.server 3020 24704 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2026-01-10 01:26:07,378 django.server 3020 2972 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2026-01-10 01:26:14,298 django.server 3020 2972 "GET /TestsCreate/edit-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 38873
+[WARNING] 2026-01-10 01:26:14,512 django.server 3020 28976 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 404 1888
+[WARNING] 2026-01-10 01:26:14,516 django.server 3020 7196 "GET /static/libs/mathlive/fonts/KaTeX_Size2-Regular.woff2 HTTP/1.1" 404 1894
+[WARNING] 2026-01-10 01:26:14,517 django.server 3020 2972 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2026-01-10 01:29:07,563 django.server 3020 8452 "GET /personaInf/ HTTP/1.1" 200 10320
+[WARNING] 2026-01-10 01:29:08,004 django.server 3020 8452 "GET /static/js/teacher_account.js HTTP/1.1" 404 1822
+[INFO] 2026-01-10 01:29:08,715 django.server 3020 13964 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2026-01-10 01:29:13,011 django.server 3020 13964 "GET /TestsCreate/edit-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 41332
+[WARNING] 2026-01-10 01:29:13,265 django.server 3020 13964 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[WARNING] 2026-01-10 01:29:13,311 django.server 3020 18972 "GET /static/libs/mathlive/fonts/KaTeX_Size2-Regular.woff2 HTTP/1.1" 404 1894
+[WARNING] 2026-01-10 01:29:13,313 django.server 3020 26912 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 404 1888
+[INFO] 2026-01-10 01:31:09,253 django.server 3020 17300 "GET /TestsCreate/edit-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 41332
+[WARNING] 2026-01-10 01:31:09,492 django.server 3020 17300 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[WARNING] 2026-01-10 01:31:09,493 django.server 3020 24368 "GET /static/libs/mathlive/fonts/KaTeX_Size2-Regular.woff2 HTTP/1.1" 404 1894
+[WARNING] 2026-01-10 01:31:09,495 django.server 3020 2404 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 404 1888
+[INFO] 2026-01-10 01:31:14,296 create_tests.views 3020 228 POST data received: <QueryDict: {'csrfmiddlewaretoken': ['19Hjg3JMlKkb6U6f4j3Nd0yQRBSJXEHffwoRm9F7iIfY4dEFy92sekQsasOmItgg'], 'name_test': [' ÓÌÚÓÎ¸ÌÓÂ ÏÂÓÔËˇÚËÂ π2'], 'time_solve': ['01:00:00'], 'num_attempts': ['3'], 'subj_test': ['5'], 'description_test': ['œÓ‚ÚÓÂÌËÂ ÚÂÏ: Á‡ÏÂÌ‡ ÔÂÂÏÂÌÌ˚ı , ‚ÁˇÚËÂ ËÌÚÂ„‡ÎÓ‚ ÔÓ ˜‡ÒÚˇÏ Ë ‰.'], 'result_display_mode': ['only_score'], 'grade_5_threshold': [''], 'grade_4_threshold': [''], 'grade_3_threshold': [''], 'point_solve': ['["1","1","1","1","1"]'], 'user_expression': ['["¬˚˜ËÒÎËÚÂ\\\\;ËÌÚÂ„‡Î\\\\;\\\\int_0^1xe^{x^2}dx","¬˚˜ËÒÎËÚÂ\\\\;ËÌÚÂ„‡Î\\\\;\\\\int_0^{\\\\frac{\\\\pi}{4}}\\\\frac{\\\\sin x}{\\\\cos^3x}\\\\differentialD x","¬˚˜ËÒÎËÚÂ\\\\;ËÌÚÂ„‡Î\\\\;\\\\int_1^{e}\\\\frac{\\\\ln x}{x}\\\\differentialD x","¬˚˜ËÒÎËÚÂ\\\\;ËÌÚÂ„‡Î\\\\;\\\\int_0^{\\\\pi}x\\\\sin x\\\\differentialD x","¬˚˜ËÒÎËÚÂ\\\\;ËÌÚÂ„‡Î\\\\;\\\\int_0^1\\\\frac{\\\\differentialD x}{\\\\left(1+x^2\\\\right)^2}"]'], 'user_ans': ['["\\\\frac{e-1}{2}","\\\\frac12","\\\\frac12","\\\\pi","\\\\frac{2+\\\\pi}{8}"]'], 'user_eps': ['["0","0","0","0","0"]'], 'user_type': ['["2","2","2","2","2"]'], 'user_norm': ['["1","1","1","1","1"]'], 'user_bool_ans': ['["1","1","1","1","1"]'], 'number': ['[1,2,3,4,5]'], 'block_expression_num': ['[1,1,1,1,1]']}>
+[INFO] 2026-01-10 01:31:14,299 create_tests.views 3020 228 Raw task_groups_data: []
+[INFO] 2026-01-10 01:31:14,300 create_tests.views 3020 228 Parsed task_groups_data: []
+[INFO] 2026-01-10 01:31:14,300 create_tests.views 3020 228 Raw data - points: ["1","1","1","1","1"], expressions: ["¬˚˜ËÒÎËÚÂ\\;ËÌÚÂ„‡Î\\;\\int_0^1xe^{x^2}dx","¬˚˜ËÒÎËÚÂ\\;ËÌÚÂ„‡Î\\;\\int_0^{\\frac{\\pi}{4}}\\frac{\\sin x}{\\cos^3x}\\differentialD x","¬˚˜ËÒÎËÚÂ\\;ËÌÚÂ„‡Î\\;\\int_1^{e}\\frac{\\ln x}{x}\\differentialD x","¬˚˜ËÒÎËÚÂ\\;ËÌÚÂ„‡Î\\;\\int_0^{\\pi}x\\sin x\\differentialD x","¬˚˜ËÒÎËÚÂ\\;ËÌÚÂ„‡Î\\;\\int_0^1\\frac{\\differentialD x}{\\left(1+x^2\\right)^2}"]
+[INFO] 2026-01-10 01:31:14,301 create_tests.views 3020 228 Parsed data - expressions count: 5, points count: 5
+[INFO] 2026-01-10 01:31:14,301 create_tests.views 3020 228 Found 5 valid expressions out of 5
+[INFO] 2026-01-10 01:31:14,302 create_tests.views 3020 228 Deleting old expressions...
+[INFO] 2026-01-10 01:31:14,327 create_tests.views 3020 228 Processing expression 1: ¬˚˜ËÒÎËÚÂ\;ËÌÚÂ„‡Î\;\int_0^1xe^{x^2}dx...
+[INFO] 2026-01-10 01:31:14,327 create_tests.views 3020 228 Data: ans='\frac{e-1}{2}', bool_ans='1', eps='0', type_id='2', point='1', norm_id='1'
+[INFO] 2026-01-10 01:31:14,328 create_tests.views 3020 228 flag_select = False
+[INFO] 2026-01-10 01:31:14,329 create_tests.views 3020 228 type_obj = ÕÂˆÂÎ˚Â
+[INFO] 2026-01-10 01:31:14,339 create_tests.views 3020 228 Created expression instance: ¬˚˜ËÒÎËÚÂ\;ËÌÚÂ„‡Î\;\int_0^1xe^{x^2}dx with number=1, block=1
+[INFO] 2026-01-10 01:31:14,347 create_tests.views 3020 228 Added expression 1 successfully
+[INFO] 2026-01-10 01:31:14,348 create_tests.views 3020 228 Processing expression 2: ¬˚˜ËÒÎËÚÂ\;ËÌÚÂ„‡Î\;\int_0^{\frac{\pi}{4}}\frac{\...
+[INFO] 2026-01-10 01:31:14,348 create_tests.views 3020 228 Data: ans='\frac12', bool_ans='1', eps='0', type_id='2', point='1', norm_id='1'
+[INFO] 2026-01-10 01:31:14,349 create_tests.views 3020 228 flag_select = False
+[INFO] 2026-01-10 01:31:14,350 create_tests.views 3020 228 type_obj = ÕÂˆÂÎ˚Â
+[INFO] 2026-01-10 01:31:14,358 create_tests.views 3020 228 Created expression instance: ¬˚˜ËÒÎËÚÂ\;ËÌÚÂ„‡Î\;\int_0^{\frac{\pi}{4}}\frac{\sin x}{\cos^3x}\differentialD x with number=2, block=1
+[INFO] 2026-01-10 01:31:14,366 create_tests.views 3020 228 Added expression 2 successfully
+[INFO] 2026-01-10 01:31:14,366 create_tests.views 3020 228 Processing expression 3: ¬˚˜ËÒÎËÚÂ\;ËÌÚÂ„‡Î\;\int_1^{e}\frac{\ln x}{x}\dif...
+[INFO] 2026-01-10 01:31:14,366 create_tests.views 3020 228 Data: ans='\frac12', bool_ans='1', eps='0', type_id='2', point='1', norm_id='1'
+[INFO] 2026-01-10 01:31:14,367 create_tests.views 3020 228 flag_select = False
+[INFO] 2026-01-10 01:31:14,369 create_tests.views 3020 228 type_obj = ÕÂˆÂÎ˚Â
+[INFO] 2026-01-10 01:31:14,377 create_tests.views 3020 228 Created expression instance: ¬˚˜ËÒÎËÚÂ\;ËÌÚÂ„‡Î\;\int_1^{e}\frac{\ln x}{x}\differentialD x with number=3, block=1
+[INFO] 2026-01-10 01:31:14,384 create_tests.views 3020 228 Added expression 3 successfully
+[INFO] 2026-01-10 01:31:14,384 create_tests.views 3020 228 Processing expression 4: ¬˚˜ËÒÎËÚÂ\;ËÌÚÂ„‡Î\;\int_0^{\pi}x\sin x\different...
+[INFO] 2026-01-10 01:31:14,385 create_tests.views 3020 228 Data: ans='\pi', bool_ans='1', eps='0', type_id='2', point='1', norm_id='1'
+[INFO] 2026-01-10 01:31:14,385 create_tests.views 3020 228 flag_select = False
+[INFO] 2026-01-10 01:31:14,386 create_tests.views 3020 228 type_obj = ÕÂˆÂÎ˚Â
+[INFO] 2026-01-10 01:31:14,394 create_tests.views 3020 228 Created expression instance: ¬˚˜ËÒÎËÚÂ\;ËÌÚÂ„‡Î\;\int_0^{\pi}x\sin x\differentialD x with number=4, block=1
+[INFO] 2026-01-10 01:31:14,402 create_tests.views 3020 228 Added expression 4 successfully
+[INFO] 2026-01-10 01:31:14,402 create_tests.views 3020 228 Processing expression 5: ¬˚˜ËÒÎËÚÂ\;ËÌÚÂ„‡Î\;\int_0^1\frac{\differentialD ...
+[INFO] 2026-01-10 01:31:14,402 create_tests.views 3020 228 Data: ans='\frac{2+\pi}{8}', bool_ans='1', eps='0', type_id='2', point='1', norm_id='1'
+[INFO] 2026-01-10 01:31:14,403 create_tests.views 3020 228 flag_select = False
+[INFO] 2026-01-10 01:31:14,404 create_tests.views 3020 228 type_obj = ÕÂˆÂÎ˚Â
+[INFO] 2026-01-10 01:31:14,412 create_tests.views 3020 228 Created expression instance: ¬˚˜ËÒÎËÚÂ\;ËÌÚÂ„‡Î\;\int_0^1\frac{\differentialD x}{\left(1+x^2\right)^2} with number=5, block=1
+[INFO] 2026-01-10 01:31:14,420 create_tests.views 3020 228 Added expression 5 successfully
+[INFO] 2026-01-10 01:31:14,428 create_tests.views 3020 228 Test saved successfully
+[INFO] 2026-01-10 01:31:14,430 django.server 3020 228 "POST /TestsCreate/edit-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-01-10 01:31:14,496 django.server 3020 228 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2026-03-01 10:21:28,847 django.utils.autoreload 9540 3808 Watching for file changes with StatReloader
+[INFO] 2026-03-01 10:24:26,098 django.utils.autoreload 5508 1556 Watching for file changes with StatReloader
+[INFO] 2026-03-01 10:24:38,368 django.server 5508 10828 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-01 10:24:38,902 django.server 5508 10828 "GET /static/css/registration.css HTTP/1.1" 200 2951
+[INFO] 2026-03-01 10:24:38,956 django.server 5508 6108 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 10:24:39,081 django.server 5508 4268 "GET /static/js/registration.js HTTP/1.1" 200 798
+[INFO] 2026-03-01 10:24:39,222 django.server 5508 6156 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-01 10:24:39,432 django.server 5508 6156 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-01 10:24:51,892 django.server 5508 5588 - Broken pipe from ('127.0.0.1', 50629)
+[INFO] 2026-03-01 10:24:52,245 django.server 5508 12188 "POST / HTTP/1.1" 302 0
+[INFO] 2026-03-01 10:24:52,582 django.server 5508 12188 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2026-03-01 10:24:52,828 django.server 5508 6220 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 10:24:52,829 django.server 5508 12188 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 10:24:52,859 django.server 5508 15060 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 10:24:52,878 django.server 5508 7476 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 17918
+[INFO] 2026-03-01 10:24:52,949 django.server 5508 12188 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 16925
+[INFO] 2026-03-01 10:24:52,960 django.server 5508 9456 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 10:24:52,973 django.server 5508 1908 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 10:24:53,244 django.server 5508 1908 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-01 10:24:53,508 django.server 5508 1908 "GET /static/favicon.svg HTTP/1.1" 200 947
+[INFO] 2026-03-01 10:25:25,988 django.server 5508 9800 "GET /TestsCreate/ HTTP/1.1" 200 22923
+[INFO] 2026-03-01 10:25:26,163 django.server 5508 9800 "GET /static/css/writing_tests.css HTTP/1.1" 200 17593
+[INFO] 2026-03-01 10:25:26,171 django.server 5508 9948 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-01 10:25:26,267 django.server 5508 3148 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-03-01 10:25:26,279 django.server 5508 3424 "GET /static/js/writing_tests.js HTTP/1.1" 200 31073
+[INFO] 2026-03-01 10:25:27,608 django.server 5508 15140 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[WARNING] 2026-03-01 10:25:27,903 django.server 5508 15140 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2026-03-01 10:33:41,478 django.server 5508 2656 "GET /TestsCreate/ HTTP/1.1" 200 22923
+[INFO] 2026-03-01 10:33:41,559 django.server 5508 2656 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 10:33:41,568 django.server 5508 5356 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 10:33:41,588 django.server 5508 11240 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-01 10:33:41,589 django.server 5508 5356 "GET /static/js/writing_tests.js HTTP/1.1" 200 31495
+[INFO] 2026-03-01 10:33:41,591 django.server 5508 4796 "GET /static/css/writing_tests.css HTTP/1.1" 200 17612
+[INFO] 2026-03-01 10:33:41,592 django.server 5508 7232 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 10:33:41,600 django.server 5508 6568 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-01 10:33:41,607 django.server 5508 2656 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-01 10:33:41,610 django.server 5508 5356 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-03-01 10:33:41,628 django.server 5508 7232 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 10:33:41,700 django.server 5508 2656 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 10:33:41,759 django.server 5508 2656 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 10:33:41,810 django.server 5508 2656 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2026-03-01 10:33:41,878 django.server 5508 2656 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2026-03-01 10:33:41,950 django.server 5508 7232 "GET /static/favicon.ico HTTP/1.1" 200 976
+[WARNING] 2026-03-01 10:33:51,925 django.server 5508 7232 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 404 1888
+[INFO] 2026-03-01 10:34:54,391 django.server 5508 6568 "GET /TestsCreate/ HTTP/1.1" 200 22923
+[INFO] 2026-03-01 10:34:54,482 django.server 5508 6568 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 10:34:54,482 django.server 5508 5356 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 10:34:54,483 django.server 5508 11240 "GET /static/css/writing_tests.css HTTP/1.1" 200 17613
+[INFO] 2026-03-01 10:34:54,483 django.server 5508 4796 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 10:34:54,572 django.server 5508 5356 "GET /static/js/writing_tests.js HTTP/1.1" 200 31495
+[INFO] 2026-03-01 10:34:54,572 django.server 5508 6568 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-01 10:34:54,579 django.server 5508 4608 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-01 10:34:54,580 django.server 5508 11240 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-03-01 10:34:54,582 django.server 5508 4796 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 10:34:54,582 django.server 5508 14868 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-01 10:34:54,651 django.server 5508 4608 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 10:34:54,652 django.server 5508 4796 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 10:34:54,703 django.server 5508 4796 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2026-03-01 10:34:54,733 django.server 5508 4608 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2026-03-01 10:34:54,883 django.server 5508 4796 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-01 10:38:17,597 django.server 5508 4796 "GET /TestsCreate/ HTTP/1.1" 200 22923
+[INFO] 2026-03-01 10:38:17,664 django.server 5508 4796 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 10:38:17,681 django.server 5508 11240 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 10:38:17,705 django.server 5508 5356 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-01 10:38:17,709 django.server 5508 4796 "GET /static/css/writing_tests.css HTTP/1.1" 200 17571
+[INFO] 2026-03-01 10:38:17,710 django.server 5508 14868 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 10:38:17,710 django.server 5508 11240 "GET /static/js/writing_tests.js HTTP/1.1" 200 31620
+[INFO] 2026-03-01 10:38:17,714 django.server 5508 6568 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-01 10:38:17,719 django.server 5508 5356 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-03-01 10:38:17,724 django.server 5508 10096 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-01 10:38:17,754 django.server 5508 4796 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 10:38:17,836 django.server 5508 10096 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 10:38:17,844 django.server 5508 10096 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 10:38:17,908 django.server 5508 10096 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2026-03-01 10:38:17,933 django.server 5508 10096 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2026-03-01 10:38:18,019 django.server 5508 4796 "GET /static/favicon.ico HTTP/1.1" 200 976
+[WARNING] 2026-03-01 10:38:33,426 django.server 5508 4796 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:38:33,452 django.server 5508 5356 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:38:33,478 django.server 5508 6568 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:38:33,499 django.server 5508 11240 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:38:33,517 django.server 5508 14868 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:38:33,533 django.server 5508 14848 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:38:33,550 django.server 5508 7628 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:38:35,025 django.server 5508 7540 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:38:35,210 django.server 5508 12580 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:38:42,411 django.server 5508 13212 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:38:42,616 django.server 5508 5952 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[INFO] 2026-03-01 10:38:57,934 django.server 5508 7652 "GET /TestsCreate/ HTTP/1.1" 200 22923
+[INFO] 2026-03-01 10:38:58,026 django.server 5508 7652 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 10:38:58,035 django.server 5508 7232 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 10:38:58,057 django.server 5508 11348 "GET /static/css/writing_tests.css HTTP/1.1" 200 17571
+[INFO] 2026-03-01 10:38:58,059 django.server 5508 7232 "GET /static/js/writing_tests.js HTTP/1.1" 200 31620
+[INFO] 2026-03-01 10:38:58,064 django.server 5508 7444 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 10:38:58,072 django.server 5508 11348 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-03-01 10:38:58,075 django.server 5508 8552 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-01 10:38:58,078 django.server 5508 8676 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-01 10:38:58,087 django.server 5508 7652 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-01 10:38:58,116 django.server 5508 7232 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 10:38:58,156 django.server 5508 7652 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 10:38:58,184 django.server 5508 7652 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 10:38:58,287 django.server 5508 7652 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2026-03-01 10:38:58,327 django.server 5508 7652 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2026-03-01 10:38:58,390 django.server 5508 7232 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-01 10:46:27,243 django.server 5508 4584 "GET /TestsCreate/ HTTP/1.1" 200 22923
+[INFO] 2026-03-01 10:46:27,312 django.server 5508 4584 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 10:46:27,331 django.server 5508 6052 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 10:46:27,349 django.server 5508 4584 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-01 10:46:27,359 django.server 5508 8932 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 10:46:27,362 django.server 5508 4584 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-03-01 10:46:27,364 django.server 5508 6052 "GET /static/js/writing_tests.js HTTP/1.1" 200 32197
+[INFO] 2026-03-01 10:46:27,365 django.server 5508 5080 "GET /static/css/writing_tests.css HTTP/1.1" 200 17670
+[INFO] 2026-03-01 10:46:27,373 django.server 5508 5944 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-01 10:46:27,391 django.server 5508 7232 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-01 10:46:27,403 django.server 5508 4584 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 10:46:27,484 django.server 5508 4584 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 10:46:27,504 django.server 5508 4584 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 10:46:27,573 django.server 5508 4584 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2026-03-01 10:46:27,605 django.server 5508 4584 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2026-03-01 10:46:27,721 django.server 5508 7232 "GET /static/favicon.ico HTTP/1.1" 200 976
+[WARNING] 2026-03-01 10:46:34,754 django.server 5508 7232 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:46:34,772 django.server 5508 5944 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:46:34,790 django.server 5508 5080 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:46:34,822 django.server 5508 6052 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:46:34,840 django.server 5508 8932 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:46:34,891 django.server 5508 4756 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:46:34,926 django.server 5508 9664 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:46:36,351 django.server 5508 8900 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[INFO] 2026-03-01 10:53:57,733 django.server 5508 9460 "GET /TestsCreate/ HTTP/1.1" 200 22923
+[INFO] 2026-03-01 10:53:57,851 django.server 5508 9656 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 10:53:57,851 django.server 5508 7884 "GET /static/css/writing_tests.css HTTP/1.1" 200 17670
+[INFO] 2026-03-01 10:53:57,853 django.server 5508 9460 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 10:53:57,853 django.server 5508 7028 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 10:53:57,869 django.server 5508 7884 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-03-01 10:53:57,870 django.server 5508 9656 "GET /static/js/writing_tests.js HTTP/1.1" 200 32362
+[INFO] 2026-03-01 10:53:57,886 django.server 5508 9460 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 10:53:57,891 django.server 5508 12092 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-01 10:53:57,891 django.server 5508 7028 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-01 10:53:57,897 django.server 5508 11404 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-01 10:53:58,002 django.server 5508 7028 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 10:53:58,030 django.server 5508 7028 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 10:53:58,158 django.server 5508 7028 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[WARNING] 2026-03-01 10:53:58,189 django.server 5508 11404 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 404 1891
+[INFO] 2026-03-01 10:53:58,300 django.server 5508 7028 "GET /static/favicon.ico HTTP/1.1" 200 976
+[WARNING] 2026-03-01 10:54:08,425 django.server 5508 7028 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:54:08,574 django.server 5508 9460 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:54:18,851 django.server 5508 12092 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:54:18,889 django.server 5508 7884 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:54:18,918 django.server 5508 9656 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:54:18,950 django.server 5508 10232 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:54:18,995 django.server 5508 11836 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:54:19,021 django.server 5508 11688 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:54:19,054 django.server 5508 7324 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:54:19,087 django.server 5508 13960 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1849
+[WARNING] 2026-03-01 10:54:31,532 django.server 5508 15312 "GET /static/libs/mathlive/fonts/KaTeX_Size3-Regular.woff2 HTTP/1.1" 404 1894
+[WARNING] 2026-03-01 10:54:34,769 django.server 5508 14588 "GET /static/libs/mathlive/fonts/KaTeX_Size4-Regular.woff2 HTTP/1.1" 404 1894
+[INFO] 2026-03-01 10:57:13,540 django.server 5508 5832 "GET /TestsCreate/ HTTP/1.1" 200 22923
+[INFO] 2026-03-01 10:57:13,635 django.server 5508 5832 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 10:57:13,636 django.server 5508 14044 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 10:57:13,652 django.server 5508 14060 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 10:57:13,661 django.server 5508 12204 "GET /static/css/writing_tests.css HTTP/1.1" 200 16263
+[INFO] 2026-03-01 10:57:13,665 django.server 5508 14044 "GET /static/js/writing_tests.js HTTP/1.1" 200 32292
+[INFO] 2026-03-01 10:57:13,666 django.server 5508 14060 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-03-01 10:57:13,670 django.server 5508 14456 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-01 10:57:13,673 django.server 5508 15136 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-01 10:57:13,677 django.server 5508 5832 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-01 10:57:13,693 django.server 5508 14060 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 10:57:13,797 django.server 5508 14060 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 10:57:13,797 django.server 5508 5832 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 10:57:13,846 django.server 5508 5832 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-01 10:57:13,874 django.server 5508 14060 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 82
+[INFO] 2026-03-01 10:57:13,986 django.server 5508 14060 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-01 10:57:27,075 django.server 5508 14060 "GET /static/libs/mathlive/fonts/KaTeX_Size4-Regular.woff2 HTTP/1.1" 200 83
+[INFO] 2026-03-01 10:57:29,632 django.server 5508 14060 "GET /TestsCreate/ HTTP/1.1" 200 22923
+[INFO] 2026-03-01 10:57:29,712 django.server 5508 14060 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 10:57:29,734 django.server 5508 14044 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-01 10:57:29,735 django.server 5508 14456 "GET /static/css/writing_tests.css HTTP/1.1" 200 16263
+[INFO] 2026-03-01 10:57:29,734 django.server 5508 5832 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 10:57:29,741 django.server 5508 15136 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 10:57:29,742 django.server 5508 14044 "GET /static/js/writing_tests.js HTTP/1.1" 200 32292
+[INFO] 2026-03-01 10:57:29,747 django.server 5508 5832 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-03-01 10:57:29,748 django.server 5508 12204 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-01 10:57:29,757 django.server 5508 14060 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-01 10:57:29,779 django.server 5508 14044 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 10:57:29,837 django.server 5508 14044 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 10:57:29,907 django.server 5508 14044 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 10:57:29,941 django.server 5508 14044 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-01 10:57:29,966 django.server 5508 14044 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 82
+[INFO] 2026-03-01 10:57:30,039 django.server 5508 14044 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-01 10:57:32,227 django.server 5508 14044 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 200 81
+[INFO] 2026-03-01 10:57:32,246 django.server 5508 5832 "GET /static/libs/mathlive/fonts/KaTeX_Size2-Regular.woff2 HTTP/1.1" 200 83
+[INFO] 2026-03-01 10:57:32,247 django.server 5508 14060 "GET /static/libs/mathlive/fonts/KaTeX_Size1-Regular.woff2 HTTP/1.1" 200 83
+[INFO] 2026-03-01 10:57:34,183 django.server 5508 14060 "GET /static/libs/mathlive/fonts/KaTeX_Size4-Regular.woff2 HTTP/1.1" 200 83
+[INFO] 2026-03-01 10:57:53,372 django.utils.autoreload 1252 7976 Watching for file changes with StatReloader
+[INFO] 2026-03-01 10:57:55,034 django.server 1252 4444 "GET /TestsCreate/ HTTP/1.1" 200 22923
+[INFO] 2026-03-01 10:57:55,201 django.server 1252 4444 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 10:57:55,218 django.server 1252 4444 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-01 10:57:55,229 django.server 1252 4444 "GET /static/js/writing_tests.js HTTP/1.1" 200 32292
+[INFO] 2026-03-01 10:57:55,241 django.server 1252 4444 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-03-01 10:57:55,247 django.server 1252 12944 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 10:57:55,254 django.server 1252 4444 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 10:57:55,258 django.server 1252 3144 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-01 10:57:55,261 django.server 1252 9264 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 10:57:55,276 django.server 1252 15084 "GET /static/css/writing_tests.css HTTP/1.1" 200 16263
+[INFO] 2026-03-01 10:57:55,317 django.server 1252 2160 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-01 10:57:55,342 django.server 1252 2160 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 10:57:55,353 django.server 1252 2160 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 10:57:55,437 django.server 1252 2160 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-01 10:57:55,447 django.server 1252 15084 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 82
+[INFO] 2026-03-01 10:57:55,555 django.server 1252 15084 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-01 10:58:03,765 django.server 1252 15084 "GET /static/css/writing_tests.css HTTP/1.1" 304 0
+[WARNING] 2026-03-01 10:58:03,843 django.request 1252 2160 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-01 10:58:03,853 django.server 1252 2160 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4697
+[INFO] 2026-03-01 10:59:16,774 django.server 1252 2160 "GET /TestsCreate/ HTTP/1.1" 200 22923
+[INFO] 2026-03-01 10:59:16,863 django.server 1252 2160 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 10:59:16,876 django.server 1252 15084 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 10:59:16,894 django.server 1252 4444 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-01 10:59:16,896 django.server 1252 3144 "GET /static/css/writing_tests.css HTTP/1.1" 200 16263
+[INFO] 2026-03-01 10:59:16,897 django.server 1252 15084 "GET /static/js/writing_tests.js HTTP/1.1" 200 32292
+[INFO] 2026-03-01 10:59:16,900 django.server 1252 9264 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 10:59:16,901 django.server 1252 12944 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-01 10:59:16,907 django.server 1252 2160 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-01 10:59:16,917 django.server 1252 9264 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-03-01 10:59:16,944 django.server 1252 9264 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 10:59:17,001 django.server 1252 9264 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 10:59:17,036 django.server 1252 9264 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 10:59:17,087 django.server 1252 9264 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-01 10:59:17,118 django.server 1252 9264 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 82
+[INFO] 2026-03-01 10:59:17,212 django.server 1252 9264 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-01 10:59:21,087 django.server 1252 9264 "GET /static/libs/mathlive/fonts/KaTeX_Size4-Regular.woff2 HTTP/1.1" 200 83
+[INFO] 2026-03-01 10:59:23,886 django.server 1252 2160 "GET /static/libs/mathlive/fonts/KaTeX_Size1-Regular.woff2 HTTP/1.1" 200 83
+[INFO] 2026-03-01 10:59:23,887 django.server 1252 4444 "GET /static/libs/mathlive/fonts/KaTeX_Size2-Regular.woff2 HTTP/1.1" 200 83
+[INFO] 2026-03-01 10:59:23,887 django.server 1252 9264 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 200 81
+[INFO] 2026-03-01 11:02:19,631 django.server 1252 2160 "GET /TestsCreate/ HTTP/1.1" 200 22923
+[INFO] 2026-03-01 11:02:19,706 django.server 1252 2160 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 11:02:19,730 django.server 1252 9264 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 11:02:19,731 django.server 1252 15084 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-01 11:02:19,732 django.server 1252 12944 "GET /static/css/writing_tests.css HTTP/1.1" 200 16263
+[INFO] 2026-03-01 11:02:19,734 django.server 1252 4444 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 11:02:19,742 django.server 1252 9264 "GET /static/js/writing_tests.js HTTP/1.1" 200 32292
+[INFO] 2026-03-01 11:02:19,749 django.server 1252 3144 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-01 11:02:19,752 django.server 1252 15084 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-03-01 11:02:19,756 django.server 1252 2160 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-01 11:02:19,785 django.server 1252 15084 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 11:02:19,882 django.server 1252 15084 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 11:02:19,882 django.server 1252 2160 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 11:02:19,924 django.server 1252 2160 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-01 11:02:19,983 django.server 1252 2160 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 26272
+[INFO] 2026-03-01 11:02:20,075 django.server 1252 2160 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-01 11:02:22,601 django.server 1252 2160 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 200 16440
+[INFO] 2026-03-01 11:02:22,601 django.server 1252 3144 "GET /static/libs/mathlive/fonts/KaTeX_Size2-Regular.woff2 HTTP/1.1" 200 5208
+[INFO] 2026-03-01 11:02:22,603 django.server 1252 15084 "GET /static/libs/mathlive/fonts/KaTeX_Size1-Regular.woff2 HTTP/1.1" 200 5468
+[INFO] 2026-03-01 11:02:24,763 django.server 1252 3144 "GET /static/libs/mathlive/fonts/KaTeX_Size4-Regular.woff2 HTTP/1.1" 200 4928
+[WARNING] 2026-03-01 11:06:23,582 django.request 1252 3144 Not Found: /Ù‚¸¯Ú
+[WARNING] 2026-03-01 11:06:23,583 django.server 1252 3144 "GET /%D1%84%D0%B2%D1%8C%D1%88%D1%82 HTTP/1.1" 404 4603
+[WARNING] 2026-03-01 11:06:23,748 django.request 1252 3144 Not Found: /favicon.ico
+[WARNING] 2026-03-01 11:06:23,749 django.server 1252 3144 "GET /favicon.ico HTTP/1.1" 404 4586
+[WARNING] 2026-03-01 11:06:23,762 django.request 1252 15084 Not Found: /favicon.ico
+[WARNING] 2026-03-01 11:06:23,764 django.server 1252 15084 "GET /favicon.ico HTTP/1.1" 404 4586
+[INFO] 2026-03-01 11:06:28,242 django.server 1252 15084 "GET /admin HTTP/1.1" 301 0
+[INFO] 2026-03-01 11:06:28,289 django.server 1252 3144 "GET /admin/ HTTP/1.1" 302 0
+[INFO] 2026-03-01 11:06:28,515 django.server 1252 3144 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3917
+[INFO] 2026-03-01 11:06:28,613 django.server 1252 3144 "GET /static/admin/css/base.css HTTP/1.1" 200 21544
+[INFO] 2026-03-01 11:06:28,622 django.server 1252 4444 "GET /static/admin/css/login.css HTTP/1.1" 200 958
+[INFO] 2026-03-01 11:06:28,623 django.server 1252 2160 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2682
+[INFO] 2026-03-01 11:06:28,629 django.server 1252 12944 "GET /static/admin/css/responsive.css HTTP/1.1" 200 17905
+[INFO] 2026-03-01 11:06:28,638 django.server 1252 9264 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+[INFO] 2026-03-01 11:06:28,686 django.server 1252 6628 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+[INFO] 2026-03-01 11:06:28,708 django.server 1252 3144 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+[INFO] 2026-03-01 11:06:33,326 django.server 1252 3144 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[INFO] 2026-03-01 11:06:33,451 django.server 1252 3144 "GET /admin/ HTTP/1.1" 200 15945
+[INFO] 2026-03-01 11:06:33,568 django.server 1252 3144 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+[INFO] 2026-03-01 11:06:33,568 django.server 1252 9264 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+[INFO] 2026-03-01 11:06:33,570 django.server 1252 6628 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+[INFO] 2026-03-01 11:06:33,606 django.server 1252 6628 "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+[ERROR] 2026-03-01 11:06:40,439 django.request 1252 6628 Internal Server Error: /admin/users/customuser/
+Traceback (most recent call last):
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\contrib\admin\templatetags\base.py", line 45, in render
+    return super().render(context)
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\library.py", line 271, in render
+    new_context = context.new(_dict)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 273, in new
+    new_context = super().new(values)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 110, in new
+    new_context = copy(self)
+  File "C:\Users\cproh\AppData\Local\Python\pythoncore-3.14-64\Lib\copy.py", line 82, in copy
+    return copier(x)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 158, in __copy__
+    duplicate = super().__copy__()
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 39, in __copy__
+    duplicate.dicts = self.dicts[:]
+    ^^^^^^^^^^^^^^^
+AttributeError: 'super' object has no attribute 'dicts' and no __dict__ for setting new attributes
+[ERROR] 2026-03-01 11:06:40,462 django.server 1252 6628 "GET /admin/users/customuser/ HTTP/1.1" 500 461974
+[INFO] 2026-03-01 11:06:42,368 django.server 1252 6628 "GET /admin/ HTTP/1.1" 200 15945
+[ERROR] 2026-03-01 11:06:45,162 django.request 1252 6628 Internal Server Error: /admin/users/customuser/
+Traceback (most recent call last):
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\contrib\admin\templatetags\base.py", line 45, in render
+    return super().render(context)
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\library.py", line 271, in render
+    new_context = context.new(_dict)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 273, in new
+    new_context = super().new(values)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 110, in new
+    new_context = copy(self)
+  File "C:\Users\cproh\AppData\Local\Python\pythoncore-3.14-64\Lib\copy.py", line 82, in copy
+    return copier(x)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 158, in __copy__
+    duplicate = super().__copy__()
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 39, in __copy__
+    duplicate.dicts = self.dicts[:]
+    ^^^^^^^^^^^^^^^
+AttributeError: 'super' object has no attribute 'dicts' and no __dict__ for setting new attributes
+[ERROR] 2026-03-01 11:06:45,174 django.server 1252 6628 "GET /admin/users/customuser/ HTTP/1.1" 500 461974
+[INFO] 2026-03-01 11:06:47,580 django.server 1252 6628 "GET /admin/ HTTP/1.1" 200 15945
+[ERROR] 2026-03-01 11:06:48,893 django.request 1252 6628 Internal Server Error: /admin/users/studentdata/
+Traceback (most recent call last):
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\contrib\admin\templatetags\base.py", line 45, in render
+    return super().render(context)
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\library.py", line 271, in render
+    new_context = context.new(_dict)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 273, in new
+    new_context = super().new(values)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 110, in new
+    new_context = copy(self)
+  File "C:\Users\cproh\AppData\Local\Python\pythoncore-3.14-64\Lib\copy.py", line 82, in copy
+    return copier(x)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 158, in __copy__
+    duplicate = super().__copy__()
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 39, in __copy__
+    duplicate.dicts = self.dicts[:]
+    ^^^^^^^^^^^^^^^
+AttributeError: 'super' object has no attribute 'dicts' and no __dict__ for setting new attributes
+[ERROR] 2026-03-01 11:06:48,912 django.server 1252 6628 "GET /admin/users/studentdata/ HTTP/1.1" 500 461986
+[INFO] 2026-03-01 11:06:49,797 django.server 1252 6628 "GET /admin/ HTTP/1.1" 200 15945
+[ERROR] 2026-03-01 11:06:51,182 django.request 1252 6628 Internal Server Error: /admin/users/studentgroup/
+Traceback (most recent call last):
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\contrib\admin\templatetags\base.py", line 45, in render
+    return super().render(context)
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\library.py", line 271, in render
+    new_context = context.new(_dict)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 273, in new
+    new_context = super().new(values)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 110, in new
+    new_context = copy(self)
+  File "C:\Users\cproh\AppData\Local\Python\pythoncore-3.14-64\Lib\copy.py", line 82, in copy
+    return copier(x)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 158, in __copy__
+    duplicate = super().__copy__()
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 39, in __copy__
+    duplicate.dicts = self.dicts[:]
+    ^^^^^^^^^^^^^^^
+AttributeError: 'super' object has no attribute 'dicts' and no __dict__ for setting new attributes
+[ERROR] 2026-03-01 11:06:51,195 django.server 1252 6628 "GET /admin/users/studentgroup/ HTTP/1.1" 500 461998
+[INFO] 2026-03-01 11:06:52,035 django.server 1252 6628 "GET /admin/ HTTP/1.1" 200 15945
+[ERROR] 2026-03-01 11:06:53,339 django.request 1252 6628 Internal Server Error: /admin/users/studentinstitute/
+Traceback (most recent call last):
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\contrib\admin\templatetags\base.py", line 45, in render
+    return super().render(context)
+           ~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\library.py", line 271, in render
+    new_context = context.new(_dict)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 273, in new
+    new_context = super().new(values)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 110, in new
+    new_context = copy(self)
+  File "C:\Users\cproh\AppData\Local\Python\pythoncore-3.14-64\Lib\copy.py", line 82, in copy
+    return copier(x)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 158, in __copy__
+    duplicate = super().__copy__()
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\template\context.py", line 39, in __copy__
+    duplicate.dicts = self.dicts[:]
+    ^^^^^^^^^^^^^^^
+AttributeError: 'super' object has no attribute 'dicts' and no __dict__ for setting new attributes
+[ERROR] 2026-03-01 11:06:53,356 django.server 1252 6628 "GET /admin/users/studentinstitute/ HTTP/1.1" 500 462046
+[INFO] 2026-03-01 11:09:34,454 django.utils.autoreload 1252 7976 C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\asgiref\sync.py changed, reloading.
+[INFO] 2026-03-01 11:09:36,240 django.utils.autoreload 12116 7140 Watching for file changes with StatReloader
+[INFO] 2026-03-01 11:11:24,261 django.utils.autoreload 9288 8888 Watching for file changes with StatReloader
+[INFO] 2026-03-01 11:11:33,927 django.server 9288 10392 "GET /admin/users/studentinstitute/ HTTP/1.1" 200 22730
+[INFO] 2026-03-01 11:11:34,065 django.server 9288 8828 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+[INFO] 2026-03-01 11:11:34,145 django.server 9288 15132 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 3538
+[INFO] 2026-03-01 11:11:34,151 django.server 9288 3284 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+[INFO] 2026-03-01 11:11:34,171 django.server 9288 10392 "GET /static/admin/css/base.css HTTP/1.1" 200 23100
+[INFO] 2026-03-01 11:11:34,173 django.server 9288 13988 "GET /static/admin/css/changelists.css HTTP/1.1" 200 7498
+[INFO] 2026-03-01 11:11:34,197 django.server 9288 15164 "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+[INFO] 2026-03-01 11:11:34,231 django.server 9288 8828 "GET /static/admin/css/responsive.css HTTP/1.1" 200 16273
+[INFO] 2026-03-01 11:11:34,233 django.server 9288 3284 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+[INFO] 2026-03-01 11:11:34,243 django.server 9288 10392 "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+[INFO] 2026-03-01 11:11:34,256 django.server 9288 13988 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+[INFO] 2026-03-01 11:11:34,298 django.server 9288 8828 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+[INFO] 2026-03-01 11:11:34,306 django.server 9288 15164 "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+[INFO] 2026-03-01 11:11:34,325 django.server 9288 3284 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+[INFO] 2026-03-01 11:11:34,326 django.server 9288 15132 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+[INFO] 2026-03-01 11:11:34,348 django.server 9288 15132 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+[INFO] 2026-03-01 11:11:34,417 django.server 9288 15132 "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+[INFO] 2026-03-01 11:11:34,517 django.server 9288 10392 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+[INFO] 2026-03-01 11:11:34,590 django.server 9288 10392 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 593
+[INFO] 2026-03-01 11:11:34,610 django.server 9288 15132 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 593
+[WARNING] 2026-03-01 11:11:34,709 django.request 9288 15132 Not Found: /favicon.ico
+[WARNING] 2026-03-01 11:11:34,712 django.server 9288 15132 "GET /favicon.ico HTTP/1.1" 404 5845
+[WARNING] 2026-03-01 11:11:34,736 django.request 9288 10392 Not Found: /favicon.ico
+[WARNING] 2026-03-01 11:11:34,742 django.server 9288 10392 "GET /favicon.ico HTTP/1.1" 404 5845
+[INFO] 2026-03-01 11:11:37,433 django.server 9288 10392 "GET /admin/users/customuser/ HTTP/1.1" 200 21606
+[INFO] 2026-03-01 11:11:37,514 django.server 9288 10392 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+[INFO] 2026-03-01 11:11:43,653 django.server 9288 10392 "GET /admin/users/customuser/6/change/ HTTP/1.1" 200 34706
+[INFO] 2026-03-01 11:11:43,758 django.server 9288 15132 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+[INFO] 2026-03-01 11:11:43,780 django.server 9288 10392 "GET /static/admin/css/forms.css HTTP/1.1" 200 8817
+[INFO] 2026-03-01 11:11:43,807 django.server 9288 8828 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+[INFO] 2026-03-01 11:11:43,811 django.server 9288 3284 "GET /static/admin/js/calendar.js HTTP/1.1" 200 9159
+[INFO] 2026-03-01 11:11:43,818 django.server 9288 15164 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19698
+[INFO] 2026-03-01 11:11:43,835 django.server 9288 10392 "GET /static/admin/css/widgets.css HTTP/1.1" 200 11811
+[INFO] 2026-03-01 11:11:43,874 django.server 9288 15164 "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+[INFO] 2026-03-01 11:11:43,973 django.server 9288 15164 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1112
+[INFO] 2026-03-01 11:11:43,974 django.server 9288 10392 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 805
+[INFO] 2026-03-01 11:14:37,824 django.server 9288 10392 "GET /admin/users/customuser/ HTTP/1.1" 200 21606
+[INFO] 2026-03-01 11:14:37,886 django.server 9288 10392 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:14:37,890 django.server 9288 8828 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:14:37,890 django.server 9288 15164 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:14:37,891 django.server 9288 3284 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:14:37,891 django.server 9288 15132 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:14:37,893 django.server 9288 10392 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:14:37,906 django.server 9288 8828 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:14:37,906 django.server 9288 15164 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:14:37,907 django.server 9288 3284 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:14:37,907 django.server 9288 15132 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:14:37,912 django.server 9288 10392 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:14:37,917 django.server 9288 8828 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:14:37,918 django.server 9288 15164 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:14:37,923 django.server 9288 15132 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:14:37,923 django.server 9288 13988 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+[INFO] 2026-03-01 11:14:37,937 django.server 9288 13988 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:14:37,955 django.server 9288 13988 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:14:37,972 django.server 9288 13988 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:14:37,999 django.server 9288 13988 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:17:08,730 django.utils.autoreload 7028 1564 Watching for file changes with StatReloader
+[INFO] 2026-03-01 11:17:11,484 django.server 7028 14560 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-01 11:17:11,875 django.server 7028 14560 "GET /static/css/registration.css HTTP/1.1" 200 2951
+[INFO] 2026-03-01 11:17:11,889 django.server 7028 14184 "GET /static/js/registration.js HTTP/1.1" 200 798
+[INFO] 2026-03-01 11:17:22,306 django.server 7028 14184 "POST / HTTP/1.1" 302 0
+[INFO] 2026-03-01 11:17:22,410 django.server 7028 14184 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2026-03-01 11:17:22,527 django.server 7028 14184 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 17918
+[INFO] 2026-03-01 11:17:22,537 django.server 7028 14560 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 16925
+[INFO] 2026-03-01 11:18:09,963 django.server 7028 14560 "GET /admin/ HTTP/1.1" 302 0
+[INFO] 2026-03-01 11:18:10,042 django.server 7028 14560 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3833
+[INFO] 2026-03-01 11:18:10,123 django.server 7028 14560 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:10,123 django.server 7028 14184 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:10,132 django.server 7028 14976 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:10,139 django.server 7028 12136 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:10,145 django.server 7028 8324 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:10,151 django.server 7028 8324 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:10,201 django.server 7028 11836 "GET /static/admin/css/login.css HTTP/1.1" 200 951
+[INFO] 2026-03-01 11:18:16,127 django.server 7028 11836 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[INFO] 2026-03-01 11:18:16,215 django.server 7028 11836 "GET /admin/ HTTP/1.1" 200 19683
+[INFO] 2026-03-01 11:18:16,297 django.server 7028 8324 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:16,301 django.server 7028 11836 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+[INFO] 2026-03-01 11:18:16,325 django.server 7028 12136 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 978
+[INFO] 2026-03-01 11:18:16,339 django.server 7028 11836 "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 689
+[INFO] 2026-03-01 11:18:18,331 django.server 7028 11836 "GET /admin/users/customuser/ HTTP/1.1" 200 21606
+[INFO] 2026-03-01 11:18:18,430 django.server 7028 11836 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:18,433 django.server 7028 8324 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:18,434 django.server 7028 14184 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:18,433 django.server 7028 14560 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:18,433 django.server 7028 14976 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:18,442 django.server 7028 11836 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:18,444 django.server 7028 14560 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:18,450 django.server 7028 8324 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:18,456 django.server 7028 14184 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:18,465 django.server 7028 12136 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+[INFO] 2026-03-01 11:18:18,499 django.server 7028 12136 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:18,554 django.server 7028 12136 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:31,589 django.server 7028 12136 "GET /admin/users/customuser/9/change/ HTTP/1.1" 200 34722
+[INFO] 2026-03-01 11:18:31,662 django.server 7028 12136 "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:31,665 django.server 7028 14560 "GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:31,665 django.server 7028 8324 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:31,670 django.server 7028 11836 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:31,677 django.server 7028 14184 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+[INFO] 2026-03-01 11:18:31,688 django.server 7028 11836 "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:31,694 django.server 7028 11836 "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:31,806 django.server 7028 11836 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:18:31,822 django.server 7028 11836 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:21:28,731 django.utils.autoreload 6128 7912 Watching for file changes with StatReloader
+[INFO] 2026-03-01 11:22:10,247 django.server 6128 1156 "GET /TestsCreate/ HTTP/1.1" 200 21537
+[INFO] 2026-03-01 11:22:10,390 django.server 6128 13472 "GET /static/js/writing_tests.js HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:22:10,390 django.server 6128 1156 "GET /static/css/writing_tests.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:22:10,621 django.server 6128 1156 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:22:17,130 django.server 6128 1156 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-01 11:22:27,763 django.server 6128 1156 "POST / HTTP/1.1" 302 0
+[INFO] 2026-03-01 11:22:27,863 django.server 6128 1156 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2026-03-01 11:27:35,874 django.utils.autoreload 6128 7912 C:\Users\cproh\Õ»–\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-01 11:27:37,740 django.utils.autoreload 14440 7184 Watching for file changes with StatReloader
+[INFO] 2026-03-01 11:27:48,220 django.utils.autoreload 14440 7184 C:\Users\cproh\Õ»–\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-01 11:27:49,862 django.utils.autoreload 15656 15660 Watching for file changes with StatReloader
+[INFO] 2026-03-01 11:28:00,642 django.utils.autoreload 15656 15660 C:\Users\cproh\Õ»–\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-01 11:28:03,253 django.utils.autoreload 16292 16296 Watching for file changes with StatReloader
+[INFO] 2026-03-01 11:28:17,924 django.utils.autoreload 16292 16296 C:\Users\cproh\Õ»–\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-01 11:28:19,559 django.utils.autoreload 4540 15304 Watching for file changes with StatReloader
+[INFO] 2026-03-01 11:28:41,064 django.utils.autoreload 4540 15304 C:\Users\cproh\Õ»–\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-01 11:28:43,000 django.utils.autoreload 6060 15120 Watching for file changes with StatReloader
+[INFO] 2026-03-01 11:28:46,819 django.utils.autoreload 6060 15120 C:\Users\cproh\Õ»–\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-01 11:28:48,576 django.utils.autoreload 16196 2680 Watching for file changes with StatReloader
+[INFO] 2026-03-01 11:30:22,730 django.server 16196 15660 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2026-03-01 11:30:27,481 django.server 16196 15660 "GET /TestsCreate/solve-test/test-po-matematicheskomu-analizu/ HTTP/1.1" 200 8999
+[INFO] 2026-03-01 11:30:27,708 django.server 16196 15660 "GET /static/css/specific_test.css HTTP/1.1" 200 4391
+[INFO] 2026-03-01 11:30:27,726 django.server 16196 16248 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 268
+[INFO] 2026-03-01 11:30:27,754 django.server 16196 1592 "GET /static/js/specific_test.js HTTP/1.1" 200 4365
+[INFO] 2026-03-01 11:30:27,764 django.server 16196 15120 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2026-03-01 11:30:28,024 django.server 16196 1592 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[WARNING] 2026-03-01 11:30:28,296 django.server 16196 1592 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 11:30:30,179 django.server 16196 15120 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2026-03-01 11:30:32,240 django.server 16196 15120 "GET /TestsCreate/solve-test/vychislenie-chastnykh-i-polnykh-proizvodnykh/ HTTP/1.1" 200 10548
+[INFO] 2026-03-01 11:30:32,741 django.server 16196 15120 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 304 0
+[WARNING] 2026-03-01 11:30:33,573 django.server 16196 15120 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 11:30:40,736 django.server 16196 16248 "POST /TestsCreate/solve-test/vychislenie-chastnykh-i-polnykh-proizvodnykh/ HTTP/1.1" 302 0
+[INFO] 2026-03-01 11:30:40,819 django.server 16196 16248 "GET /TestsCreate/solve-test/vychislenie-chastnykh-i-polnykh-proizvodnykh/result/ HTTP/1.1" 200 10379
+[INFO] 2026-03-01 11:30:40,926 django.server 16196 16248 "GET /static/css/result.css HTTP/1.1" 200 8904
+[INFO] 2026-03-01 11:30:40,973 django.server 16196 15660 "GET /static/js/result.js HTTP/1.1" 200 340
+[WARNING] 2026-03-01 11:30:41,149 django.server 16196 15660 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 11:30:59,961 django.server 16196 16248 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2026-03-01 11:31:04,886 django.server 16196 16248 "GET /TestsCreate/solve-test/test-po-matematicheskomu-analizu/ HTTP/1.1" 200 8999
+[WARNING] 2026-03-01 11:31:05,164 django.server 16196 16248 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 11:31:06,395 django.server 16196 6228 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2026-03-01 11:31:07,541 django.server 16196 6228 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10263
+[WARNING] 2026-03-01 11:31:07,922 django.server 16196 6228 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 11:31:12,302 django.server 16196 15564 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-03-01 11:31:12,341 django.server 16196 15564 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 10323
+[INFO] 2026-03-01 11:31:12,437 django.server 16196 15564 "GET /static/css/result.css HTTP/1.1" 304 0
+[WARNING] 2026-03-01 11:31:12,652 django.server 16196 15564 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 11:31:19,226 django.server 16196 4688 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2026-03-01 11:32:32,834 django.server 16196 4688 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2026-03-01 11:32:32,927 django.server 16196 4688 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 11:32:32,940 django.server 16196 15920 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 11:32:32,948 django.server 16196 15920 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 11:32:32,952 django.server 16196 15712 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 11:32:32,954 django.server 16196 14884 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 17918
+[INFO] 2026-03-01 11:32:32,955 django.server 16196 15488 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 11:32:32,957 django.server 16196 13036 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 11:32:32,958 django.server 16196 4688 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 16925
+[INFO] 2026-03-01 11:32:33,009 django.server 16196 14884 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-01 11:32:33,149 django.server 16196 14884 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-01 11:32:35,848 django.server 16196 14884 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10288
+[WARNING] 2026-03-01 11:32:36,339 django.server 16196 14884 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 11:32:39,306 django.server 16196 15712 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-03-01 11:32:39,338 django.server 16196 15712 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 10323
+[INFO] 2026-03-01 11:32:39,444 django.server 16196 15712 "GET /static/css/result.css HTTP/1.1" 304 0
+[WARNING] 2026-03-01 11:32:39,689 django.server 16196 15712 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 11:35:12,315 django.utils.autoreload 16196 2680 C:\Users\cproh\Õ»–\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-03-01 11:35:14,184 django.utils.autoreload 3556 7904 Watching for file changes with StatReloader
+[INFO] 2026-03-01 11:35:18,946 django.utils.autoreload 3556 7904 C:\Users\cproh\Õ»–\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-03-01 11:35:20,556 django.utils.autoreload 13036 4688 Watching for file changes with StatReloader
+[INFO] 2026-03-01 11:36:21,196 django.server 13036 15572 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2026-03-01 11:36:22,827 django.server 13036 15572 "GET /TestsCreate/solve-test/test-po-matematicheskomu-analizu/ HTTP/1.1" 200 8999
+[WARNING] 2026-03-01 11:36:23,149 django.server 13036 15572 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 11:36:24,891 django.server 13036 14876 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2026-03-01 11:36:30,058 django.server 13036 14876 "GET /TestsCreate/solve-test/test-po-matematicheskomu-analizu/ HTTP/1.1" 200 8999
+[WARNING] 2026-03-01 11:36:30,310 django.server 13036 14876 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 11:36:31,439 django.server 13036 15684 "GET /TestsCreate/listTests/ HTTP/1.1" 200 259103
+[INFO] 2026-03-01 11:36:34,516 django.server 13036 15684 "POST /TestsCreate/delete-test/test-po-matematicheskomu-analizu/ HTTP/1.1" 200 17
+[INFO] 2026-03-01 11:36:34,693 django.server 13036 15684 "GET /TestsCreate/listTests/ HTTP/1.1" 200 254462
+[INFO] 2026-03-01 11:36:37,759 django.server 13036 15684 "GET /TestsCreate/solve-test/test-po-matematicheskomu-analizu-1/ HTTP/1.1" 200 15267
+[INFO] 2026-03-01 11:36:38,015 django.server 13036 15684 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 304 0
+[WARNING] 2026-03-01 11:36:38,315 django.server 13036 15684 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 11:36:45,823 django.server 13036 4448 "GET /personaInf/ HTTP/1.1" 200 10027
+[WARNING] 2026-03-01 11:36:45,937 django.server 13036 4532 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-01 11:36:46,000 django.server 13036 4448 "GET /static/css/teacher_account.css HTTP/1.1" 200 5409
+[INFO] 2026-03-01 11:36:47,224 django.server 13036 4448 "GET /TestsCreate/listTests/ HTTP/1.1" 200 254462
+[INFO] 2026-03-01 11:36:49,833 django.server 13036 4448 "GET /TestsCreate/solve-test/demonstratsionnyi/ HTTP/1.1" 200 11674
+[WARNING] 2026-03-01 11:36:50,274 django.server 13036 4448 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 11:36:55,980 django.server 13036 16352 "POST /TestsCreate/solve-test/demonstratsionnyi/ HTTP/1.1" 302 0
+[INFO] 2026-03-01 11:36:56,009 django.server 13036 16352 "GET /TestsCreate/solve-test/demonstratsionnyi/result/ HTTP/1.1" 200 15327
+[INFO] 2026-03-01 11:36:56,139 django.server 13036 16352 "GET /static/css/result.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:36:56,386 django.server 13036 16040 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:36:56,387 django.server 13036 16352 "GET /static/libs/mathlive/fonts/KaTeX_Size3-Regular.woff2 HTTP/1.1" 200 3624
+[WARNING] 2026-03-01 11:36:56,608 django.server 13036 16352 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 11:39:57,528 django.server 13036 1392 "GET /TestsCreate/listTests/ HTTP/1.1" 200 254462
+[INFO] 2026-03-01 11:40:00,577 django.server 13036 1392 "GET /TestsCreate/edit-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 41339
+[INFO] 2026-03-01 11:40:00,662 django.server 13036 1392 "GET /static/css/writing_tests.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:40:00,670 django.server 13036 1392 "GET /static/js/editing_tests.js HTTP/1.1" 200 31420
+[INFO] 2026-03-01 11:40:00,833 django.server 13036 1392 "GET /static/libs/mathlive/fonts/KaTeX_Size2-Regular.woff2 HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:40:02,310 django.server 13036 1392 "GET /TestsCreate/listTests/ HTTP/1.1" 200 254462
+[INFO] 2026-03-01 11:42:07,179 django.server 13036 15776 "GET /TestsCreate/listTests/ HTTP/1.1" 200 254608
+[INFO] 2026-03-01 11:42:07,266 django.server 13036 15776 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 11:42:07,286 django.server 13036 16280 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 11:42:07,289 django.server 13036 1584 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 17918
+[INFO] 2026-03-01 11:42:07,290 django.server 13036 15776 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 11:42:07,297 django.server 13036 5852 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 11:42:07,298 django.server 13036 16568 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 11:42:07,302 django.server 13036 16640 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 11:42:07,302 django.server 13036 16280 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 16925
+[INFO] 2026-03-01 11:42:07,367 django.server 13036 16280 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-01 11:42:07,484 django.server 13036 16280 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-01 11:52:06,462 django.utils.autoreload 13036 4688 C:\Users\cproh\Õ»–\OsaMPEI\web_tests\create_tests\urls.py changed, reloading.
+[INFO] 2026-03-01 11:52:08,200 django.utils.autoreload 10220 10160 Watching for file changes with StatReloader
+[INFO] 2026-03-01 11:52:51,915 django.utils.autoreload 10220 10160 C:\Users\cproh\Õ»–\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-03-01 11:52:53,582 django.utils.autoreload 7116 16732 Watching for file changes with StatReloader
+[INFO] 2026-03-01 11:55:22,022 django.server 7116 17188 "GET /TestsCreate/listTests/ HTTP/1.1" 200 256881
+[INFO] 2026-03-01 11:55:22,217 django.server 7116 17188 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 11:55:22,224 django.server 7116 17188 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 11:55:22,234 django.server 7116 17188 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 16925
+[INFO] 2026-03-01 11:55:22,260 django.server 7116 12068 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 11:55:22,261 django.server 7116 13460 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 18049
+[INFO] 2026-03-01 11:55:22,268 django.server 7116 2700 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 11:55:22,277 django.server 7116 16908 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 11:55:22,281 django.server 7116 16704 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 11:55:22,334 django.server 7116 16704 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-01 11:55:22,458 django.server 7116 16704 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-01 11:55:26,315 django.server 7116 16704 "GET /TestsCreate/test-results/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 16689
+[INFO] 2026-03-01 11:55:30,769 django.server 7116 16704 "GET /TestsCreate/test-results/matematika-1-kurs-bazovyi-test/11/ HTTP/1.1" 200 12664
+[INFO] 2026-03-01 11:55:31,111 django.server 7116 16704 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:55:31,111 django.server 7116 16908 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:55:31,112 django.server 7116 2700 "GET /static/libs/mathlive/fonts/KaTeX_Size3-Regular.woff2 HTTP/1.1" 304 0
+[WARNING] 2026-03-01 11:55:31,261 django.server 7116 2700 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 11:55:58,348 django.server 7116 16908 "GET /TestsCreate/listTests/ HTTP/1.1" 200 256881
+[INFO] 2026-03-01 11:55:58,412 django.server 7116 16908 "GET /static/css/all_test_for_teach.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 11:57:41,947 django.server 7116 15584 "GET /static/css/all_test_for_teach.css HTTP/1.1" 304 0
+[WARNING] 2026-03-01 11:57:41,967 django.request 7116 15584 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-01 11:57:41,972 django.server 7116 15584 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-01 11:58:25,101 django.server 7116 8704 "GET /TestsCreate/listTests/ HTTP/1.1" 200 256881
+[WARNING] 2026-03-01 11:58:25,200 django.request 7116 8704 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-01 11:58:25,202 django.server 7116 8704 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-01 11:58:25,211 django.server 7116 7916 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 11:58:25,220 django.server 7116 8704 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 11:58:25,232 django.server 7116 1472 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 11:58:25,273 django.server 7116 16648 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 18049
+[INFO] 2026-03-01 11:58:25,281 django.server 7116 16184 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 11:58:25,362 django.server 7116 16184 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 11:58:25,367 django.server 7116 16648 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 11:58:25,369 django.server 7116 1472 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 16925
+[INFO] 2026-03-01 11:58:25,389 django.server 7116 1472 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-01 11:58:25,569 django.server 7116 1472 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-01 11:58:54,692 django.server 7116 17484 "GET /TestsCreate/listTests/ HTTP/1.1" 200 256881
+[WARNING] 2026-03-01 11:58:54,784 django.request 7116 17484 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-01 11:58:54,787 django.server 7116 17484 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-01 11:58:54,791 django.server 7116 14620 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 11:58:54,813 django.server 7116 17940 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 11:58:54,814 django.server 7116 17488 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 11:58:54,818 django.server 7116 17516 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 11:58:54,845 django.server 7116 6000 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 18049
+[INFO] 2026-03-01 11:58:54,933 django.server 7116 6000 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 11:58:54,933 django.server 7116 17516 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 11:58:54,933 django.server 7116 17940 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 16925
+[INFO] 2026-03-01 11:58:55,016 django.server 7116 17516 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-01 11:58:55,227 django.server 7116 17516 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-01 11:59:11,083 django.server 7116 17516 "GET /TestsCreate/test-results/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 13077
+[WARNING] 2026-03-01 11:59:11,196 django.request 7116 17516 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-01 11:59:11,198 django.server 7116 17516 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-01 11:59:44,616 django.server 7116 15608 "GET /TestsCreate/test-results/kontrolnoe-meropriiatie-no-2/11/ HTTP/1.1" 200 12625
+[WARNING] 2026-03-01 11:59:44,735 django.request 7116 15608 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-01 11:59:44,747 django.server 7116 15608 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-01 11:59:45,087 django.server 7116 15608 "GET /static/libs/mathlive/fonts/KaTeX_Size2-Regular.woff2 HTTP/1.1" 304 0
+[WARNING] 2026-03-01 11:59:45,490 django.server 7116 15608 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 11:59:51,998 django.server 7116 16388 "GET /TestsCreate/test-results/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 13077
+[WARNING] 2026-03-01 11:59:52,098 django.request 7116 16388 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-01 11:59:52,099 django.server 7116 16388 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-01 12:02:57,820 django.server 7116 16980 "GET /TestsCreate/test-results/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 13077
+[WARNING] 2026-03-01 12:02:57,881 django.request 7116 16980 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-01 12:02:57,884 django.server 7116 16980 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-01 12:02:57,920 django.server 7116 18336 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 12:02:57,921 django.server 7116 17132 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 12:02:57,926 django.server 7116 16980 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 12:02:57,931 django.server 7116 16664 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 12:02:57,992 django.server 7116 16664 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 12:02:57,993 django.server 7116 17132 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 12:02:58,083 django.server 7116 17132 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-01 12:02:58,168 django.server 7116 17132 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-01 12:03:04,432 django.server 7116 16568 "GET /TestsCreate/listTests/ HTTP/1.1" 200 256881
+[INFO] 2026-03-01 12:03:04,508 django.server 7116 16568 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 18062
+[INFO] 2026-03-01 12:03:57,875 django.server 7116 17728 "GET /TestsCreate/listTests/ HTTP/1.1" 200 256881
+[INFO] 2026-03-01 12:03:57,956 django.server 7116 17728 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 12:03:57,964 django.server 7116 18124 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 12:03:57,982 django.server 7116 16324 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 12:03:57,994 django.server 7116 18124 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 12:03:57,994 django.server 7116 16000 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 12:03:57,998 django.server 7116 17728 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 16925
+[INFO] 2026-03-01 12:03:58,005 django.server 7116 18408 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 12:03:58,015 django.server 7116 17192 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 18062
+[INFO] 2026-03-01 12:03:58,052 django.server 7116 17192 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-01 12:03:58,162 django.server 7116 17192 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-01 12:04:08,656 django.server 7116 13264 "GET /personaInf/ HTTP/1.1" 200 10027
+[WARNING] 2026-03-01 12:04:08,760 django.server 7116 13264 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-01 12:04:09,760 django.server 7116 17940 "GET /TestsCreate/listTests/ HTTP/1.1" 200 256881
+[INFO] 2026-03-01 12:04:09,832 django.server 7116 17940 "GET /static/css/all_test_for_teach.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 12:04:12,368 django.server 7116 17092 "GET /TestsCreate/test-results/vychislenie-opredelennykh-integralov/ HTTP/1.1" 200 13117
+[INFO] 2026-03-01 12:04:15,929 django.server 7116 17092 "GET /TestsCreate/listTests/ HTTP/1.1" 200 256881
+[INFO] 2026-03-01 12:04:16,007 django.server 7116 17092 "GET /static/css/all_test_for_teach.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 12:04:17,596 django.server 7116 17092 "GET /TestsCreate/test-results/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 16689
+[INFO] 2026-03-01 12:04:23,021 django.server 7116 16780 "GET /TestsCreate/listTests/ HTTP/1.1" 200 256881
+[INFO] 2026-03-01 12:04:23,104 django.server 7116 16780 "GET /static/css/all_test_for_teach.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 12:04:24,454 django.server 7116 16780 "GET /TestsCreate/listTests/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 162045
+[INFO] 2026-03-01 12:04:24,558 django.server 7116 16780 "GET /static/css/some_test.css HTTP/1.1" 200 15511
+[INFO] 2026-03-01 12:04:24,630 django.server 7116 11200 "GET /static/js/some_test.js HTTP/1.1" 200 8984
+[WARNING] 2026-03-01 12:04:25,352 django.server 7116 11200 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[WARNING] 2026-03-01 12:04:30,180 django.request 7116 17980 Not Found: /TestsCreate/listTests/matematika-1-kurs-bazovyi-test/undefined
+[WARNING] 2026-03-01 12:04:30,183 django.server 7116 17980 "POST /TestsCreate/listTests/matematika-1-kurs-bazovyi-test/undefined HTTP/1.1" 404 10308
+[INFO] 2026-03-01 12:04:30,375 django.server 7116 16780 "POST /TestsCreate/delete-test/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 200 17
+[WARNING] 2026-03-01 12:04:30,420 django.request 7116 16780 Not Found: /TestsCreate/listTests/matematika-1-kurs-bazovyi-test/
+[WARNING] 2026-03-01 12:04:30,422 django.server 7116 16780 "GET /TestsCreate/listTests/matematika-1-kurs-bazovyi-test/ HTTP/1.1" 404 6506
+[WARNING] 2026-03-01 12:04:30,532 django.request 7116 16780 Not Found: /favicon.ico
+[WARNING] 2026-03-01 12:04:30,534 django.server 7116 16780 "GET /favicon.ico HTTP/1.1" 404 5845
+[WARNING] 2026-03-01 12:04:30,546 django.request 7116 17980 Not Found: /favicon.ico
+[WARNING] 2026-03-01 12:04:30,548 django.server 7116 17980 "GET /favicon.ico HTTP/1.1" 404 5845
+[INFO] 2026-03-01 12:04:34,600 django.server 7116 17328 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[INFO] 2026-03-01 12:04:34,684 django.server 7116 17328 "GET /static/css/all_test_for_teach.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 12:04:40,207 django.server 7116 17328 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2026-03-01 12:04:40,238 django.server 7116 17328 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-01 12:04:48,363 django.server 7116 16268 "POST / HTTP/1.1" 302 0
+[INFO] 2026-03-01 12:04:48,441 django.server 7116 16268 "GET /Home/ HTTP/1.1" 200 10070
+[INFO] 2026-03-01 12:04:48,512 django.server 7116 16268 "GET /static/css/student_account.css HTTP/1.1" 200 10393
+[INFO] 2026-03-01 12:04:48,566 django.server 7116 17284 "GET /static/js/student_account.js HTTP/1.1" 200 703
+[INFO] 2026-03-01 12:04:49,567 django.server 7116 17284 "GET /TestsSolving/ HTTP/1.1" 200 10508
+[INFO] 2026-03-01 12:04:49,659 django.server 7116 17284 "GET /static/css/test_selection.css HTTP/1.1" 200 8223
+[INFO] 2026-03-01 12:04:49,699 django.server 7116 17284 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2026-03-01 12:04:49,740 django.server 7116 16268 "GET /static/js/test_selection.js HTTP/1.1" 200 4477
+[INFO] 2026-03-01 12:04:51,480 django.server 7116 18988 "GET /TestsSolving/vychislenie-opredelennykh-integralov/view-result/ HTTP/1.1" 200 7279
+[INFO] 2026-03-01 12:04:51,562 django.server 7116 18988 "GET /static/css/result.css HTTP/1.1" 304 0
+[WARNING] 2026-03-01 12:04:51,754 django.server 7116 18988 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 12:04:53,058 django.server 7116 19000 "GET /TestsSolving/ HTTP/1.1" 200 10508
+[INFO] 2026-03-01 12:04:53,841 django.server 7116 19000 "GET /Home/ HTTP/1.1" 200 10070
+[INFO] 2026-03-01 12:05:05,680 django.server 7116 19116 "GET /TestsSolving/ HTTP/1.1" 200 10508
+[INFO] 2026-03-01 12:05:15,076 django.server 7116 19128 "GET /Home/ HTTP/1.1" 200 10070
+[INFO] 2026-03-01 12:05:20,837 django.server 7116 19128 "GET /TestsSolving/ HTTP/1.1" 200 10508
+[INFO] 2026-03-01 12:05:24,081 django.server 7116 19148 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2026-03-01 12:05:24,096 django.server 7116 19148 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-01 12:05:30,481 django.server 7116 19148 "POST / HTTP/1.1" 302 0
+[INFO] 2026-03-01 12:05:30,763 django.server 7116 19148 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[INFO] 2026-03-01 12:05:30,874 django.server 7116 19148 "GET /static/css/all_test_for_teach.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 12:05:33,314 django.server 7116 19160 "GET /TestsCreate/test-results/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 13077
+[INFO] 2026-03-01 12:05:35,890 django.server 7116 19160 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[INFO] 2026-03-01 12:05:36,995 django.server 7116 19160 "GET /TestsCreate/test-results/vychislenie-opredelennykh-integralov/ HTTP/1.1" 200 13117
+[INFO] 2026-03-01 12:05:38,496 django.server 7116 19160 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[INFO] 2026-03-01 12:05:39,766 django.server 7116 19160 "GET /TestsCreate/test-results/vychislenie-chastnykh-i-polnykh-proizvodnykh/ HTTP/1.1" 200 13151
+[INFO] 2026-03-01 12:05:42,054 django.server 7116 19172 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[INFO] 2026-03-01 12:05:42,121 django.server 7116 19172 "GET /static/css/all_test_for_teach.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 12:05:44,065 django.server 7116 19172 "GET /TestsCreate/test-results/vychislenie-chastnykh-i-polnykh-proizvodnykh/ HTTP/1.1" 200 13151
+[INFO] 2026-03-01 12:05:45,348 django.server 7116 19172 "GET /TestsCreate/test-results/vychislenie-chastnykh-i-polnykh-proizvodnykh/11/ HTTP/1.1" 200 12894
+[INFO] 2026-03-01 12:05:45,659 django.server 7116 19172 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 304 0
+[INFO] 2026-03-01 12:05:45,719 django.server 7116 19172 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 304 0
+[WARNING] 2026-03-01 12:05:45,776 django.server 7116 19172 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 12:07:32,336 django.server 7116 18876 "GET /TestsCreate/test-results/vychislenie-chastnykh-i-polnykh-proizvodnykh/11/ HTTP/1.1" 200 13175
+[INFO] 2026-03-01 12:07:32,404 django.server 7116 18876 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 12:07:32,416 django.server 7116 18828 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 12:07:32,428 django.server 7116 3284 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2026-03-01 12:07:32,429 django.server 7116 2056 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-01 12:07:32,434 django.server 7116 19876 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 12:07:32,440 django.server 7116 18828 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 12:07:32,448 django.server 7116 12588 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-01 12:07:32,542 django.server 7116 12588 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 12:07:32,543 django.server 7116 18828 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 12:07:32,578 django.server 7116 18828 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2026-03-01 12:07:32,588 django.server 7116 12588 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-01 12:07:32,668 django.server 7116 18828 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 200 16440
+[INFO] 2026-03-01 12:07:32,668 django.server 7116 12588 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 26272
+[INFO] 2026-03-01 12:07:32,902 django.server 7116 12588 "GET /static/favicon.ico HTTP/1.1" 200 976
+[WARNING] 2026-03-01 12:07:32,913 django.server 7116 18828 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 12:09:10,646 django.server 7116 19172 "GET /TestsCreate/test-results/vychislenie-chastnykh-i-polnykh-proizvodnykh/11/ HTTP/1.1" 200 13277
+[INFO] 2026-03-01 12:09:10,730 django.server 7116 19172 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 12:09:10,738 django.server 7116 19788 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 12:09:10,756 django.server 7116 19172 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 12:09:10,758 django.server 7116 19816 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-01 12:09:10,768 django.server 7116 16764 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2026-03-01 12:09:10,770 django.server 7116 16156 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 12:09:10,776 django.server 7116 19620 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-01 12:09:10,884 django.server 7116 16156 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 12:09:10,885 django.server 7116 19620 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 12:09:10,911 django.server 7116 19620 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2026-03-01 12:09:10,931 django.server 7116 19620 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-01 12:09:10,950 django.server 7116 19620 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 26272
+[WARNING] 2026-03-01 12:09:11,979 django.server 7116 15104 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 12:09:12,620 django.server 7116 17856 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-01 12:09:16,785 django.server 7116 17856 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[INFO] 2026-03-01 12:09:16,881 django.server 7116 17856 "GET /static/css/all_test_for_teach.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 12:09:44,215 django.server 7116 3424 "GET /TestsCreate/test-results/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 13077
+[INFO] 2026-03-01 12:09:49,361 django.server 7116 3424 "GET /TestsCreate/test-results/kontrolnoe-meropriiatie-no-2/11/ HTTP/1.1" 200 13008
+[INFO] 2026-03-01 12:09:49,707 django.server 7116 3424 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 200 16440
+[WARNING] 2026-03-01 12:09:49,814 django.server 7116 3424 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 12:09:51,345 django.server 7116 6464 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[INFO] 2026-03-01 12:09:51,418 django.server 7116 6464 "GET /static/css/all_test_for_teach.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 12:09:53,809 django.server 7116 6464 "GET /TestsCreate/test-results/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 13077
+[INFO] 2026-03-01 12:09:55,356 django.server 7116 6464 "GET /TestsCreate/test-results/kontrolnoe-meropriiatie-no-2/11/ HTTP/1.1" 200 13008
+[WARNING] 2026-03-01 12:09:55,714 django.server 7116 6464 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 12:12:24,477 django.server 7116 8900 "GET /TestsCreate/test-results/kontrolnoe-meropriiatie-no-2/11/ HTTP/1.1" 200 13061
+[INFO] 2026-03-01 12:12:24,548 django.server 7116 8900 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 12:12:24,562 django.server 7116 19740 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 12:12:24,580 django.server 7116 18488 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2026-03-01 12:12:24,581 django.server 7116 18504 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-01 12:12:24,585 django.server 7116 19716 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 268
+[INFO] 2026-03-01 12:12:24,588 django.server 7116 8900 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 12:12:24,591 django.server 7116 19740 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 12:12:24,599 django.server 7116 19628 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-01 12:12:24,704 django.server 7116 19628 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 12:12:24,704 django.server 7116 19740 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 12:12:24,748 django.server 7116 19740 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2026-03-01 12:12:24,756 django.server 7116 19628 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-01 12:12:24,830 django.server 7116 19740 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 200 16440
+[INFO] 2026-03-01 12:12:24,830 django.server 7116 19628 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 26272
+[WARNING] 2026-03-01 12:12:25,776 django.server 7116 19740 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-01 12:12:26,528 django.server 7116 19628 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-01 12:12:30,990 django.server 7116 19628 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[INFO] 2026-03-01 12:12:31,086 django.server 7116 19628 "GET /static/css/all_test_for_teach.css HTTP/1.1" 304 0

@@ -36,16 +36,13 @@
     <div class="tests-grid">
         {% for item in tests %}
             {% with test=item.test %}
-                <div class="test-card" data-id="{{ test.id }}" data-completed="{% if item.is_completed %}true{% else %}false{% endif %}" data-new="{% if item.attempts_count == 0 %}true{% else %}false{% endif %}">
-                    <div class="test-header">
-                    </div>
+                <div class="test-card" data-id="{{ test.id }}"
+                     data-completed="{% if item.is_completed %}true{% else %}false{% endif %}"
+                     data-new="{% if item.attempts_count == 0 %}true{% else %}false{% endif %}">
+                    <div class="test-header"></div>
                     <div class="test-body">
                         <h3 class="test-title">
-                            {% if item.is_completed %}
-                                <a href="{% url 'solving_tests:view_completed_result' slug_name=test.name_slug_tests %}">{{ test.name_tests }}</a>
-                            {% else %}
-                                <a href="{% url 'solving_tests:some_test_for_student' slug_name=test.name_slug_tests %}">{{ test.name_tests }}</a>
-                            {% endif %}
+                            <a href="{% url 'solving_tests:some_test_for_student' slug_name=test.name_slug_tests %}">{{ test.name_tests }}</a>
                         </h3>
                         <h5>Предмет: {{ test.subj }}</h5>
 
@@ -54,7 +51,9 @@
                         {% endif %}
                         <div class="test-meta">
                             <span><i class="far fa-clock"></i> Время: {{ test.time_to_solution }}</span>
-                            {% if item.is_completed %}
+                            {% if is_teacher %}
+                                <span><i class="fas fa-eye"></i> Режим просмотра</span>
+                            {% elif item.is_completed %}
                                 {% if item.best_result %}
                                     <span><i class="fas fa-chart-line"></i> Лучший результат: {{ item.best_result.result_points|floatformat:1 }} баллов</span>
                                 {% else %}
@@ -72,13 +71,13 @@
                         </div>
                     </div>
                     <div class="test-footer">
-                        {% if item.is_completed %}
+                        {% if not is_teacher and item.is_completed %}
                             <a href="{% url 'solving_tests:view_completed_result' slug_name=test.name_slug_tests %}" class="btn start-btn">
                                 <i class="fas fa-chart-bar"></i> Результаты
                             </a>
                         {% else %}
                             <a href="{% url 'solving_tests:some_test_for_student' slug_name=test.name_slug_tests %}" class="btn start-btn">
-                                <i class="fas fa-play"></i> Начать
+                                <i class="fas fa-play"></i> {% if is_teacher %}Пройти{% else %}Начать{% endif %}
                             </a>
                         {% endif %}
                         <button class="btn info-btn" data-test-id="{{ test.id }}">

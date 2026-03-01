@@ -50,6 +50,11 @@ def create_test(request):
             subj_id = request.POST.get('subj_test')
             result_display_mode = request.POST.get('result_display_mode', 'only_score')
 
+            # Получаем критерии оценивания
+            grade_5_threshold = int(request.POST.get('grade_5_threshold', 80))
+            grade_4_threshold = int(request.POST.get('grade_4_threshold', 60))
+            grade_3_threshold = int(request.POST.get('grade_3_threshold', 35))
+
             logger.info(f"Basic fields - name: '{test_name}', time: '{time_to_sol_raw}', attempts: '{count_attempts}', subj_id: '{subj_id}'")
 
             subj = Subjects.objects.get(id=subj_id)
@@ -165,6 +170,9 @@ def create_test(request):
                 description=description_test,
                 creator=teacher,
                 result_display_mode=result_display_mode,
+                grade_5_threshold=grade_5_threshold,
+                grade_4_threshold=grade_4_threshold,
+                grade_3_threshold=grade_3_threshold,
             )
 
             # Проверяем, есть ли хотя бы одно валидное выражение
@@ -1167,11 +1175,44 @@ def solve_test_teacher(request, slug_name):
         else:
             grade = 2
 
+        # Формируем детальные результаты для отображения
+        detailed_results = []
+        for i, expr_data in enumerate(expressions_data):
+            teacher_answer = teacher_answers[i] if i < len(teacher_answers) else ''
+            if expr_data['exist_select']:
+                available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+                correct_answers_flags = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
+                correct_options = [
+                    available_options[j]
+                    for j, flag in enumerate(correct_answers_flags)
+                    if j < len(available_options) and flag == '1'
+                ]
+                detailed_results.append({
+                    'question_number': i + 1,
+                    'question': expr_data['user_expression'],
+                    'teacher_answer': teacher_answer,
+                    'correct_answer': '; '.join(correct_options),
+                    'is_multiple_choice': True,
+                    'options': available_options,
+                    'points': expr_data['points_for_solve'],
+                })
+            else:
+                detailed_results.append({
+                    'question_number': i + 1,
+                    'question': expr_data['user_expression'],
+                    'teacher_answer': teacher_answer,
+                    'correct_answer': expr_data['user_ans'],
+                    'is_multiple_choice': False,
+                    'options': [],
+                    'points': expr_data['points_for_solve'],
+                })
+
         request.session['teacher_test_result'] = {
             'result': result_score,
             'score': grade,
             'test_name': test.name_tests,
             'all_points': all_points,
+            'detailed_results': detailed_results,
         }
 
         return redirect('create_tests:show_result_teacher', slug_name=slug_name)
@@ -1231,4 +1272,170 @@ def show_result_teacher(request, slug_name):
         'score': test_result['score'],
         'count': count,
         'slug_name': slug_name,
+        'detailed_results': test_result.get('detailed_results', []),
+    })
+
+
+@login_required
+@role_required(['teacher', 'admin'])
+def test_results_list(request, slug_name):
+    """Список студентов, прошедших тест, с их результатами"""
+    from solving_tests.models import StudentResult
+    from users.models import CustomUser
+    import datetime
+
+    test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
+
+    all_results = StudentResult.objects.filter(test=test).select_related(
+        'student', 'student__studentdata', 'student__studentdata__group'
+    )
+
+    student_ids = all_results.values_list('student', flat=True).distinct()
+
+    students_data = []
+    for sid in student_ids:
+        s_results = all_results.filter(student_id=sid)
+        best = s_results.order_by('-result_points').first()
+        last = s_results.order_by('-completed_at', '-started_at').first()
+
+        score_pct = best.result_points / best.max_points * 100 if best.max_points > 0 else 0
+        if score_pct >= test.grade_5_threshold:
+            grade = 5
+        elif score_pct >= test.grade_4_threshold:
+            grade = 4
+        elif score_pct >= test.grade_3_threshold:
+            grade = 3
+        else:
+            grade = 2
+
+        try:
+            sd = best.student.studentdata
+            student_name = f"{sd.last_name} {sd.first_name} {sd.middle_name}".strip()
+            group = sd.group
+        except Exception:
+            student_name = best.student.email
+            group = None
+
+        last_date = last.completed_at or last.started_at
+
+        students_data.append({
+            'student': best.student,
+            'student_name': student_name,
+            'group': group,
+            'best_result': best,
+            'last_date': last_date,
+            'attempts_count': s_results.count(),
+            'grade': grade,
+        })
+
+    sort_by = request.GET.get('sort', 'group')
+    order = request.GET.get('order', 'asc')
+    reverse = (order == 'desc')
+
+    if sort_by == 'group':
+        students_data.sort(key=lambda x: x['group'].name if x['group'] else '', reverse=reverse)
+    elif sort_by == 'date':
+        students_data.sort(
+            key=lambda x: x['last_date'] if x['last_date'] else datetime.datetime.min.replace(tzinfo=datetime.timezone.utc),
+            reverse=reverse
+        )
+    elif sort_by == 'name':
+        students_data.sort(key=lambda x: x['student_name'], reverse=reverse)
+    elif sort_by == 'score':
+        students_data.sort(key=lambda x: x['best_result'].result_points, reverse=reverse)
+
+    return render(request, 'create_tests/test_results_list.html', {
+        'test': test,
+        'students_data': students_data,
+        'sort_by': sort_by,
+        'order': order,
+    })
+
+
+@login_required
+@role_required(['teacher', 'admin'])
+def test_results_detail(request, slug_name, student_id):
+    """Детальные ответы конкретного студента на тест"""
+    from solving_tests.models import StudentResult
+    from solving_tests.views import get_randomized_test_for_student
+    from users.models import CustomUser
+    import ast
+
+    test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
+    student = get_object_or_404(CustomUser, id=student_id)
+
+    results = StudentResult.objects.filter(student=student, test=test).order_by('-result_points')
+    best_result = results.first()
+
+    if not best_result:
+        return redirect('create_tests:test_results_list', slug_name=slug_name)
+
+    expressions_data = get_randomized_test_for_student(test, student.id, best_result.attempt_number)
+
+    try:
+        student_answers = json.loads(best_result.res_answer)
+    except (json.JSONDecodeError, ValueError):
+        try:
+            student_answers = ast.literal_eval(best_result.res_answer)
+        except (ValueError, SyntaxError):
+            student_answers = []
+
+    detailed_results = []
+    for i, expr_data in enumerate(expressions_data):
+        student_answer = student_answers[i] if i < len(student_answers) else ''
+        if expr_data['exist_select']:
+            available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+            correct_answers_flags = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
+            correct_options = [
+                available_options[j]
+                for j, flag in enumerate(correct_answers_flags)
+                if j < len(available_options) and flag == '1'
+            ]
+            detailed_results.append({
+                'question_number': i + 1,
+                'question': expr_data['user_expression'],
+                'student_answer': student_answer,
+                'correct_answer': '; '.join(correct_options),
+                'is_multiple_choice': True,
+                'options': available_options,
+                'points': expr_data['points_for_solve'],
+            })
+        else:
+            detailed_results.append({
+                'question_number': i + 1,
+                'question': expr_data['user_expression'],
+                'student_answer': student_answer,
+                'correct_answer': expr_data['user_ans'],
+                'is_multiple_choice': False,
+                'options': [],
+                'points': expr_data['points_for_solve'],
+            })
+
+    try:
+        sd = student.studentdata
+        student_name = f"{sd.last_name} {sd.first_name} {sd.middle_name}".strip()
+        group = sd.group
+    except Exception:
+        student_name = student.email
+        group = None
+
+    score_pct = best_result.result_points / best_result.max_points * 100 if best_result.max_points > 0 else 0
+    if score_pct >= test.grade_5_threshold:
+        grade = 5
+    elif score_pct >= test.grade_4_threshold:
+        grade = 4
+    elif score_pct >= test.grade_3_threshold:
+        grade = 3
+    else:
+        grade = 2
+
+    return render(request, 'create_tests/test_results_detail.html', {
+        'test': test,
+        'slug_name': slug_name,
+        'student_name': student_name,
+        'group': group,
+        'best_result': best_result,
+        'all_results': results,
+        'detailed_results': detailed_results,
+        'grade': grade,
     })

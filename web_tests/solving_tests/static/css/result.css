@@ -419,6 +419,16 @@ math-field[readonly] {
     background-color: #3a5a8a;
 }
 
+.teacher-preview-note {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin-bottom: 16px;
+    color: #856404;
+    font-size: 0.9rem;
+}
+
 /* Адаптивность */
 @media (max-width: 768px) {
     .header-content {

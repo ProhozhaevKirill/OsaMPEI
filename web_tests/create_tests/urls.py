@@ -17,4 +17,6 @@ urlpatterns = [
     path('get-group-lists/', views.get_group_lists, name='get_group_lists'),
     path('get-group-list/<int:list_id>/', views.get_group_list, name='get_group_list'),
     path('delete-group-list/<int:list_id>/', views.delete_group_list, name='delete_group_list'),
+    path('test-results/<slug:slug_name>/', views.test_results_list, name='test_results_list'),
+    path('test-results/<slug:slug_name>/<int:student_id>/', views.test_results_detail, name='test_results_detail'),
 ]

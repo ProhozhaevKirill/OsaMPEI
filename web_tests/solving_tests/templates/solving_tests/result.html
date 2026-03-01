@@ -21,7 +21,11 @@
     <main class="main-content">
         <section class="results-section">
             <div class="results-card">
-                <h2>Результат</h2>
+                <h2>Результат{% if is_teacher %} (режим преподавателя){% endif %}</h2>
+
+                {% if is_teacher %}
+                    <p class="teacher-preview-note"><i class="fas fa-info-circle"></i> Это предпросмотр — ваши ответы не сохраняются</p>
+                {% endif %}
 
                 {% if result_display_mode == 'only_score' %}
                     <!-- Показываем только баллы -->

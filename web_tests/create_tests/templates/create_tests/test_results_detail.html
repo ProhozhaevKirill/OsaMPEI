@@ -1,0 +1,260 @@
+{% extends 'create_tests/header.html' %}
+{% load static %}
+
+{% block title %}Ответы: {{ student_name }}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'libs/mathlive/mathlive.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/fontawesome/css/all.min.css' %}">
+    <style>
+        .page-container {
+            max-width: 960px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .page-header h1 {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .back-link {
+            color: #6c757d;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .back-link:hover { color: #343a40; }
+
+        .student-summary {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .summary-item { display: flex; flex-direction: column; gap: 2px; }
+        .summary-label { font-size: 0.75rem; color: #6c757d; text-transform: uppercase; letter-spacing: 0.5px; }
+        .summary-value { font-size: 1.1rem; font-weight: 600; color: #2c3e50; }
+
+        .grade-badge {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .grade-5 { background: #d4edda; color: #155724; }
+        .grade-4 { background: #cce5ff; color: #004085; }
+        .grade-3 { background: #fff3cd; color: #856404; }
+        .grade-2 { background: #f8d7da; color: #721c24; }
+
+        .attempts-info {
+            margin-left: auto;
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .attempts-info span { display: block; }
+
+        .detailed-results-section h2 {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 16px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 8px;
+        }
+
+        .question-result {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .question-number { font-weight: 600; color: #495057; }
+        .question-points { color: #868e96; font-size: 0.9rem; }
+
+        .question-text {
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .question-mathjax {
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        .answer-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .student-answer-block,
+        .correct-answer-block {
+            background: #f8f9fa;
+            border-radius: 6px;
+            padding: 10px 14px;
+            border: 1px solid #dee2e6;
+        }
+
+        .correct-answer-block {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+
+        .answer-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #6c757d;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .answer-text.correct { color: #155724; }
+
+        .options-list {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .options-list ul {
+            list-style: disc;
+            padding-left: 18px;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 640px) {
+            .answer-comparison { grid-template-columns: 1fr; }
+            .student-summary { gap: 16px; }
+        }
+    </style>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'libs/polyfill/polyfill.min.js' %}"></script>
+    <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
+    <script src="{% static 'js/macros-mathJax.js' %}"></script>
+    <script>
+        MathJax.tex.inlineMath = [['\\(', '\\)']];
+        MathJax.tex.displayMath = [['$$', '$$']];
+        MathJax.options = { skipHtmlTags: ['script', 'noscript', 'style', 'textarea'] };
+    </script>
+    <script id="MathJax-script" async src="{% static 'libs/mathjax/tex-mml-chtml.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="page-header">
+        <a href="{% url 'create_tests:test_results_list' slug_name=test.name_slug_tests %}" class="back-link">
+            <i class="fas fa-arrow-left"></i> Назад к списку
+        </a>
+        <h1><i class="fas fa-user-graduate"></i> {{ student_name }}</h1>
+    </div>
+
+    <div class="student-summary">
+        <div class="summary-item">
+            <span class="summary-label">Группа</span>
+            <span class="summary-value">{{ group.name|default:"—" }}</span>
+        </div>
+        <div class="summary-item">
+            <span class="summary-label">Тест</span>
+            <span class="summary-value">{{ test.name_tests }}</span>
+        </div>
+        <div class="summary-item">
+            <span class="summary-label">Лучший балл</span>
+            <span class="summary-value">{{ best_result.result_points|floatformat:1 }} / {{ best_result.max_points|floatformat:1 }}</span>
+        </div>
+        <div class="summary-item">
+            <span class="summary-label">Оценка</span>
+            <span class="grade-badge grade-{{ grade }}">{{ grade }}</span>
+        </div>
+        <div class="attempts-info">
+            <span>Попыток: {{ all_results|length }}</span>
+            {% if best_result.completed_at %}
+                <span>Дата: {{ best_result.completed_at|date:"d.m.Y H:i" }}</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="detailed-results-section">
+        <h2>Разбор ответов (лучшая попытка)</h2>
+
+        {% for q in detailed_results %}
+        <div class="question-result">
+            <div class="question-header">
+                <span class="question-number">Задание {{ q.question_number }}</span>
+                <span class="question-points">({{ q.points }} балл{{ q.points|pluralize:",,ов" }})</span>
+            </div>
+
+            <div class="question-text">
+                <strong>Вопрос:</strong>
+                <div class="question-mathjax">$$ {{ q.question }} $$</div>
+            </div>
+
+            <div class="answer-comparison">
+                <div class="student-answer-block">
+                    <div class="answer-label">Ответ студента</div>
+                    {% if q.is_multiple_choice %}
+                        <span class="answer-text">{% if q.student_answer %}{{ q.student_answer }}{% else %}Не выбрано{% endif %}</span>
+                    {% else %}
+                        <math-field readonly>{% if q.student_answer %}{{ q.student_answer }}{% else %}Не указано{% endif %}</math-field>
+                    {% endif %}
+                </div>
+
+                <div class="correct-answer-block">
+                    <div class="answer-label">Правильный ответ</div>
+                    {% if q.is_multiple_choice %}
+                        <span class="answer-text correct">{{ q.correct_answer }}</span>
+                    {% else %}
+                        <math-field readonly>{{ q.correct_answer }}</math-field>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if q.is_multiple_choice and q.options %}
+            <div class="options-list">
+                <strong>Варианты:</strong>
+                <ul>{% for opt in q.options %}<li>{{ opt }}</li>{% endfor %}</ul>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

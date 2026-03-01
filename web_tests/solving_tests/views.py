@@ -4,7 +4,7 @@ import random
 from django.contrib.auth import logout
 from django.shortcuts import render, get_object_or_404, redirect
 from create_tests.models import AboutExpressions, AboutTest, PublishedGroup, TypeNormForMatrix
-from users.models import StudentGroup, StudentData
+from users.models import StudentGroup, StudentData, TeacherData
 from .models import StudentResult, StudentTaskAnswer
 from logic_of_expression.check_sympy_expr import CheckAnswer
 import numpy as np
@@ -17,9 +17,22 @@ logger = logging.getLogger(__name__)
 
 
 @login_required
-@role_required(['student', 'admin'])
+@role_required(['student', 'teacher', 'admin'])
 def list_test(request):
     user = request.user
+
+    if user.role == 'teacher':
+        try:
+            teacher = TeacherData.objects.get(data_map=user)
+            all_tests = AboutTest.objects.filter(creator=teacher, is_draft=False).order_by('name_tests')
+        except TeacherData.DoesNotExist:
+            all_tests = []
+
+        tests_for_teacher = [{'test': t, 'is_teacher': True} for t in all_tests]
+        return render(request, 'solving_tests/test_selection.html', {
+            'tests': tests_for_teacher,
+            'is_teacher': True,
+        })
 
     try:
         student = StudentData.objects.get(data_map=user)
@@ -137,14 +150,18 @@ def get_randomized_test_for_student(test, student_id, attempt_number=1):
 
 
 @login_required
-@role_required(['student', 'admin'])
+@role_required(['student', 'teacher', 'admin'])
 def some_test_for_student(request, slug_name):
     test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
     student = request.user
+    is_teacher = student.role == 'teacher'
 
-    attempt_count = StudentResult.objects.filter(student=student, test=test).count()
-    if attempt_count >= test.num_of_attempts:
-        return redirect('solving_tests:view_completed_result', slug_name=slug_name)
+    if not is_teacher:
+        attempt_count = StudentResult.objects.filter(student=student, test=test).count()
+        if attempt_count >= test.num_of_attempts:
+            return redirect('solving_tests:view_completed_result', slug_name=slug_name)
+    else:
+        attempt_count = 0
 
     # Получаем рандомизированный вариант теста для студента
     # Номер попытки = количество уже выполненных попыток + 1
@@ -222,11 +239,12 @@ def some_test_for_student(request, slug_name):
 
         score_in_pr = result_score / all_points * 100 if all_points > 0 else 0
 
-        if score_in_pr >= 80:
+        # Используем критерии оценивания из настроек теста
+        if score_in_pr >= test.grade_5_threshold:
             grade = 5
-        elif score_in_pr >= 60:
+        elif score_in_pr >= test.grade_4_threshold:
             grade = 4
-        elif score_in_pr >= 35:
+        elif score_in_pr >= test.grade_3_threshold:
             grade = 3
         else:
             grade = 2
@@ -235,16 +253,54 @@ def some_test_for_student(request, slug_name):
             'result': result_score,
             'score': grade,
             'test_name': test.name_tests,
+            'is_teacher': is_teacher,
         }
 
-        StudentResult.objects.create(
-            student=student,
-            test=test,
-            attempt_number=attempt_count + 1,
-            result_points=result_score,
-            max_points=all_points,
-            res_answer=json.dumps(student_answers),
-        )
+        if is_teacher:
+            # Для преподавателя сохраняем детальные результаты в сессии, не пишем в БД
+            detailed_results = []
+            for i, expr_data in enumerate(expressions_data):
+                student_answer = student_answers[i] if i < len(student_answers) else ''
+                if expr_data['exist_select']:
+                    available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+                    correct_answers_flags = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
+                    correct_options = [
+                        available_options[j]
+                        for j, flag in enumerate(correct_answers_flags)
+                        if j < len(available_options) and flag == '1'
+                    ]
+                    detailed_results.append({
+                        'question_number': i + 1,
+                        'question': expr_data['user_expression'],
+                        'student_answer': student_answer,
+                        'correct_answer': '; '.join(correct_options),
+                        'is_multiple_choice': True,
+                        'options': available_options,
+                        'points': expr_data['points_for_solve'],
+                    })
+                else:
+                    detailed_results.append({
+                        'question_number': i + 1,
+                        'question': expr_data['user_expression'],
+                        'student_answer': student_answer,
+                        'correct_answer': expr_data['user_ans'],
+                        'is_multiple_choice': False,
+                        'options': [],
+                        'points': expr_data['points_for_solve'],
+                    })
+            request.session['teacher_detailed_results'] = {
+                'detailed_results': detailed_results,
+                'count': all_points,
+            }
+        else:
+            StudentResult.objects.create(
+                student=student,
+                test=test,
+                attempt_number=attempt_count + 1,
+                result_points=result_score,
+                max_points=all_points,
+                res_answer=json.dumps(student_answers),
+            )
 
         return redirect('solving_tests:show_result', slug_name=slug_name)
 
@@ -267,7 +323,7 @@ def some_test_for_student(request, slug_name):
 
 
 @login_required
-@role_required(['student', 'admin'])
+@role_required(['student', 'teacher', 'admin'])
 def show_result(request, slug_name):
     test_result = request.session.get('test_result')
 
@@ -275,9 +331,26 @@ def show_result(request, slug_name):
         return redirect('list_test')
 
     test = AboutTest.objects.get(name_slug_tests=slug_name)
+    student = request.user
+    is_teacher = test_result.get('is_teacher', False)
+
+    if is_teacher:
+        # Для преподавателя берём данные из сессии, всегда показываем детальные результаты
+        teacher_data = request.session.get('teacher_detailed_results', {})
+        context = {
+            'test_name': test_result['test_name'],
+            'result': test_result['result'],
+            'score': test_result['score'],
+            'count': teacher_data.get('count', 0),
+            'slug_name': slug_name,
+            'result_display_mode': 'show_correct',
+            'detailed_results': teacher_data.get('detailed_results', []),
+            'show_correct_answers': True,
+            'is_teacher': True,
+        }
+        return render(request, 'solving_tests/result.html', context)
 
     # Получаем максимальные баллы из сохранённого результата
-    student = request.user
     latest_result = StudentResult.objects.filter(student=student, test=test).order_by('-attempt_number').first()
 
     if latest_result:
@@ -372,7 +445,7 @@ def show_result(request, slug_name):
 
 
 @login_required
-@role_required(['student', 'admin'])
+@role_required(['student', 'teacher', 'admin'])
 def view_completed_result(request, slug_name):
     """Просмотр результатов пройденного теста"""
     test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
@@ -398,7 +471,7 @@ def view_completed_result(request, slug_name):
         'test_name': test.name_tests,
         'test': test,
         'result': best_result.result_points,
-        'score': 5 if best_result.result_points/count*100 >= 80 else 4 if best_result.result_points/count*100 >= 60 else 3 if best_result.result_points/count*100 >= 35 else 2,
+        'score': 5 if best_result.result_points/count*100 >= test.grade_5_threshold else 4 if best_result.result_points/count*100 >= test.grade_4_threshold else 3 if best_result.result_points/count*100 >= test.grade_3_threshold else 2,
         'count': count,
         'slug_name': slug_name,
         'result_display_mode': result_display_mode,

@@ -180,6 +180,28 @@
                             <option value="show_correct">Показывать правильные ответы</option>
                         </select>
                     </div>
+
+                    <div class="grading-criteria-section">
+                        <h4 style="margin-top: 15px; margin-bottom: 10px;">Критерии оценивания (% правильных ответов):</h4>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <label for="grade_5_threshold" style="font-weight: normal; min-width: 80px;">«5» от:</label>
+                                <input type="range" id="grade_5_threshold" name="grade_5_threshold" min="50" max="100" value="80" step="5" style="flex: 1;">
+                                <span id="grade_5_value" style="min-width: 40px; font-weight: bold; color: #28a745;">80%</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <label for="grade_4_threshold" style="font-weight: normal; min-width: 80px;">«4» от:</label>
+                                <input type="range" id="grade_4_threshold" name="grade_4_threshold" min="30" max="90" value="60" step="5" style="flex: 1;">
+                                <span id="grade_4_value" style="min-width: 40px; font-weight: bold; color: #ffc107;">60%</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <label for="grade_3_threshold" style="font-weight: normal; min-width: 80px;">«3» от:</label>
+                                <input type="range" id="grade_3_threshold" name="grade_3_threshold" min="10" max="70" value="35" step="5" style="flex: 1;">
+                                <span id="grade_3_value" style="min-width: 40px; font-weight: bold; color: #fd7e14;">35%</span>
+                            </div>
+                        </div>
+                        <small style="color: #666; margin-top: 5px; display: block;">Меньше указанного процента для «3» — оценка «2»</small>
+                    </div>
                 </div>
             </div>
 
@@ -195,6 +217,9 @@
                         <input type="hidden" name="subj_test" id="hidden_subj_test">
                         <input type="hidden" name="description_test" id="hidden_description_test">
                         <input type="hidden" name="result_display_mode" id="hidden_result_display_mode">
+                        <input type="hidden" name="grade_5_threshold" id="hidden_grade_5_threshold">
+                        <input type="hidden" name="grade_4_threshold" id="hidden_grade_4_threshold">
+                        <input type="hidden" name="grade_3_threshold" id="hidden_grade_3_threshold">
                         <input type="hidden" name="point_solve" id="hidden_point_solve1">
                         <input type="hidden" name="user_expression" id="hidden_expr1">
                         <input type="hidden" name="user_ans" id="hidden_ans1">

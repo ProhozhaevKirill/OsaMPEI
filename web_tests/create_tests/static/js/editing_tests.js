@@ -1,6 +1,20 @@
 $(document).ready(function () {
     MathfieldElement.locale = 'ru';
 
+    // Инъекция CSS в shadow DOM для ограничения ширины контейнера MathLive
+    function injectShadowStyles(mf) {
+        if (mf.dataset.shadowStyled) return;
+        mf.dataset.shadowStyled = 'true';
+        const tryInject = () => {
+            const sr = mf.shadowRoot;
+            if (!sr) { setTimeout(tryInject, 50); return; }
+            const style = document.createElement('style');
+            style.textContent = '.ML__container { max-width: 100% !important; overflow-x: auto !important; box-sizing: border-box !important; }';
+            sr.appendChild(style);
+        };
+        tryInject();
+    }
+
     // Инициализация MathLive-полей
     function initMathFields() {
         document.querySelectorAll('math-field').forEach(mf => {
@@ -37,6 +51,21 @@ $(document).ready(function () {
                         }, 50);
                     }
                 });
+            }
+
+            injectShadowStyles(mf);
+
+            if (!mf.dataset.enterInit) {
+                mf.dataset.enterInit = 'true';
+                setTimeout(() => {
+                    const existing = mf.keybindings || [];
+                    mf.setOptions({
+                        keybindings: [
+                            { key: '[Enter]', ifMode: 'math', command: 'addRowAfter' },
+                            ...existing
+                        ]
+                    });
+                }, 50);
             }
         });
     }
@@ -523,6 +552,11 @@ $(document).ready(function () {
         // Добавляем обработку режима отображения результатов
         $('#hidden_result_display_mode').val($('#result_display_mode').val());
 
+        // Критерии оценивания
+        $('#hidden_grade_5_threshold').val($('#grade_5_threshold').val() || '80');
+        $('#hidden_grade_4_threshold').val($('#grade_4_threshold').val() || '60');
+        $('#hidden_grade_3_threshold').val($('#grade_3_threshold').val() || '35');
+
         console.log('Данные собраны и помещены в скрытые поля (старый формат)');
     }
 
@@ -572,5 +606,69 @@ $(document).ready(function () {
         console.log('num_attempts:', $('#hidden_num_attempts').val());
         console.log('time_solve:', $('#hidden_time_solve').val());
         console.log('result_display_mode:', $('#hidden_result_display_mode').val());
+    });
+
+    // Обработчики для ползунков критериев оценивания
+    $('#grade_5_threshold').on('input', function() {
+        const value = $(this).val();
+        $('#grade_5_value').text(value + '%');
+
+        // Автоматически корректируем другие критерии если нужно
+        const grade4 = parseInt($('#grade_4_threshold').val());
+        const grade3 = parseInt($('#grade_3_threshold').val());
+
+        if (parseInt(value) <= grade4) {
+            const newGrade4 = Math.max(parseInt(value) - 5, 30);
+            $('#grade_4_threshold').val(newGrade4);
+            $('#grade_4_value').text(newGrade4 + '%');
+        }
+
+        if (parseInt(value) <= grade3) {
+            const newGrade3 = Math.max(parseInt(value) - 10, 10);
+            $('#grade_3_threshold').val(newGrade3);
+            $('#grade_3_value').text(newGrade3 + '%');
+        }
+    });
+
+    $('#grade_4_threshold').on('input', function() {
+        const value = $(this).val();
+        $('#grade_4_value').text(value + '%');
+
+        // Автоматически корректируем другие критерии если нужно
+        const grade5 = parseInt($('#grade_5_threshold').val());
+        const grade3 = parseInt($('#grade_3_threshold').val());
+
+        if (parseInt(value) >= grade5) {
+            const newGrade5 = Math.min(parseInt(value) + 5, 100);
+            $('#grade_5_threshold').val(newGrade5);
+            $('#grade_5_value').text(newGrade5 + '%');
+        }
+
+        if (parseInt(value) <= grade3) {
+            const newGrade3 = Math.max(parseInt(value) - 5, 10);
+            $('#grade_3_threshold').val(newGrade3);
+            $('#grade_3_value').text(newGrade3 + '%');
+        }
+    });
+
+    $('#grade_3_threshold').on('input', function() {
+        const value = $(this).val();
+        $('#grade_3_value').text(value + '%');
+
+        // Автоматически корректируем другие критерии если нужно
+        const grade5 = parseInt($('#grade_5_threshold').val());
+        const grade4 = parseInt($('#grade_4_threshold').val());
+
+        if (parseInt(value) >= grade4) {
+            const newGrade4 = Math.min(parseInt(value) + 5, 90);
+            $('#grade_4_threshold').val(newGrade4);
+            $('#grade_4_value').text(newGrade4 + '%');
+        }
+
+        if (parseInt(value) >= grade5) {
+            const newGrade5 = Math.min(parseInt(value) + 10, 100);
+            $('#grade_5_threshold').val(newGrade5);
+            $('#grade_5_value').text(newGrade5 + '%');
+        }
     });
 });

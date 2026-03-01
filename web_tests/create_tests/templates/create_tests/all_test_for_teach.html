@@ -86,6 +86,9 @@
                                     <a href="{% url 'create_tests:solve_test' test.name_slug_tests %}" class="btn btn-info">
                                         <i class="fas fa-play"></i> Решить
                                     </a>
+                                    <a href="{% url 'create_tests:test_results_list' slug_name=test.name_slug_tests %}" class="btn btn-results">
+                                        <i class="fas fa-chart-bar"></i> Результаты студентов
+                                    </a>
 
                                     <!-- Действия для собственных тестов -->
                                     {% if not test.is_published %}
@@ -210,6 +213,9 @@
                                     </a>
                                     <a href="{% url 'create_tests:solve_test' test.name_slug_tests %}" class="btn btn-info">
                                         <i class="fas fa-play"></i> Решить
+                                    </a>
+                                    <a href="{% url 'create_tests:test_results_list' slug_name=test.name_slug_tests %}" class="btn btn-results">
+                                        <i class="fas fa-chart-bar"></i> Результаты студентов
                                     </a>
 
                                     <!-- Действия для собственных тестов -->
@@ -351,7 +357,7 @@
                                             <span class="group-info">
                                                 ({{ all_groups.get_education_level_display }}, {{ all_groups.get_course_display }})
                                             </span>
-                                            <span class="students-count">(студентов: {{ all_groups.students.count }})</span>
+                                            <span class="students-count">(студентов: {{ all_groups.studentdata_set.count }})</span>
                                         </label>
                                     </div>
                                 </div>
@@ -435,7 +441,7 @@
                                             <span class="group-info">
                                                 ({{ group.get_education_level_display }}, {{ group.get_course_display }})
                                             </span>
-                                            <span class="students-count">(студентов: {{ group.students.count }})</span>
+                                            <span class="students-count">(студентов: {{ group.studentdata_set.count }})</span>
                                         </label>
                                     </div>
                                 </div>

@@ -39,8 +39,8 @@ class TypeNorm(models.Model):
 
 
 class AboutExpressions(models.Model):
-    number = models.IntegerField(max_length=20, default=0)
-    block_expression_num = models.IntegerField(max_length=50, default=0)
+    number = models.IntegerField(default=0)
+    block_expression_num = models.IntegerField(default=0)
     user_expression = models.CharField(max_length=100, blank=False)
     user_ans = models.CharField(max_length=150, blank=False)
     true_ans = models.CharField(max_length=15, default='1')
@@ -116,6 +116,11 @@ class AboutTest(models.Model):
     subj = models.ForeignKey(Subjects,
                              on_delete=models.PROTECT,
                              default=1)
+
+    # Критерии оценивания
+    grade_5_threshold = models.IntegerField(default=80, help_text="Минимальный процент для оценки 5")
+    grade_4_threshold = models.IntegerField(default=60, help_text="Минимальный процент для оценки 4")
+    grade_3_threshold = models.IntegerField(default=35, help_text="Минимальный процент для оценки 3")
 
     # publish_date = models.DateTimeField(auto_now_add=True)  # Дата публикации (можно будет отложить публикацию)
     # expiration_date = models.DateTimeField(null=True, blank=True)  # Время публикации (аналогично)

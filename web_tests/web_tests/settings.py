@@ -22,7 +22,7 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 if DEBUG:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 else:
-    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '46.23.96.15,localhost,127.0.0.1').split(',')
+    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '185.9.24.72,localhost,127.0.0.1').split(',')
 
 
 # Application definition

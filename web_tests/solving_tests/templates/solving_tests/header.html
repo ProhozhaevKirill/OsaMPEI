@@ -111,7 +111,7 @@
     {% block content %}{% endblock %}
 </main>
 
-<div class="mobile-menu hidden" id="mobileMenu">
+<div class="mobile-menu" id="mobileMenu">
     <div class="mobile-menu-header">
         <div class="avatar">
             {% if user.get_photo_url %}
@@ -126,31 +126,38 @@
     <nav class="mobile-nav">
         <ul class="mobile-nav-list">
             <li>
-                <a href="/account/" class="mobile-nav-link active">
+                <a href="/Home/" class="mobile-nav-link {% if request.path == '/Home/' %}active{% endif %}">
                     <i class="fas fa-home"></i>
                     <span>Главная</span>
                 </a>
             </li>
-            {% if user.is_staff %}
-                <li><a href="#" class="mobile-nav-link"><i class="fas fa-tasks"></i><span>Тесты</span></a></li>
-                <li><a href="#" class="mobile-nav-link"><i class="fas fa-chart-bar"></i><span>Результаты</span></a></li>
-                <li><a href="#" class="mobile-nav-link"><i class="fas fa-book"></i><span>Материалы</span></a></li>
-            {% else %}
-                <li><a href="/TestsSolving/" class="mobile-nav-link"><i class="fas fa-tasks"></i><span>Тесты</span></a></li>
-                <li><a href="#" class="mobile-nav-link"><i class="fas fa-chart-bar"></i><span>Результаты</span></a></li>
-                <li><a href="/material/" class="mobile-nav-link"><i class="fas fa-book"></i><span>Материалы</span></a></li>
+            {% if user.role == 'student' %}
+                <li>
+                    <a href="/TestsSolving/" class="mobile-nav-link {% if '/TestsSolving/' in request.path %}active{% endif %}">
+                        <i class="fas fa-tasks"></i>
+                        <span>Тесты</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/material/" class="mobile-nav-link {% if request.path == '/material/' %}active{% endif %}">
+                        <i class="fas fa-book"></i>
+                        <span>Материалы</span>
+                    </a>
+                </li>
             {% endif %}
-            <li><a href="#" class="mobile-nav-link"><i class="fas fa-cog"></i><span>Настройки</span></a></li>
-            <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="logout-btn">
-                    <i class="fas fa-sign-out-alt"></i> Выйти
-                </button>
-            </form>
+            <li>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Выйти</span>
+                    </button>
+                </form>
+            </li>
         </ul>
     </nav>
 </div>
 
-<div class="mobile-overlay hidden" id="mobileOverlay"></div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
 </body>
 </html>

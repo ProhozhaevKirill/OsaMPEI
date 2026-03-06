@@ -33,22 +33,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Открытие мобильного меню
     mobileMenuBtn.addEventListener('click', function() {
-        mobileMenu.classList.remove('hidden');
-        mobileOverlay.classList.remove('hidden');
+        mobileMenu.classList.add('active');
+        mobileOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
     });
 
     // Закрытие мобильного меню
     closeMenuBtn.addEventListener('click', function() {
-        mobileMenu.classList.add('hidden');
-        mobileOverlay.classList.add('hidden');
+        mobileMenu.classList.remove('active');
+        mobileOverlay.classList.remove('active');
         document.body.style.overflow = '';
     });
 
     // Закрытие мобильного меню при клике на оверлей
     mobileOverlay.addEventListener('click', function() {
-        mobileMenu.classList.add('hidden');
-        this.classList.add('hidden');
+        mobileMenu.classList.remove('active');
+        this.classList.remove('active');
         document.body.style.overflow = '';
     });
 
@@ -77,8 +77,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === 'Escape') {
             profileMenu.classList.add('hidden');
             notificationsMenu.classList.add('hidden');
-            mobileMenu.classList.add('hidden');
-            mobileOverlay.classList.add('hidden');
+            mobileMenu.classList.remove('active');
+            mobileOverlay.classList.remove('active');
             document.body.style.overflow = '';
 
             // Удаляем класс active у родительских элементов

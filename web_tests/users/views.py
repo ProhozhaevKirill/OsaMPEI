@@ -64,11 +64,12 @@ def register_view(request):
         # Проверка на повторную отправку формы
         if 'pending_registration' in request.session:
             messages.warning(request, "Регистрация уже начата. Завершите заполнение данных.")
-            institutes = StudentInstitute.objects.all().prefetch_related('studentgroup_set')
+            institutes = StudentInstitute.objects.all()
+            groups = StudentGroup.objects.all()
             if request.session['pending_registration']['is_teacher']:
                 return render(request, 'users/teacher_registration.html', {'institutes': institutes})
             else:
-                return render(request, 'users/reg_form_student.html', {'institutes': institutes})
+                return render(request, 'users/reg_form_student.html', {'institutes': institutes, 'groups': groups})
 
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -87,12 +88,13 @@ def register_view(request):
                 'is_teacher': WhiteList.objects.filter(teacher_mail__iexact=email).exists()
             }
 
-            institutes = StudentInstitute.objects.all().prefetch_related('studentgroup_set')
+            institutes = StudentInstitute.objects.all()
+            groups = StudentGroup.objects.all()
 
             if request.session['pending_registration']['is_teacher']:
                 return render(request, 'users/teacher_registration.html', {'institutes': institutes})
             else:
-                return render(request, 'users/reg_form_student.html', {'institutes': institutes})
+                return render(request, 'users/reg_form_student.html', {'institutes': institutes, 'groups': groups})
 
     form = SignUpForm()
     return render(request, 'users/registration.html', {'form': form})
@@ -108,7 +110,8 @@ def form_registration(request):
     if request.user.is_authenticated and hasattr(request.user, 'studentdata'):
         return redirect('account_view')
 
-    institutes = StudentInstitute.objects.all().prefetch_related('studentgroup_set')
+    institutes = StudentInstitute.objects.all()
+    groups = StudentGroup.objects.all()
 
     if request.method == "POST":
         try:
@@ -116,20 +119,15 @@ def form_registration(request):
             last_name = request.POST.get('last_name', '').strip()
             middle_name = request.POST.get('middle_name', '').strip()
             institute_id = request.POST.get('institute', '').strip()
-            group_name = request.POST.get('group', '').strip()
+            group_id = request.POST.get('group', '').strip()
 
-            if not all([first_name, last_name, institute_id, group_name]):
+            if not all([first_name, last_name, institute_id, group_id]):
                 messages.error(request, "Заполните все обязательные поля!")
                 return render(request, 'users/reg_form_student.html',
-                              {'institutes': institutes})
+                              {'institutes': institutes, 'groups': groups})
 
             institute = StudentInstitute.objects.get(id=institute_id)
-
-            group, created = StudentGroup.objects.get_or_create(
-                name=group_name,
-                name_inst=institute,
-                defaults={'name': group_name, 'name_inst': institute}
-            )
+            group = StudentGroup.objects.get(id=group_id, name_inst=institute)
 
             # Теперь создаем пользователя в БД
             pending_data = request.session['pending_registration']
@@ -163,11 +161,13 @@ def form_registration(request):
 
         except StudentInstitute.DoesNotExist:
             messages.error(request, "Выбранный институт не существует")
+        except StudentGroup.DoesNotExist:
+            messages.error(request, "Выбранная группа не существует")
         except Exception as e:
             messages.error(request, f"Ошибка регистрации: {str(e)}")
 
     return render(request, 'users/reg_form_student.html',
-                  {'institutes': institutes})
+                  {'institutes': institutes, 'groups': groups})
 
 
 def form_registration_teacher(request):

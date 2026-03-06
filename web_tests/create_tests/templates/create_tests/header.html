@@ -112,7 +112,7 @@
     {% block content %}{% endblock %}
 </main>
 
-<div class="mobile-menu hidden" id="mobileMenu">
+<div class="mobile-menu" id="mobileMenu">
     <div class="mobile-menu-header">
         <div class="avatar">
             {% if user.get_photo_url %}
@@ -132,36 +132,27 @@
                     <span>Главная</span>
                 </a>
             </li>
-            {% if user.is_staff %}
+            {% if user.role == 'teacher' %}
                 <li>
                     <a href="/TestsCreate/listTests/" class="mobile-nav-link {% if '/TestsCreate/listTests/' in request.path %}active{% endif %}">
                         <i class="fas fa-tasks"></i>
                         <span>Тесты</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#" class="mobile-nav-link">
-                        <i class="fas fa-chart-bar"></i>
-                        <span>Результаты</span>
-                    </a>
-                </li>
             {% endif %}
-            <li>
-                <a href="#" class="mobile-nav-link">
-                    <i class="fas fa-cog"></i>
-                    <span>Настройки</span>
-                </a>
-            </li>
             <li>
                 <form action="{% url 'logout' %}" method="post">
                     {% csrf_token %}
-                    <button type="submit">Выйти</button>
+                    <button type="submit" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Выйти</span>
+                    </button>
                 </form>
             </li>
         </ul>
     </nav>
 </div>
 
-<div class="mobile-overlay hidden" id="mobileOverlay"></div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
 </body>
 </html>

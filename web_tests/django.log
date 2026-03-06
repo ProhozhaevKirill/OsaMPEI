@@ -12090,3 +12090,204 @@ AttributeError: 'super' object has no attribute 'dicts' and no __dict__ for sett
 [INFO] 2026-03-01 12:12:26,528 django.server 7116 19628 "GET /static/favicon.ico HTTP/1.1" 200 976
 [INFO] 2026-03-01 12:12:30,990 django.server 7116 19628 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
 [INFO] 2026-03-01 12:12:31,086 django.server 7116 19628 "GET /static/css/all_test_for_teach.css HTTP/1.1" 304 0
+[INFO] 2026-03-01 13:24:44,484 django.utils.autoreload 16432 5532 Watching for file changes with StatReloader
+[INFO] 2026-03-01 13:24:46,711 django.server 16432 17880 "GET /TestsCreate/ HTTP/1.1" 200 22923
+[INFO] 2026-03-01 13:24:47,071 django.server 16432 13460 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-01 13:24:47,080 django.server 16432 14296 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-01 13:24:47,082 django.server 16432 17852 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-01 13:24:47,090 django.server 16432 13460 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-01 13:24:47,095 django.server 16432 8256 "GET /static/css/writing_tests.css HTTP/1.1" 200 16263
+[INFO] 2026-03-01 13:24:47,111 django.server 16432 14296 "GET /static/js/writing_tests.js HTTP/1.1" 200 32292
+[INFO] 2026-03-01 13:24:47,114 django.server 16432 17852 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-03-01 13:24:47,118 django.server 16432 17880 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-01 13:24:47,128 django.server 16432 16932 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-01 13:24:47,144 django.server 16432 13460 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-01 13:24:47,188 django.server 16432 13460 "GET /static/js/header.js HTTP/1.1" 200 4044
+[INFO] 2026-03-01 13:24:47,210 django.server 16432 13460 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-01 13:24:47,274 django.server 16432 13460 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-01 13:24:47,365 django.server 16432 13460 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 26272
+[INFO] 2026-03-01 13:24:47,525 django.server 16432 19980 "GET /static/favicon.ico HTTP/1.1" 200 976
+[WARNING] 2026-03-01 13:24:52,708 django.server 16432 19980 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[WARNING] 2026-03-01 13:24:52,792 django.server 16432 20392 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[INFO] 2026-03-01 13:24:53,285 django.server 16432 9584 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 200 16440
+[INFO] 2026-03-06 07:07:20,805 django.utils.autoreload 17452 12860 Watching for file changes with StatReloader
+[INFO] 2026-03-06 07:07:54,526 django.server 17452 23368 "GET / HTTP/1.1" 302 0
+[INFO] 2026-03-06 07:07:55,068 django.server 17452 23368 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[INFO] 2026-03-06 07:07:55,249 django.server 17452 23368 "GET /static/css/all_test_for_teach.css HTTP/1.1" 304 0
+[INFO] 2026-03-06 07:08:01,049 django.server 17452 15168 "GET / HTTP/1.1" 302 0
+[INFO] 2026-03-06 07:08:01,489 django.server 17452 15168 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[INFO] 2026-03-06 07:08:05,121 django.server 17452 15168 "GET / HTTP/1.1" 302 0
+[INFO] 2026-03-06 07:08:05,406 django.server 17452 15168 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[INFO] 2026-03-06 07:08:09,435 django.server 17452 17424 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2026-03-06 07:08:09,653 django.server 17452 17424 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-06 07:08:13,110 django.server 17452 17424 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-06 07:08:16,522 django.server 17452 17424 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-06 07:08:18,601 django.server 17452 22816 "GET /register/ HTTP/1.1" 200 2254
+[INFO] 2026-03-06 07:08:40,603 django.server 17452 15484 "POST /register/ HTTP/1.1" 200 19360
+[WARNING] 2026-03-06 07:08:40,727 django.server 17452 15484 "GET /static/css/reg_form_students.css HTTP/1.1" 404 1889
+[INFO] 2026-03-06 07:10:46,739 django.utils.autoreload 17452 12860 C:\Users\cproh\Õ»–\OsaMPEI\web_tests\users\views.py changed, reloading.
+[INFO] 2026-03-06 07:10:49,247 django.utils.autoreload 21016 8756 Watching for file changes with StatReloader
+[INFO] 2026-03-06 07:10:56,038 django.utils.autoreload 21016 8756 C:\Users\cproh\Õ»–\OsaMPEI\web_tests\users\views.py changed, reloading.
+[INFO] 2026-03-06 07:10:58,463 django.utils.autoreload 5692 20828 Watching for file changes with StatReloader
+[INFO] 2026-03-06 07:11:03,243 django.utils.autoreload 5692 20828 C:\Users\cproh\Õ»–\OsaMPEI\web_tests\users\views.py changed, reloading.
+[INFO] 2026-03-06 07:11:05,526 django.utils.autoreload 7596 23052 Watching for file changes with StatReloader
+[INFO] 2026-03-06 07:11:25,666 django.server 7596 12640 "POST /register/ HTTP/1.1" 200 17640
+[WARNING] 2026-03-06 07:11:25,756 django.server 7596 12640 "GET /static/css/reg_form_students.css HTTP/1.1" 404 1889
+[INFO] 2026-03-06 07:11:33,629 django.server 7596 14144 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-06 07:11:37,179 django.server 7596 6104 "GET /register/ HTTP/1.1" 200 2254
+[INFO] 2026-03-06 07:11:57,476 django.server 7596 15552 "POST /register/ HTTP/1.1" 200 17640
+[WARNING] 2026-03-06 07:11:57,566 django.server 7596 15552 "GET /static/css/reg_form_students.css HTTP/1.1" 404 1889
+[INFO] 2026-03-06 07:12:06,948 django.server 7596 8564 "POST /register/ HTTP/1.1" 200 17640
+[WARNING] 2026-03-06 07:12:07,056 django.server 7596 8524 "GET /static/css/reg_form_students.css HTTP/1.1" 404 1889
+[INFO] 2026-03-06 07:12:07,261 django.server 7596 8564 "GET /static/css/registration.css HTTP/1.1" 200 2951
+[INFO] 2026-03-06 07:12:07,267 django.server 7596 21832 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-06 07:12:07,366 django.server 7596 17424 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-06 07:12:07,463 django.server 7596 17424 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-06 07:13:34,073 django.server 7596 23016 "POST /register/ HTTP/1.1" 200 17202
+[INFO] 2026-03-06 07:13:34,151 django.server 7596 23016 "GET /static/css/registration.css HTTP/1.1" 200 2951
+[WARNING] 2026-03-06 07:13:34,176 django.server 7596 15192 "GET /static/css/reg_form_students.css HTTP/1.1" 404 1889
+[INFO] 2026-03-06 07:13:34,194 django.server 7596 23016 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-06 07:13:34,195 django.server 7596 20664 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-06 07:13:34,275 django.server 7596 20664 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-06 07:13:51,962 django.server 7596 6304 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-06 07:13:58,559 django.server 7596 6304 - Broken pipe from ('127.0.0.1', 51205)
+[INFO] 2026-03-06 07:14:00,919 django.server 7596 10836 - Broken pipe from ('127.0.0.1', 51213)
+[INFO] 2026-03-06 07:14:02,850 django.server 7596 13672 "POST / HTTP/1.1" 302 0
+[INFO] 2026-03-06 07:14:03,234 django.server 7596 13672 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[WARNING] 2026-03-06 07:15:50,220 django.request 7596 10360 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-06 07:15:50,223 django.server 7596 10360 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-06 07:18:43,392 django.server 7596 20520 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[WARNING] 2026-03-06 07:18:43,534 django.request 7596 20520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-06 07:18:43,538 django.server 7596 20520 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-06 07:18:43,543 django.server 7596 19816 "GET /static/css/header.css HTTP/1.1" 200 6735
+[INFO] 2026-03-06 07:18:43,572 django.server 7596 10340 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-06 07:18:43,642 django.server 7596 15344 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-06 07:18:43,682 django.server 7596 10340 "GET /static/js/header.js HTTP/1.1" 200 1481
+[INFO] 2026-03-06 07:18:43,685 django.server 7596 19284 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 18062
+[INFO] 2026-03-06 07:18:43,689 django.server 7596 10528 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-06 07:18:43,746 django.server 7596 19816 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-06 07:18:43,788 django.server 7596 20520 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 16925
+[INFO] 2026-03-06 07:18:43,888 django.server 7596 20520 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-06 07:18:44,115 django.server 7596 15344 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-06 07:18:53,432 django.server 7596 21832 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[WARNING] 2026-03-06 07:18:53,518 django.request 7596 21832 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-06 07:18:53,532 django.server 7596 21832 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-06 07:18:53,543 django.server 7596 17424 "GET /static/css/header.css HTTP/1.1" 200 6735
+[INFO] 2026-03-06 07:18:53,561 django.server 7596 15652 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-06 07:18:53,581 django.server 7596 14428 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-06 07:18:53,595 django.server 7596 19772 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 18062
+[INFO] 2026-03-06 07:18:53,623 django.server 7596 2076 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-06 07:18:53,698 django.server 7596 19772 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-06 07:18:53,698 django.server 7596 2076 "GET /static/js/header.js HTTP/1.1" 200 1481
+[INFO] 2026-03-06 07:18:53,701 django.server 7596 14428 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 16925
+[INFO] 2026-03-06 07:18:53,729 django.server 7596 14428 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-06 07:18:54,017 django.server 7596 14428 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-06 07:19:02,232 django.server 7596 9104 "GET /personaInf/ HTTP/1.1" 200 9758
+[INFO] 2026-03-06 07:19:02,318 django.server 7596 9104 "GET /static/css/header.css HTTP/1.1" 304 0
+[INFO] 2026-03-06 07:19:02,353 django.server 7596 9104 "GET /static/js/header.js HTTP/1.1" 304 0
+[WARNING] 2026-03-06 07:19:02,368 django.server 7596 2184 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-06 07:19:03,762 django.server 7596 9104 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[INFO] 2026-03-06 07:19:09,132 django.server 7596 3952 "GET /teacher_profile/ HTTP/1.1" 200 12343
+[INFO] 2026-03-06 07:19:09,221 django.server 7596 3952 "GET /static/css/header.css HTTP/1.1" 304 0
+[INFO] 2026-03-06 07:19:09,267 django.server 7596 15972 "GET /static/css/student_data.css HTTP/1.1" 200 1906
+[INFO] 2026-03-06 07:19:16,343 django.server 7596 15972 "POST /teacher_profile/ HTTP/1.1" 302 0
+[INFO] 2026-03-06 07:19:16,373 django.server 7596 15972 "GET /teacher_profile/ HTTP/1.1" 200 11441
+[INFO] 2026-03-06 07:19:16,457 django.server 7596 15972 "GET /static/css/header.css HTTP/1.1" 304 0
+[INFO] 2026-03-06 07:19:16,463 django.server 7596 3952 "GET /static/js/header.js HTTP/1.1" 304 0
+[INFO] 2026-03-06 07:19:21,482 django.server 7596 12772 "GET /settings/ HTTP/1.1" 200 12073
+[INFO] 2026-03-06 07:19:21,565 django.server 7596 12772 "GET /static/css/header.css HTTP/1.1" 304 0
+[INFO] 2026-03-06 07:19:24,243 django.server 7596 12772 "GET /teacher_profile/ HTTP/1.1" 200 11193
+[INFO] 2026-03-06 07:19:27,021 django.server 7596 12772 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[INFO] 2026-03-06 07:19:27,133 django.server 7596 12772 "GET /static/css/header.css HTTP/1.1" 304 0
+[INFO] 2026-03-06 07:19:27,146 django.server 7596 1404 "GET /static/js/header.js HTTP/1.1" 304 0
+[INFO] 2026-03-06 07:19:28,300 django.server 7596 1404 "GET /personaInf/ HTTP/1.1" 200 9758
+[WARNING] 2026-03-06 07:19:28,429 django.server 7596 1404 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-06 07:19:30,061 django.server 7596 12772 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[INFO] 2026-03-06 07:19:34,492 django.server 7596 12772 "GET /static/css/header.css HTTP/1.1" 304 0
+[WARNING] 2026-03-06 07:19:34,547 django.request 7596 12772 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-06 07:19:34,548 django.server 7596 12772 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-06 07:19:42,799 django.server 7596 19564 "GET /personaInf/ HTTP/1.1" 200 9758
+[WARNING] 2026-03-06 07:19:42,922 django.request 7596 19564 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-06 07:19:42,927 django.server 7596 19564 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-06 07:19:42,940 django.server 7596 19564 "GET /static/css/header.css HTTP/1.1" 304 0
+[INFO] 2026-03-06 07:19:43,021 django.server 7596 19564 "GET /static/js/header.js HTTP/1.1" 304 0
+[WARNING] 2026-03-06 07:19:43,031 django.server 7596 12064 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-06 07:23:38,366 django.server 7596 22012 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[INFO] 2026-03-06 07:23:38,459 django.server 7596 22012 "GET /static/css/header.css HTTP/1.1" 304 0
+[INFO] 2026-03-06 07:23:38,494 django.server 7596 22012 "GET /static/js/header.js HTTP/1.1" 304 0
+[INFO] 2026-03-06 07:23:39,374 django.server 7596 22012 "GET /personaInf/ HTTP/1.1" 200 9758
+[WARNING] 2026-03-06 07:23:39,495 django.server 7596 22012 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-06 07:23:43,191 django.server 7596 8424 "GET /personaInf/ HTTP/1.1" 200 9758
+[INFO] 2026-03-06 07:23:43,282 django.server 7596 8424 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-06 07:23:43,284 django.server 7596 10708 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-06 07:23:43,289 django.server 7596 3012 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-06 07:23:43,310 django.server 7596 10708 "GET /static/js/header.js HTTP/1.1" 200 1481
+[INFO] 2026-03-06 07:23:43,312 django.server 7596 8424 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-06 07:23:43,314 django.server 7596 3012 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[WARNING] 2026-03-06 07:23:43,335 django.server 7596 15240 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-06 07:23:43,341 django.server 7596 2576 "GET /static/css/teacher_account.css HTTP/1.1" 200 5409
+[INFO] 2026-03-06 07:23:43,373 django.server 7596 2576 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-06 07:23:43,440 django.server 7596 2576 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-06 07:23:46,069 django.server 7596 2576 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248019
+[INFO] 2026-03-06 07:23:47,081 django.server 7596 10900 "GET /personaInf/ HTTP/1.1" 200 9758
+[WARNING] 2026-03-06 07:23:47,198 django.server 7596 10900 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-06 07:23:53,423 django.server 7596 2856 "GET /personaInf/ HTTP/1.1" 200 9758
+[INFO] 2026-03-06 07:23:53,493 django.server 7596 2856 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-06 07:23:53,505 django.server 7596 22884 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-06 07:23:53,514 django.server 7596 11576 "GET /static/css/teacher_account.css HTTP/1.1" 200 5409
+[INFO] 2026-03-06 07:23:53,518 django.server 7596 10224 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-06 07:23:53,527 django.server 7596 2856 "GET /static/js/header.js HTTP/1.1" 200 1481
+[INFO] 2026-03-06 07:23:53,531 django.server 7596 22884 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-06 07:23:53,538 django.server 7596 10224 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[WARNING] 2026-03-06 07:23:53,587 django.server 7596 11576 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-06 07:23:53,591 django.server 7596 10224 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-06 07:23:53,663 django.server 7596 10224 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-06 07:25:11,831 django.server 7596 11864 "GET /personaInf/ HTTP/1.1" 200 9936
+[INFO] 2026-03-06 07:25:11,994 django.server 7596 7056 "GET /static/css/teacher_account.css HTTP/1.1" 200 5409
+[INFO] 2026-03-06 07:25:11,998 django.server 7596 10600 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-06 07:25:12,003 django.server 7596 7400 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[WARNING] 2026-03-06 07:25:12,030 django.server 7596 7400 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-06 07:25:12,033 django.server 7596 22664 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-06 07:25:12,034 django.server 7596 16716 "GET /static/js/header.js HTTP/1.1" 200 1595
+[INFO] 2026-03-06 07:25:12,037 django.server 7596 22332 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-06 07:25:12,040 django.server 7596 10600 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-06 07:25:12,087 django.server 7596 22332 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-06 07:25:12,143 django.server 7596 22332 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-06 07:25:15,174 django.server 7596 22332 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248203
+[INFO] 2026-03-06 07:25:16,232 django.server 7596 22332 "GET /personaInf/ HTTP/1.1" 200 9936
+[WARNING] 2026-03-06 07:25:16,345 django.server 7596 22332 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[WARNING] 2026-03-06 07:26:58,433 django.request 7596 21588 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-06 07:26:58,435 django.server 7596 21588 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-06 07:27:05,357 django.server 7596 18716 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248203
+[WARNING] 2026-03-06 07:27:05,473 django.request 7596 18716 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-06 07:27:05,481 django.server 7596 18716 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-06 07:27:05,618 django.server 7596 18716 "GET /static/js/header.js HTTP/1.1" 304 0
+[INFO] 2026-03-06 07:27:08,728 django.server 7596 18716 "GET /personaInf/ HTTP/1.1" 200 9936
+[WARNING] 2026-03-06 07:27:08,820 django.request 7596 18716 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-06 07:27:08,822 django.server 7596 18716 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[WARNING] 2026-03-06 07:27:08,869 django.server 7596 18716 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-06 07:29:31,618 django.server 7596 16900 "GET /personaInf/ HTTP/1.1" 200 9936
+[WARNING] 2026-03-06 07:29:31,707 django.request 7596 16900 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-06 07:29:31,709 django.server 7596 16900 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-06 07:29:31,730 django.server 7596 17596 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-06 07:29:31,737 django.server 7596 22324 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-06 07:29:31,738 django.server 7596 10124 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-06 07:29:31,748 django.server 7596 14876 "GET /static/css/teacher_account.css HTTP/1.1" 200 5409
+[INFO] 2026-03-06 07:29:31,755 django.server 7596 9136 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-06 07:29:31,841 django.server 7596 9136 "GET /static/js/header.js HTTP/1.1" 200 4056
+[WARNING] 2026-03-06 07:29:31,841 django.server 7596 22324 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-06 07:29:31,841 django.server 7596 14876 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-06 07:29:31,941 django.server 7596 9136 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-06 07:29:32,058 django.server 7596 4312 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-06 07:29:43,925 django.server 7596 7452 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248203
+[INFO] 2026-03-06 07:29:44,028 django.server 7596 7452 "GET /static/js/header.js HTTP/1.1" 304 0
+[INFO] 2026-03-06 07:29:45,884 django.server 7596 7452 "GET /personaInf/ HTTP/1.1" 200 9936
+[WARNING] 2026-03-06 07:29:45,995 django.server 7596 7452 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-06 07:29:48,738 django.server 7596 14440 "GET /teacher_profile/ HTTP/1.1" 200 11371
+[INFO] 2026-03-06 07:29:48,827 django.server 7596 14440 "GET /static/js/header.js HTTP/1.1" 304 0
+[INFO] 2026-03-06 07:29:51,291 django.server 7596 14440 "GET /settings/ HTTP/1.1" 200 12251
+[INFO] 2026-03-06 07:29:53,988 django.server 7596 18200 "GET /help/ HTTP/1.1" 200 11985
+[INFO] 2026-03-06 07:29:54,095 django.server 7596 18200 "GET /static/js/header.js HTTP/1.1" 304 0
+[INFO] 2026-03-06 07:29:56,112 django.server 7596 18200 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248203
+[INFO] 2026-03-06 07:29:57,077 django.server 7596 18200 "GET /personaInf/ HTTP/1.1" 200 9936
+[WARNING] 2026-03-06 07:29:57,192 django.server 7596 18200 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877

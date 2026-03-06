@@ -12291,3 +12291,96 @@ AttributeError: 'super' object has no attribute 'dicts' and no __dict__ for sett
 [INFO] 2026-03-06 07:29:56,112 django.server 7596 18200 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248203
 [INFO] 2026-03-06 07:29:57,077 django.server 7596 18200 "GET /personaInf/ HTTP/1.1" 200 9936
 [WARNING] 2026-03-06 07:29:57,192 django.server 7596 18200 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-06 07:52:39,167 django.utils.autoreload 18200 16780 Watching for file changes with StatReloader
+[INFO] 2026-03-06 07:53:01,333 django.server 18200 11112 "GET / HTTP/1.1" 302 0
+[INFO] 2026-03-06 07:53:01,658 django.server 18200 11112 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248203
+[INFO] 2026-03-06 07:53:02,012 django.server 18200 11112 "GET /static/js/header.js HTTP/1.1" 304 0
+[INFO] 2026-03-06 07:53:05,816 django.server 18200 11112 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2026-03-06 07:53:05,851 django.server 18200 11112 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-06 07:53:07,761 django.server 18200 20636 "GET /register/ HTTP/1.1" 200 2254
+[INFO] 2026-03-06 07:53:23,890 django.server 18200 22884 "POST /register/ HTTP/1.1" 200 17202
+[WARNING] 2026-03-06 07:53:23,979 django.server 18200 22884 "GET /static/css/reg_form_students.css HTTP/1.1" 404 1889
+[INFO] 2026-03-06 07:55:05,798 django.server 18200 21196 - Broken pipe from ('127.0.0.1', 53535)
+[ERROR] 2026-03-06 07:55:06,935 django.request 18200 22412 Internal Server Error: /form_registration/
+Traceback (most recent call last):
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\web_tests\users\views.py", line 107, in form_registration
+    return redirect('register')
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'register' not found. 'register' is not a valid view function or pattern name.
+[ERROR] 2026-03-06 07:55:06,990 django.request 18200 14952 Internal Server Error: /form_registration/
+Traceback (most recent call last):
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\web_tests\users\views.py", line 107, in form_registration
+    return redirect('register')
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\cproh\Õ»–\OsaMPEI\.venv\Lib\site-packages\django\urls\resolvers.py", line 842, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'register' not found. 'register' is not a valid view function or pattern name.
+[INFO] 2026-03-06 07:55:06,995 django.server 18200 22412 - Broken pipe from ('127.0.0.1', 53550)
+[ERROR] 2026-03-06 07:55:06,999 django.server 18200 14952 "POST /form_registration/ HTTP/1.1" 500 90732
+[WARNING] 2026-03-06 07:55:07,395 django.request 18200 22340 Not Found: /favicon.ico
+[WARNING] 2026-03-06 07:55:07,397 django.server 18200 22340 "GET /favicon.ico HTTP/1.1" 404 5845
+[WARNING] 2026-03-06 07:55:07,414 django.request 18200 12368 Not Found: /favicon.ico
+[WARNING] 2026-03-06 07:55:07,417 django.server 18200 12368 "GET /favicon.ico HTTP/1.1" 404 5845
+[INFO] 2026-03-06 07:55:07,478 django.server 18200 21408 - Broken pipe from ('127.0.0.1', 53536)
+[INFO] 2026-03-06 07:56:08,290 django.utils.autoreload 18200 16780 C:\Users\cproh\Õ»–\OsaMPEI\web_tests\users\views.py changed, reloading.
+[INFO] 2026-03-06 07:56:11,268 django.utils.autoreload 23172 10516 Watching for file changes with StatReloader
+[INFO] 2026-03-06 07:59:31,193 django.server 23172 17912 "POST /form_registration/ HTTP/1.1" 302 0
+[INFO] 2026-03-06 07:59:31,272 django.server 23172 17912 "GET /register/ HTTP/1.1" 200 2254
+[INFO] 2026-03-06 07:59:31,496 django.server 23172 17912 "GET /static/css/registration.css HTTP/1.1" 200 2951
+[INFO] 2026-03-06 07:59:31,532 django.server 23172 1632 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-06 07:59:31,543 django.server 23172 22700 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-06 07:59:31,607 django.server 23172 15796 "GET /static/js/registration.js HTTP/1.1" 200 798
+[INFO] 2026-03-06 07:59:33,492 django.server 23172 15796 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-06 07:59:36,257 django.server 23172 15796 "GET /register/ HTTP/1.1" 200 2254
+[INFO] 2026-03-06 07:59:57,212 django.server 23172 17048 "POST /register/ HTTP/1.1" 200 17202
+[WARNING] 2026-03-06 07:59:57,307 django.server 23172 17048 "GET /static/css/reg_form_students.css HTTP/1.1" 404 1889
+[INFO] 2026-03-06 08:00:17,147 django.server 23172 10360 - Broken pipe from ('127.0.0.1', 53807)
+[INFO] 2026-03-06 08:00:18,569 django.server 23172 6028 "POST /form_registration/ HTTP/1.1" 200 17202
+[WARNING] 2026-03-06 08:00:18,665 django.server 23172 6028 "GET /static/css/reg_form_students.css HTTP/1.1" 404 1889
+[INFO] 2026-03-06 08:06:54,756 django.utils.autoreload 23172 10516 C:\Users\cproh\Õ»–\OsaMPEI\web_tests\users\views.py changed, reloading.
+[INFO] 2026-03-06 08:06:57,589 django.utils.autoreload 10876 21712 Watching for file changes with StatReloader
+[INFO] 2026-03-06 08:07:06,048 django.utils.autoreload 10876 21712 C:\Users\cproh\Õ»–\OsaMPEI\web_tests\users\views.py changed, reloading.
+[INFO] 2026-03-06 08:07:08,642 django.utils.autoreload 22656 20012 Watching for file changes with StatReloader
+[INFO] 2026-03-06 08:46:51,796 django.server 22656 14632 "POST /form_registration/ HTTP/1.1" 302 0
+[INFO] 2026-03-06 08:46:51,876 django.server 22656 14632 "GET /register/ HTTP/1.1" 200 2254
+[INFO] 2026-03-06 08:46:52,082 django.server 22656 14632 "GET /static/css/registration.css HTTP/1.1" 200 2951
+[INFO] 2026-03-06 08:46:52,095 django.server 22656 14632 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-06 08:46:52,115 django.server 22656 20676 "GET /static/js/registration.js HTTP/1.1" 200 798
+[INFO] 2026-03-06 08:46:52,135 django.server 22656 19884 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-06 08:47:18,782 django.server 22656 16956 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-06 08:47:21,522 django.server 22656 16956 "GET /register/ HTTP/1.1" 200 2254
+[INFO] 2026-03-06 08:47:35,188 django.server 22656 12388 "POST /register/ HTTP/1.1" 200 17202
+[WARNING] 2026-03-06 08:47:35,244 django.server 22656 12388 "GET /static/css/reg_form_students.css HTTP/1.1" 404 1889
+[INFO] 2026-03-06 08:47:51,166 django.server 22656 3572 "POST /form_registration/ HTTP/1.1" 302 0
+[INFO] 2026-03-06 08:47:51,209 django.server 22656 3572 "GET /Home/ HTTP/1.1" 200 10025
+[INFO] 2026-03-06 08:47:51,259 django.server 22656 19404 "GET /static/js/header.js HTTP/1.1" 304 0
+[INFO] 2026-03-06 08:47:51,262 django.server 22656 3572 "GET /static/css/student_account.css HTTP/1.1" 200 10393
+[INFO] 2026-03-06 08:47:51,271 django.server 22656 8632 "GET /static/js/student_account.js HTTP/1.1" 200 703
+[INFO] 2026-03-06 08:48:02,936 django.server 22656 8232 "GET /TestsSolving/ HTTP/1.1" 200 10487
+[INFO] 2026-03-06 08:48:02,995 django.server 22656 16540 "GET /static/js/test_selection.js HTTP/1.1" 200 4477
+[INFO] 2026-03-06 08:48:02,995 django.server 22656 8232 "GET /static/css/test_selection.css HTTP/1.1" 200 8223
+[INFO] 2026-03-06 08:48:03,038 django.server 22656 8232 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2026-03-06 08:48:10,148 django.server 22656 17740 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2026-03-06 08:48:10,156 django.server 22656 17740 "GET / HTTP/1.1" 200 1969

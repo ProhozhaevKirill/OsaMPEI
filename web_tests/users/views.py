@@ -104,7 +104,7 @@ def form_registration(request):
     # Проверяем, есть ли данные регистрации в сессии
     if 'pending_registration' not in request.session:
         messages.error(request, "Сессия регистрации истекла. Пожалуйста, зарегистрируйтесь заново.")
-        return redirect('register')
+        return redirect('register_view')
 
     # Если пользователь уже авторизован и имеет данные - перенаправляем
     if request.user.is_authenticated and hasattr(request.user, 'studentdata'):
@@ -152,12 +152,11 @@ def form_registration(request):
             # Очищаем сессию
             del request.session['pending_registration']
 
-            # Авторизуем пользователя
-            user = authenticate(request, username=pending_data['email'], password=pending_data['password'])
-            if user is not None:
-                login(request, user)
-                messages.success(request, "Регистрация завершена успешно!")
-                return redirect('account_view')
+            # Авторизуем пользователя напрямую (без повторного authenticate)
+            user.backend = 'users.backends.CaseInsensitiveEmailBackend'
+            login(request, user)
+            messages.success(request, "Регистрация завершена успешно!")
+            return redirect('account_view')
 
         except StudentInstitute.DoesNotExist:
             messages.error(request, "Выбранный институт не существует")
@@ -174,12 +173,12 @@ def form_registration_teacher(request):
     # Проверяем, есть ли данные регистрации в сессии
     if 'pending_registration' not in request.session:
         messages.error(request, "Сессия регистрации истекла. Пожалуйста, зарегистрируйтесь заново.")
-        return redirect('register')
+        return redirect('register_view')
 
     # Проверяем, что пользователь действительно учитель
     if not request.session['pending_registration']['is_teacher']:
         messages.error(request, "Доступ запрещен.")
-        return redirect('register')
+        return redirect('register_view')
 
     institutes = StudentInstitute.objects.all()
 
@@ -218,12 +217,11 @@ def form_registration_teacher(request):
             # Очищаем сессию
             del request.session['pending_registration']
 
-            # Авторизуем пользователя
-            user = authenticate(request, username=pending_data['email'], password=pending_data['password'])
-            if user is not None:
-                login(request, user)
-                messages.success(request, "Регистрация завершена успешно!")
-                return redirect('/TestsCreate/listTests/')
+            # Авторизуем пользователя напрямую
+            user.backend = 'users.backends.CaseInsensitiveEmailBackend'
+            login(request, user)
+            messages.success(request, "Регистрация завершена успешно!")
+            return redirect('/TestsCreate/listTests/')
 
         except StudentInstitute.DoesNotExist:
             messages.error(request, "Выбранный институт не существует")

@@ -131,6 +131,16 @@ body {
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-wrap: break-word;
+    word-break: break-word;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.list-expr .express mjx-container {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 .list-expr .express p {
@@ -164,6 +174,8 @@ body {
   align-items: center;
   font-size: 1rem;
   color: #34495e;
+  overflow-x: auto;
+  max-width: 100%;
 }
 
 .list-expr .options ul li input[type="checkbox"] {

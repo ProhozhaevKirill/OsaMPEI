@@ -120,10 +120,10 @@ class GetLexeme:
         while i < size:
             if expr[i] in self.PER:
                 start = i
-                while expr[i] in self.PER:
+                while i < len(expr) and expr[i] in self.PER:
                     atom += expr[i]
                     i += 1
-                    if expr[i] not in self.PER:
+                    if i >= len(expr) or expr[i] not in self.PER:
                         len_teg_for_st = len(atom)
                         start += len_teg_for_st
                         if atom in all_teg_with_1_ck or atom in all_teg_with_2_ck:

@@ -12384,3 +12384,1033 @@ django.urls.exceptions.NoReverseMatch: Reverse for 'register' not found. 'regist
 [INFO] 2026-03-06 08:48:03,038 django.server 22656 8232 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
 [INFO] 2026-03-06 08:48:10,148 django.server 22656 17740 "POST /logout/ HTTP/1.1" 302 0
 [INFO] 2026-03-06 08:48:10,156 django.server 22656 17740 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-10 14:49:56,623 django.utils.autoreload 6672 16896 Watching for file changes with StatReloader
+[INFO] 2026-03-10 14:50:03,140 django.server 6672 18776 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-10 14:50:09,042 django.server 6672 18776 "POST / HTTP/1.1" 302 0
+[INFO] 2026-03-10 14:50:09,451 django.server 6672 18776 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248203
+[INFO] 2026-03-10 14:50:09,550 django.server 6672 18776 "GET /static/css/all_test_for_teach.css HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:50:09,618 django.server 6672 18776 "GET /static/js/header.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:02,202 django.server 6672 5108 "GET / HTTP/1.1" 302 0
+[INFO] 2026-03-10 14:52:02,473 django.server 6672 5108 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248203
+[INFO] 2026-03-10 14:52:04,068 django.server 6672 5108 "GET /admin/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 14:52:04,239 django.server 6672 5108 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3833
+[INFO] 2026-03-10 14:52:04,295 django.server 6672 5108 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:04,300 django.server 6672 21268 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:04,308 django.server 6672 22960 "GET /static/admin/css/login.css HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:04,308 django.server 6672 5108 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:04,313 django.server 6672 20788 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:04,322 django.server 6672 15752 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:04,347 django.server 6672 15752 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+[WARNING] 2026-03-10 14:52:04,452 django.request 6672 15752 Not Found: /favicon.ico
+[WARNING] 2026-03-10 14:52:04,453 django.server 6672 15752 "GET /favicon.ico HTTP/1.1" 404 5845
+[WARNING] 2026-03-10 14:52:04,463 django.request 6672 20788 Not Found: /favicon.ico
+[WARNING] 2026-03-10 14:52:04,464 django.server 6672 20788 "GET /favicon.ico HTTP/1.1" 404 5845
+[INFO] 2026-03-10 14:52:10,982 django.server 6672 20788 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 14:52:11,124 django.server 6672 20788 "GET /admin/ HTTP/1.1" 200 19683
+[INFO] 2026-03-10 14:52:11,234 django.server 6672 20788 "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:11,252 django.server 6672 20788 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:11,252 django.server 6672 13568 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:11,266 django.server 6672 20788 "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:14,256 django.server 6672 20788 "GET /admin/create_tests/abouttest/ HTTP/1.1" 200 20559
+[INFO] 2026-03-10 14:52:14,330 django.server 6672 20788 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:14,351 django.server 6672 20848 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:14,352 django.server 6672 13568 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:14,356 django.server 6672 22040 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:14,364 django.server 6672 20848 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:14,366 django.server 6672 13568 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:14,367 django.server 6672 18824 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:14,368 django.server 6672 17852 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:14,429 django.server 6672 20788 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+[INFO] 2026-03-10 14:52:14,478 django.server 6672 22040 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:14,648 django.server 6672 22040 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:14,690 django.server 6672 22040 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:16,667 django.server 6672 22040 "GET /admin/create_tests/abouttest/78/change/ HTTP/1.1" 200 38926
+[INFO] 2026-03-10 14:52:16,720 django.server 6672 22040 "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:16,720 django.server 6672 17852 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:16,728 django.server 6672 20788 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+[INFO] 2026-03-10 14:52:16,733 django.server 6672 22040 "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:16,742 django.server 6672 22040 "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 14:52:16,831 django.server 6672 17852 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 928
+[INFO] 2026-03-10 14:59:06,981 django.utils.autoreload 6672 16896 C:\Users\cproh\SRW\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-10 14:59:09,265 django.utils.autoreload 17084 14388 Watching for file changes with StatReloader
+[INFO] 2026-03-10 14:59:20,847 django.utils.autoreload 17084 14388 C:\Users\cproh\SRW\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-10 14:59:22,563 django.utils.autoreload 9588 22440 Watching for file changes with StatReloader
+[INFO] 2026-03-10 14:59:37,494 django.utils.autoreload 9588 22440 C:\Users\cproh\SRW\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-10 14:59:39,388 django.utils.autoreload 13528 20848 Watching for file changes with StatReloader
+[INFO] 2026-03-10 15:02:44,346 django.utils.autoreload 13528 20848 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\apps.py changed, reloading.
+[INFO] 2026-03-10 15:02:45,912 django.utils.autoreload 5428 7552 Watching for file changes with StatReloader
+[INFO] 2026-03-10 15:16:54,289 django.utils.autoreload 21352 18400 Watching for file changes with StatReloader
+[INFO] 2026-03-10 15:22:54,489 django.server 21352 8556 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-10 15:23:06,114 django.server 21352 12376 "POST / HTTP/1.1" 302 0
+[INFO] 2026-03-10 15:23:06,360 django.server 21352 12376 "GET /TestsCreate/listTests/ HTTP/1.1" 200 248203
+[WARNING] 2026-03-10 15:23:10,427 django.security.csrf 21352 12376 Forbidden (CSRF token from POST incorrect.): /
+[WARNING] 2026-03-10 15:23:10,428 django.server 21352 12376 "POST / HTTP/1.1" 403 2545
+[INFO] 2026-03-10 15:43:56,887 django.utils.autoreload 21352 18400 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\models.py changed, reloading.
+[INFO] 2026-03-10 15:43:58,999 django.utils.autoreload 7760 8756 Watching for file changes with StatReloader
+[INFO] 2026-03-10 15:44:30,497 django.utils.autoreload 7760 8756 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-03-10 15:44:32,198 django.utils.autoreload 7160 12664 Watching for file changes with StatReloader
+[INFO] 2026-03-10 15:44:45,770 django.utils.autoreload 7160 12664 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-03-10 15:44:47,455 django.utils.autoreload 17548 6200 Watching for file changes with StatReloader
+[INFO] 2026-03-10 15:45:17,516 django.utils.autoreload 17548 6200 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\urls.py changed, reloading.
+[INFO] 2026-03-10 15:45:19,230 django.utils.autoreload 10828 10668 Watching for file changes with StatReloader
+[INFO] 2026-03-10 15:51:12,405 django.utils.autoreload 20652 1560 Watching for file changes with StatReloader
+[INFO] 2026-03-10 15:52:39,721 django.server 20652 1716 "GET /TestsCreate/listTests/ HTTP/1.1" 200 249867
+[INFO] 2026-03-10 15:52:41,645 django.server 20652 2412 "GET /TestsCreate/listTests/ HTTP/1.1" 200 249867
+[INFO] 2026-03-10 15:52:41,824 django.server 20652 2412 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-10 15:52:41,840 django.server 20652 8160 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-10 15:52:41,840 django.server 20652 15744 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 18062
+[INFO] 2026-03-10 15:52:41,868 django.server 20652 10676 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 16925
+[INFO] 2026-03-10 15:52:41,879 django.server 20652 18140 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-10 15:52:41,886 django.server 20652 15744 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-10 15:52:41,908 django.server 20652 2412 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-10 15:52:41,917 django.server 20652 8160 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-10 15:52:41,951 django.server 20652 8160 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-10 15:52:42,079 django.server 20652 8160 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-10 15:54:03,022 django.server 20652 22012 "GET /TestsCreate/ HTTP/1.1" 200 23844
+[INFO] 2026-03-10 15:54:03,123 django.server 20652 8412 "GET /static/js/writing_tests.js HTTP/1.1" 200 41616
+[INFO] 2026-03-10 15:54:03,145 django.server 20652 22012 "GET /static/css/writing_tests.css HTTP/1.1" 200 16263
+[INFO] 2026-03-10 15:54:03,200 django.server 20652 4188 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-03-10 15:54:04,552 django.server 20652 4188 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 304 0
+[INFO] 2026-03-10 15:54:15,294 create_tests.views 20652 10452 Draft created: chernovik
+[INFO] 2026-03-10 15:54:15,296 django.server 20652 10452 "POST /TestsCreate/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 15:54:15,564 django.server 20652 10452 "GET /TestsCreate/listTests/ HTTP/1.1" 200 251785
+[INFO] 2026-03-10 15:55:20,269 django.server 20652 21308 "GET /TestsCreate/ HTTP/1.1" 200 23844
+[INFO] 2026-03-10 15:55:20,350 django.server 20652 21308 "GET /static/js/writing_tests.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 15:55:26,144 django.server 20652 21308 "GET /TestsCreate/listTests/ HTTP/1.1" 200 251785
+[INFO] 2026-03-10 15:55:29,754 django.server 20652 21308 "GET /TestsCreate/ HTTP/1.1" 200 23844
+[WARNING] 2026-03-10 15:55:44,827 django.request 20652 16000 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 15:55:44,828 django.server 20652 16000 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[WARNING] 2026-03-10 15:56:11,560 django.request 20652 16720 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 15:56:11,561 django.server 20652 16720 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-10 15:58:03,553 django.server 20652 16356 "GET /TestsCreate/ HTTP/1.1" 200 23844
+[WARNING] 2026-03-10 15:58:03,624 django.request 20652 16356 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 15:58:03,627 django.server 20652 16356 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-10 15:58:03,630 django.server 20652 5476 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-10 15:58:03,655 django.server 20652 16356 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-10 15:58:03,672 django.server 20652 16356 "GET /static/js/writing_tests.js HTTP/1.1" 200 41616
+[INFO] 2026-03-10 15:58:03,690 django.server 20652 8356 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-10 15:58:03,691 django.server 20652 16356 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-03-10 15:58:03,741 django.server 20652 20888 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-10 15:58:03,762 django.server 20652 17204 "GET /static/css/writing_tests.css HTTP/1.1" 200 16264
+[INFO] 2026-03-10 15:58:03,784 django.server 20652 17204 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-10 15:58:03,956 django.server 20652 19652 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-10 15:58:03,977 django.server 20652 19652 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-10 15:58:03,999 django.server 20652 19652 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-10 15:58:05,149 django.server 20652 5476 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-10 15:58:05,305 django.server 20652 5476 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-10 15:58:05,340 django.server 20652 5476 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 26272
+[INFO] 2026-03-10 15:58:05,427 django.server 20652 5476 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-10 15:58:07,882 django.server 20652 5476 "GET /TestsCreate/listTests/ HTTP/1.1" 200 251785
+[INFO] 2026-03-10 15:58:11,136 django.server 20652 15208 "GET /TestsCreate/edit-draft/chernovik/ HTTP/1.1" 200 24654
+[INFO] 2026-03-10 15:58:11,214 django.server 20652 15208 "GET /static/css/writing_tests.css HTTP/1.1" 304 0
+[INFO] 2026-03-10 15:58:14,654 django.server 20652 15208 "GET /TestsCreate/listTests/ HTTP/1.1" 200 251785
+[INFO] 2026-03-10 16:04:57,355 django.server 20652 20788 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10466
+[INFO] 2026-03-10 16:04:57,429 django.server 20652 20788 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2026-03-10 16:04:57,460 django.server 20652 20120 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 268
+[INFO] 2026-03-10 16:04:57,833 django.server 20652 20120 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[WARNING] 2026-03-10 16:04:58,953 django.server 20652 20120 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:05:03,242 django.server 20652 1348 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 16:05:03,264 django.server 20652 1348 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 13939
+[INFO] 2026-03-10 16:05:03,337 django.server 20652 1348 "GET /static/css/result.css HTTP/1.1" 304 0
+[INFO] 2026-03-10 16:05:03,546 django.server 20652 1348 "GET /static/libs/mathlive/fonts/KaTeX_Size2-Regular.woff2 HTTP/1.1" 304 0
+[INFO] 2026-03-10 16:05:03,548 django.server 20652 7472 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 304 0
+[WARNING] 2026-03-10 16:05:03,668 django.server 20652 7472 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:16:25,840 django.utils.autoreload 20652 1560 C:\Users\cproh\SRW\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-10 16:16:35,647 django.utils.autoreload 20568 4312 Watching for file changes with StatReloader
+[INFO] 2026-03-10 16:16:40,771 django.utils.autoreload 20568 4312 C:\Users\cproh\SRW\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-10 16:16:42,689 django.utils.autoreload 22380 7900 Watching for file changes with StatReloader
+[INFO] 2026-03-10 16:17:17,533 django.utils.autoreload 22380 7900 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-03-10 16:17:19,270 django.utils.autoreload 2876 20780 Watching for file changes with StatReloader
+[INFO] 2026-03-10 16:17:33,784 django.utils.autoreload 2876 20780 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-03-10 16:17:35,502 django.utils.autoreload 23248 18416 Watching for file changes with StatReloader
+[INFO] 2026-03-10 16:17:47,759 django.utils.autoreload 23248 18416 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-03-10 16:17:49,506 django.utils.autoreload 1608 19036 Watching for file changes with StatReloader
+[INFO] 2026-03-10 16:18:07,570 django.server 1608 23140 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 13939
+[INFO] 2026-03-10 16:18:07,968 django.server 1608 16828 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-10 16:18:08,025 django.server 1608 19840 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-10 16:18:08,026 django.server 1608 16828 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-10 16:18:08,026 django.server 1608 23140 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-10 16:18:08,063 django.server 1608 7952 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2026-03-10 16:18:08,086 django.server 1608 22624 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-10 16:18:08,088 django.server 1608 19840 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-10 16:18:08,343 django.server 1608 10096 "GET /static/css/result.css HTTP/1.1" 200 8904
+[INFO] 2026-03-10 16:18:08,384 django.server 1608 10096 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-10 16:18:08,449 django.server 1608 10096 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-10 16:18:08,548 django.server 1608 10096 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2026-03-10 16:18:10,501 django.server 1608 16828 "GET /static/js/result.js HTTP/1.1" 200 340
+[INFO] 2026-03-10 16:18:10,531 django.server 1608 16828 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-10 16:18:10,551 django.server 1608 10096 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 26272
+[INFO] 2026-03-10 16:18:10,618 django.server 1608 16828 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 200 16440
+[INFO] 2026-03-10 16:18:10,642 django.server 1608 10096 "GET /static/libs/mathlive/fonts/KaTeX_Size2-Regular.woff2 HTTP/1.1" 200 5208
+[INFO] 2026-03-10 16:18:10,762 django.server 1608 10096 "GET /static/favicon.ico HTTP/1.1" 200 976
+[WARNING] 2026-03-10 16:18:10,805 django.server 1608 16828 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[WARNING] 2026-03-10 16:18:19,894 django.request 1608 10096 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 16:18:19,895 django.server 1608 10096 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-10 16:23:43,056 django.server 1608 2212 "GET /personaInf/ HTTP/1.1" 200 10157
+[WARNING] 2026-03-10 16:23:43,139 django.request 1608 2212 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 16:23:43,141 django.server 1608 2212 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[WARNING] 2026-03-10 16:23:43,236 django.server 1608 2212 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-10 16:23:46,617 django.server 1608 9524 "GET /TestsCreate/listTests/ HTTP/1.1" 200 251785
+[INFO] 2026-03-10 16:23:53,852 django.server 1608 9524 "GET /TestsCreate/get-group-lists/ HTTP/1.1" 200 336
+[INFO] 2026-03-10 16:23:55,978 django.server 1608 9524 "GET /TestsCreate/get-group-list/4/ HTTP/1.1" 200 129
+[WARNING] 2026-03-10 16:24:06,645 create_tests.signals 1608 22216 Pusher init failed: 'Settings' object has no attribute 'PUSHER_APP_ID'
+[INFO] 2026-03-10 16:24:06,646 django.server 1608 22216 "POST /TestsCreate/publish-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 17
+[INFO] 2026-03-10 16:24:06,956 django.server 1608 22216 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255764
+[INFO] 2026-03-10 16:24:09,717 django.server 1608 22216 "GET /TestsCreate/ HTTP/1.1" 200 23844
+[INFO] 2026-03-10 16:24:09,782 django.server 1608 22216 "GET /static/css/writing_tests.css HTTP/1.1" 304 0
+[INFO] 2026-03-10 16:24:09,787 django.server 1608 22216 "GET /static/js/writing_tests.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 16:24:20,493 django.server 1608 14372 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255764
+[INFO] 2026-03-10 16:25:16,867 django.server 1608 20548 "GET /TestsCreate/solve-test/vychislenie-chastnykh-i-polnykh-proizvodnykh/ HTTP/1.1" 200 10748
+[WARNING] 2026-03-10 16:25:17,549 django.server 1608 20548 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:25:24,248 django.server 1608 6304 "POST /TestsCreate/solve-test/vychislenie-chastnykh-i-polnykh-proizvodnykh/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 16:25:24,275 django.server 1608 6304 "GET /TestsCreate/solve-test/vychislenie-chastnykh-i-polnykh-proizvodnykh/result/ HTTP/1.1" 200 15106
+[WARNING] 2026-03-10 16:25:24,681 django.server 1608 6304 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:25:28,939 django.server 1608 11948 "GET /TestsCreate/solve-test/vychislenie-chastnykh-i-polnykh-proizvodnykh/ HTTP/1.1" 200 10605
+[WARNING] 2026-03-10 16:25:29,370 django.server 1608 11948 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:25:32,558 django.server 1608 13672 "POST /TestsCreate/solve-test/vychislenie-chastnykh-i-polnykh-proizvodnykh/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 16:25:32,578 django.server 1608 13672 "GET /TestsCreate/solve-test/vychislenie-chastnykh-i-polnykh-proizvodnykh/result/ HTTP/1.1" 200 15230
+[INFO] 2026-03-10 16:25:32,811 django.server 1608 13672 "GET /static/libs/mathlive/fonts/KaTeX_Size3-Regular.woff2 HTTP/1.1" 304 0
+[WARNING] 2026-03-10 16:25:32,875 django.server 1608 13672 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:25:37,039 django.server 1608 11040 "GET /TestsCreate/solve-test/vychislenie-chastnykh-i-polnykh-proizvodnykh/ HTTP/1.1" 200 10605
+[WARNING] 2026-03-10 16:25:37,487 django.server 1608 11040 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:25:41,144 django.server 1608 20216 "POST /TestsCreate/solve-test/vychislenie-chastnykh-i-polnykh-proizvodnykh/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 16:25:41,169 django.server 1608 20216 "GET /TestsCreate/solve-test/vychislenie-chastnykh-i-polnykh-proizvodnykh/result/ HTTP/1.1" 200 15106
+[WARNING] 2026-03-10 16:25:41,373 django.server 1608 20216 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:25:44,890 django.server 1608 5480 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255764
+[INFO] 2026-03-10 16:28:33,735 django.server 1608 10548 "GET /TestsCreate/solve-test/vychislenie-chastnykh-i-polnykh-proizvodnykh/ HTTP/1.1" 200 10605
+[WARNING] 2026-03-10 16:28:34,623 django.server 1608 10548 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:29:34,651 django.server 1608 12472 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:31:56,101 django.server 1608 15248 "GET /TestsCreate/test-results/vychislenie-chastnykh-i-polnykh-proizvodnykh/ HTTP/1.1" 200 13329
+[INFO] 2026-03-10 16:31:58,711 django.server 1608 5180 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:32:00,279 django.server 1608 5180 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10447
+[INFO] 2026-03-10 16:32:05,197 django.server 1608 5180 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10441
+[WARNING] 2026-03-10 16:32:05,500 django.server 1608 5180 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:32:20,019 django.server 1608 11508 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 16:32:20,042 django.server 1608 11508 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 14989
+[WARNING] 2026-03-10 16:32:20,428 django.server 1608 11508 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:32:23,906 django.server 1608 17176 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10441
+[WARNING] 2026-03-10 16:32:24,233 django.server 1608 17176 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:32:29,321 django.server 1608 20324 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 16:32:29,344 django.server 1608 20324 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 14960
+[WARNING] 2026-03-10 16:32:29,632 django.server 1608 20324 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:32:35,719 django.server 1608 11344 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10441
+[WARNING] 2026-03-10 16:32:36,061 django.server 1608 11344 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:32:43,640 django.server 1608 17084 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 16:32:43,661 django.server 1608 17084 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 14964
+[WARNING] 2026-03-10 16:32:43,958 django.server 1608 17084 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:32:46,867 django.server 1608 21012 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10424
+[WARNING] 2026-03-10 16:32:47,192 django.server 1608 21012 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:32:51,351 django.server 1608 8628 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 16:32:51,368 django.server 1608 8628 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 14960
+[WARNING] 2026-03-10 16:32:51,638 django.server 1608 8628 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:33:15,380 django.server 1608 16364 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:34:44,989 django.server 1608 4908 "GET /TestsCreate/listTests/?filter=all HTTP/1.1" 200 264145
+[INFO] 2026-03-10 16:35:24,252 django.server 1608 23276 "GET /TestsCreate/listTests/?filter=all HTTP/1.1" 200 264145
+[INFO] 2026-03-10 16:35:24,305 django.server 1608 23276 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-10 16:35:24,314 django.server 1608 19596 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-10 16:35:24,319 django.server 1608 18452 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 18062
+[INFO] 2026-03-10 16:35:24,321 django.server 1608 16308 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-10 16:35:24,328 django.server 1608 23276 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-10 16:35:24,330 django.server 1608 19596 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-10 16:35:24,341 django.server 1608 16308 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-10 16:35:24,341 django.server 1608 18452 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 17090
+[INFO] 2026-03-10 16:35:24,365 django.server 1608 18452 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-10 16:35:24,511 django.server 1608 18452 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-10 16:35:34,804 django.server 1608 4712 "GET /TestsCreate/listTests/?filter=all HTTP/1.1" 200 264145
+[INFO] 2026-03-10 16:35:34,862 django.server 1608 4712 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-10 16:35:34,875 django.server 1608 8200 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-10 16:35:34,877 django.server 1608 4712 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-10 16:35:34,882 django.server 1608 13488 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 18062
+[INFO] 2026-03-10 16:35:34,898 django.server 1608 4712 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-10 16:35:34,904 django.server 1608 13488 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-10 16:35:34,906 django.server 1608 5868 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 17090
+[INFO] 2026-03-10 16:35:34,907 django.server 1608 8200 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-10 16:35:34,927 django.server 1608 5868 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-10 16:35:35,086 django.server 1608 5868 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-10 16:35:48,008 django.server 1608 23300 "GET /TestsCreate/listTests/?filter=my HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:35:48,103 django.server 1608 23300 "GET /static/js/all_test_for_teach.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 16:39:19,259 django.utils.autoreload 1608 19036 C:\Users\cproh\SRW\OsaMPEI\web_tests\logic_of_expression\check_sympy_expr.py changed, reloading.
+[INFO] 2026-03-10 16:39:21,475 django.utils.autoreload 10512 16180 Watching for file changes with StatReloader
+[INFO] 2026-03-10 16:39:38,164 django.server 10512 23168 "GET /TestsCreate/solve-test/vychislenie-chastnykh-i-polnykh-proizvodnykh/ HTTP/1.1" 200 10748
+[WARNING] 2026-03-10 16:39:38,868 django.server 10512 23168 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:39:40,852 django.server 10512 21036 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:39:40,929 django.server 10512 21036 "GET /static/js/all_test_for_teach.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 16:39:44,146 django.server 10512 21036 "GET /TestsCreate/solve-test/test-po-matematicheskomu-analizu-1/ HTTP/1.1" 200 15435
+[WARNING] 2026-03-10 16:39:44,555 django.server 10512 21036 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:39:47,113 django.server 10512 22852 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:39:49,283 django.server 10512 11608 "GET /TestsCreate/solve-test/vychislenie-opredelennykh-integralov/ HTTP/1.1" 200 10492
+[WARNING] 2026-03-10 16:39:49,618 django.server 10512 11608 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:39:52,476 django.server 10512 14804 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:39:53,822 django.server 10512 14804 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10447
+[WARNING] 2026-03-10 16:39:54,144 django.server 10512 14804 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:39:58,253 django.server 10512 23108 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10424
+[WARNING] 2026-03-10 16:39:58,536 django.server 10512 23108 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:39:59,721 django.server 10512 3860 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10466
+[WARNING] 2026-03-10 16:40:00,027 django.server 10512 3860 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:40:01,070 django.server 10512 5684 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10424
+[WARNING] 2026-03-10 16:40:01,345 django.server 10512 5684 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:40:01,958 django.server 10512 18880 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10424
+[WARNING] 2026-03-10 16:40:02,232 django.server 10512 18880 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:40:03,245 django.server 10512 12472 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10447
+[WARNING] 2026-03-10 16:40:03,512 django.server 10512 12472 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:40:05,328 django.server 10512 7148 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:40:16,870 django.server 10512 21184 "GET /TestsCreate/solve-test/test-po-differentsialnym-uravneniiam/ HTTP/1.1" 200 15585
+[WARNING] 2026-03-10 16:40:17,558 django.server 10512 10828 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:40:20,582 django.server 10512 6852 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:40:20,653 django.server 10512 6852 "GET /static/js/all_test_for_teach.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 16:42:01,434 django.server 10512 14684 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10447
+[WARNING] 2026-03-10 16:42:01,933 django.server 10512 14684 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:42:14,929 django.server 10512 21012 "GET / HTTP/1.1" 302 0
+[INFO] 2026-03-10 16:42:15,181 django.server 10512 21012 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:42:15,340 django.server 10512 21012 "GET /static/js/all_test_for_teach.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 16:42:20,094 django.server 10512 21012 "GET /admin/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 16:42:20,228 django.server 10512 21012 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3833
+[INFO] 2026-03-10 16:42:21,022 django.server 10512 21012 "GET /admin/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 16:42:21,083 django.server 10512 21012 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 3833
+[WARNING] 2026-03-10 16:42:21,375 django.request 10512 21012 Not Found: /favicon.ico
+[WARNING] 2026-03-10 16:42:21,376 django.server 10512 21012 "GET /favicon.ico HTTP/1.1" 404 5845
+[WARNING] 2026-03-10 16:42:21,386 django.request 10512 21808 Not Found: /favicon.ico
+[WARNING] 2026-03-10 16:42:21,387 django.server 10512 21808 "GET /favicon.ico HTTP/1.1" 404 5845
+[INFO] 2026-03-10 16:42:27,363 django.server 10512 15096 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 16:42:27,416 django.server 10512 15096 "GET /admin/ HTTP/1.1" 200 19683
+[INFO] 2026-03-10 16:42:47,421 django.server 10512 16088 "GET /admin/create_tests/aboutexpressions/ HTTP/1.1" 200 30293
+[INFO] 2026-03-10 16:42:47,509 django.server 10512 16088 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+[INFO] 2026-03-10 16:42:53,699 django.server 10512 16368 "GET /admin/create_tests/abouttest/ HTTP/1.1" 200 20918
+[INFO] 2026-03-10 16:42:53,749 django.server 10512 16368 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+[INFO] 2026-03-10 16:43:00,627 django.server 10512 16368 "GET /admin/create_tests/abouttest/44/change/ HTTP/1.1" 200 39800
+[INFO] 2026-03-10 16:43:00,682 django.server 10512 16368 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+[INFO] 2026-03-10 16:43:46,405 django.server 10512 16564 "GET /admin/create_tests/publishedgroup/ HTTP/1.1" 200 20552
+[INFO] 2026-03-10 16:43:46,459 django.server 10512 16564 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+[INFO] 2026-03-10 16:43:50,289 django.server 10512 16564 "GET /admin/create_tests/abouttest/ HTTP/1.1" 200 20918
+[INFO] 2026-03-10 16:43:50,336 django.server 10512 16564 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+[INFO] 2026-03-10 16:43:53,636 django.server 10512 20012 "GET /admin/create_tests/abouttest/78/change/ HTTP/1.1" 200 39594
+[INFO] 2026-03-10 16:43:53,689 django.server 10512 20012 "GET /admin/jsi18n/ HTTP/1.1" 200 16820
+[WARNING] 2026-03-10 16:44:05,297 django.security.csrf 10512 21756 Forbidden (CSRF token from POST incorrect.): /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/
+[WARNING] 2026-03-10 16:44:05,298 django.server 10512 21756 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 403 2545
+[WARNING] 2026-03-10 16:44:15,471 django.security.csrf 10512 10244 Forbidden (CSRF token from POST incorrect.): /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/
+[WARNING] 2026-03-10 16:44:15,472 django.server 10512 10244 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 403 2545
+[WARNING] 2026-03-10 16:44:15,555 django.request 10512 10244 Not Found: /favicon.ico
+[WARNING] 2026-03-10 16:44:15,557 django.server 10512 10244 "GET /favicon.ico HTTP/1.1" 404 5845
+[WARNING] 2026-03-10 16:44:15,569 django.request 10512 4712 Not Found: /favicon.ico
+[WARNING] 2026-03-10 16:44:15,571 django.server 10512 4712 "GET /favicon.ico HTTP/1.1" 404 5845
+[WARNING] 2026-03-10 16:44:20,019 django.request 10512 4712 Not Found: /TestsCreate/solve-test/
+[WARNING] 2026-03-10 16:44:20,020 django.server 10512 4712 "GET /TestsCreate/solve-test/ HTTP/1.1" 404 10488
+[INFO] 2026-03-10 16:44:23,365 django.server 10512 8024 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-10 16:44:30,661 django.server 10512 8024 "POST / HTTP/1.1" 302 0
+[INFO] 2026-03-10 16:44:30,864 django.server 10512 8024 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:44:30,949 django.server 10512 8024 "GET /static/js/all_test_for_teach.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 16:44:33,298 django.server 10512 8836 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10424
+[WARNING] 2026-03-10 16:44:33,755 django.server 10512 8836 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:44:36,170 django.server 10512 12492 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:44:37,464 django.server 10512 12492 "GET /TestsCreate/solve-test/vychislenie-opredelennykh-integralov/ HTTP/1.1" 200 10492
+[WARNING] 2026-03-10 16:44:37,790 django.server 10512 12492 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:44:40,451 django.server 10512 12188 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:44:42,358 django.server 10512 12188 "GET /TestsCreate/solve-test/vychislenie-chastnykh-i-polnykh-proizvodnykh/ HTTP/1.1" 200 10748
+[WARNING] 2026-03-10 16:44:42,878 django.server 10512 9436 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:44:45,386 django.server 10512 9328 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:44:47,499 django.server 10512 9328 "GET /TestsCreate/solve-test/test-po-matematicheskomu-analizu-1/ HTTP/1.1" 200 15436
+[WARNING] 2026-03-10 16:44:47,955 django.server 10512 9328 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:44:51,325 django.server 10512 10384 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:44:53,733 django.server 10512 15368 "GET /TestsCreate/solve-test/test-po-lineinoi-algebre/ HTTP/1.1" 200 15642
+[WARNING] 2026-03-10 16:44:54,194 django.server 10512 15368 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:44:56,830 django.server 10512 14116 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:44:59,158 django.server 10512 14116 "GET /TestsCreate/solve-test/test-po-differentsialnym-uravneniiam/ HTTP/1.1" 200 15622
+[WARNING] 2026-03-10 16:44:59,767 django.server 10512 14116 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:45:01,602 django.server 10512 20044 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:45:06,175 django.server 10512 5632 "GET /TestsCreate/solve-test/demonstratsionnyi/ HTTP/1.1" 200 11852
+[WARNING] 2026-03-10 16:45:06,583 django.server 10512 5632 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:45:20,253 django.server 10512 14380 "GET /static/libs/mathlive/fonts/KaTeX_AMS-Regular.woff2 HTTP/1.1" 200 28076
+[INFO] 2026-03-10 16:45:20,256 django.server 10512 21920 "GET /static/libs/mathlive/fonts/KaTeX_Size1-Regular.woff2 HTTP/1.1" 200 5468
+[INFO] 2026-03-10 16:45:44,518 django.server 10512 9712 "POST /TestsCreate/solve-test/demonstratsionnyi/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 16:45:44,550 django.server 10512 9712 "GET /TestsCreate/solve-test/demonstratsionnyi/result/ HTTP/1.1" 200 16763
+[WARNING] 2026-03-10 16:45:44,993 django.server 10512 9712 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:46:17,666 django.server 10512 16676 "POST /TestsCreate/solve-test/demonstratsionnyi/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 16:46:17,688 django.server 10512 16676 "GET /TestsCreate/solve-test/demonstratsionnyi/result/ HTTP/1.1" 200 16770
+[WARNING] 2026-03-10 16:46:18,168 django.server 10512 16676 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:47:17,534 django.server 10512 12204 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:47:17,608 django.server 10512 12204 "GET /static/js/all_test_for_teach.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 16:47:22,813 django.server 10512 12204 "GET /TestsCreate/solve-test/demonstratsionnyi/ HTTP/1.1" 200 11853
+[WARNING] 2026-03-10 16:47:23,375 django.server 10512 12204 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:48:01,513 django.server 10512 2960 "POST /TestsCreate/solve-test/demonstratsionnyi/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 16:48:01,543 django.server 10512 2960 "GET /TestsCreate/solve-test/demonstratsionnyi/result/ HTTP/1.1" 200 16763
+[WARNING] 2026-03-10 16:48:02,028 django.server 10512 2960 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:50:16,594 django.utils.autoreload 10512 16180 C:\Users\cproh\SRW\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-10 16:50:18,339 django.utils.autoreload 17380 8836 Watching for file changes with StatReloader
+[INFO] 2026-03-10 16:50:24,090 django.utils.autoreload 17380 8836 C:\Users\cproh\SRW\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-10 16:50:25,763 django.utils.autoreload 4104 12788 Watching for file changes with StatReloader
+[INFO] 2026-03-10 16:50:49,173 django.server 4104 16088 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 16:50:49,258 django.server 4104 16088 "GET /static/js/all_test_for_teach.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 16:50:53,102 django.server 4104 16088 "GET /TestsCreate/solve-test/demonstratsionnyi/ HTTP/1.1" 200 11853
+[WARNING] 2026-03-10 16:50:53,640 django.server 4104 16088 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:50:57,643 django.server 4104 6548 "GET /TestsCreate/solve-test/demonstratsionnyi/ HTTP/1.1" 200 11852
+[WARNING] 2026-03-10 16:50:58,020 django.server 4104 6548 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:50:58,804 django.server 4104 23812 "GET /TestsCreate/solve-test/demonstratsionnyi/ HTTP/1.1" 200 11881
+[WARNING] 2026-03-10 16:50:59,198 django.server 4104 23812 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:51:39,743 django.server 4104 1584 "POST /TestsCreate/solve-test/demonstratsionnyi/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 16:51:39,782 django.server 4104 1584 "GET /TestsCreate/solve-test/demonstratsionnyi/result/ HTTP/1.1" 200 16796
+[INFO] 2026-03-10 16:51:40,255 django.server 4104 1584 "GET /static/libs/mathlive/fonts/KaTeX_Size4-Regular.woff2 HTTP/1.1" 200 4928
+[WARNING] 2026-03-10 16:51:40,419 django.server 4104 1584 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 16:55:01,211 django.utils.autoreload 4104 12788 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-03-10 16:55:04,402 django.utils.autoreload 23948 24188 Watching for file changes with StatReloader
+[INFO] 2026-03-10 16:55:25,041 django.utils.autoreload 23948 24188 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-03-10 16:55:26,872 django.utils.autoreload 18356 21212 Watching for file changes with StatReloader
+[INFO] 2026-03-10 16:55:52,071 django.utils.autoreload 18356 21212 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-03-10 16:55:53,716 django.utils.autoreload 11536 13172 Watching for file changes with StatReloader
+[INFO] 2026-03-10 16:56:35,813 django.utils.autoreload 11536 13172 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-03-10 16:56:37,676 django.utils.autoreload 10268 21708 Watching for file changes with StatReloader
+[INFO] 2026-03-10 18:24:52,581 django.server 10268 26340 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 18:24:52,797 django.server 10268 26340 "GET /static/js/all_test_for_teach.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 18:24:56,093 django.server 10268 26340 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10441
+[WARNING] 2026-03-10 18:24:57,830 django.server 10268 25512 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[ERROR] 2026-03-10 18:25:03,787 django.request 10268 24612 Internal Server Error: /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/
+Traceback (most recent call last):
+  File "C:\Users\cproh\SRW\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\cproh\SRW\OsaMPEI\.venv\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\cproh\SRW\OsaMPEI\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\cproh\SRW\OsaMPEI\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\decorators.py", line 24, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\views.py", line 1259, in solve_test_teacher
+    type_ans=expr_data['user_type'].type_code).compare_answer()
+                                               ~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\SRW\OsaMPEI\web_tests\logic_of_expression\check_sympy_expr.py", line 50, in compare_answer
+    teach = ts(self.teach_raw).get_result()
+  File "C:\Users\cproh\SRW\OsaMPEI\web_tests\logic_of_expression\tex_to_sympy.py", line 267, in get_result
+    expression = self.navigate_for_main_tags().strip()
+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cproh\SRW\OsaMPEI\web_tests\logic_of_expression\tex_to_sympy.py", line 189, in navigate_for_main_tags
+    all_tex_teg = self.get_all_teg(expr)
+  File "C:\Users\cproh\SRW\OsaMPEI\web_tests\logic_of_expression\tex_to_sympy.py", line 126, in get_all_teg
+    if expr[i] not in self.PER:
+       ~~~~^^^
+IndexError: string index out of range
+[ERROR] 2026-03-10 18:25:03,799 django.server 10268 24612 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 500 106123
+[WARNING] 2026-03-10 18:25:04,020 django.request 10268 24612 Not Found: /favicon.ico
+[WARNING] 2026-03-10 18:25:04,024 django.server 10268 24612 "GET /favicon.ico HTTP/1.1" 404 5845
+[WARNING] 2026-03-10 18:25:04,035 django.request 10268 25996 Not Found: /favicon.ico
+[WARNING] 2026-03-10 18:25:04,037 django.server 10268 25996 "GET /favicon.ico HTTP/1.1" 404 5845
+[INFO] 2026-03-10 18:27:33,039 django.utils.autoreload 10268 21708 C:\Users\cproh\SRW\OsaMPEI\web_tests\logic_of_expression\tex_to_sympy.py changed, reloading.
+[INFO] 2026-03-10 18:27:35,198 django.utils.autoreload 23728 10960 Watching for file changes with StatReloader
+[WARNING] 2026-03-10 18:29:28,310 django.request 23728 10168 Not Found: /TestsCreate/solve-test/
+[WARNING] 2026-03-10 18:29:28,312 django.server 23728 10168 "GET /TestsCreate/solve-test/ HTTP/1.1" 404 10488
+[INFO] 2026-03-10 18:29:31,376 django.server 23728 10168 "GET / HTTP/1.1" 302 0
+[INFO] 2026-03-10 18:29:31,674 django.server 23728 10168 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 18:29:36,564 django.server 23728 10168 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10466
+[WARNING] 2026-03-10 18:29:37,028 django.server 23728 27492 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:29:41,926 django.server 23728 24488 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 18:29:41,975 django.server 23728 24488 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 14989
+[WARNING] 2026-03-10 18:29:42,346 django.server 23728 24488 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:29:44,559 django.server 23728 25564 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10447
+[WARNING] 2026-03-10 18:29:44,908 django.server 23728 25564 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:29:51,858 django.server 23728 26432 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 18:29:51,876 django.server 23728 26432 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 14968
+[WARNING] 2026-03-10 18:29:52,111 django.server 23728 26432 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:29:55,087 django.server 23728 28212 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10441
+[WARNING] 2026-03-10 18:29:55,397 django.server 23728 28212 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:29:57,891 django.server 23728 24812 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 18:29:57,910 django.server 23728 24812 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 14964
+[WARNING] 2026-03-10 18:29:58,162 django.server 23728 24812 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:29:59,973 django.server 23728 25120 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10424
+[WARNING] 2026-03-10 18:30:00,278 django.server 23728 25120 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:30:04,031 django.server 23728 25892 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 18:30:04,053 django.server 23728 25892 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 14953
+[WARNING] 2026-03-10 18:30:04,298 django.server 23728 25892 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:30:07,507 django.server 23728 22952 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10424
+[WARNING] 2026-03-10 18:30:07,789 django.server 23728 22952 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:30:10,295 django.server 23728 26052 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10459
+[WARNING] 2026-03-10 18:30:10,551 django.server 23728 26052 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:30:12,385 django.server 23728 25620 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10441
+[WARNING] 2026-03-10 18:30:12,614 django.server 23728 25620 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:30:16,099 django.server 23728 25800 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 18:30:16,122 django.server 23728 25800 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 14964
+[WARNING] 2026-03-10 18:30:16,378 django.server 23728 25800 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:30:20,675 django.server 23728 3896 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10466
+[WARNING] 2026-03-10 18:30:20,993 django.server 23728 3896 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:30:23,745 django.server 23728 26280 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 18:30:23,776 django.server 23728 26280 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 14987
+[WARNING] 2026-03-10 18:30:24,009 django.server 23728 26280 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:30:26,613 django.server 23728 27640 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10441
+[WARNING] 2026-03-10 18:30:26,929 django.server 23728 27640 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:30:31,979 django.server 23728 26532 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 18:30:32,001 django.server 23728 26532 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 14954
+[WARNING] 2026-03-10 18:30:32,225 django.server 23728 26532 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:30:33,619 django.server 23728 28552 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10466
+[WARNING] 2026-03-10 18:30:33,926 django.server 23728 28552 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:30:36,958 django.server 23728 26904 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 18:30:36,989 django.server 23728 26904 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 14987
+[WARNING] 2026-03-10 18:30:37,252 django.server 23728 6492 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:30:39,039 django.server 23728 19704 "GET /TestsCreate/listTests/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 160783
+[INFO] 2026-03-10 18:30:39,210 django.server 23728 19704 "GET /static/css/some_test.css HTTP/1.1" 200 15511
+[INFO] 2026-03-10 18:30:39,251 django.server 23728 23160 "GET /static/js/some_test.js HTTP/1.1" 200 8984
+[WARNING] 2026-03-10 18:30:39,718 django.server 23728 23160 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 18:30:45,982 django.server 23728 19704 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 18:52:27,374 django.server 23728 29408 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 18:52:27,476 django.server 23728 29408 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-10 18:52:27,476 django.server 23728 24768 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-10 18:52:27,485 django.server 23728 28896 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-10 18:52:27,488 django.server 23728 29264 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 18062
+[INFO] 2026-03-10 18:52:27,501 django.server 23728 15096 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-10 18:52:27,523 django.server 23728 29408 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 17090
+[INFO] 2026-03-10 18:52:27,528 django.server 23728 24768 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-10 18:52:27,596 django.server 23728 24768 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-10 18:52:27,619 django.server 23728 28896 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-10 18:52:27,756 django.server 23728 28896 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-10 18:55:14,974 django.server 23728 7856 "GET /TestsCreate/ HTTP/1.1" 200 23844
+[INFO] 2026-03-10 18:55:15,078 django.server 23728 7856 "GET /static/css/writing_tests.css HTTP/1.1" 304 0
+[INFO] 2026-03-10 18:55:15,081 django.server 23728 23680 "GET /static/js/writing_tests.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 19:10:28,554 django.utils.autoreload 23728 10960 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\models.py changed, reloading.
+[INFO] 2026-03-10 19:10:31,063 django.utils.autoreload 29300 8740 Watching for file changes with StatReloader
+[INFO] 2026-03-10 19:11:02,481 django.utils.autoreload 29300 8740 C:\Users\cproh\SRW\OsaMPEI\web_tests\solving_tests\models.py changed, reloading.
+[INFO] 2026-03-10 19:11:03,978 django.utils.autoreload 31708 31592 Watching for file changes with StatReloader
+[INFO] 2026-03-10 19:13:00,707 django.utils.autoreload 31708 31592 C:\Users\cproh\SRW\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-10 19:13:02,218 django.utils.autoreload 26284 27528 Watching for file changes with StatReloader
+[INFO] 2026-03-10 19:13:17,360 django.utils.autoreload 26284 27528 C:\Users\cproh\SRW\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-10 19:13:18,876 django.utils.autoreload 31364 29756 Watching for file changes with StatReloader
+[INFO] 2026-03-10 19:15:03,303 django.utils.autoreload 31364 29756 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-03-10 19:15:04,743 django.utils.autoreload 32048 32052 Watching for file changes with StatReloader
+[INFO] 2026-03-10 19:15:15,575 django.utils.autoreload 32048 32052 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-03-10 19:15:17,248 django.utils.autoreload 32652 32656 Watching for file changes with StatReloader
+[INFO] 2026-03-10 19:15:44,566 django.utils.autoreload 32652 32656 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-03-10 19:15:46,220 django.utils.autoreload 32356 32352 Watching for file changes with StatReloader
+[INFO] 2026-03-10 19:17:36,899 django.utils.autoreload 32356 32352 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\urls.py changed, reloading.
+[INFO] 2026-03-10 19:17:38,718 django.utils.autoreload 31604 29796 Watching for file changes with StatReloader
+[INFO] 2026-03-10 22:41:13,989 django.server 31604 32164 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-10 22:41:14,412 django.server 31604 32164 "GET /static/js/all_test_for_teach.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 22:44:21,469 django.server 31604 40152 "GET /TestsCreate/ HTTP/1.1" 200 24487
+[INFO] 2026-03-10 22:44:21,542 django.server 31604 40152 "GET /static/css/writing_tests.css HTTP/1.1" 304 0
+[INFO] 2026-03-10 22:44:21,653 django.server 31604 40152 "GET /static/js/writing_tests.js HTTP/1.1" 200 43144
+[INFO] 2026-03-10 22:45:10,234 create_tests.views 31604 34572 === CREATE TEST DEBUG START ===
+[INFO] 2026-03-10 22:45:10,234 create_tests.views 31604 34572 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'result_display_mode', 'grade_5_threshold', 'grade_4_threshold', 'grade_3_threshold', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans', 'is_draft', 'draft_state', 'draft_slug', 'draft_hours', 'draft_minutes', 'number', 'block_expression_num']
+[INFO] 2026-03-10 22:45:10,236 create_tests.views 31604 34572 POST data: {'csrfmiddlewaretoken': ['1NkMu6lIzqQFHc4UfihS1PUyw1iXXGVARc6ctQCvfX7lcP66nsHbHkMv4gzoHoCp'], 'name_test': ['ѕроверка отображени€ свободных ответов'], 'time_solve': ['01:00:00'], 'num_attempts': ['10'], 'subj_test': ['1'], 'description_test': ['бла бла'], 'result_display_mode': ['only_score'], 'grade_5_threshold': ['80'], 'grade_4_threshold': ['60'], 'grade_3_threshold': ['35'], 'point_solve': ['["1"]'], 'user_expression': ['["1-4"]'], 'user_ans': ['["__FREE__"]'], 'user_eps': ['[""]'], 'user_type': ['["5"]'], 'user_norm': ['[""]'], 'user_bool_ans': ['["1"]'], 'is_draft': ['false'], 'draft_state': [''], 'draft_slug': [''], 'draft_hours': [''], 'draft_minutes': [''], 'number': ['[1]'], 'block_expression_num': ['[1]']}
+[INFO] 2026-03-10 22:45:10,237 create_tests.views 31604 34572 Basic fields - name: 'ѕроверка отображени€ свободных ответов', time: '01:00:00', attempts: '10', subj_id: '1'
+[INFO] 2026-03-10 22:45:10,239 create_tests.views 31604 34572 Raw task_groups_data: []
+[INFO] 2026-03-10 22:45:10,239 create_tests.views 31604 34572 Parsed task_groups_data: []
+[INFO] 2026-03-10 22:45:10,240 create_tests.views 31604 34572 Raw data - points: ["1"], expressions: ["1-4"]
+[INFO] 2026-03-10 22:45:10,241 create_tests.views 31604 34572 Parsed data - expressions count: 1, points count: 1
+[INFO] 2026-03-10 22:45:10,279 create_tests.views 31604 34572 Found 1 valid expressions out of 1
+[INFO] 2026-03-10 22:45:10,281 create_tests.views 31604 34572 Numbers raw: [1], Block nums raw: [1]
+[INFO] 2026-03-10 22:45:10,282 create_tests.views 31604 34572 Processing expression 1: 1-4...
+[INFO] 2026-03-10 22:45:10,283 create_tests.views 31604 34572 Data: ans='__FREE__', bool_ans='1', eps='', type_id='5', point='1', norm_id=''
+[INFO] 2026-03-10 22:45:10,284 create_tests.views 31604 34572 flag_select = False
+[INFO] 2026-03-10 22:45:10,286 create_tests.views 31604 34572 type_obj = —вободный ответ
+[INFO] 2026-03-10 22:45:10,297 create_tests.views 31604 34572 Created expression instance: 1-4 with number=1, block=1
+[INFO] 2026-03-10 22:45:10,309 create_tests.views 31604 34572 Added expression 1 successfully
+[INFO] 2026-03-10 22:45:10,322 create_tests.views 31604 34572 === CREATE TEST DEBUG END ===
+[INFO] 2026-03-10 22:45:10,325 django.server 31604 34572 "POST /TestsCreate/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 22:45:10,526 django.server 31604 34572 "GET /TestsCreate/listTests/ HTTP/1.1" 200 260935
+[INFO] 2026-03-10 22:45:15,576 django.server 31604 34572 "GET /TestsCreate/get-group-lists/ HTTP/1.1" 200 336
+[INFO] 2026-03-10 22:45:16,641 django.server 31604 34572 "GET /TestsCreate/get-group-list/4/ HTTP/1.1" 200 129
+[WARNING] 2026-03-10 22:45:19,150 create_tests.signals 31604 38524 Pusher init failed: 'Settings' object has no attribute 'PUSHER_APP_ID'
+[INFO] 2026-03-10 22:45:19,152 django.server 31604 38524 "POST /TestsCreate/publish-test/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 200 17
+[INFO] 2026-03-10 22:45:19,360 django.server 31604 38524 "GET /TestsCreate/listTests/ HTTP/1.1" 200 265372
+[INFO] 2026-03-10 22:45:21,404 django.server 31604 38524 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 22:45:21,551 django.server 31604 38524 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-10 22:45:26,499 django.server 31604 38524 "POST / HTTP/1.1" 302 0
+[INFO] 2026-03-10 22:45:26,569 django.server 31604 38524 "GET /Home/ HTTP/1.1" 200 11585
+[INFO] 2026-03-10 22:45:28,014 django.server 31604 39804 "GET /TestsSolving/ HTTP/1.1" 200 14291
+[INFO] 2026-03-10 22:45:30,364 django.server 31604 39804 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 200 9475
+[WARNING] 2026-03-10 22:45:30,653 django.server 31604 39804 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 22:55:46,586 django.server 31604 38896 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 200 9256
+[INFO] 2026-03-10 22:55:46,639 django.server 31604 38896 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-10 22:55:46,650 django.server 31604 35928 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-10 22:55:46,668 django.server 31604 35928 "GET /static/js/specific_test.js HTTP/1.1" 200 4375
+[INFO] 2026-03-10 22:55:46,669 django.server 31604 39828 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-10 22:55:46,669 django.server 31604 38896 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2026-03-10 22:55:46,696 django.server 31604 40024 "GET /static/css/specific_test.css HTTP/1.1" 200 4391
+[INFO] 2026-03-10 22:55:46,697 django.server 31604 39828 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 268
+[INFO] 2026-03-10 22:55:46,700 django.server 31604 35928 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-03-10 22:55:46,727 django.server 31604 38896 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-10 22:55:46,735 django.server 31604 37964 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-10 22:55:46,826 django.server 31604 37964 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-10 22:55:46,833 django.server 31604 37964 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-10 22:55:47,076 django.server 31604 37964 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2026-03-10 22:55:47,824 django.server 31604 35716 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-10 22:55:47,938 django.server 31604 35716 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-10 22:55:48,085 django.server 31604 35716 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 26272
+[WARNING] 2026-03-10 22:55:48,178 django.server 31604 35716 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 22:55:48,845 django.server 31604 37964 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-10 22:55:53,352 django.server 31604 37964 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 200 16440
+[INFO] 2026-03-10 22:55:53,479 django.server 31604 37964 "GET /static/libs/mathlive/fonts/KaTeX_Size2-Regular.woff2 HTTP/1.1" 200 5208
+[WARNING] 2026-03-10 22:56:03,139 django.server 31604 37964 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[WARNING] 2026-03-10 22:56:03,157 django.server 31604 38896 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[WARNING] 2026-03-10 22:56:07,017 django.server 31604 35928 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[WARNING] 2026-03-10 22:56:08,725 django.server 31604 39828 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[INFO] 2026-03-10 22:56:14,231 django.server 31604 40024 "POST /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 22:56:14,257 django.server 31604 40024 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/result/ HTTP/1.1" 200 7326
+[WARNING] 2026-03-10 22:56:14,544 django.server 31604 40024 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 22:56:16,894 django.server 31604 37208 "GET /TestsSolving/ HTTP/1.1" 200 14291
+[INFO] 2026-03-10 22:56:16,987 django.server 31604 37208 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2026-03-10 22:56:18,200 django.server 31604 37208 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 22:56:18,216 django.server 31604 37208 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-10 22:56:23,354 django.server 31604 37208 "POST / HTTP/1.1" 302 0
+[INFO] 2026-03-10 22:56:23,572 django.server 31604 37208 "GET /TestsCreate/listTests/ HTTP/1.1" 200 265372
+[INFO] 2026-03-10 22:56:27,674 django.server 31604 37208 "GET /TestsCreate/test-results/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 200 13285
+[INFO] 2026-03-10 22:56:30,127 django.server 31604 37208 "GET /TestsCreate/test-results/proverka-otobrazheniia-svobodnykh-otvetov/11/ HTTP/1.1" 200 19613
+[WARNING] 2026-03-10 22:56:30,364 django.server 31604 37208 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 22:56:34,904 django.server 31604 37828 "POST /TestsCreate/test-results/proverka-otobrazheniia-svobodnykh-otvetov/11/grade-free/ HTTP/1.1" 200 53
+[INFO] 2026-03-10 22:56:38,459 django.server 31604 37828 "POST /TestsCreate/test-results/proverka-otobrazheniia-svobodnykh-otvetov/11/grade-free/ HTTP/1.1" 200 53
+[INFO] 2026-03-10 22:56:42,862 django.server 31604 37828 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 22:56:42,869 django.server 31604 37828 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-10 22:56:48,909 django.server 31604 37828 - Broken pipe from ('127.0.0.1', 50331)
+[INFO] 2026-03-10 22:56:51,438 django.server 31604 39804 - Broken pipe from ('127.0.0.1', 50347)
+[INFO] 2026-03-10 22:56:53,842 django.server 31604 34160 "POST / HTTP/1.1" 302 0
+[INFO] 2026-03-10 22:56:54,005 django.server 31604 34160 "GET /TestsCreate/listTests/ HTTP/1.1" 200 265372
+[INFO] 2026-03-10 22:56:57,145 django.server 31604 34160 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 22:56:57,153 django.server 31604 34160 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-10 22:57:02,420 django.server 31604 34160 "POST / HTTP/1.1" 302 0
+[INFO] 2026-03-10 22:57:02,456 django.server 31604 34160 "GET /Home/ HTTP/1.1" 200 11582
+[INFO] 2026-03-10 22:57:04,465 django.server 31604 34160 "GET /TestsSolving/ HTTP/1.1" 200 14291
+[INFO] 2026-03-10 22:57:10,525 django.server 31604 34160 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 200 9256
+[INFO] 2026-03-10 22:57:10,597 django.server 31604 34160 "GET /static/js/specific_test.js HTTP/1.1" 304 0
+[WARNING] 2026-03-10 22:57:10,771 django.server 31604 34160 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 22:57:12,065 django.server 31604 40512 "GET /Home/ HTTP/1.1" 200 11582
+[INFO] 2026-03-10 22:57:51,800 django.server 31604 40512 "GET /TestsSolving/ HTTP/1.1" 200 14291
+[INFO] 2026-03-10 22:58:36,568 django.server 31604 40512 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 200 9256
+[INFO] 2026-03-10 22:58:36,636 django.server 31604 40512 "GET /static/js/specific_test.js HTTP/1.1" 304 0
+[WARNING] 2026-03-10 22:58:36,887 django.server 31604 40512 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 22:58:40,776 django.server 31604 32616 "POST /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 22:58:40,799 django.server 31604 32616 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/result/ HTTP/1.1" 200 7326
+[WARNING] 2026-03-10 22:58:41,041 django.server 31604 32616 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 23:03:36,974 django.utils.autoreload 31604 29796 C:\Users\cproh\SRW\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-10 23:03:38,823 django.utils.autoreload 33600 37088 Watching for file changes with StatReloader
+[INFO] 2026-03-10 23:03:47,735 django.utils.autoreload 33600 37088 C:\Users\cproh\SRW\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-10 23:03:49,642 django.utils.autoreload 39316 35716 Watching for file changes with StatReloader
+[INFO] 2026-03-10 23:04:07,428 django.utils.autoreload 39316 35716 C:\Users\cproh\SRW\OsaMPEI\web_tests\solving_tests\views.py changed, reloading.
+[INFO] 2026-03-10 23:04:12,273 django.utils.autoreload 37152 37124 Watching for file changes with StatReloader
+[INFO] 2026-03-10 23:05:36,390 django.utils.autoreload 37152 37124 C:\Users\cproh\SRW\OsaMPEI\web_tests\create_tests\views.py changed, reloading.
+[INFO] 2026-03-10 23:05:38,501 django.utils.autoreload 37752 15148 Watching for file changes with StatReloader
+[INFO] 2026-03-10 23:27:51,787 django.server 37752 42820 "GET /TestsSolving/ HTTP/1.1" 200 14291
+[INFO] 2026-03-10 23:27:52,111 django.server 37752 42820 "GET /Home/ HTTP/1.1" 200 11582
+[INFO] 2026-03-10 23:27:53,184 django.server 37752 42820 "GET /TestsSolving/ HTTP/1.1" 200 14291
+[INFO] 2026-03-10 23:27:54,032 django.server 37752 42820 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 200 9256
+[INFO] 2026-03-10 23:27:54,110 django.server 37752 42820 "GET /static/js/specific_test.js HTTP/1.1" 304 0
+[WARNING] 2026-03-10 23:27:55,549 django.server 37752 42820 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 23:27:59,381 django.server 37752 25712 "POST /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 23:27:59,410 django.server 37752 25712 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/result/ HTTP/1.1" 200 8895
+[WARNING] 2026-03-10 23:27:59,663 django.server 37752 25712 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[WARNING] 2026-03-10 23:28:27,305 django.request 37752 41576 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 23:28:27,307 django.server 37752 41576 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-10 23:29:51,452 django.server 37752 42708 "GET /TestsSolving/ HTTP/1.1" 200 14291
+[WARNING] 2026-03-10 23:29:51,528 django.request 37752 42708 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 23:29:51,530 django.server 37752 42708 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-10 23:29:53,125 django.server 37752 42708 "GET /Home/ HTTP/1.1" 200 11582
+[WARNING] 2026-03-10 23:29:53,206 django.request 37752 42708 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 23:29:53,211 django.server 37752 42708 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-10 23:31:17,103 django.server 37752 42708 "GET /TestsSolving/ HTTP/1.1" 200 14291
+[INFO] 2026-03-10 23:31:24,919 django.server 37752 43036 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 200 9256
+[WARNING] 2026-03-10 23:31:25,237 django.server 37752 43036 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 23:31:26,407 django.server 37752 40728 "POST /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 23:31:26,424 django.server 37752 40728 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/result/ HTTP/1.1" 200 8895
+[WARNING] 2026-03-10 23:31:26,655 django.server 37752 40728 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[WARNING] 2026-03-10 23:31:29,111 django.request 37752 43836 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 23:31:29,112 django.server 37752 43836 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-10 23:34:51,782 django.server 37752 44376 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/result/ HTTP/1.1" 200 8866
+[WARNING] 2026-03-10 23:34:51,838 django.request 37752 44376 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 23:34:51,841 django.server 37752 44376 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-10 23:34:52,098 django.server 37752 44252 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2026-03-10 23:34:52,109 django.server 37752 44380 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-10 23:34:52,130 django.server 37752 44380 "GET /static/js/result.js HTTP/1.1" 200 340
+[INFO] 2026-03-10 23:34:52,133 django.server 37752 44384 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-10 23:34:52,140 django.server 37752 44352 "GET /static/css/result.css HTTP/1.1" 200 9547
+[INFO] 2026-03-10 23:34:52,184 django.server 37752 44376 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-10 23:34:52,184 django.server 37752 44308 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-10 23:34:52,277 django.server 37752 44352 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-10 23:34:52,337 django.server 37752 44352 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-10 23:34:52,361 django.server 37752 44352 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-10 23:34:52,754 django.server 37752 44352 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2026-03-10 23:34:53,738 django.server 37752 44252 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-10 23:34:53,854 django.server 37752 44252 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-10 23:34:53,934 django.server 37752 44252 "GET /static/favicon.ico HTTP/1.1" 200 976
+[WARNING] 2026-03-10 23:34:54,003 django.server 37752 44252 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 23:35:00,359 django.server 37752 44284 "GET /TestsSolving/ HTTP/1.1" 200 14291
+[WARNING] 2026-03-10 23:35:00,436 django.request 37752 44284 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 23:35:00,440 django.server 37752 44284 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-10 23:35:00,612 django.server 37752 44284 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2026-03-10 23:35:04,532 django.server 37752 44284 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 200 9256
+[WARNING] 2026-03-10 23:35:04,600 django.request 37752 44284 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 23:35:04,601 django.server 37752 44284 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-10 23:35:04,609 django.server 37752 44312 "GET /static/js/specific_test.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 23:35:05,055 django.server 37752 44312 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 26272
+[WARNING] 2026-03-10 23:35:05,191 django.server 37752 44312 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 23:35:07,955 django.server 37752 44284 "POST /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 23:35:07,979 django.server 37752 44284 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/result/ HTTP/1.1" 200 8866
+[WARNING] 2026-03-10 23:35:08,067 django.request 37752 44284 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 23:35:08,069 django.server 37752 44284 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[WARNING] 2026-03-10 23:35:08,403 django.server 37752 44284 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 23:35:09,296 django.server 37752 44564 "GET /TestsSolving/ HTTP/1.1" 200 14291
+[WARNING] 2026-03-10 23:35:09,373 django.request 37752 44564 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 23:35:09,390 django.server 37752 44564 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-10 23:35:10,144 django.server 37752 44564 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 200 9256
+[WARNING] 2026-03-10 23:35:10,220 django.request 37752 44564 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 23:35:10,222 django.server 37752 44564 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[WARNING] 2026-03-10 23:35:10,725 django.server 37752 44564 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 23:35:11,205 django.server 37752 44620 "POST /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 23:35:11,237 django.server 37752 44620 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/result/ HTTP/1.1" 200 8866
+[WARNING] 2026-03-10 23:35:11,339 django.request 37752 44620 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 23:35:11,341 django.server 37752 44620 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[WARNING] 2026-03-10 23:35:11,739 django.server 37752 44620 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 23:35:12,688 django.server 37752 44604 "GET /TestsSolving/ HTTP/1.1" 200 14291
+[WARNING] 2026-03-10 23:35:12,830 django.request 37752 44604 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 23:35:12,833 django.server 37752 44604 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-10 23:35:13,776 django.server 37752 44604 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 200 9256
+[WARNING] 2026-03-10 23:35:13,865 django.request 37752 44604 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 23:35:13,866 django.server 37752 44604 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[WARNING] 2026-03-10 23:35:14,335 django.server 37752 44604 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 23:35:14,756 django.server 37752 44612 "POST /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 23:35:14,779 django.server 37752 44612 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/result/ HTTP/1.1" 200 8866
+[WARNING] 2026-03-10 23:35:14,895 django.request 37752 44612 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-10 23:35:14,896 django.server 37752 44612 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[WARNING] 2026-03-10 23:35:15,285 django.server 37752 44612 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 23:35:17,195 django.server 37752 44524 "GET /TestsSolving/ HTTP/1.1" 200 14291
+[INFO] 2026-03-10 23:35:18,029 django.server 37752 44728 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 200 9256
+[WARNING] 2026-03-10 23:35:18,389 django.server 37752 44728 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 23:35:18,882 django.server 37752 44724 "POST /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 23:35:18,904 django.server 37752 44724 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/result/ HTTP/1.1" 200 8866
+[WARNING] 2026-03-10 23:35:19,184 django.server 37752 44724 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 23:35:20,016 django.server 37752 44776 "GET /TestsSolving/ HTTP/1.1" 200 14291
+[INFO] 2026-03-10 23:35:20,723 django.server 37752 44776 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 200 9256
+[WARNING] 2026-03-10 23:35:20,999 django.server 37752 44776 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 23:35:21,701 django.server 37752 44768 "POST /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 23:35:21,719 django.server 37752 44768 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/result/ HTTP/1.1" 200 8866
+[WARNING] 2026-03-10 23:35:21,979 django.server 37752 44768 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 23:35:22,776 django.server 37752 44752 "GET /TestsSolving/ HTTP/1.1" 200 14291
+[INFO] 2026-03-10 23:35:24,911 django.server 37752 44752 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 200 9256
+[WARNING] 2026-03-10 23:35:25,197 django.server 37752 44752 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 23:35:28,292 django.server 37752 44708 "POST /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 23:35:28,313 django.server 37752 44708 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/result/ HTTP/1.1" 200 8866
+[WARNING] 2026-03-10 23:35:28,627 django.server 37752 44708 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 23:35:29,261 django.server 37752 44736 "GET /TestsSolving/ HTTP/1.1" 200 14276
+[INFO] 2026-03-10 23:35:30,184 django.server 37752 44736 "GET /TestsSolving/proverka-otobrazheniia-svobodnykh-otvetov/view-result/ HTTP/1.1" 200 8227
+[WARNING] 2026-03-10 23:35:30,423 django.server 37752 44736 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-10 23:35:31,998 django.server 37752 44860 "GET /TestsSolving/ HTTP/1.1" 200 14276
+[INFO] 2026-03-10 23:36:25,552 django.server 37752 41408 "GET /TestsSolving/ HTTP/1.1" 200 14276
+[INFO] 2026-03-10 23:36:25,599 django.server 37752 41408 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-10 23:36:25,610 django.server 37752 43520 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-10 23:36:25,618 django.server 37752 43164 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-10 23:36:25,620 django.server 37752 43520 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-10 23:36:25,622 django.server 37752 43504 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-10 23:36:25,623 django.server 37752 38208 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-10 23:36:25,642 django.server 37752 43248 "GET /static/css/test_selection.css HTTP/1.1" 200 8223
+[INFO] 2026-03-10 23:36:25,691 django.server 37752 43248 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-10 23:36:25,699 django.server 37752 41408 "GET /static/js/test_selection.js HTTP/1.1" 200 4477
+[INFO] 2026-03-10 23:36:25,700 django.server 37752 43520 "GET /static/libs/fontawesome/webfonts/fa-regular-400.woff2 HTTP/1.1" 200 23900
+[INFO] 2026-03-10 23:36:25,798 django.server 37752 43520 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-10 23:36:27,522 django.server 37752 43520 "POST /logout/ HTTP/1.1" 302 0
+[INFO] 2026-03-10 23:36:27,619 django.server 37752 43520 "GET / HTTP/1.1" 200 1969
+[INFO] 2026-03-10 23:38:41,167 django.server 37752 44152 "POST / HTTP/1.1" 302 0
+[INFO] 2026-03-10 23:38:41,655 django.server 37752 44152 "GET /TestsCreate/listTests/ HTTP/1.1" 200 265372
+[INFO] 2026-03-10 23:38:41,789 django.server 37752 44152 "GET /static/js/all_test_for_teach.js HTTP/1.1" 304 0
+[INFO] 2026-03-10 23:38:45,783 django.server 37752 44152 "GET /TestsCreate/edit-test/vychislenie-chastnykh-i-polnykh-proizvodnykh/ HTTP/1.1" 200 38339
+[INFO] 2026-03-10 23:38:45,855 django.server 37752 44152 "GET /static/css/writing_tests.css HTTP/1.1" 304 0
+[INFO] 2026-03-10 23:38:45,917 django.server 37752 18776 "GET /static/js/editing_tests.js HTTP/1.1" 200 31420
+[INFO] 2026-03-11 01:26:06,326 django.server 37752 57204 "GET /TestsCreate/listTests/ HTTP/1.1" 200 265372
+[INFO] 2026-03-11 01:26:06,409 django.server 37752 57204 "GET /static/js/all_test_for_teach.js HTTP/1.1" 304 0
+[INFO] 2026-03-11 01:26:09,523 django.server 37752 57204 "GET /TestsCreate/listTests/ HTTP/1.1" 200 265372
+[INFO] 2026-03-11 01:26:09,580 django.server 37752 57204 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-11 01:26:09,591 django.server 37752 62092 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-11 01:26:09,593 django.server 37752 44796 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-11 01:26:09,603 django.server 37752 57204 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-11 01:26:09,607 django.server 37752 62092 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-11 01:26:09,609 django.server 37752 44796 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-11 01:26:09,624 django.server 37752 44944 "GET /static/css/all_test_for_teach.css HTTP/1.1" 200 18062
+[INFO] 2026-03-11 01:26:09,655 django.server 37752 44944 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-11 01:26:09,699 django.server 37752 62136 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 17090
+[INFO] 2026-03-11 01:26:09,816 django.server 37752 62136 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-11 01:26:18,035 django.server 37752 44212 "GET /TestsCreate/listTests/test-po-matematicheskomu-analizu-1/ HTTP/1.1" 200 182624
+[WARNING] 2026-03-11 01:26:19,182 django.server 37752 44212 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 01:26:29,555 django.server 37752 55956 "GET /TestsCreate/listTests/ HTTP/1.1" 200 265372
+[INFO] 2026-03-11 01:26:39,283 django.server 37752 63364 "GET /TestsCreate/listTests/test-po-matematicheskomu-analizu-1/ HTTP/1.1" 200 182624
+[WARNING] 2026-03-11 01:26:40,119 django.server 37752 63364 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 01:26:42,475 django.server 37752 55560 "GET /TestsCreate/listTests/ HTTP/1.1" 200 265372
+[INFO] 2026-03-11 01:26:45,112 django.server 37752 55560 "GET /TestsCreate/solve-test/vychislenie-chastnykh-i-polnykh-proizvodnykh/ HTTP/1.1" 200 10605
+[INFO] 2026-03-11 01:26:45,175 django.server 37752 55560 "GET /static/js/specific_test.js HTTP/1.1" 304 0
+[WARNING] 2026-03-11 01:26:45,554 django.server 37752 55560 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 01:27:04,559 django.server 37752 5376 "GET /TestsCreate/listTests/demonstratsionnyi/ HTTP/1.1" 200 162788
+[WARNING] 2026-03-11 01:27:05,316 django.server 37752 5376 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 01:27:15,878 django.server 37752 1108 "GET /TestsCreate/listTests/ HTTP/1.1" 200 265372
+[INFO] 2026-03-11 01:27:20,128 django.server 37752 46992 "GET /TestsCreate/ HTTP/1.1" 200 24487
+[INFO] 2026-03-11 01:27:20,204 django.server 37752 46992 "GET /static/css/writing_tests.css HTTP/1.1" 304 0
+[INFO] 2026-03-11 01:27:20,208 django.server 37752 63296 "GET /static/js/writing_tests.js HTTP/1.1" 304 0
+[INFO] 2026-03-11 01:27:36,196 django.server 37752 56612 "GET /TestsCreate/listTests/ HTTP/1.1" 200 265372
+[INFO] 2026-03-11 01:27:56,097 django.server 37752 54984 "GET /TestsCreate/ HTTP/1.1" 200 24487
+[INFO] 2026-03-11 01:27:57,826 create_tests.views 37752 55692 Draft created: chernovik-1
+[INFO] 2026-03-11 01:27:57,828 django.server 37752 55692 "POST /TestsCreate/ HTTP/1.1" 302 0
+[INFO] 2026-03-11 01:27:58,076 django.server 37752 55692 "GET /TestsCreate/listTests/ HTTP/1.1" 200 267299
+[INFO] 2026-03-11 15:10:56,649 django.server 37752 65444 "GET /TestsCreate/listTests/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 200 156241
+[INFO] 2026-03-11 15:10:56,780 django.server 37752 65444 "GET /static/js/header.js HTTP/1.1" 304 0
+[INFO] 2026-03-11 15:10:56,816 django.server 37752 65444 "GET /static/js/all_test_for_teach.js HTTP/1.1" 304 0
+[WARNING] 2026-03-11 15:10:57,119 django.server 37752 65444 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 15:11:05,687 django.server 37752 56376 "GET /TestsCreate/listTests/ HTTP/1.1" 200 267299
+[INFO] 2026-03-11 15:11:10,524 django.server 37752 63956 "GET /TestsCreate/listTests/vychislenie-chastnykh-i-polnykh-proizvodnykh/ HTTP/1.1" 200 160490
+[WARNING] 2026-03-11 15:11:11,339 django.server 37752 63956 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 15:11:22,014 django.server 37752 64744 "GET /TestsCreate/listTests/ HTTP/1.1" 200 267299
+[INFO] 2026-03-11 15:11:27,203 django.server 37752 64684 "GET /TestsCreate/ HTTP/1.1" 200 24487
+[INFO] 2026-03-11 15:11:27,276 django.server 37752 64684 "GET /static/css/writing_tests.css HTTP/1.1" 304 0
+[INFO] 2026-03-11 15:11:27,278 django.server 37752 52520 "GET /static/js/writing_tests.js HTTP/1.1" 304 0
+[WARNING] 2026-03-11 15:11:49,813 django.server 37752 64984 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[WARNING] 2026-03-11 15:11:49,824 django.server 37752 64596 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[WARNING] 2026-03-11 15:11:49,838 django.server 37752 46408 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[WARNING] 2026-03-11 15:11:49,848 django.server 37752 65144 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[WARNING] 2026-03-11 15:11:49,858 django.server 37752 65136 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[WARNING] 2026-03-11 15:11:49,867 django.server 37752 64548 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[WARNING] 2026-03-11 15:11:49,886 django.server 37752 65456 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[WARNING] 2026-03-11 15:11:49,897 django.server 37752 61852 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[WARNING] 2026-03-11 15:11:49,906 django.server 37752 65148 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[WARNING] 2026-03-11 15:11:49,916 django.server 37752 64544 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[WARNING] 2026-03-11 15:11:49,924 django.server 37752 66848 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[WARNING] 2026-03-11 15:11:49,935 django.server 37752 56748 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[WARNING] 2026-03-11 15:11:49,944 django.server 37752 66532 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[WARNING] 2026-03-11 15:11:49,952 django.server 37752 63060 "GET /static/libs/mathlive/sounds/plonk.wav HTTP/1.1" 404 1904
+[INFO] 2026-03-11 15:13:00,060 create_tests.views 37752 59036 === CREATE TEST DEBUG START ===
+[INFO] 2026-03-11 15:13:00,061 create_tests.views 37752 59036 POST data keys: ['csrfmiddlewaretoken', 'name_test', 'time_solve', 'num_attempts', 'subj_test', 'description_test', 'result_display_mode', 'grade_5_threshold', 'grade_4_threshold', 'grade_3_threshold', 'point_solve', 'user_expression', 'user_ans', 'user_eps', 'user_type', 'user_norm', 'user_bool_ans', 'is_draft', 'draft_state', 'draft_slug', 'draft_hours', 'draft_minutes', 'number', 'block_expression_num']
+[INFO] 2026-03-11 15:13:00,065 create_tests.views 37752 59036 POST data: {'csrfmiddlewaretoken': ['42mjtG9n4CSWw0KyKl57egaA5aJCUhlN55u6hkFOQeszoJ8puUKtzf9AsGLhGMGs'], 'name_test': ['проверка переноса строки'], 'time_solve': ['01:00:00'], 'num_attempts': ['2'], 'subj_test': ['1'], 'description_test': ['бла бла'], 'result_display_mode': ['only_score'], 'grade_5_threshold': ['80'], 'grade_4_threshold': ['60'], 'grade_3_threshold': ['35'], 'point_solve': ['["1"]'], 'user_expression': ['["\\\\;aaaaaaaaaaaaaaaaaaaaaa\\\\;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\\\;\\\\;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]'], 'user_ans': ['["__FREE__"]'], 'user_eps': ['[""]'], 'user_type': ['["5"]'], 'user_norm': ['[""]'], 'user_bool_ans': ['["0"]'], 'is_draft': ['false'], 'draft_state': [''], 'draft_slug': [''], 'draft_hours': [''], 'draft_minutes': [''], 'number': ['[1]'], 'block_expression_num': ['[1]']}
+[INFO] 2026-03-11 15:13:00,071 create_tests.views 37752 59036 Basic fields - name: 'проверка переноса строки', time: '01:00:00', attempts: '2', subj_id: '1'
+[INFO] 2026-03-11 15:13:00,074 create_tests.views 37752 59036 Raw task_groups_data: []
+[INFO] 2026-03-11 15:13:00,075 create_tests.views 37752 59036 Parsed task_groups_data: []
+[INFO] 2026-03-11 15:13:00,076 create_tests.views 37752 59036 Raw data - points: ["1"], expressions: ["\\;aaaaaaaaaaaaaaaaaaaaaa\\;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\;\\;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"]
+[INFO] 2026-03-11 15:13:00,079 create_tests.views 37752 59036 Parsed data - expressions count: 1, points count: 1
+[INFO] 2026-03-11 15:13:00,106 create_tests.views 37752 59036 Found 1 valid expressions out of 1
+[INFO] 2026-03-11 15:13:00,107 create_tests.views 37752 59036 Numbers raw: [1], Block nums raw: [1]
+[INFO] 2026-03-11 15:13:00,108 create_tests.views 37752 59036 Processing expression 1: \;aaaaaaaaaaaaaaaaaaaaaa\;aaaaaaaaaaaaaaaaaaaaaaaa...
+[INFO] 2026-03-11 15:13:00,110 create_tests.views 37752 59036 Data: ans='__FREE__', bool_ans='0', eps='', type_id='5', point='1', norm_id=''
+[INFO] 2026-03-11 15:13:00,110 create_tests.views 37752 59036 flag_select = False
+[INFO] 2026-03-11 15:13:00,113 create_tests.views 37752 59036 type_obj = —вободный ответ
+[INFO] 2026-03-11 15:13:00,127 create_tests.views 37752 59036 Created expression instance: \;aaaaaaaaaaaaaaaaaaaaaa\;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\;\;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa with number=1, block=1
+[INFO] 2026-03-11 15:13:00,146 create_tests.views 37752 59036 Added expression 1 successfully
+[INFO] 2026-03-11 15:13:00,161 create_tests.views 37752 59036 === CREATE TEST DEBUG END ===
+[INFO] 2026-03-11 15:13:00,165 django.server 37752 59036 "POST /TestsCreate/ HTTP/1.1" 302 0
+[INFO] 2026-03-11 15:13:00,498 django.server 37752 59036 "GET /TestsCreate/listTests/ HTTP/1.1" 200 272735
+[INFO] 2026-03-11 15:13:06,198 django.server 37752 66448 "GET /TestsCreate/listTests/proverka-perenosa-stroki/ HTTP/1.1" 200 156318
+[WARNING] 2026-03-11 15:13:08,027 django.server 37752 66448 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 15:13:22,842 django.server 37752 65152 "GET /TestsCreate/listTests/ HTTP/1.1" 200 272735
+[INFO] 2026-03-11 15:13:28,570 django.server 37752 56076 "GET /TestsCreate/solve-test/proverka-perenosa-stroki/ HTTP/1.1" 200 10515
+[INFO] 2026-03-11 15:13:28,638 django.server 37752 56076 "GET /static/js/specific_test.js HTTP/1.1" 304 0
+[WARNING] 2026-03-11 15:13:29,045 django.server 37752 56076 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 15:13:55,424 django.server 37752 65424 "GET /TestsCreate/solve-test/proverka-perenosa-stroki/ HTTP/1.1" 200 10515
+[INFO] 2026-03-11 15:13:55,525 django.server 37752 61848 "GET /static/css/specific_test.css HTTP/1.1" 200 4391
+[INFO] 2026-03-11 15:13:55,533 django.server 37752 63856 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-11 15:13:55,555 django.server 37752 55156 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-11 15:13:55,564 django.server 37752 60440 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-11 15:13:55,571 django.server 37752 60444 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-11 15:13:55,642 django.server 37752 61848 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2026-03-11 15:13:55,665 django.server 37752 63856 "GET /static/js/specific_test.js HTTP/1.1" 200 4375
+[INFO] 2026-03-11 15:13:55,668 django.server 37752 55156 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 332
+[INFO] 2026-03-11 15:13:55,734 django.server 37752 60444 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-11 15:13:55,751 django.server 37752 60440 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 1409
+[INFO] 2026-03-11 15:13:55,837 django.server 37752 60440 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-11 15:13:55,882 django.server 37752 60440 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-11 15:13:56,118 django.server 37752 60440 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2026-03-11 15:13:57,030 django.server 37752 57728 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-11 15:13:57,344 django.server 37752 57728 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-11 15:13:57,535 django.server 37752 57728 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 26272
+[WARNING] 2026-03-11 15:13:58,146 django.server 37752 57728 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 15:13:58,963 django.server 37752 60440 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-11 15:50:56,509 django.server 37752 59204 "GET /TestsCreate/solve-test/proverka-perenosa-stroki/ HTTP/1.1" 200 10515
+[INFO] 2026-03-11 15:50:56,633 django.server 37752 59204 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-11 15:50:56,664 django.server 37752 70048 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-11 15:50:56,679 django.server 37752 59204 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2026-03-11 15:50:56,679 django.server 37752 68524 "GET /static/css/specific_test.css HTTP/1.1" 200 4477
+[INFO] 2026-03-11 15:50:56,689 django.server 37752 70056 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-11 15:50:56,688 django.server 37752 70048 "GET /static/js/specific_test.js HTTP/1.1" 200 4375
+[INFO] 2026-03-11 15:50:56,703 django.server 37752 68524 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 352
+[INFO] 2026-03-11 15:50:56,704 django.server 37752 59204 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 5316
+[INFO] 2026-03-11 15:50:56,706 django.server 37752 62532 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-11 15:50:56,737 django.server 37752 65628 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-11 15:50:56,805 django.server 37752 70048 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-11 15:50:56,862 django.server 37752 70048 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-11 15:50:56,916 django.server 37752 70048 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-11 15:50:56,952 django.server 37752 70048 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2026-03-11 15:50:57,383 django.server 37752 70048 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-11 15:50:57,388 django.server 37752 65628 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 26272
+[WARNING] 2026-03-11 15:50:58,938 django.server 37752 65628 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 15:50:59,335 django.server 37752 70048 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-11 15:51:07,539 django.server 37752 67324 "GET /TestsCreate/solve-test/proverka-perenosa-stroki/ HTTP/1.1" 200 10515
+[INFO] 2026-03-11 15:51:07,631 django.server 37752 67324 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-11 15:51:07,644 django.server 37752 70216 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-11 15:51:07,682 django.server 37752 70216 "GET /static/js/specific_test.js HTTP/1.1" 200 4375
+[INFO] 2026-03-11 15:51:07,687 django.server 37752 67324 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-11 15:51:07,690 django.server 37752 67752 "GET /static/css/specific_test.css HTTP/1.1" 200 4477
+[INFO] 2026-03-11 15:51:07,691 django.server 37752 18912 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-11 15:51:07,693 django.server 37752 64936 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2026-03-11 15:51:07,712 django.server 37752 68816 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-11 15:51:07,750 django.server 37752 18912 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-11 15:51:07,756 django.server 37752 67752 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 352
+[INFO] 2026-03-11 15:51:07,762 django.server 37752 64936 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 5316
+[INFO] 2026-03-11 15:51:07,820 django.server 37752 18912 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-11 15:51:07,837 django.server 37752 18912 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-11 15:51:07,872 django.server 37752 18912 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2026-03-11 15:51:08,065 django.server 37752 18912 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-11 15:51:08,129 django.server 37752 18912 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 26272
+[WARNING] 2026-03-11 15:51:09,047 django.server 37752 18912 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 15:51:09,733 django.server 37752 64936 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-11 15:54:45,235 django.server 37752 70980 "GET /TestsCreate/solve-test/proverka-perenosa-stroki/ HTTP/1.1" 200 10515
+[INFO] 2026-03-11 15:54:45,404 django.server 37752 70980 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-11 15:54:45,412 django.server 37752 71096 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-11 15:54:45,499 django.server 37752 70980 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2026-03-11 15:54:45,650 django.server 37752 71096 "GET /static/js/specific_test.js HTTP/1.1" 200 4375
+[INFO] 2026-03-11 15:54:45,682 django.server 37752 70632 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-11 15:54:45,697 django.server 37752 70980 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 352
+[INFO] 2026-03-11 15:54:45,700 django.server 37752 71096 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 5316
+[INFO] 2026-03-11 15:54:45,706 django.server 37752 71504 "GET /static/css/specific_test.css HTTP/1.1" 200 4540
+[INFO] 2026-03-11 15:54:45,741 django.server 37752 42400 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-11 15:54:45,753 django.server 37752 70632 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-11 15:54:45,806 django.server 37752 71192 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-11 15:54:45,845 django.server 37752 70632 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-11 15:54:45,903 django.server 37752 71192 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-11 15:54:45,965 django.server 37752 71192 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2026-03-11 15:54:46,246 django.server 37752 71192 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-11 15:54:46,297 django.server 37752 70632 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 26272
+[WARNING] 2026-03-11 15:54:47,502 django.server 37752 70632 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 15:54:47,956 django.server 37752 71192 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-11 15:57:17,089 django.server 37752 72276 "GET /TestsCreate/solve-test/proverka-perenosa-stroki/ HTTP/1.1" 200 10515
+[INFO] 2026-03-11 15:57:17,181 django.server 37752 72276 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-11 15:57:17,212 django.server 37752 72512 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-11 15:57:17,243 django.server 37752 72340 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-11 15:57:17,245 django.server 37752 72512 "GET /static/js/specific_test.js HTTP/1.1" 200 4375
+[INFO] 2026-03-11 15:57:17,251 django.server 37752 72276 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-11 15:57:17,256 django.server 37752 72508 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2026-03-11 15:57:17,268 django.server 37752 72340 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 352
+[INFO] 2026-03-11 15:57:17,269 django.server 37752 72512 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 5316
+[INFO] 2026-03-11 15:57:17,275 django.server 37752 69536 "GET /static/css/specific_test.css HTTP/1.1" 200 4673
+[INFO] 2026-03-11 15:57:17,296 django.server 37752 72276 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-11 15:57:17,303 django.server 37752 72356 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-11 15:57:17,370 django.server 37752 72356 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-11 15:57:17,393 django.server 37752 72356 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-11 15:57:17,425 django.server 37752 72356 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2026-03-11 15:57:17,672 django.server 37752 72356 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-11 15:57:17,911 django.server 37752 72356 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 26272
+[WARNING] 2026-03-11 15:57:19,061 django.server 37752 72356 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 15:57:19,492 django.server 37752 72276 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-11 15:57:35,320 django.server 37752 37384 "GET /static/libs/mathlive/fonts/KaTeX_Math-Italic.woff2 HTTP/1.1" 200 16440
+[INFO] 2026-03-11 15:57:44,848 django.server 37752 63180 "GET /TestsCreate/solve-test/proverka-perenosa-stroki/ HTTP/1.1" 200 10515
+[INFO] 2026-03-11 15:57:48,802 django.server 37752 63180 "GET /static/css/specific_test.css HTTP/1.1" 304 0
+[WARNING] 2026-03-11 15:57:49,970 django.server 37752 63180 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 16:01:01,808 django.server 37752 73040 "GET /TestsCreate/solve-test/proverka-perenosa-stroki/ HTTP/1.1" 200 10515
+[INFO] 2026-03-11 16:01:01,952 django.server 37752 73040 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-11 16:01:01,985 django.server 37752 73044 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-11 16:01:01,998 django.server 37752 73060 "GET /static/css/specific_test.css HTTP/1.1" 200 4648
+[INFO] 2026-03-11 16:01:01,999 django.server 37752 73056 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-11 16:01:02,002 django.server 37752 73040 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2026-03-11 16:01:02,022 django.server 37752 73044 "GET /static/js/specific_test.js HTTP/1.1" 200 4375
+[INFO] 2026-03-11 16:01:02,035 django.server 37752 73056 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 352
+[INFO] 2026-03-11 16:01:02,040 django.server 37752 73064 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-11 16:01:02,049 django.server 37752 73060 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 5316
+[INFO] 2026-03-11 16:01:02,075 django.server 37752 73044 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-11 16:01:02,105 django.server 37752 73068 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-11 16:01:02,148 django.server 37752 73044 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-11 16:01:02,213 django.server 37752 73044 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-11 16:01:02,250 django.server 37752 73044 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2026-03-11 16:01:02,507 django.server 37752 73044 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-11 16:01:02,619 django.server 37752 73044 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 26272
+[WARNING] 2026-03-11 16:01:03,706 django.server 37752 73044 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 16:01:04,347 django.server 37752 73068 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-11 16:05:14,527 django.server 37752 73040 "GET /TestsCreate/solve-test/proverka-perenosa-stroki/ HTTP/1.1" 200 10515
+[INFO] 2026-03-11 16:05:14,628 django.server 37752 73040 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-11 16:05:14,643 django.server 37752 72048 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-11 16:05:14,681 django.server 37752 73040 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2026-03-11 16:05:14,685 django.server 37752 73332 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-11 16:05:14,686 django.server 37752 72048 "GET /static/js/specific_test.js HTTP/1.1" 200 5792
+[INFO] 2026-03-11 16:05:14,701 django.server 37752 73172 "GET /static/css/specific_test.css HTTP/1.1" 200 4648
+[INFO] 2026-03-11 16:05:14,723 django.server 37752 72048 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 5316
+[INFO] 2026-03-11 16:05:14,724 django.server 37752 73040 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 352
+[INFO] 2026-03-11 16:05:14,726 django.server 37752 72648 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-11 16:05:14,773 django.server 37752 72292 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-11 16:05:14,811 django.server 37752 72648 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-11 16:05:14,867 django.server 37752 72648 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-11 16:05:14,914 django.server 37752 72648 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-11 16:05:14,955 django.server 37752 72648 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2026-03-11 16:05:15,165 django.server 37752 72648 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-11 16:05:15,244 django.server 37752 72648 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 26272
+[WARNING] 2026-03-11 16:05:16,561 django.server 37752 72892 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 16:05:17,044 django.server 37752 52680 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-11 16:05:36,234 django.server 37752 73236 "GET /TestsCreate/solve-test/proverka-perenosa-stroki/ HTTP/1.1" 200 10515
+[INFO] 2026-03-11 16:05:36,366 django.server 37752 73236 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-11 16:05:36,390 django.server 37752 72992 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-11 16:05:36,412 django.server 37752 72200 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-11 16:05:36,414 django.server 37752 70612 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-11 16:05:36,416 django.server 37752 73236 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2026-03-11 16:05:36,412 django.server 37752 72992 "GET /static/js/specific_test.js HTTP/1.1" 200 5792
+[INFO] 2026-03-11 16:05:36,427 django.server 37752 71824 "GET /static/css/specific_test.css HTTP/1.1" 200 4648
+[INFO] 2026-03-11 16:05:36,433 django.server 37752 72648 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-11 16:05:36,473 django.server 37752 72992 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 352
+[INFO] 2026-03-11 16:05:36,474 django.server 37752 71824 "GET /static/js/mathJax-rus.js HTTP/1.1" 200 5316
+[INFO] 2026-03-11 16:05:36,510 django.server 37752 72200 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-11 16:05:36,554 django.server 37752 72200 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-11 16:05:36,581 django.server 37752 72200 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-11 16:05:36,666 django.server 37752 72200 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2026-03-11 16:05:36,916 django.server 37752 72200 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-11 16:05:36,932 django.server 37752 72648 "GET /static/libs/mathlive/fonts/KaTeX_Main-Regular.woff2 HTTP/1.1" 200 26272
+[WARNING] 2026-03-11 16:05:37,805 django.server 37752 72200 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 16:05:38,612 django.server 37752 72648 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-11 16:12:19,807 django.server 37752 60632 "GET / HTTP/1.1" 302 0
+[INFO] 2026-03-11 16:12:20,724 django.server 37752 60632 "GET /TestsCreate/listTests/ HTTP/1.1" 200 272735
+[INFO] 2026-03-11 16:12:27,139 django.server 37752 52300 "GET /TestsCreate/listTests/proverka-perenosa-stroki/ HTTP/1.1" 200 156318
+[INFO] 2026-03-11 16:12:27,266 django.server 37752 52300 "GET /static/js/macros-mathJax.js HTTP/1.1" 304 0
+[WARNING] 2026-03-11 16:12:28,872 django.server 37752 52300 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 16:12:32,288 django.server 37752 54640 "GET /TestsCreate/listTests/ HTTP/1.1" 200 272735
+[INFO] 2026-03-11 16:12:35,220 django.server 37752 54640 "GET /TestsCreate/solve-test/proverka-perenosa-stroki/ HTTP/1.1" 200 10515
+[INFO] 2026-03-11 16:12:35,316 django.server 37752 54640 "GET /static/css/specific_test.css HTTP/1.1" 304 0
+[INFO] 2026-03-11 16:12:35,324 django.server 37752 72184 "GET /static/js/mathJax-rus.js HTTP/1.1" 304 0
+[INFO] 2026-03-11 16:12:35,326 django.server 37752 46632 "GET /static/js/specific_test.js HTTP/1.1" 200 5790
+[WARNING] 2026-03-11 16:12:36,568 django.server 37752 74560 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 16:12:41,308 django.server 37752 74468 "GET /TestsCreate/listTests/ HTTP/1.1" 200 272735
+[WARNING] 2026-03-11 16:12:48,442 django.request 37752 73204 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-11 16:12:48,479 django.server 37752 73204 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[INFO] 2026-03-11 16:13:06,055 django.server 37752 75180 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10459
+[WARNING] 2026-03-11 16:13:06,204 django.request 37752 75180 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[WARNING] 2026-03-11 16:13:06,206 django.server 37752 75180 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5956
+[WARNING] 2026-03-11 16:13:07,634 django.server 37752 73756 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 16:13:13,535 django.server 37752 72820 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-03-11 16:13:13,566 django.server 37752 72820 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 15462
+[INFO] 2026-03-11 16:13:13,681 django.server 37752 72820 "GET /static/css/result.css HTTP/1.1" 200 9547
+[INFO] 2026-03-11 16:13:13,717 django.server 37752 70768 "GET /static/js/result.js HTTP/1.1" 200 340
+[WARNING] 2026-03-11 16:13:14,132 django.server 37752 70768 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 16:13:18,231 django.server 37752 73996 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10459
+[INFO] 2026-03-11 16:13:18,305 django.server 37752 73996 "GET /static/js/specific_test.js HTTP/1.1" 304 0
+[INFO] 2026-03-11 16:13:21,209 django.server 37752 73996 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 200 10459
+[WARNING] 2026-03-11 16:13:21,575 django.server 37752 73996 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 16:13:38,646 django.server 37752 74980 "POST /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/ HTTP/1.1" 302 0
+[INFO] 2026-03-11 16:13:38,678 django.server 37752 74980 "GET /TestsCreate/solve-test/kontrolnoe-meropriiatie-no-2/result/ HTTP/1.1" 200 15470
+[WARNING] 2026-03-11 16:13:39,167 django.server 37752 74980 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 16:15:00,261 django.utils.autoreload 75108 75316 Watching for file changes with StatReloader
+[INFO] 2026-03-11 16:19:03,824 django.server 75108 74492 "GET /TestsCreate/listTests/ HTTP/1.1" 200 272735
+[INFO] 2026-03-11 16:19:06,816 django.server 75108 76012 "GET /TestsCreate/listTests/proverka-perenosa-stroki/ HTTP/1.1" 200 156318
+[INFO] 2026-03-11 16:19:06,983 django.server 75108 76012 "GET /static/js/macros-mathJax.js HTTP/1.1" 304 0
+[WARNING] 2026-03-11 16:19:08,268 django.server 75108 76012 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 16:21:10,637 django.server 75108 77732 "GET /TestsCreate/listTests/proverka-perenosa-stroki/ HTTP/1.1" 200 156177
+[INFO] 2026-03-11 16:21:11,118 django.server 75108 77160 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-11 16:21:11,125 django.server 75108 77160 "GET /static/libs/polyfill/polyfill.min.js HTTP/1.1" 200 5848
+[INFO] 2026-03-11 16:21:11,140 django.server 75108 77732 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-11 16:21:11,160 django.server 75108 77732 "GET /static/js/macros-mathJax.js HTTP/1.1" 200 352
+[INFO] 2026-03-11 16:21:11,162 django.server 75108 76928 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-11 16:21:11,197 django.server 75108 54576 "GET /static/libs/mathlive/mathlive.css HTTP/1.1" 200 13093
+[INFO] 2026-03-11 16:21:11,223 django.server 75108 77732 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-11 16:21:11,253 django.server 75108 76928 "GET /static/libs/mathlive/mathlive.min.js HTTP/1.1" 200 817539
+[INFO] 2026-03-11 16:21:11,317 django.server 75108 57240 "GET /static/css/some_test.css HTTP/1.1" 200 15511
+[INFO] 2026-03-11 16:21:11,372 django.server 75108 77588 "GET /static/js/some_test.js HTTP/1.1" 200 8984
+[INFO] 2026-03-11 16:21:11,469 django.server 75108 77588 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-11 16:21:11,489 django.server 75108 77588 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-11 16:21:11,520 django.server 75108 77160 "GET /static/js/jquery-3.7.1.js HTTP/1.1" 200 296030
+[INFO] 2026-03-11 16:21:11,531 django.server 75108 77588 "GET /static/libs/mathjax/tex-mml-chtml.js HTTP/1.1" 200 961702
+[INFO] 2026-03-11 16:21:11,747 django.server 75108 77160 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-11 16:21:11,765 django.server 75108 77588 "GET /static/js/all_test_for_teach.js HTTP/1.1" 200 17090
+[WARNING] 2026-03-11 16:21:12,964 django.server 75108 77160 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-11 16:21:13,601 django.server 75108 77588 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-11 16:21:21,959 django.server 75108 68004 "GET /personaInf/ HTTP/1.1" 200 10898
+[WARNING] 2026-03-11 16:21:22,114 django.server 75108 68004 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-11 16:21:26,089 django.server 75108 66068 "GET /TestsCreate/listTests/ HTTP/1.1" 200 272735
+[INFO] 2026-03-11 16:21:30,587 django.server 75108 66068 "POST /TestsCreate/delete-test/proverka-perenosa-stroki/ HTTP/1.1" 200 17
+[INFO] 2026-03-11 16:21:31,372 django.server 75108 66068 "GET /TestsCreate/listTests/ HTTP/1.1" 200 267299
+[INFO] 2026-03-11 16:21:33,389 django.server 75108 77596 "POST /TestsCreate/delete-test/chernovik-1/ HTTP/1.1" 200 17
+[INFO] 2026-03-11 16:21:33,987 django.server 75108 77596 "GET /TestsCreate/listTests/ HTTP/1.1" 200 265372
+[WARNING] 2026-03-11 16:21:38,318 create_tests.signals 75108 77596 Pusher init failed: 'Settings' object has no attribute 'PUSHER_APP_ID'
+[INFO] 2026-03-11 16:21:38,325 django.server 75108 77596 "POST /TestsCreate/unpublish/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 200 17
+[INFO] 2026-03-11 16:21:39,088 django.server 75108 77596 "GET /TestsCreate/listTests/ HTTP/1.1" 200 260935
+[INFO] 2026-03-11 16:21:41,547 django.server 75108 77596 "POST /TestsCreate/delete-test/proverka-otobrazheniia-svobodnykh-otvetov/ HTTP/1.1" 200 17
+[INFO] 2026-03-11 16:21:42,290 django.server 75108 77596 "GET /TestsCreate/listTests/ HTTP/1.1" 200 255830
+[INFO] 2026-03-11 16:21:47,662 django.server 75108 77596 "POST /TestsCreate/delete-test/chernovik/ HTTP/1.1" 200 17
+[INFO] 2026-03-11 16:21:48,297 django.server 75108 77596 "GET /TestsCreate/listTests/ HTTP/1.1" 200 253912

@@ -68,3 +68,16 @@ class StudentTaskAnswer(models.Model):
     def __str__(self):
         task_name = self.task_variant or self.expression
         return f"Ответ на {task_name} - {self.points_earned}/{self.max_points}"
+
+
+class FreeAnswerGrade(models.Model):
+    """Оценка преподавателя для вопросов со свободным ответом"""
+    student_result = models.ForeignKey(StudentResult, on_delete=models.CASCADE, related_name='free_answer_grades')
+    question_index = models.IntegerField()  # 0-based индекс вопроса в тесте
+    is_correct = models.BooleanField(null=True, blank=True)  # None = ещё не проверено
+
+    class Meta:
+        unique_together = ('student_result', 'question_index')
+
+    def __str__(self):
+        return f"Свободный ответ: результат={self.student_result_id}, вопрос={self.question_index}, правильно={self.is_correct}"

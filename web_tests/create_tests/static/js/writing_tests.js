@@ -91,25 +91,32 @@ $(document).ready(function () {
         });
     }
 
-    // Показывать/скрывать поле нормы матрицы и изменять размер поля ответа
+    // Показывать/скрывать поле нормы матрицы, поле ответа и поле погрешности
     function toggleNormField($answerRow) {
         const $typeField = $answerRow.find('.type-field');
         const $normField = $answerRow.find('.norm-field');
         const $answerField = $answerRow.find('.answer-field');
-        const selectedType = $typeField.val();
+        const $accuracyField = $answerRow.find('.accuracy-field');
+        const $freeNote = $answerRow.find('.free-answer-note');
+        const selectedTypeCode = parseInt($typeField.find('option:selected').data('type-code')) || 0;
 
-        if (selectedType === '4') { // ID типа "Матрицы"
-            $normField.show();
-            $answerField.css({
-                'height': '170px',
-                'min-height': '100px'
-            });
-        } else {
+        if (selectedTypeCode === 5) { // Свободный ответ
+            $answerField.hide();
+            $accuracyField.hide();
             $normField.hide();
-            $answerField.css({
-                'height': '',
-                'min-height': ''
-            });
+            $freeNote.show();
+        } else if (selectedTypeCode === 4) { // Матрицы
+            $answerField.show();
+            $accuracyField.show();
+            $freeNote.hide();
+            $normField.show();
+            $answerField.css({ 'height': '170px', 'min-height': '100px' });
+        } else {
+            $answerField.show();
+            $accuracyField.show();
+            $freeNote.hide();
+            $normField.hide();
+            $answerField.css({ 'height': '', 'min-height': '' });
         }
     }
 
@@ -403,14 +410,18 @@ $(document).ready(function () {
 
                     // Получаем значение из math-field для ответа
                     const $answerField = $(this).find('.answer-field');
-                    const answerVal = getMathFieldValue($answerField).trim();
+                    const typeVal = $(this).find('.type-field').val() || '';
+                    const selectedTypeCode = parseInt($(this).find('.type-field option:selected').data('type-code')) || 0;
+                    const isFreeAnswer = selectedTypeCode === 5;
+
+                    // Для свободного ответа используем плейсхолдер, т.к. поле ответа скрыто
+                    const answerVal = isFreeAnswer ? '__FREE__' : getMathFieldValue($answerField).trim();
 
                     const epsVal = $(this).find('.accuracy-field').val() || '';
-                    const typeVal = $(this).find('.type-field').val() || '';
                     const normVal = $(this).find('.norm-field').val() || '';
                     const isTrue = $(this).find('.select-ans').is(':checked') ? '1' : '0';
 
-                    console.log(`      Ответ: "${answerVal}", Тип: "${typeVal}", Правильный: ${isTrue}`);
+                    console.log(`      Ответ: "${answerVal}", Тип: "${typeVal}", Правильный: ${isTrue}, Свободный: ${isFreeAnswer}`);
 
                     if (answerVal !== '') {
                         answerList.push(answerVal);
@@ -594,16 +605,20 @@ $(document).ready(function () {
                 isValid = false;
             }
 
-            // Проверяем ответы
+            // Проверяем ответы (пропускаем для свободного ответа)
             $(this).find('.answer-field').each(function() {
+                const typeCode = parseInt($(this).closest('.answer-row').find('.type-field option:selected').data('type-code')) || 0;
+                if (typeCode === 5) return; // свободный ответ — поле не нужно
                 if (!this.value || this.value.trim() === '') {
                     $(this).addClass('invalid');
                     isValid = false;
                 }
             });
 
-            // Проверяем точность
+            // Проверяем точность (пропускаем для свободного ответа)
             $(this).find('.accuracy-field').each(function() {
+                const typeCode = parseInt($(this).closest('.answer-row').find('.type-field option:selected').data('type-code')) || 0;
+                if (typeCode === 5) return; // свободный ответ — точность не нужна
                 const accuracy = $(this).val().trim();
                 if (!accuracy) {
                     $(this).addClass('invalid');
@@ -712,5 +727,204 @@ $(document).ready(function () {
             $('#grade_5_threshold').val(newGrade5);
             $('#grade_5_value').text(newGrade5 + '%');
         }
+    });
+
+    // ===================== DRAFT SYSTEM =====================
+
+    const DRAFT_LS_KEY = 'wt_draft_' + (window.DRAFT_SLUG || 'new');
+
+    function serializeFormState() {
+        const state = { meta: {}, groups: [] };
+
+        state.meta = {
+            name: $('#testNameInput').val() || '',
+            subj: $('#subj_test').val() || '',
+            hours: $('#hours').val() || '',
+            minutes: $('#minutes').val() || '',
+            attempts: $('#num_attempts').val() || '',
+            description: $('#description_test').val() || '',
+            result_display_mode: $('#result_display_mode').val() || 'only_score',
+            grade_5: $('#grade_5_threshold').val() || '80',
+            grade_4: $('#grade_4_threshold').val() || '60',
+            grade_3: $('#grade_3_threshold').val() || '35',
+        };
+
+        $('.task-group').each(function () {
+            const group = { points: $(this).find('[name="group_points"]').val() || '', variants: [] };
+
+            $(this).find('.task-variant').each(function () {
+                const $exprField = $(this).find('math-field[name="user_expression"]');
+                const variant = {
+                    expression: $exprField[0] ? ($exprField[0].value || '') : '',
+                    answers: []
+                };
+                $(this).find('.answer-row').each(function () {
+                    const $ansField = $(this).find('.answer-field');
+                    variant.answers.push({
+                        value: $ansField[0] ? ($ansField[0].value || '') : '',
+                        epsilon: $(this).find('.accuracy-field').val() || '',
+                        type: $(this).find('.type-field').val() || '',
+                        norm: $(this).find('.norm-field').val() || '',
+                        isCorrect: $(this).find('.select-ans').is(':checked')
+                    });
+                });
+                group.variants.push(variant);
+            });
+
+            state.groups.push(group);
+        });
+
+        return state;
+    }
+
+    function restoreFormState(state) {
+        if (!state || typeof state !== 'object') return;
+
+        if (state.meta) {
+            const m = state.meta;
+            if (m.name) $('#testNameInput').val(m.name);
+            if (m.subj) $('#subj_test').val(m.subj);
+            if (m.hours) $('#hours').val(m.hours);
+            if (m.minutes) $('#minutes').val(m.minutes);
+            if (m.attempts) $('#num_attempts').val(m.attempts);
+            if (m.description) $('#description_test').val(m.description);
+            if (m.result_display_mode) $('#result_display_mode').val(m.result_display_mode);
+            if (m.grade_5) { $('#grade_5_threshold').val(m.grade_5); $('#grade_5_value').text(m.grade_5 + '%'); }
+            if (m.grade_4) { $('#grade_4_threshold').val(m.grade_4); $('#grade_4_value').text(m.grade_4 + '%'); }
+            if (m.grade_3) { $('#grade_3_threshold').val(m.grade_3); $('#grade_3_value').text(m.grade_3 + '%'); }
+        }
+
+        if (!state.groups || !state.groups.length) return;
+
+        const $container = $('#taskGroupsContainer');
+        const $tplGroup = $container.find('.task-group').first();
+        $container.find('.task-group').not(':first').remove();
+
+        const mathQueue = [];
+
+        state.groups.forEach(function (groupData, groupIdx) {
+            let $group = groupIdx === 0 ? $tplGroup : (function () {
+                const $g = $tplGroup.clone();
+                $g.find('input').val('');
+                $g.find('math-field').each(function () { this.value = ''; });
+                $g.find('.task-variant').not(':first').remove();
+                $g.find('.answer-row').not(':first').remove();
+                $g.find('[id]').removeAttr('id');
+                $g.removeClass('active');
+                $container.append($g);
+                return $g;
+            })();
+
+            $group.find('[name="group_points"]').val(groupData.points || '');
+            $group.find('.task-variant').not(':first').remove();
+            const $tplVariant = $group.find('.task-variant').first();
+
+            (groupData.variants || []).forEach(function (variantData, variantIdx) {
+                let $variant = variantIdx === 0 ? $tplVariant : (function () {
+                    const $v = $tplVariant.clone();
+                    $v.find('input').val('');
+                    $v.find('math-field').each(function () { this.value = ''; });
+                    $v.find('.answer-row').not(':first').remove();
+                    $v.find('[id]').removeAttr('id');
+                    $group.find('.task-variants-container').append($v);
+                    return $v;
+                })();
+
+                const $exprField = $variant.find('math-field[name="user_expression"]');
+                if ($exprField[0] && variantData.expression) {
+                    mathQueue.push({ el: $exprField[0], val: variantData.expression });
+                }
+
+                $variant.find('.answer-row').not(':first').remove();
+                const $tplAnswer = $variant.find('.answer-row').first();
+
+                (variantData.answers || []).forEach(function (answerData, answerIdx) {
+                    let $answer = answerIdx === 0 ? $tplAnswer : (function () {
+                        const $a = $tplAnswer.clone();
+                        $a.find('math-field').each(function () { this.value = ''; });
+                        $a.find('input').val('');
+                        $variant.find('.answers-container').append($a);
+                        return $a;
+                    })();
+
+                    const $ansField = $answer.find('.answer-field');
+                    if ($ansField[0] && answerData.value) {
+                        mathQueue.push({ el: $ansField[0], val: answerData.value });
+                    }
+                    $answer.find('.accuracy-field').val(answerData.epsilon || '');
+                    $answer.find('.type-field').val(answerData.type || '');
+                    $answer.find('.norm-field').val(answerData.norm || '');
+                    $answer.find('.select-ans').prop('checked', answerData.isCorrect || false);
+                    toggleNormField($answer);
+                });
+
+                updateAnswerVisibility($variant);
+            });
+
+            updateVariantVisibility($group);
+        });
+
+        initMathFields();
+        updateTaskGroupNumbers();
+        updateTaskMap();
+        switchToTask(1);
+
+        setTimeout(function () {
+            mathQueue.forEach(function (item) {
+                try { item.el.value = item.val; } catch (e) {}
+            });
+        }, 600);
+    }
+
+    // Авто-сохранение в localStorage
+    let draftSaveTimer = null;
+    function scheduleDraftSave() {
+        clearTimeout(draftSaveTimer);
+        draftSaveTimer = setTimeout(function () {
+            try { localStorage.setItem(DRAFT_LS_KEY, JSON.stringify(serializeFormState())); } catch (e) {}
+        }, 2000);
+    }
+    $(document).on('input change', 'input:not([type=hidden]), select, textarea', scheduleDraftSave);
+    $(document).on('input', 'math-field', scheduleDraftSave);
+
+    // Восстановление при загрузке
+    setTimeout(function () {
+        if (window.DRAFT_DATA && typeof window.DRAFT_DATA === 'object') {
+            restoreFormState(window.DRAFT_DATA);
+            return;
+        }
+        try {
+            const saved = localStorage.getItem(DRAFT_LS_KEY);
+            if (saved) {
+                const state = JSON.parse(saved);
+                if (state && (state.meta || state.groups)) restoreFormState(state);
+            }
+        } catch (e) {}
+    }, 400);
+
+    // Очистка localStorage при успешном сохранении
+    $(document).on('click', '.save-and-go-to-list', function () {
+        setTimeout(function () { localStorage.removeItem(DRAFT_LS_KEY); }, 100);
+    });
+
+    // Кнопка "Сохранить черновик"
+    $(document).on('click', '#save-draft-btn', function (e) {
+        e.preventDefault();
+        const state = serializeFormState();
+        $('#hidden_draft_state').val(JSON.stringify(state));
+        $('#hidden_is_draft').val('true');
+        $('#hidden_name_test').val($('#testNameInput').val() || 'Черновик');
+        const h = String(parseInt($('#hours').val() || '1')).padStart(2, '0');
+        const m = String(parseInt($('#minutes').val() || '30')).padStart(2, '0');
+        $('#hidden_time_solve').val(h + ':' + m + ':00');
+        $('#hidden_num_attempts').val($('#num_attempts').val() || '1');
+        $('#hidden_subj_test').val($('#subj_test').val() || '');
+        $('#hidden_description_test').val($('#description_test').val() || '');
+        $('#hidden_result_display_mode').val($('#result_display_mode').val() || 'only_score');
+        $('#hidden_grade_5_threshold').val($('#grade_5_threshold').val() || '80');
+        $('#hidden_grade_4_threshold').val($('#grade_4_threshold').val() || '60');
+        $('#hidden_grade_3_threshold').val($('#grade_3_threshold').val() || '35');
+        localStorage.removeItem(DRAFT_LS_KEY);
+        $('#testForm').submit();
     });
 });

@@ -84,10 +84,16 @@
                                     {% endwith %}
                                     {% endwith %}
                                 </div>
+                            {% elif variant.user_type.type_code == 5 %}
+                                <!-- Свободный ответ — проверяется вручную -->
+                                <div class="sec-info">
+                                    <p><strong>Тип ответа:</strong> {{ variant.user_type.name }}</p>
+                                    <p style="color: #6c757d; font-size: 0.9em;">Проверяется преподавателем вручную</p>
+                                </div>
                             {% else %}
                                 <!-- Обычное задание -->
                                 <div class="sec-info">
-                                    <p><strong>Ответ:</strong> $$ {{ variant.user_ans }} $$</p>
+                                    <p><strong>Ответ:</strong> \[ {{ variant.user_ans }} \]</p>
                                     <p>
                                         {% if variant.user_eps == '0' or variant.user_eps == '0.0' %}
                                             <strong>Ответ точный</strong>

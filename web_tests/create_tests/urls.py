@@ -13,10 +13,12 @@ urlpatterns = [
     path('unpublish/<slug:slug_name>/', views.unpublish_test, name='unpublish_test'),
     path('delete-test/<slug:slug_name>/', views.delete_test, name='delete_test'),
     path('edit-test/<slug:slug_name>/', views.edit_test, name='edit_test'),
+    path('edit-draft/<slug:slug_name>/', views.edit_draft, name='edit_draft'),
     path('save-group-set/', views.save_group_set, name='save_group_set'),
     path('get-group-lists/', views.get_group_lists, name='get_group_lists'),
     path('get-group-list/<int:list_id>/', views.get_group_list, name='get_group_list'),
     path('delete-group-list/<int:list_id>/', views.delete_group_list, name='delete_group_list'),
     path('test-results/<slug:slug_name>/', views.test_results_list, name='test_results_list'),
     path('test-results/<slug:slug_name>/<int:student_id>/', views.test_results_detail, name='test_results_detail'),
+    path('test-results/<slug:slug_name>/<int:student_id>/grade-free/', views.grade_free_answer, name='grade_free_answer'),
 ]

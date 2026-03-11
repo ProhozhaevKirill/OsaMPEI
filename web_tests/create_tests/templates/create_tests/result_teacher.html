@@ -12,8 +12,8 @@
 
 {% block extra_js %}
     <script src="{% static 'libs/polyfill/polyfill.min.js' %}"></script>
+    <script src="{% static 'js/macros-mathJax.js' %}"></script>
     <script id="MathJax-script" async src="{% static 'libs/mathjax/tex-mml-chtml.js' %}"></script>
-    <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
     <script src="{% static 'js/result.js' %}"></script>
 {% endblock %}
 
@@ -36,22 +36,31 @@
                 <div class="detailed-results-section">
                     <h3>Разбор ответов</h3>
                     {% for q in detailed_results %}
-                    <div class="question-result">
+                    <div class="question-result {% if q.is_correct %}question-correct{% elif q.is_correct == False %}question-incorrect{% endif %}">
                         <div class="question-header">
                             <span class="question-number">Задание {{ q.question_number }}</span>
                             <span class="question-points">({{ q.points }} балл{{ q.points|pluralize:",,ов" }})</span>
+                            {% if q.is_correct %}
+                                <span class="status-badge correct-badge"><i class="fas fa-check"></i></span>
+                            {% elif q.is_correct == False %}
+                                <span class="status-badge incorrect-badge"><i class="fas fa-times"></i></span>
+                            {% endif %}
                         </div>
                         <div class="question-text">
                             <strong>Вопрос:</strong>
-                            <math-field readonly>{{ q.question }}</math-field>
+                            <div class="math-display-block">\[ {{ q.question }} \]</div>
                         </div>
                         <div class="answer-comparison">
-                            <div class="teacher-answer-block">
+                            <div class="teacher-answer-block {% if q.is_correct %}answer-correct{% elif q.is_correct == False %}answer-incorrect{% endif %}">
                                 <strong>Ваш ответ:</strong>
                                 {% if q.is_multiple_choice %}
                                     <span class="answer-text">{% if q.teacher_answer %}{{ q.teacher_answer }}{% else %}Не выбрано{% endif %}</span>
                                 {% else %}
-                                    <math-field readonly>{% if q.teacher_answer %}{{ q.teacher_answer }}{% else %}Не указано{% endif %}</math-field>
+                                    {% if q.teacher_answer %}
+                                        <div class="math-display-block">\[ {{ q.teacher_answer }} \]</div>
+                                    {% else %}
+                                        <span class="answer-text">Не указано</span>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                             <div class="correct-answer-block">
@@ -59,7 +68,7 @@
                                 {% if q.is_multiple_choice %}
                                     <span class="answer-text correct">{{ q.correct_answer }}</span>
                                 {% else %}
-                                    <math-field readonly class="correct-math">{{ q.correct_answer }}</math-field>
+                                    <div class="math-display-block correct-math">\[ {{ q.correct_answer }} \]</div>
                                 {% endif %}
                             </div>
                         </div>
@@ -90,6 +99,20 @@
     </main>
 
     <style>
+        .math-display-block {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px;
+            background: #f8f9fa;
+            min-height: 40px;
+            display: block;
+            overflow-x: auto;
+        }
+        .math-display-block.correct-math {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+
         .teacher-badge {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -213,6 +236,9 @@
             margin-bottom: 12px;
         }
 
+        .question-result.question-correct { border-left: 4px solid #28a745; }
+        .question-result.question-incorrect { border-left: 4px solid #dc3545; }
+
         .question-header {
             display: flex;
             align-items: center;
@@ -229,6 +255,16 @@
             color: #868e96;
             font-size: 0.9rem;
         }
+
+        .status-badge {
+            margin-left: auto;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 0.75rem; flex-shrink: 0;
+        }
+        .correct-badge { background: #d4edda; color: #155724; }
+        .incorrect-badge { background: #f8d7da; color: #721c24; }
 
         .question-text {
             margin-bottom: 12px;
@@ -251,6 +287,16 @@
         .correct-answer-block {
             border-color: #28a745;
             background: #f0fff4;
+        }
+
+        .teacher-answer-block.answer-correct {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+
+        .teacher-answer-block.answer-incorrect {
+            border-color: #dc3545;
+            background: #fff5f5;
         }
 
         .answer-text.correct {

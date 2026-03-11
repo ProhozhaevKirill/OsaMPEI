@@ -18,6 +18,12 @@
         if (window.MathfieldElement) {
             window.MathfieldElement.fontsDirectory = null;
         }
+        {% if draft_slug %}
+        window.DRAFT_SLUG = '{{ draft_slug }}';
+        {% endif %}
+        {% if draft_data_json %}
+        try { window.DRAFT_DATA = JSON.parse('{{ draft_data_json|escapejs }}'); } catch(e) {}
+        {% endif %}
     </script>
     <script src="{% static 'js/writing_tests.js' %}"></script>
     <script src="{% static 'js/mathJax-rus.js' %}"></script>
@@ -54,6 +60,10 @@
                     <i class="fas fa-save"></i>
                     Сохранить
                 </button></a>
+                <button type="button" id="save-draft-btn" class="save-btn" style="background:#6c757d;margin-top:8px;">
+                    <i class="fas fa-file-alt"></i>
+                    Черновик
+                </button>
             </div>
         </div>
 
@@ -102,12 +112,15 @@
                                         </div>
                                         <div class="answer-content">
                                             <math-field class="answer-field" placeholder="Ответ"></math-field>
+                                            <p class="free-answer-note" style="display:none; color:#6c757d; font-style:italic; margin:8px 0 4px;">
+                                                Студент вводит свободный ответ. Проверка выполняется преподавателем вручную.
+                                            </p>
                                             <div class="meta-fields">
                                                 <input type="text" class="accuracy-field" placeholder="Погрешность">
                                                 <select name="user_type" class="type-field" id="type-select" required>
                                                   <option value="" disabled selected hidden>Тип ответа</option>
                                                   {% for t in all_types_answer %}
-                                                    <option value="{{ t.id }}">{{ t.name }}</option>
+                                                    <option value="{{ t.id }}" data-type-code="{{ t.type_code }}">{{ t.name }}</option>
                                                   {% endfor %}
                                                 </select>
                                                 <select name="user_norm" class="norm-field" id="norm-select" style="display: none;">
@@ -227,6 +240,11 @@
                         <input type="hidden" name="user_type" id="hidden_type1">
                         <input type="hidden" name="user_norm" id="hidden_norm1">
                         <input type="hidden" name="user_bool_ans" id="hidden_bool_ans1">
+                        <input type="hidden" name="is_draft" id="hidden_is_draft" value="false">
+                        <input type="hidden" name="draft_state" id="hidden_draft_state" value="">
+                        <input type="hidden" name="draft_slug" id="hidden_draft_slug" value="{% if draft_slug %}{{ draft_slug }}{% endif %}">
+                        <input type="hidden" name="draft_hours" id="hidden_draft_hours" value="">
+                        <input type="hidden" name="draft_minutes" id="hidden_draft_minutes" value="">
                         <button type="submit" class="save-and-go-to-list">Да, вернуться к списку</button>
                     </form>
                 </div>

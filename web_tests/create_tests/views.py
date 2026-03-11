@@ -38,6 +38,70 @@ def create_test(request):
     all_norms = TypeNorm.objects.all()
 
     if request.method == 'POST':
+        # --- DRAFT SAVE ---
+        if request.POST.get('is_draft') == 'true':
+            draft_state = request.POST.get('draft_state', '{}')
+            test_name = request.POST.get('name_test', '').strip() or 'Черновик'
+            subj_id = request.POST.get('subj_test', '')
+            try:
+                subj = Subjects.objects.get(id=int(subj_id))
+            except (ValueError, TypeError, Subjects.DoesNotExist):
+                subj = Subjects.objects.first()
+            try:
+                time_h = max(0, int(request.POST.get('draft_hours', '1') or '1'))
+                time_m = max(0, min(59, int(request.POST.get('draft_minutes', '30') or '30')))
+            except (ValueError, TypeError):
+                time_h, time_m = 1, 30
+            try:
+                count_attempts = max(1, int(request.POST.get('num_attempts', '1') or '1'))
+            except (ValueError, TypeError):
+                count_attempts = 1
+            try:
+                grade_5 = int(request.POST.get('grade_5_threshold', 80) or 80)
+                grade_4 = int(request.POST.get('grade_4_threshold', 60) or 60)
+                grade_3 = int(request.POST.get('grade_3_threshold', 35) or 35)
+            except (ValueError, TypeError):
+                grade_5, grade_4, grade_3 = 80, 60, 35
+
+            teacher = TeacherData.objects.get(data_map=request.user)
+            draft_slug = request.POST.get('draft_slug', '').strip()
+
+            if draft_slug:
+                try:
+                    draft_test = AboutTest.objects.get(name_slug_tests=draft_slug, creator=teacher, is_draft=True)
+                    draft_test.name_tests = test_name
+                    draft_test.subj = subj
+                    draft_test.time_to_solution = timedelta(hours=time_h, minutes=time_m)
+                    draft_test.num_of_attempts = count_attempts
+                    draft_test.description = request.POST.get('description_test', '')
+                    draft_test.result_display_mode = request.POST.get('result_display_mode', 'only_score')
+                    draft_test.grade_5_threshold = grade_5
+                    draft_test.grade_4_threshold = grade_4
+                    draft_test.grade_3_threshold = grade_3
+                    draft_test.draft_data = draft_state
+                    draft_test.save()
+                    logger.info(f"Draft updated: {draft_slug}")
+                    return redirect('create_tests:test_list')
+                except AboutTest.DoesNotExist:
+                    pass  # Fall through to create new
+
+            draft_test = AboutTest.objects.create(
+                name_tests=test_name,
+                subj=subj,
+                time_to_solution=timedelta(hours=time_h, minutes=time_m),
+                num_of_attempts=count_attempts,
+                description=request.POST.get('description_test', ''),
+                creator=teacher,
+                result_display_mode=request.POST.get('result_display_mode', 'only_score'),
+                grade_5_threshold=grade_5,
+                grade_4_threshold=grade_4,
+                grade_3_threshold=grade_3,
+                is_draft=True,
+                draft_data=draft_state,
+            )
+            logger.info(f"Draft created: {draft_test.name_slug_tests}")
+            return redirect('create_tests:test_list')
+
         try:
             logger.info("=== CREATE TEST DEBUG START ===")
             logger.info(f"POST data keys: {list(request.POST.keys())}")
@@ -287,6 +351,27 @@ def create_test(request):
                         'all_types_answer': all_types_answer,
                         'all_norms': all_norms},
                 )
+
+
+@login_required
+@role_required(['teacher', 'admin'])
+def edit_draft(request, slug_name):
+    draft = get_object_or_404(AboutTest, name_slug_tests=slug_name, is_draft=True)
+    teacher = get_object_or_404(TeacherData, data_map=request.user)
+    if draft.creator != teacher:
+        return redirect('create_tests:test_list')
+
+    all_subj = Subjects.objects.all()
+    all_types_answer = TypeAnswer.objects.all()
+    all_norms = TypeNorm.objects.all()
+
+    return render(request, 'create_tests/writing_tests.html', {
+        'all_subj': all_subj,
+        'all_types_answer': all_types_answer,
+        'all_norms': all_norms,
+        'draft_slug': slug_name,
+        'draft_data_json': draft.draft_data or '{}',
+    })
 
 
 @login_required
@@ -1006,7 +1091,7 @@ def delete_group_list(request, list_id):
     return JsonResponse({'success': False, 'error': 'Метод не поддерживается'})
 
 
-def get_randomized_test_for_teacher(test, teacher_id):
+def get_randomized_test_for_teacher(test, teacher_id, seed=None):
     """
     Генерирует рандомизированный вариант теста для преподавателя
     Использует логику аналогичную студентам, но со случайным seed
@@ -1014,8 +1099,9 @@ def get_randomized_test_for_teacher(test, teacher_id):
     import random
     import time
 
-    # Создаем seed на основе текущего времени и ID преподавателя
-    seed = int(time.time()) + teacher_id
+    # Создаем seed на основе текущего времени и ID преподавателя (если не передан)
+    if seed is None:
+        seed = int(time.time()) + teacher_id
     random.seed(seed)
 
     randomized_expressions = []
@@ -1025,8 +1111,8 @@ def get_randomized_test_for_teacher(test, teacher_id):
 
     if task_groups.exists():
         # Новая система: используем TaskGroup и TaskVariant
-        for task_group in task_groups.order_by('number'):
-            variants = task_group.variants.all()
+        for task_group in task_groups.order_by('number', 'id'):
+            variants = task_group.variants.order_by('id')
             if variants:
                 # Выбираем случайный вариант из группы
                 selected_variant = random.choice(list(variants))
@@ -1051,7 +1137,7 @@ def get_randomized_test_for_teacher(test, teacher_id):
         from collections import defaultdict
         blocks = defaultdict(list)
 
-        for ex in test.expressions.all():
+        for ex in test.expressions.order_by('block_expression_num', 'id'):
             blocks[ex.block_expression_num].append(ex)
 
         # Из каждого блока выбираем случайное задание
@@ -1091,8 +1177,17 @@ def solve_test_teacher(request, slug_name):
     test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
     teacher = request.user
 
+    # Seed сохраняется в сессию на GET, читается на POST — чтобы выбранные варианты совпадали
+    session_key = f'teacher_test_seed_{slug_name}'
+    if request.method == 'POST':
+        seed = request.session.get(session_key)
+    else:
+        import time
+        seed = int(time.time()) + teacher.id
+        request.session[session_key] = seed
+
     # Получаем рандомизированный вариант теста для преподавателя
-    expressions_data = get_randomized_test_for_teacher(test, teacher.id)
+    expressions_data = get_randomized_test_for_teacher(test, teacher.id, seed=seed)
 
     if request.method == 'POST':
         raw = request.POST.get('binaryAnswers', '[]')
@@ -1113,6 +1208,7 @@ def solve_test_teacher(request, slug_name):
         # Используем ту же логику проверки, что и для студентов
         from logic_of_expression.check_sympy_expr import CheckAnswer
 
+        task_results = []
         for i, expr_data in enumerate(expressions_data):
             user_ans = teacher_answers[i]
 
@@ -1138,8 +1234,8 @@ def solve_test_teacher(request, slug_name):
 
                 # Определяем какие варианты должны быть выбраны
                 should_be_selected = set()
-                for j, is_correct in enumerate(correct_answers):
-                    if j < len(available_options) and is_correct == '1':
+                for j, flag in enumerate(correct_answers):
+                    if j < len(available_options) and flag == '1':
                         should_be_selected.add(available_options[j])
 
                 # Проверяем точное совпадение
@@ -1162,6 +1258,7 @@ def solve_test_teacher(request, slug_name):
                                     expression=expr_data['user_expression'],
                                     type_ans=expr_data['user_type'].type_code).compare_answer()
 
+            task_results.append(res)
             result_score += res * expr_data['points_for_solve']
 
         score_in_pr = result_score / all_points * 100 if all_points > 0 else 0
@@ -1179,6 +1276,7 @@ def solve_test_teacher(request, slug_name):
         detailed_results = []
         for i, expr_data in enumerate(expressions_data):
             teacher_answer = teacher_answers[i] if i < len(teacher_answers) else ''
+            is_correct = task_results[i] == 1 if i < len(task_results) else None
             if expr_data['exist_select']:
                 available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
                 correct_answers_flags = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
@@ -1195,6 +1293,7 @@ def solve_test_teacher(request, slug_name):
                     'is_multiple_choice': True,
                     'options': available_options,
                     'points': expr_data['points_for_solve'],
+                    'is_correct': is_correct,
                 })
             else:
                 detailed_results.append({
@@ -1205,6 +1304,7 @@ def solve_test_teacher(request, slug_name):
                     'is_multiple_choice': False,
                     'options': [],
                     'points': expr_data['points_for_solve'],
+                    'is_correct': is_correct,
                 })
 
         request.session['teacher_test_result'] = {
@@ -1214,6 +1314,7 @@ def solve_test_teacher(request, slug_name):
             'all_points': all_points,
             'detailed_results': detailed_results,
         }
+        request.session.pop(session_key, None)
 
         return redirect('create_tests:show_result_teacher', slug_name=slug_name)
 
@@ -1380,6 +1481,8 @@ def test_results_detail(request, slug_name, student_id):
         except (ValueError, SyntaxError):
             student_answers = []
 
+    from logic_of_expression.check_sympy_expr import CheckAnswer as _CheckAnswer
+
     detailed_results = []
     for i, expr_data in enumerate(expressions_data):
         student_answer = student_answers[i] if i < len(student_answers) else ''
@@ -1391,6 +1494,13 @@ def test_results_detail(request, slug_name, student_id):
                 for j, flag in enumerate(correct_answers_flags)
                 if j < len(available_options) and flag == '1'
             ]
+            if isinstance(student_answer, str):
+                selected_options = student_answer.split(';') if student_answer else []
+            elif isinstance(student_answer, list):
+                selected_options = student_answer
+            else:
+                selected_options = []
+            is_correct = set(selected_options) == set(correct_options)
             detailed_results.append({
                 'question_number': i + 1,
                 'question': expr_data['user_expression'],
@@ -1399,16 +1509,39 @@ def test_results_detail(request, slug_name, student_id):
                 'is_multiple_choice': True,
                 'options': available_options,
                 'points': expr_data['points_for_solve'],
+                'is_correct': is_correct,
             })
         else:
+            from solving_tests.models import FreeAnswerGrade
+            is_free_answer = expr_data['user_type'] and expr_data['user_type'].type_code == 5
+            if is_free_answer:
+                fg = FreeAnswerGrade.objects.filter(student_result=best_result, question_index=i).first()
+                is_correct = fg.is_correct if fg else None
+            else:
+                try:
+                    if expr_data['user_type'].type_code == 4 and expr_data.get('matrix_norm'):
+                        res = _CheckAnswer(expr_data['user_ans'], student_answer, False,
+                                        expression=expr_data['user_expression'],
+                                        type_ans=expr_data['user_type'].type_code,
+                                        type_norm=expr_data['matrix_norm']).compare_answer()
+                    else:
+                        res = _CheckAnswer(expr_data['user_ans'], student_answer, False,
+                                        expression=expr_data['user_expression'],
+                                        type_ans=expr_data['user_type'].type_code).compare_answer()
+                    is_correct = res == 1
+                except Exception:
+                    is_correct = None
             detailed_results.append({
                 'question_number': i + 1,
+                'question_index': i,
                 'question': expr_data['user_expression'],
                 'student_answer': student_answer,
-                'correct_answer': expr_data['user_ans'],
+                'correct_answer': None if is_free_answer else expr_data['user_ans'],
                 'is_multiple_choice': False,
+                'is_free_answer': is_free_answer,
                 'options': [],
                 'points': expr_data['points_for_solve'],
+                'is_correct': is_correct,
             })
 
     try:
@@ -1419,23 +1552,108 @@ def test_results_detail(request, slug_name, student_id):
         student_name = student.email
         group = None
 
-    score_pct = best_result.result_points / best_result.max_points * 100 if best_result.max_points > 0 else 0
-    if score_pct >= test.grade_5_threshold:
-        grade = 5
-    elif score_pct >= test.grade_4_threshold:
-        grade = 4
-    elif score_pct >= test.grade_3_threshold:
-        grade = 3
-    else:
-        grade = 2
+    # Подсчитываем, сколько свободных ответов ещё не проверено
+    free_q_count = sum(1 for q in detailed_results if q.get('is_free_answer'))
+    ungraded_count = sum(
+        1 for q in detailed_results
+        if q.get('is_free_answer') and q.get('is_correct') is None
+    )
 
     return render(request, 'create_tests/test_results_detail.html', {
         'test': test,
         'slug_name': slug_name,
         'student_name': student_name,
+        'student_id': student_id,
         'group': group,
         'best_result': best_result,
         'all_results': results,
         'detailed_results': detailed_results,
-        'grade': grade,
+        'free_q_count': free_q_count,
+        'ungraded_count': ungraded_count,
     })
+
+
+@login_required
+@role_required(['teacher', 'admin'])
+def grade_free_answer(request, slug_name, student_id):
+    """AJAX-эндпоинт: преподаватель ставит оценку на вопрос со свободным ответом"""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+    from solving_tests.models import StudentResult, FreeAnswerGrade
+    from solving_tests.views import get_randomized_test_for_student
+    from users.models import CustomUser
+    from logic_of_expression.check_sympy_expr import CheckAnswer as _CheckAnswer
+    import ast
+
+    try:
+        data = json.loads(request.body)
+        question_index = int(data.get('question_index'))
+        is_correct = data.get('is_correct')  # True, False или None
+    except (json.JSONDecodeError, ValueError, TypeError):
+        return JsonResponse({'error': 'Invalid data'}, status=400)
+
+    test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
+    student = get_object_or_404(CustomUser, id=student_id)
+
+    best_result = StudentResult.objects.filter(student=student, test=test).order_by('-result_points').first()
+    if not best_result:
+        return JsonResponse({'error': 'No result found'}, status=404)
+
+    # Сохраняем оценку
+    FreeAnswerGrade.objects.update_or_create(
+        student_result=best_result,
+        question_index=question_index,
+        defaults={'is_correct': is_correct},
+    )
+
+    # Пересчитываем баллы студента
+    expressions_data = get_randomized_test_for_student(test, student.id, best_result.attempt_number)
+    try:
+        student_answers = json.loads(best_result.res_answer)
+    except (json.JSONDecodeError, ValueError):
+        try:
+            student_answers = ast.literal_eval(best_result.res_answer)
+        except (ValueError, SyntaxError):
+            student_answers = []
+
+    result_score = 0.0
+    for i, expr_data in enumerate(expressions_data):
+        user_ans = student_answers[i] if i < len(student_answers) else ''
+
+        if expr_data['user_type'] and expr_data['user_type'].type_code == 5:
+            fg = FreeAnswerGrade.objects.filter(student_result=best_result, question_index=i).first()
+            if fg and fg.is_correct:
+                result_score += expr_data['points_for_solve']
+        elif expr_data['exist_select']:
+            available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+            correct_answers = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
+            if isinstance(user_ans, list):
+                selected_set = set(user_ans)
+            else:
+                selected_set = set(user_ans.split(';') if user_ans else [])
+            should_be_selected = {
+                available_options[j] for j, flag in enumerate(correct_answers)
+                if j < len(available_options) and flag == '1'
+            }
+            if selected_set == should_be_selected:
+                result_score += expr_data['points_for_solve']
+        else:
+            try:
+                if expr_data['user_type'].type_code == 4 and expr_data.get('matrix_norm'):
+                    res = _CheckAnswer(expr_data['user_ans'], user_ans, False,
+                                       expression=expr_data['user_expression'],
+                                       type_ans=expr_data['user_type'].type_code,
+                                       type_norm=expr_data['matrix_norm']).compare_answer()
+                else:
+                    res = _CheckAnswer(expr_data['user_ans'], user_ans, False,
+                                       expression=expr_data['user_expression'],
+                                       type_ans=expr_data['user_type'].type_code).compare_answer()
+                result_score += res * expr_data['points_for_solve']
+            except Exception:
+                pass
+
+    best_result.result_points = result_score
+    best_result.save()
+
+    return JsonResponse({'success': True, 'new_score': result_score, 'max_score': best_result.max_points})

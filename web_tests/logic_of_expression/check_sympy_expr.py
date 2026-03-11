@@ -47,7 +47,9 @@ class CheckAnswer:
 
             case 2: # float
                 try:
-                    return self._compare_expr(self.teach_raw, self.stud_raw)
+                    teach = ts(self.teach_raw).get_result()
+                    stud = ts(self.stud_raw).get_result()
+                    return self._compare_expr(teach, stud)
                 except ValueError:
                     return 0
 

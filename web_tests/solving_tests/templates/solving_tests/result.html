@@ -8,12 +8,57 @@
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'css/result.css' %}">
     <link rel="stylesheet" href="{% static 'libs/mathlive/mathlive.css' %}">
+    <style>
+        .pending-review-block {
+            background: #fff8e1;
+            border: 1px solid #ffe082;
+            border-left: 4px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin: 16px 0 24px;
+            text-align: center;
+        }
+        .pending-review-block .pending-icon {
+            font-size: 2.5rem;
+            color: #f59e0b;
+            margin-bottom: 12px;
+        }
+        .pending-review-block p {
+            margin: 6px 0;
+            color: #5a4000;
+            font-size: 0.97rem;
+        }
+        .pending-review-block .pending-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #856404;
+            margin-bottom: 8px;
+        }
+        .partial-score-note {
+            margin-top: 12px;
+            font-size: 0.88rem;
+            color: #6c757d;
+        }
+        .math-display-block {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px;
+            background: #f8f9fa;
+            min-height: 40px;
+            display: block;
+            overflow-x: auto;
+        }
+        .math-display-block.correct-math {
+            border-color: #27ae60;
+            background: #f0f9f0;
+        }
+    </style>
 {% endblock %}
 
 {% block extra_js %}
     <script src="{% static 'libs/polyfill/polyfill.min.js' %}"></script>
+    <script src="{% static 'js/macros-mathJax.js' %}"></script>
     <script id="MathJax-script" async src="{% static 'libs/mathjax/tex-mml-chtml.js' %}"></script>
-    <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
     <script src="{% static 'js/result.js' %}"></script>
 {% endblock %}
 
@@ -27,7 +72,19 @@
                     <p class="teacher-preview-note"><i class="fas fa-info-circle"></i> Это предпросмотр — ваши ответы не сохраняются</p>
                 {% endif %}
 
-                {% if result_display_mode == 'only_score' %}
+                {% if waiting_for_review %}
+                    <!-- Ожидание проверки преподавателем -->
+                    <div class="pending-review-block">
+                        <div class="pending-icon"><i class="fas fa-hourglass-half"></i></div>
+                        <p class="pending-title">Ожидайте проверки преподавателя</p>
+                        <p>Ответы на некоторые Ваши вопросы будут переданы на проверку.</p>
+                        <p>Оценка будет выставлена после того, как преподаватель завершит проверку.</p>
+                        {% if count > 0 %}
+                            <p class="partial-score-note">Баллы за автоматически проверяемые вопросы: <strong>{{ result }} / {{ count }}</strong></p>
+                        {% endif %}
+                    </div>
+
+                {% elif result_display_mode == 'only_score' %}
                     <!-- Показываем только баллы -->
                     <p>Вы получили <strong>{{ result }}</strong> из <strong>{{ count }}</strong> возможных баллов</p>
                     <p>Ваша оценка: <strong>{{ score }}</strong></p>
@@ -41,20 +98,25 @@
                         <div class="detailed-results-section">
                             <h3>Детальные результаты</h3>
                             {% for question_result in detailed_results %}
-                                <div class="question-result">
+                                <div class="question-result {% if question_result.is_correct %}question-correct{% elif question_result.is_correct == False %}question-incorrect{% endif %}">
                                     <div class="question-header">
                                         <span class="question-number">Задание {{ question_result.question_number }}</span>
                                         <span class="question-points">({{ question_result.points }} балл{{ question_result.points|pluralize:",,ов" }})</span>
+                                        {% if question_result.is_correct %}
+                                            <span class="status-badge correct-badge"><i class="fas fa-check"></i></span>
+                                        {% elif question_result.is_correct == False %}
+                                            <span class="status-badge incorrect-badge"><i class="fas fa-times"></i></span>
+                                        {% endif %}
                                     </div>
 
                                     <div class="question-text">
                                         <strong>Вопрос:</strong>
-                                        <math-field readonly="true">{{ question_result.question }}</math-field>
+                                        <div class="math-display-block">\[ {{ question_result.question }} \]</div>
                                     </div>
 
                                     <div class="answer-comparison">
-                                        <div class="student-answer">
-                                            <strong>Ваш ответ:</strong>
+                                        <div class="student-answer {% if question_result.is_correct %}answer-correct{% elif question_result.is_correct == False %}answer-incorrect{% endif %}">
+                                            <strong>Ответ</strong>
                                             {% if question_result.is_multiple_choice %}
                                                 {% if question_result.student_answer is not None %}
                                                     <span class="answer-text">{% if question_result.student_answer %}{{ question_result.student_answer }}{% else %}Не выбрано{% endif %}</span>
@@ -62,10 +124,10 @@
                                                     <span class="answer-text">Не выбрано</span>
                                                 {% endif %}
                                             {% else %}
-                                                {% if question_result.student_answer is not None %}
-                                                    <math-field readonly="true">{% if question_result.student_answer %}{{ question_result.student_answer }}{% else %}Не указано{% endif %}</math-field>
+                                                {% if question_result.student_answer %}
+                                                    <div class="math-display-block">\[ {{ question_result.student_answer }} \]</div>
                                                 {% else %}
-                                                    <math-field readonly="true">Не указано</math-field>
+                                                    <span class="answer-text">Не указано</span>
                                                 {% endif %}
                                             {% endif %}
                                         </div>
@@ -75,7 +137,7 @@
                                             {% if question_result.is_multiple_choice %}
                                                 <span class="answer-text correct">{{ question_result.correct_answer }}</span>
                                             {% else %}
-                                                <math-field readonly="true" class="correct-math">{{ question_result.correct_answer }}</math-field>
+                                                <div class="math-display-block correct-math">\[ {{ question_result.correct_answer }} \]</div>
                                             {% endif %}
                                         </div>
                                     </div>

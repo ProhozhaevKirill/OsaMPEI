@@ -97,6 +97,9 @@
             overflow: hidden;
         }
 
+        .question-result.question-correct { border-left: 4px solid #28a745; }
+        .question-result.question-incorrect { border-left: 4px solid #dc3545; }
+
         .question-header {
             display: flex;
             align-items: center;
@@ -106,6 +109,16 @@
 
         .question-number { font-weight: 600; color: #495057; }
         .question-points { color: #868e96; font-size: 0.9rem; }
+
+        .status-badge {
+            margin-left: auto;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 0.75rem; flex-shrink: 0;
+        }
+        .correct-badge { background: #d4edda; color: #155724; }
+        .incorrect-badge { background: #f8d7da; color: #721c24; }
 
         .question-text {
             margin-bottom: 12px;
@@ -136,6 +149,16 @@
             background: #f0fff4;
         }
 
+        .student-answer-block.answer-correct {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+
+        .student-answer-block.answer-incorrect {
+            border-color: #dc3545;
+            background: #fff5f5;
+        }
+
         .answer-label {
             font-size: 0.8rem;
             font-weight: 600;
@@ -163,6 +186,82 @@
             .answer-comparison { grid-template-columns: 1fr; }
             .student-summary { gap: 16px; }
         }
+
+        .math-display-block {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px;
+            background: #f8f9fa;
+            min-height: 40px;
+            display: block;
+            overflow-x: auto;
+        }
+        .math-display-block.correct-math {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+
+        /* Свободный ответ */
+        .free-answer-text {
+            font-size: 0.95rem;
+            color: #212529;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .free-answer-grading {
+            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .grade-label {
+            font-size: 0.85rem;
+            color: #6c757d;
+            font-weight: 600;
+        }
+
+        .btn-grade {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 2px solid transparent;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: #f8f9fa;
+            transition: all .15s;
+        }
+
+        .btn-grade:hover { filter: brightness(0.95); }
+
+        .btn-grade-correct { border-color: #28a745; color: #155724; }
+        .btn-grade-correct.active { background: #d4edda; border-color: #28a745; }
+
+        .btn-grade-incorrect { border-color: #dc3545; color: #721c24; }
+        .btn-grade-incorrect.active { background: #f8d7da; border-color: #dc3545; }
+
+        .pending-badge {
+            font-size: 0.8rem;
+            color: #856404;
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 12px;
+            padding: 2px 10px;
+        }
+
+        .score-updated-msg {
+            font-size: 0.82rem;
+            color: #155724;
+            background: #d4edda;
+            border-radius: 8px;
+            padding: 4px 10px;
+            display: none;
+        }
     </style>
 {% endblock %}
 
@@ -176,6 +275,66 @@
         MathJax.options = { skipHtmlTags: ['script', 'noscript', 'style', 'textarea'] };
     </script>
     <script id="MathJax-script" async src="{% static 'libs/mathjax/tex-mml-chtml.js' %}"></script>
+    <script>
+        function getCsrfToken() {
+            const name = 'csrftoken';
+            const cookies = document.cookie.split(';');
+            for (let c of cookies) {
+                c = c.trim();
+                if (c.startsWith(name + '=')) return decodeURIComponent(c.slice(name.length + 1));
+            }
+            return '';
+        }
+
+        function gradeFreeAnswer(questionIndex, isCorrect, btn) {
+            const card = document.getElementById('question-card-' + questionIndex);
+            const allBtns = card.querySelectorAll('.btn-grade');
+            const answerBlock = document.getElementById('answer-block-' + questionIndex);
+            const badge = document.getElementById('badge-' + questionIndex);
+            const pending = document.getElementById('pending-' + questionIndex);
+            const scoreMsg = document.getElementById('score-msg-' + questionIndex);
+
+            // Снимаем active со всех кнопок в этом вопросе
+            allBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Обновляем цвет карточки
+            card.classList.remove('question-correct', 'question-incorrect');
+            answerBlock.classList.remove('answer-correct', 'answer-incorrect');
+            if (isCorrect) {
+                card.classList.add('question-correct');
+                answerBlock.classList.add('answer-correct');
+                badge.innerHTML = '<span class="status-badge correct-badge"><i class="fas fa-check"></i></span>';
+            } else {
+                card.classList.add('question-incorrect');
+                answerBlock.classList.add('answer-incorrect');
+                badge.innerHTML = '<span class="status-badge incorrect-badge"><i class="fas fa-times"></i></span>';
+            }
+            if (pending) pending.style.display = 'none';
+
+            fetch("{% url 'create_tests:grade_free_answer' slug_name=test.name_slug_tests student_id=student_id %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCsrfToken(),
+                },
+                body: JSON.stringify({ question_index: questionIndex, is_correct: isCorrect }),
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    if (scoreMsg) {
+                        scoreMsg.style.display = 'inline-block';
+                        setTimeout(() => { scoreMsg.style.display = 'none'; }, 2500);
+                    }
+                    // Обновляем отображение общего балла на странице
+                    const scoreEl = document.querySelector('.summary-value[data-score]');
+                    if (scoreEl) scoreEl.textContent = data.new_score.toFixed(1) + ' / ' + data.max_score.toFixed(1);
+                }
+            })
+            .catch(() => {});
+        }
+    </script>
 {% endblock %}
 
 {% block content %}
@@ -197,17 +356,24 @@
             <span class="summary-value">{{ test.name_tests }}</span>
         </div>
         <div class="summary-item">
-            <span class="summary-label">Лучший балл</span>
-            <span class="summary-value">{{ best_result.result_points|floatformat:1 }} / {{ best_result.max_points|floatformat:1 }}</span>
-        </div>
-        <div class="summary-item">
-            <span class="summary-label">Оценка</span>
-            <span class="grade-badge grade-{{ grade }}">{{ grade }}</span>
+            <span class="summary-label">Баллы</span>
+            <span class="summary-value" data-score>{{ best_result.result_points|floatformat:1 }} / {{ best_result.max_points|floatformat:1 }}</span>
         </div>
         <div class="attempts-info">
             <span>Попыток: {{ all_results|length }}</span>
             {% if best_result.completed_at %}
                 <span>Дата: {{ best_result.completed_at|date:"d.m.Y H:i" }}</span>
+            {% endif %}
+            {% if free_q_count %}
+                {% if ungraded_count %}
+                    <span style="color:#856404; font-weight:600;">
+                        <i class="fas fa-hourglass-half"></i> Не проверено: {{ ungraded_count }} из {{ free_q_count }}
+                    </span>
+                {% else %}
+                    <span style="color:#155724; font-weight:600;">
+                        <i class="fas fa-check-double"></i> Все свободные ответы проверены
+                    </span>
+                {% endif %}
             {% endif %}
         </div>
     </div>
@@ -216,10 +382,18 @@
         <h2>Разбор ответов (лучшая попытка)</h2>
 
         {% for q in detailed_results %}
-        <div class="question-result">
+        <div class="question-result {% if q.is_correct %}question-correct{% elif q.is_correct == False %}question-incorrect{% endif %}"
+             id="question-card-{{ q.question_index }}">
             <div class="question-header">
                 <span class="question-number">Задание {{ q.question_number }}</span>
                 <span class="question-points">({{ q.points }} балл{{ q.points|pluralize:",,ов" }})</span>
+                {% if q.is_correct %}
+                    <span class="status-badge correct-badge" id="badge-{{ q.question_index }}"><i class="fas fa-check"></i></span>
+                {% elif q.is_correct == False %}
+                    <span class="status-badge incorrect-badge" id="badge-{{ q.question_index }}"><i class="fas fa-times"></i></span>
+                {% else %}
+                    <span id="badge-{{ q.question_index }}"></span>
+                {% endif %}
             </div>
 
             <div class="question-text">
@@ -227,31 +401,67 @@
                 <div class="question-mathjax">$$ {{ q.question }} $$</div>
             </div>
 
-            <div class="answer-comparison">
-                <div class="student-answer-block">
-                    <div class="answer-label">Ответ студента</div>
-                    {% if q.is_multiple_choice %}
-                        <span class="answer-text">{% if q.student_answer %}{{ q.student_answer }}{% else %}Не выбрано{% endif %}</span>
+            {% if q.is_free_answer %}
+                {# Свободный ответ — только ответ студента и кнопки оценки #}
+                <div class="answer-comparison" style="grid-template-columns: 1fr;">
+                    <div class="student-answer-block {% if q.is_correct %}answer-correct{% elif q.is_correct == False %}answer-incorrect{% endif %}"
+                         id="answer-block-{{ q.question_index }}">
+                        <div class="answer-label">Ответ студента</div>
+                        {% if q.student_answer %}
+                            <div class="math-display-block">\[ {{ q.student_answer }} \]</div>
+                        {% else %}
+                            <em style="color:#adb5bd;">Не указано</em>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="free-answer-grading">
+                    <span class="grade-label">Оценка:</span>
+                    <button class="btn-grade btn-grade-correct {% if q.is_correct == True %}active{% endif %}"
+                            onclick="gradeFreeAnswer({{ q.question_index }}, true, this)">
+                        <i class="fas fa-check"></i> Верно
+                    </button>
+                    <button class="btn-grade btn-grade-incorrect {% if q.is_correct == False %}active{% endif %}"
+                            onclick="gradeFreeAnswer({{ q.question_index }}, false, this)">
+                        <i class="fas fa-times"></i> Неверно
+                    </button>
+                    {% if q.is_correct is None %}
+                        <span class="pending-badge" id="pending-{{ q.question_index }}">Ожидает проверки</span>
                     {% else %}
-                        <math-field readonly>{% if q.student_answer %}{{ q.student_answer }}{% else %}Не указано{% endif %}</math-field>
+                        <span class="pending-badge" id="pending-{{ q.question_index }}" style="display:none;">Ожидает проверки</span>
                     {% endif %}
+                    <span class="score-updated-msg" id="score-msg-{{ q.question_index }}">Балл обновлён</span>
+                </div>
+            {% else %}
+                <div class="answer-comparison">
+                    <div class="student-answer-block {% if q.is_correct %}answer-correct{% elif q.is_correct == False %}answer-incorrect{% endif %}">
+                        <div class="answer-label">Ответ студента</div>
+                        {% if q.is_multiple_choice %}
+                            <span class="answer-text">{% if q.student_answer %}{{ q.student_answer }}{% else %}Не выбрано{% endif %}</span>
+                        {% else %}
+                            {% if q.student_answer %}
+                                <div class="math-display-block">\[ {{ q.student_answer }} \]</div>
+                            {% else %}
+                                <span class="answer-text">Не указано</span>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+
+                    <div class="correct-answer-block">
+                        <div class="answer-label">Правильный ответ</div>
+                        {% if q.is_multiple_choice %}
+                            <span class="answer-text correct">{{ q.correct_answer }}</span>
+                        {% else %}
+                            <div class="math-display-block correct-math">\[ {{ q.correct_answer }} \]</div>
+                        {% endif %}
+                    </div>
                 </div>
 
-                <div class="correct-answer-block">
-                    <div class="answer-label">Правильный ответ</div>
-                    {% if q.is_multiple_choice %}
-                        <span class="answer-text correct">{{ q.correct_answer }}</span>
-                    {% else %}
-                        <math-field readonly>{{ q.correct_answer }}</math-field>
-                    {% endif %}
+                {% if q.is_multiple_choice and q.options %}
+                <div class="options-list">
+                    <strong>Варианты:</strong>
+                    <ul>{% for opt in q.options %}<li>{{ opt }}</li>{% endfor %}</ul>
                 </div>
-            </div>
-
-            {% if q.is_multiple_choice and q.options %}
-            <div class="options-list">
-                <strong>Варианты:</strong>
-                <ul>{% for opt in q.options %}<li>{{ opt }}</li>{% endfor %}</ul>
-            </div>
+                {% endif %}
             {% endif %}
         </div>
         {% endfor %}

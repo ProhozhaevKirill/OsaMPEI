@@ -8,6 +8,10 @@
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/all_test_for_teach.css' %}">
     <link rel="stylesheet" href="{% static 'libs/fontawesome/css/all.min.css' %}">
+    <style>
+        .draft-badge { display:inline-flex; align-items:center; gap:4px; background:#6c757d; color:#fff; font-size:0.75rem; padding:2px 8px; border-radius:12px; margin-left:8px; }
+        .draft-card { opacity:0.85; border-left:3px solid #6c757d !important; }
+    </style>
 {% endblock %}
 
 {% block extra_js %}
@@ -45,6 +49,7 @@
                 <option value="all">Все</option>
                 <option value="published">Опубликованные</option>
                 <option value="unpublished">Неопубликованные</option>
+                <option value="draft">Черновики</option>
             </select>
         </div>
     </div>
@@ -56,15 +61,17 @@
                     <!-- Сначала показываем тесты преподавателя -->
                     {% for test in tests %}
                         {% if test.creator == current_teacher %}
-                        <li class="test-card" data-slug="{{ test.name_slug_tests }}" data-published="{% if test.is_published %}true{% else %}false{% endif %}">
+                        <li class="test-card{% if test.is_draft %} draft-card{% endif %}" data-slug="{{ test.name_slug_tests }}" data-published="{% if test.is_published %}true{% else %}false{% endif %}">
                             <div class="test-main">
                                 <div class="test-info">
                                     <div class="base_info">
                                         <span class="test-subj">{{ forloop.counter }}. {{ test.name_tests }}.</span>
                                         <span class="test-number">Предмет: {{ test.subj }}.</span>
+                                        {% if test.is_draft %}<span class="draft-badge"><i class="fas fa-file-alt"></i> Черновик</span>{% endif %}
                                     </div>
                                     <div class="test-meta">
                                         <span><i class="fas fa-user"></i>Автор: {{ test.creator.first_name }} {{ test.creator.middle_name }}</span>
+                                        {% if not test.is_draft %}
                                         <span><i class="fas fa-users"></i>
                                             Доступ:
                                             {% with found=0 %}
@@ -77,9 +84,20 @@
                                                 {% if not test.is_published %}Ограничен{% endif %}
                                             {% endwith %}
                                         </span>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="test-actions">
+                                    {% if test.is_draft %}
+                                        <a href="{% url 'create_tests:edit_draft' test.name_slug_tests %}" class="btn btn-edit">
+                                            <i class="fas fa-pencil-alt"></i> Продолжить
+                                        </a>
+                                        <button class="btn btn-danger delete-btn"
+                                                data-slug="{{ test.name_slug_tests }}"
+                                                data-url="{% url 'create_tests:delete_test' test.name_slug_tests %}">
+                                            <i class="fas fa-trash-alt"></i> Удалить
+                                        </button>
+                                    {% else %}
                                     <a href="{% url 'create_tests:some_test' test.name_slug_tests %}" class="btn btn-watch">
                                         <i class="fa-solid fa-eye"></i> Посмотреть
                                     </a>
@@ -115,6 +133,7 @@
                                             <i class="fas fa-exclamation-circle"></i>
                                             <span>Изменения недоступны</span>
                                         </div>
+                                    {% endif %}
                                     {% endif %}
                                 </div>
                             </div>
@@ -184,15 +203,17 @@
                     <!-- Только мои тесты -->
                     {% for test in tests %}
                         {% if test.creator == current_teacher %}
-                        <li class="test-card" data-slug="{{ test.name_slug_tests }}" data-published="{% if test.is_published %}true{% else %}false{% endif %}">
+                        <li class="test-card{% if test.is_draft %} draft-card{% endif %}" data-slug="{{ test.name_slug_tests }}" data-published="{% if test.is_published %}true{% else %}false{% endif %}">
                             <div class="test-main">
                                 <div class="test-info">
                                     <div class="base_info">
                                         <span class="test-subj">{{ forloop.counter }}. {{ test.name_tests }}.</span>
                                         <span class="test-number">Предмет: {{ test.subj }}.</span>
+                                        {% if test.is_draft %}<span class="draft-badge"><i class="fas fa-file-alt"></i> Черновик</span>{% endif %}
                                     </div>
                                     <div class="test-meta">
                                         <span><i class="fas fa-user"></i>Автор: {{ test.creator.first_name }} {{ test.creator.middle_name }}</span>
+                                        {% if not test.is_draft %}
                                         <span><i class="fas fa-users"></i>
                                             Доступ:
                                             {% with found=0 %}
@@ -205,9 +226,20 @@
                                                 {% if not test.is_published %}Ограничен{% endif %}
                                             {% endwith %}
                                         </span>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="test-actions">
+                                    {% if test.is_draft %}
+                                        <a href="{% url 'create_tests:edit_draft' test.name_slug_tests %}" class="btn btn-edit">
+                                            <i class="fas fa-pencil-alt"></i> Продолжить
+                                        </a>
+                                        <button class="btn btn-danger delete-btn"
+                                                data-slug="{{ test.name_slug_tests }}"
+                                                data-url="{% url 'create_tests:delete_test' test.name_slug_tests %}">
+                                            <i class="fas fa-trash-alt"></i> Удалить
+                                        </button>
+                                    {% else %}
                                     <a href="{% url 'create_tests:some_test' test.name_slug_tests %}" class="btn btn-watch">
                                         <i class="fa-solid fa-eye"></i> Посмотреть
                                     </a>
@@ -243,6 +275,7 @@
                                             <i class="fas fa-exclamation-circle"></i>
                                             <span>Изменения недоступны</span>
                                         </div>
+                                    {% endif %}
                                     {% endif %}
                                 </div>
                             </div>

@@ -7,5 +7,8 @@ window.MathJax = {
             th: "\\mathrm{tanh}",
             ch: "\\mathrm{cosh}",
         }
+    },
+    output: {
+        linebreaks: { automatic: true, width: "container" }
     }
 };

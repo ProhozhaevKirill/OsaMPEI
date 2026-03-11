@@ -13,12 +13,11 @@
 {% block extra_js %}
     <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
     <script src="{% static 'libs/polyfill/polyfill.min.js' %}"></script>
+    <script src="{% static 'js/macros-mathJax.js' %}"></script>
     <script id="MathJax-script" async
             src="{% static 'libs/mathjax/tex-mml-chtml.js' %}"></script>
-    <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
 
     <script src="{% static 'js/specific_test.js' %}"></script>
-    <script src="{% static 'js/macros-mathJax.js' %}"></script>
     <script src="{% static 'js/mathJax-rus.js' %}"></script>
 {% endblock %}
 
@@ -52,7 +51,7 @@
                         <!-- Обёртка вопроса для JS -->
                         <div class="question-card" data-question="{{ forloop.counter }}">
                             <h4 class="number">Номер {{ forloop.counter }}.</h4>
-                            <div class="express" id="task-{{ forloop.counter }}">
+                            <div class="express" id="task-{{ forloop.counter }}" data-expr="{{ ex.expression.user_expression }}">
                                 <p><li>$$ {{ ex.expression.user_expression }} $$</li></p>
                             </div>
                             {% if ex.exist_select %}
@@ -71,6 +70,13 @@
                                         {% endfor %}
                                     </ul>
                                 </div>
+                            {% elif ex.expression.user_type.type_code == 5 %}
+                                <div class="sec-info">
+                                    <li>Введите свободный ответ в поле ниже.</li>
+                                </div>
+                                <math-field class="answer free-text-answer"
+                                            id="free-text-{{ forloop.counter }}"
+                                            placeholder="Ваш ответ..."></math-field>
                             {% else %}
                                 <div class="sec-info">
                                     <li>

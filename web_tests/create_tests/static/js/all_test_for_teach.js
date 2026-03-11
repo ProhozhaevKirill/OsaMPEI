@@ -280,10 +280,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const selectedValue = this.value;
         testCards.forEach(card => {
             const isPublished = card.getAttribute('data-published') === 'true';
+            const isDraft = card.classList.contains('draft-card');
             card.classList.toggle('hidden',
-                (selectedValue === 'published' && !isPublished) ||
-                (selectedValue === 'unpublished' && isPublished) ||
-                (selectedValue === 'draft' && isPublished)
+                (selectedValue === 'published' && (!isPublished || isDraft)) ||
+                (selectedValue === 'unpublished' && (isPublished || isDraft)) ||
+                (selectedValue === 'draft' && !isDraft)
             );
         });
     });
@@ -383,10 +384,11 @@ function applyTestFilter(selectedValue) {
     const testCards = document.querySelectorAll('.test-card');
     testCards.forEach(card => {
         const isPublished = card.getAttribute('data-published') === 'true';
+        const isDraft = card.classList.contains('draft-card');
         const shouldHide =
             (selectedValue === 'published' && !isPublished) ||
-            (selectedValue === 'unpublished' && isPublished) ||
-            (selectedValue === 'draft' && isPublished);
+            (selectedValue === 'unpublished' && (isPublished || isDraft)) ||
+            (selectedValue === 'draft' && !isDraft);
 
         if (shouldHide) {
             card.classList.add('hidden');

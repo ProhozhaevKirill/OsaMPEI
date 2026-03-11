@@ -15,6 +15,7 @@ class TypeAnswer(models.Model):
         (2, "Нецелые"),
         (3, "Строки"),
         (4, "Матрицы"),
+        (5, "Свободный ответ"),
     ]
 
     type_code = models.IntegerField(choices=TYPE_CHOICES, unique=True)
@@ -112,6 +113,7 @@ class AboutTest(models.Model):
     is_published = models.IntegerField(default=0)
     is_done = models.IntegerField(default=1)
     is_draft = models.BooleanField(default=False)
+    draft_data = models.TextField(default='', blank=True)
     result_display_mode = models.CharField(max_length=20, choices=RESULT_DISPLAY_CHOICES, default='only_score')  # Режим отображения результатов
     subj = models.ForeignKey(Subjects,
                              on_delete=models.PROTECT,

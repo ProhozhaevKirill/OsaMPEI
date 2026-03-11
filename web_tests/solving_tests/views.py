@@ -3,6 +3,7 @@ import logging
 import random
 from django.contrib.auth import logout
 from django.shortcuts import render, get_object_or_404, redirect
+from django.conf import settings
 from create_tests.models import AboutExpressions, AboutTest, PublishedGroup, TypeNormForMatrix
 from users.models import StudentGroup, StudentData, TeacherData
 from .models import StudentResult, StudentTaskAnswer
@@ -32,6 +33,8 @@ def list_test(request):
         return render(request, 'solving_tests/test_selection.html', {
             'tests': tests_for_teacher,
             'is_teacher': True,
+            'pusher_key': getattr(settings, 'PUSHER_KEY', ''),
+            'pusher_cluster': getattr(settings, 'PUSHER_CLUSTER', 'eu'),
         })
 
     try:
@@ -60,7 +63,9 @@ def list_test(request):
         tests_with_status = []
 
     return render(request, 'solving_tests/test_selection.html', {
-        'tests': tests_with_status
+        'tests': tests_with_status,
+        'pusher_key': getattr(settings, 'PUSHER_KEY', ''),
+        'pusher_cluster': getattr(settings, 'PUSHER_CLUSTER', 'eu'),
     })
 
 
@@ -90,8 +95,8 @@ def get_randomized_test_for_student(test, student_id, attempt_number=1):
         # Новая система: используем TaskGroup и TaskVariant
         from create_tests.models import TypeNormForTaskVariant
 
-        for task_group in task_groups.order_by('number'):
-            variants = task_group.variants.all()
+        for task_group in task_groups.order_by('number', 'id'):
+            variants = task_group.variants.order_by('id')
             if variants:
                 # Выбираем случайный вариант из группы
                 selected_variant = random.choice(list(variants))
@@ -116,7 +121,7 @@ def get_randomized_test_for_student(test, student_id, attempt_number=1):
         from collections import defaultdict
         blocks = defaultdict(list)
 
-        for ex in test.expressions.all():
+        for ex in test.expressions.order_by('block_expression_num', 'id'):
             blocks[ex.block_expression_num].append(ex)
 
         # Из каждого блока выбираем случайное задание
@@ -220,7 +225,10 @@ def some_test_for_student(request, slug_name):
                 logger.info(f"Question {i+1}: Multiple choice - Selected: {selected_set}, Should be: {should_be_selected}, Result: {res}")
             else:
                 # Single answer question
-                if expr_data['user_type'].type_code == 4:  # Matrix type
+                if expr_data['user_type'] and expr_data['user_type'].type_code == 5:
+                    # Свободный ответ — проверяется преподавателем вручную
+                    res = 0
+                elif expr_data['user_type'].type_code == 4:  # Matrix type
                     if expr_data['matrix_norm']:
                         res = CheckAnswer(expr_data['user_ans'], user_ans, False,
                                         expression=expr_data['user_expression'],
@@ -249,11 +257,18 @@ def some_test_for_student(request, slug_name):
         else:
             grade = 2
 
+        # Если есть вопросы со свободным ответом — оценка не выставляется пока препод не проверит
+        has_free_answers = any(
+            expr_data.get('user_type') and expr_data['user_type'].type_code == 5
+            for expr_data in expressions_data
+        )
+
         request.session['test_result'] = {
             'result': result_score,
             'score': grade,
             'test_name': test.name_tests,
             'is_teacher': is_teacher,
+            'has_free_answers': has_free_answers,
         }
 
         if is_teacher:
@@ -279,12 +294,14 @@ def some_test_for_student(request, slug_name):
                         'points': expr_data['points_for_solve'],
                     })
                 else:
+                    is_free = expr_data['user_type'] and expr_data['user_type'].type_code == 5
                     detailed_results.append({
                         'question_number': i + 1,
                         'question': expr_data['user_expression'],
                         'student_answer': student_answer,
-                        'correct_answer': expr_data['user_ans'],
+                        'correct_answer': None if is_free else expr_data['user_ans'],
                         'is_multiple_choice': False,
+                        'is_free_answer': is_free,
                         'options': [],
                         'points': expr_data['points_for_solve'],
                     })
@@ -361,6 +378,10 @@ def show_result(request, slug_name):
     # Получаем настройки отображения результатов
     result_display_mode = getattr(test, 'result_display_mode', 'only_score')
 
+    # Если тест содержит свободные ответы — показываем сообщение об ожидании проверки
+    has_free_answers = test_result.get('has_free_answers', False)
+    waiting_for_review = has_free_answers  # студент ждёт пока препод не проверит
+
     # Базовый контекст
     context = {
         'test_name': test_result['test_name'],
@@ -369,6 +390,7 @@ def show_result(request, slug_name):
         'count': count,
         'slug_name': slug_name,
         'result_display_mode': result_display_mode,
+        'waiting_for_review': waiting_for_review,
     }
 
     # Добавляем дополнительную информацию в зависимости от режима отображения
@@ -407,9 +429,17 @@ def show_result(request, slug_name):
                     correct_answers = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
 
                     correct_options = []
-                    for j, is_correct in enumerate(correct_answers):
-                        if j < len(available_options) and is_correct == '1':
+                    for j, flag in enumerate(correct_answers):
+                        if j < len(available_options) and flag == '1':
                             correct_options.append(available_options[j])
+
+                    if isinstance(student_answer, str):
+                        selected_options = student_answer.split(';') if student_answer else []
+                    elif isinstance(student_answer, list):
+                        selected_options = student_answer
+                    else:
+                        selected_options = []
+                    is_correct = set(selected_options) == set(correct_options)
 
                     detailed_results.append({
                         'question_number': i + 1,
@@ -418,10 +448,24 @@ def show_result(request, slug_name):
                         'correct_answer': '; '.join(correct_options),
                         'is_multiple_choice': True,
                         'options': available_options,
-                        'points': expr_data['points_for_solve']
+                        'points': expr_data['points_for_solve'],
+                        'is_correct': is_correct,
                     })
                 else:
                     # Для обычных вопросов
+                    try:
+                        if expr_data['user_type'].type_code == 4 and expr_data.get('matrix_norm'):
+                            res = CheckAnswer(expr_data['user_ans'], student_answer, False,
+                                            expression=expr_data['user_expression'],
+                                            type_ans=expr_data['user_type'].type_code,
+                                            type_norm=expr_data['matrix_norm']).compare_answer()
+                        else:
+                            res = CheckAnswer(expr_data['user_ans'], student_answer, False,
+                                            expression=expr_data['user_expression'],
+                                            type_ans=expr_data['user_type'].type_code).compare_answer()
+                        is_correct = res == 1
+                    except Exception:
+                        is_correct = None
                     detailed_results.append({
                         'question_number': i + 1,
                         'question': expr_data['user_expression'],
@@ -429,7 +473,8 @@ def show_result(request, slug_name):
                         'correct_answer': expr_data['user_ans'],
                         'is_multiple_choice': False,
                         'options': [],
-                        'points': expr_data['points_for_solve']
+                        'points': expr_data['points_for_solve'],
+                        'is_correct': is_correct,
                     })
 
             context['detailed_results'] = detailed_results
@@ -466,23 +511,46 @@ def view_completed_result(request, slug_name):
     # Получаем настройки отображения результатов
     result_display_mode = getattr(test, 'result_display_mode', 'only_score')
 
+    # Проверяем наличие вопросов со свободным ответом и статус их проверки
+    expressions_data = get_randomized_test_for_student(test, student.id, best_result.attempt_number)
+    free_q_indices = [
+        i for i, e in enumerate(expressions_data)
+        if e.get('user_type') and e['user_type'].type_code == 5
+    ]
+    has_free_answers = bool(free_q_indices)
+    if has_free_answers:
+        from solving_tests.models import FreeAnswerGrade
+        graded_count = FreeAnswerGrade.objects.filter(
+            student_result=best_result,
+            question_index__in=free_q_indices,
+            is_correct__isnull=False,
+        ).count()
+        waiting_for_review = graded_count < len(free_q_indices)
+    else:
+        waiting_for_review = False
+
+    score_pct = best_result.result_points / count * 100 if count > 0 else 0
+    grade = (5 if score_pct >= test.grade_5_threshold else
+             4 if score_pct >= test.grade_4_threshold else
+             3 if score_pct >= test.grade_3_threshold else 2)
+
     # Базовый контекст
     context = {
         'test_name': test.name_tests,
         'test': test,
         'result': best_result.result_points,
-        'score': 5 if best_result.result_points/count*100 >= test.grade_5_threshold else 4 if best_result.result_points/count*100 >= test.grade_4_threshold else 3 if best_result.result_points/count*100 >= test.grade_3_threshold else 2,
+        'score': grade,
         'count': count,
         'slug_name': slug_name,
         'result_display_mode': result_display_mode,
         'best_result': best_result,
         'all_results': results,
+        'waiting_for_review': waiting_for_review,
+        'has_free_answers': has_free_answers,
     }
 
     # Добавляем дополнительную информацию в зависимости от режима отображения
     if result_display_mode == 'show_correct':
-        # Получаем рандомизированный вариант теста, который проходил студент
-        expressions_data = get_randomized_test_for_student(test, student.id, best_result.attempt_number)
 
         # Получаем ответы студента
         try:
@@ -504,9 +572,17 @@ def view_completed_result(request, slug_name):
                 correct_answers = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
 
                 correct_options = []
-                for j, is_correct in enumerate(correct_answers):
-                    if j < len(available_options) and is_correct == '1':
+                for j, flag in enumerate(correct_answers):
+                    if j < len(available_options) and flag == '1':
                         correct_options.append(available_options[j])
+
+                if isinstance(student_answer, str):
+                    selected_options = student_answer.split(';') if student_answer else []
+                elif isinstance(student_answer, list):
+                    selected_options = student_answer
+                else:
+                    selected_options = []
+                is_correct = set(selected_options) == set(correct_options)
 
                 detailed_results.append({
                     'question_number': i + 1,
@@ -515,9 +591,23 @@ def view_completed_result(request, slug_name):
                     'correct_answer': '; '.join(correct_options),
                     'is_multiple_choice': True,
                     'options': available_options,
-                    'points': expr_data['points_for_solve']
+                    'points': expr_data['points_for_solve'],
+                    'is_correct': is_correct,
                 })
             else:
+                try:
+                    if expr_data['user_type'].type_code == 4 and expr_data.get('matrix_norm'):
+                        res = CheckAnswer(expr_data['user_ans'], student_answer, False,
+                                        expression=expr_data['user_expression'],
+                                        type_ans=expr_data['user_type'].type_code,
+                                        type_norm=expr_data['matrix_norm']).compare_answer()
+                    else:
+                        res = CheckAnswer(expr_data['user_ans'], student_answer, False,
+                                        expression=expr_data['user_expression'],
+                                        type_ans=expr_data['user_type'].type_code).compare_answer()
+                    is_correct = res == 1
+                except Exception:
+                    is_correct = None
                 detailed_results.append({
                     'question_number': i + 1,
                     'question': expr_data['user_expression'],
@@ -525,7 +615,8 @@ def view_completed_result(request, slug_name):
                     'correct_answer': expr_data['user_ans'],
                     'is_multiple_choice': False,
                     'options': [],
-                    'points': expr_data['points_for_solve']
+                    'points': expr_data['points_for_solve'],
+                    'is_correct': is_correct,
                 })
 
         context['detailed_results'] = detailed_results

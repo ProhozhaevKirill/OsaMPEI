@@ -1,3 +1,42 @@
+// После рендера MathJax: если выражение не влезает — оборачиваем в \displaylines{}
+window.addEventListener('load', () => {
+    if (typeof MathJax === 'undefined' || !MathJax.startup) return;
+
+    MathJax.startup.promise.then(() => {
+        const toRerender = [];
+
+        document.querySelectorAll('.express').forEach(expressDiv => {
+            const mjxContainer = expressDiv.querySelector('mjx-container');
+            if (!mjxContainer) return;
+
+            // scrollWidth > clientWidth означает что контент не влезает
+            if (mjxContainer.scrollWidth <= mjxContainer.clientWidth) return;
+
+            const originalExpr = expressDiv.dataset.expr;
+            if (!originalExpr) return;
+
+            // Заменяем \; на \\ и оборачиваем в \displaylines{}
+            const newExpr = '\\displaylines{' + originalExpr.replace(/\\;/g, '\\\\') + '}';
+            const li = expressDiv.querySelector('li');
+            if (li) {
+                toRerender.push({ expressDiv, li, newExpr });
+            }
+        });
+
+        if (toRerender.length === 0) return;
+
+        // Убираем старые mjx-container и вставляем новый текст для MathJax
+        toRerender.forEach(({ expressDiv, li, newExpr }) => {
+            expressDiv.querySelectorAll('mjx-container').forEach(el => el.remove());
+            li.textContent = '$$ ' + newExpr + ' $$';
+        });
+
+        MathJax.typesetPromise(toRerender.map(t => t.expressDiv)).catch(err => {
+            console.error('MathJax re-render error:', err);
+        });
+    });
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("answerForm");
 
@@ -15,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     .map(cb => cb.value);
                 results.push(selected.join(";"));
             } else {
-                // Нет checkbox — значит свободный ответ, берём из math-field
+                // Нет checkbox — берём из math-field (обычный или свободный ответ)
                 const mathField = questionCard.querySelector("math-field");
                 results.push(mathField ? mathField.getValue().trim() : "");
             }

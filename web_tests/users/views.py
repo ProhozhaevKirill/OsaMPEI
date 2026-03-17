@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
+from django.db.models import Q
 from .forms import SignUpForm, EmailAuthenticationForm, ProfileForm, TeacherProfileForm
 from .models import WhiteList, CustomUser, StudentData, TeacherData, StudentGroup, StudentInstitute
 from create_tests.models import AboutTest, PublishedGroup, AboutExpressions, TaskVariant
@@ -422,8 +423,32 @@ def account_view2(request):
         students_count = PublishedGroup.objects.filter(teacher_name=teacher_data)\
                                               .values('group_name').distinct().count()
 
+        # Ищем StudentResult для тестов препода, где есть свободные ответы без оценки
+        from create_tests.models import TypeAnswer as TA
+        free_type = TA.objects.filter(type_code=5).first()
+        pending_results = []
+        if free_type:
+            # Покрываем обе системы: старую (expressions) и новую (task_groups -> variants)
+            results_with_free = StudentResult.objects.filter(
+                test__creator=teacher_data,
+            ).filter(
+                Q(test__expressions__user_type=free_type) |
+                Q(test__task_groups__variants__user_type=free_type)
+            ).prefetch_related(
+                'free_answer_grades',
+                'student__studentdata',
+            ).select_related('test').distinct()
+
+            for sr in results_with_free:
+                grades = list(sr.free_answer_grades.all())
+                # Нет записей вообще ИЛИ есть непроверенные
+                if not grades or any(g.is_correct is None for g in grades):
+                    pending_results.append(sr)
+
         context.update({
             'teacher_tests': teacher_tests,
+            'pending_results': pending_results,
+            'pending_results_count': len(pending_results),
         })
 
         # Динамические поля для шаблона

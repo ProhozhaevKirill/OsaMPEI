@@ -36,16 +36,7 @@ class CheckAnswer:
             return int(self.teach_raw == self.stud_raw)
 
         match self.type_ans:
-            case 1:  # int
-                try:
-                    # Преобразуем в числа перед сравнением
-                    teach_num = int(self.teach_raw)
-                    stud_num = int(self.stud_raw)
-                    return teach_num == stud_num
-                except (ValueError, TypeError):
-                    return 0
-
-            case 2: # float
+            case 1:  # число (целое или нецелое)
                 try:
                     teach = ts(self.teach_raw).get_result()
                     stud = ts(self.stud_raw).get_result()

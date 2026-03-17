@@ -271,7 +271,7 @@
     <script src="{% static 'js/macros-mathJax.js' %}"></script>
     <script>
         MathJax.tex.inlineMath = [['\\(', '\\)']];
-        MathJax.tex.displayMath = [['$$', '$$']];
+        MathJax.tex.displayMath = [['$$', '$$'], ['\\[', '\\]']];
         MathJax.options = { skipHtmlTags: ['script', 'noscript', 'style', 'textarea'] };
     </script>
     <script id="MathJax-script" async src="{% static 'libs/mathjax/tex-mml-chtml.js' %}"></script>

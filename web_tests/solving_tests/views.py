@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.conf import settings
 from create_tests.models import AboutExpressions, AboutTest, PublishedGroup, TypeNormForMatrix
 from users.models import StudentGroup, StudentData, TeacherData
-from .models import StudentResult, StudentTaskAnswer
+from .models import StudentResult, StudentTaskAnswer, FreeAnswerGrade
 from logic_of_expression.check_sympy_expr import CheckAnswer
 import numpy as np
 from .decorators import role_required
@@ -233,15 +233,18 @@ def some_test_for_student(request, slug_name):
                         res = CheckAnswer(expr_data['user_ans'], user_ans, False,
                                         expression=expr_data['user_expression'],
                                         type_ans=expr_data['user_type'].type_code,
+                                        eps=float(expr_data.get('user_eps') or 0),
                                         type_norm=expr_data['matrix_norm']).compare_answer()
                     else:
                         res = CheckAnswer(expr_data['user_ans'], user_ans, False,
                                         expression=expr_data['user_expression'],
-                                        type_ans=expr_data['user_type'].type_code).compare_answer()
+                                        type_ans=expr_data['user_type'].type_code,
+                                        eps=float(expr_data.get('user_eps') or 0)).compare_answer()
                 else:
                     res = CheckAnswer(expr_data['user_ans'], user_ans, False,
                                     expression=expr_data['user_expression'],
-                                    type_ans=expr_data['user_type'].type_code).compare_answer()
+                                    type_ans=expr_data['user_type'].type_code,
+                                    eps=float(expr_data.get('user_eps') or 0)).compare_answer()
 
             result_score += res * expr_data['points_for_solve']
 
@@ -310,7 +313,7 @@ def some_test_for_student(request, slug_name):
                 'count': all_points,
             }
         else:
-            StudentResult.objects.create(
+            student_result = StudentResult.objects.create(
                 student=student,
                 test=test,
                 attempt_number=attempt_count + 1,
@@ -318,6 +321,15 @@ def some_test_for_student(request, slug_name):
                 max_points=all_points,
                 res_answer=json.dumps(student_answers),
             )
+
+            # Создаём записи для вопросов со свободным ответом
+            for i, expr_data in enumerate(expressions_data):
+                if expr_data.get('user_type') and expr_data['user_type'].type_code == 5:
+                    FreeAnswerGrade.objects.create(
+                        student_result=student_result,
+                        question_index=i,
+                        is_correct=None,
+                    )
 
         return redirect('solving_tests:show_result', slug_name=slug_name)
 
@@ -458,11 +470,13 @@ def show_result(request, slug_name):
                             res = CheckAnswer(expr_data['user_ans'], student_answer, False,
                                             expression=expr_data['user_expression'],
                                             type_ans=expr_data['user_type'].type_code,
+                                            eps=float(expr_data.get('user_eps') or 0),
                                             type_norm=expr_data['matrix_norm']).compare_answer()
                         else:
                             res = CheckAnswer(expr_data['user_ans'], student_answer, False,
                                             expression=expr_data['user_expression'],
-                                            type_ans=expr_data['user_type'].type_code).compare_answer()
+                                            type_ans=expr_data['user_type'].type_code,
+                                            eps=float(expr_data.get('user_eps') or 0)).compare_answer()
                         is_correct = res == 1
                     except Exception:
                         is_correct = None
@@ -600,11 +614,13 @@ def view_completed_result(request, slug_name):
                         res = CheckAnswer(expr_data['user_ans'], student_answer, False,
                                         expression=expr_data['user_expression'],
                                         type_ans=expr_data['user_type'].type_code,
+                                        eps=float(expr_data.get('user_eps') or 0),
                                         type_norm=expr_data['matrix_norm']).compare_answer()
                     else:
                         res = CheckAnswer(expr_data['user_ans'], student_answer, False,
                                         expression=expr_data['user_expression'],
-                                        type_ans=expr_data['user_type'].type_code).compare_answer()
+                                        type_ans=expr_data['user_type'].type_code,
+                                        eps=float(expr_data.get('user_eps') or 0)).compare_answer()
                     is_correct = res == 1
                 except Exception:
                     is_correct = None

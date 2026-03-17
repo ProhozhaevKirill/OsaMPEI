@@ -412,6 +412,10 @@ body {
   align-items: flex-start;
 }
 
+.free-answer-note {
+  flex: 1;
+}
+
 .answer-field {
   flex: 1;
   border: 1px solid #ddd;

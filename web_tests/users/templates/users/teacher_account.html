@@ -49,6 +49,35 @@
 </div>
 
 
+<section class="notifications-section">
+    <h2 class="section-title">
+        <i class="fas fa-bell"></i> Требуют проверки
+        {% if pending_results_count %}<span class="notifications-badge">{{ pending_results_count }}</span>{% endif %}
+    </h2>
+    <div class="notifications-list">
+        {% if pending_results %}
+            {% for sr in pending_results %}
+            <a href="{% url 'create_tests:test_results_detail' sr.test.name_slug_tests sr.student.id %}" class="notification-item">
+                <div class="notification-icon">
+                    <i class="fas fa-user-edit"></i>
+                </div>
+                <div class="notification-body">
+                    <div class="notification-title">{{ sr.test.name_tests }}</div>
+                    <div class="notification-meta">
+                        {% with s=sr.student.studentdata %}
+                            {{ s.last_name }} {{ s.first_name }} {{ s.middle_name }}
+                        {% endwith %}
+                    </div>
+                </div>
+                <div class="notification-arrow"><i class="fas fa-chevron-right"></i></div>
+            </a>
+            {% endfor %}
+        {% else %}
+            <div class="notification-empty">Нет ответов, ожидающих проверки</div>
+        {% endif %}
+    </div>
+</section>
+
 <section>
     <h2 class="section-title">
         <i class="fas fa-tasks"></i> Все созданные тесты

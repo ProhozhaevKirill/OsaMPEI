@@ -11,8 +11,7 @@ from datetime import timedelta
 
 class TypeAnswer(models.Model):
     TYPE_CHOICES = [
-        (1, "Целые"),
-        (2, "Нецелые"),
+        (1, "Число"),
         (3, "Строки"),
         (4, "Матрицы"),
         (5, "Свободный ответ"),

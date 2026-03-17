@@ -1248,15 +1248,18 @@ def solve_test_teacher(request, slug_name):
                         res = CheckAnswer(expr_data['user_ans'], user_ans, False,
                                         expression=expr_data['user_expression'],
                                         type_ans=expr_data['user_type'].type_code,
+                                        eps=float(expr_data.get('user_eps') or 0),
                                         type_norm=expr_data['matrix_norm']).compare_answer()
                     else:
                         res = CheckAnswer(expr_data['user_ans'], user_ans, False,
                                         expression=expr_data['user_expression'],
-                                        type_ans=expr_data['user_type'].type_code).compare_answer()
+                                        type_ans=expr_data['user_type'].type_code,
+                                        eps=float(expr_data.get('user_eps') or 0)).compare_answer()
                 else:
                     res = CheckAnswer(expr_data['user_ans'], user_ans, False,
                                     expression=expr_data['user_expression'],
-                                    type_ans=expr_data['user_type'].type_code).compare_answer()
+                                    type_ans=expr_data['user_type'].type_code,
+                                    eps=float(expr_data.get('user_eps') or 0)).compare_answer()
 
             task_results.append(res)
             result_score += res * expr_data['points_for_solve']
@@ -1523,11 +1526,13 @@ def test_results_detail(request, slug_name, student_id):
                         res = _CheckAnswer(expr_data['user_ans'], student_answer, False,
                                         expression=expr_data['user_expression'],
                                         type_ans=expr_data['user_type'].type_code,
+                                        eps=float(expr_data.get('user_eps') or 0),
                                         type_norm=expr_data['matrix_norm']).compare_answer()
                     else:
                         res = _CheckAnswer(expr_data['user_ans'], student_answer, False,
                                         expression=expr_data['user_expression'],
-                                        type_ans=expr_data['user_type'].type_code).compare_answer()
+                                        type_ans=expr_data['user_type'].type_code,
+                                        eps=float(expr_data.get('user_eps') or 0)).compare_answer()
                     is_correct = res == 1
                 except Exception:
                     is_correct = None
@@ -1644,11 +1649,13 @@ def grade_free_answer(request, slug_name, student_id):
                     res = _CheckAnswer(expr_data['user_ans'], user_ans, False,
                                        expression=expr_data['user_expression'],
                                        type_ans=expr_data['user_type'].type_code,
+                                       eps=float(expr_data.get('user_eps') or 0),
                                        type_norm=expr_data['matrix_norm']).compare_answer()
                 else:
                     res = _CheckAnswer(expr_data['user_ans'], user_ans, False,
                                        expression=expr_data['user_expression'],
-                                       type_ans=expr_data['user_type'].type_code).compare_answer()
+                                       type_ans=expr_data['user_type'].type_code,
+                                       eps=float(expr_data.get('user_eps') or 0)).compare_answer()
                 result_score += res * expr_data['points_for_solve']
             except Exception:
                 pass

@@ -13966,3 +13966,59 @@ django.template.exceptions.TemplateSyntaxError: Template: C:\Users\cproh\SRW\Osa
 [INFO] 2026-03-17 03:30:47,073 django.server 4520 10360 "GET /TestsCreate/listTests/ HTTP/1.1" 200 263303
 [INFO] 2026-03-17 03:30:49,149 django.server 4520 10360 "GET /personaInf/ HTTP/1.1" 200 11901
 [WARNING] 2026-03-17 03:30:49,215 django.server 4520 10360 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-17 03:55:48,678 django.utils.autoreload 13884 13072 Watching for file changes with StatReloader
+[INFO] 2026-03-17 03:55:52,813 django.server 13884 15208 "GET /TestsCreate/test-results/proverka-uvedomlenii/11/ HTTP/1.1" 200 20157
+[WARNING] 2026-03-17 03:55:53,221 django.server 13884 15208 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-17 03:55:54,635 django.server 13884 14516 "GET /personaInf/ HTTP/1.1" 200 11901
+[INFO] 2026-03-17 03:55:54,699 django.server 13884 14516 "GET /static/css/teacher_account.css HTTP/1.1" 304 0
+[WARNING] 2026-03-17 03:55:54,699 django.server 13884 12172 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-17 03:55:55,810 django.server 13884 14516 "GET /TestsCreate/test-results/proverka-uvedomlenii/11/ HTTP/1.1" 200 20157
+[WARNING] 2026-03-17 03:55:56,010 django.server 13884 14516 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-17 03:55:57,544 django.server 13884 13724 "POST /TestsCreate/test-results/proverka-uvedomlenii/11/grade-free/ HTTP/1.1" 200 53
+[INFO] 2026-03-17 03:55:59,145 django.server 13884 13724 "GET /personaInf/ HTTP/1.1" 200 11901
+[WARNING] 2026-03-17 03:55:59,215 django.server 13884 13724 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-17 03:57:39,889 django.utils.autoreload 13884 13072 C:\Users\cproh\SRW\OsaMPEI\web_tests\users\views.py changed, reloading.
+[INFO] 2026-03-17 03:57:41,226 django.utils.autoreload 14908 13412 Watching for file changes with StatReloader
+[INFO] 2026-03-17 03:57:52,981 django.server 14908 14596 "GET /personaInf/ HTTP/1.1" 200 11901
+[INFO] 2026-03-17 03:57:53,114 django.server 14908 11560 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-17 03:57:53,119 django.server 14908 11560 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[WARNING] 2026-03-17 03:57:53,133 django.server 14908 11560 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-17 03:57:53,146 django.server 14908 14596 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-17 03:57:53,166 django.server 14908 4248 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-17 03:57:53,168 django.server 14908 2108 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-17 03:57:53,172 django.server 14908 16304 "GET /static/css/teacher_account.css HTTP/1.1" 200 7005
+[INFO] 2026-03-17 03:57:53,172 django.server 14908 17816 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-17 03:57:53,199 django.server 14908 16304 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-17 03:57:53,251 django.server 14908 16304 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-17 03:57:55,883 django.server 14908 16304 "GET /TestsCreate/test-results/proverka-uvedomlenii/11/ HTTP/1.1" 200 20157
+[WARNING] 2026-03-17 03:57:56,147 django.server 14908 16304 "GET /static/libs/mathjax/sre/speech-worker.js HTTP/1.1" 404 1913
+[INFO] 2026-03-17 03:57:57,285 django.server 14908 17816 "POST /TestsCreate/test-results/proverka-uvedomlenii/11/grade-free/ HTTP/1.1" 200 53
+[INFO] 2026-03-17 03:58:00,055 django.server 14908 17816 "GET /personaInf/ HTTP/1.1" 200 11901
+[WARNING] 2026-03-17 03:58:00,120 django.server 14908 17816 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-17 03:58:02,194 django.server 14908 15892 "GET /personaInf/ HTTP/1.1" 200 11901
+[INFO] 2026-03-17 03:58:02,235 django.server 14908 15892 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-17 03:58:02,243 django.server 14908 6404 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-17 03:58:02,264 django.server 14908 16132 "GET /static/css/teacher_account.css HTTP/1.1" 200 7005
+[WARNING] 2026-03-17 03:58:02,264 django.server 14908 15892 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-17 03:58:02,264 django.server 14908 6404 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[INFO] 2026-03-17 03:58:02,266 django.server 14908 14096 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-17 03:58:02,267 django.server 14908 2892 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-17 03:58:02,270 django.server 14908 2264 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-17 03:58:02,289 django.server 14908 2264 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-17 03:58:02,379 django.server 14908 2264 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-17 03:59:23,683 django.utils.autoreload 14908 13412 C:\Users\cproh\SRW\OsaMPEI\web_tests\users\views.py changed, reloading.
+[INFO] 2026-03-17 03:59:25,017 django.utils.autoreload 13024 9404 Watching for file changes with StatReloader
+[INFO] 2026-03-17 03:59:43,103 django.server 13024 11996 "GET /personaInf/ HTTP/1.1" 200 10515
+[INFO] 2026-03-17 03:59:43,262 django.server 13024 8592 "GET /static/images/logo.png HTTP/1.1" 200 188088
+[INFO] 2026-03-17 03:59:43,269 django.server 13024 8592 "GET /static/js/theme-switcher.js HTTP/1.1" 200 1072
+[WARNING] 2026-03-17 03:59:43,283 django.server 13024 8592 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877
+[INFO] 2026-03-17 03:59:43,290 django.server 13024 10392 "GET /static/css/dark-theme.css HTTP/1.1" 200 32361
+[INFO] 2026-03-17 03:59:43,297 django.server 13024 11996 "GET /static/css/header.css HTTP/1.1" 200 11500
+[INFO] 2026-03-17 03:59:43,309 django.server 13024 9384 "GET /static/css/teacher_account.css HTTP/1.1" 200 7005
+[INFO] 2026-03-17 03:59:43,311 django.server 13024 17356 "GET /static/libs/fontawesome/css/all.min.css HTTP/1.1" 200 89220
+[INFO] 2026-03-17 03:59:43,318 django.server 13024 6664 "GET /static/js/header.js HTTP/1.1" 200 4056
+[INFO] 2026-03-17 03:59:43,339 django.server 13024 6664 "GET /static/libs/fontawesome/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 126828
+[INFO] 2026-03-17 03:59:43,384 django.server 13024 6664 "GET /static/favicon.ico HTTP/1.1" 200 976
+[INFO] 2026-03-17 03:59:46,239 django.server 13024 6664 "GET /TestsCreate/listTests/ HTTP/1.1" 200 263303
+[INFO] 2026-03-17 03:59:47,658 django.server 13024 6664 "GET /personaInf/ HTTP/1.1" 200 10515
+[WARNING] 2026-03-17 03:59:47,726 django.server 13024 6664 "GET /static/js/teacher_account.js HTTP/1.1" 404 1877

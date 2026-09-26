@@ -1,4 +1,6 @@
 import logging
+import re
+import unicodedata
 
 import requests
 from django.conf import settings
@@ -11,10 +13,32 @@ UPLOAD_URL = f'{RESOURCES_URL}/upload'
 REQUEST_TIMEOUT = (3.05, 10)
 
 
-def _ensure_folder(headers, path):
-    resp = requests.put(RESOURCES_URL, headers=headers, params={'path': path}, timeout=REQUEST_TIMEOUT)
-    if resp.status_code not in (201, 409):
-        resp.raise_for_status()
+def _safe_path_part(value, fallback):
+    """Готовит читаемую часть пути без разделителей и служебных символов."""
+    value = unicodedata.normalize('NFKC', str(value or '')).strip()
+    value = re.sub(r'[\\/:*?"<>|\x00-\x1f]+', '_', value)
+    value = re.sub(r'\s+', '_', value).strip('._')
+    return (value or fallback)[:100]
+
+
+def _ensure_folder_tree(headers, path):
+    """Создаёт все недостающие папки внутри app:/ по очереди."""
+    if not path.startswith('app:/'):
+        raise ValueError('YANDEX_DISK_FOLDER must start with app:/')
+
+    current = 'app:'
+    for part in path.removeprefix('app:/').split('/'):
+        if not part:
+            continue
+        current = f'{current}/{part}'
+        resp = requests.put(
+            RESOURCES_URL,
+            headers=headers,
+            params={'path': current},
+            timeout=REQUEST_TIMEOUT,
+        )
+        if resp.status_code not in (201, 409):
+            resp.raise_for_status()
 
 
 def upload_test_attempt_log(student_result, detailed_results):
@@ -29,13 +53,33 @@ def upload_test_attempt_log(student_result, detailed_results):
 
     try:
         headers = {'Authorization': f'OAuth {token}'}
-        folder = settings.YANDEX_DISK_FOLDER.rstrip('/')
-        _ensure_folder(headers, folder)
+        root_folder = settings.YANDEX_DISK_FOLDER.rstrip('/')
+
+        student = student_result.student
+        student_data = getattr(student, 'studentdata', None)
+        group = student_data.group if student_data else None
+        group_name = group.name if group else 'Без группы'
+        group_id = group.id if group else 'unknown'
+        student_name = student.get_full_name()
+
+        group_folder = (
+            f'group_{group_id}__'
+            f'{_safe_path_part(group_name, "Без_группы")}'
+        )
+        test_folder = (
+            f'test_{student_result.test_id}__'
+            f'{_safe_path_part(student_result.test.name_tests, "Без_названия")}'
+        )
+        folder = f'{root_folder}/{group_folder}/{test_folder}'
+        _ensure_folder_tree(headers, folder)
 
         payload = {
             'result_id': student_result.id,
             'student_id': student_result.student_id,
-            'student_email': student_result.student.email,
+            'student_name': student_name,
+            'student_email': student.email,
+            'group_id': group_id,
+            'group_name': group_name,
             'test_id': student_result.test_id,
             'test_name': student_result.test.name_tests,
             'attempt_number': student_result.attempt_number,
@@ -50,7 +94,12 @@ def upload_test_attempt_log(student_result, detailed_results):
             'questions': detailed_results,
         }
 
-        file_name = f'result_{student_result.id}_attempt_{student_result.attempt_number}.json'
+        student_file_name = _safe_path_part(student_name, f'student_{student_result.student_id}')
+        file_name = (
+            f'{student_file_name}__student_{student_result.student_id}'
+            f'__attempt_{student_result.attempt_number}'
+            f'__result_{student_result.id}.json'
+        )
         remote_path = f"{folder}/{file_name}"
 
         resp = requests.get(

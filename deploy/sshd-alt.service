@@ -1,0 +1,14 @@
+[Unit]
+Description=OpenSSH server on port 2222 for OsaMPEI administration
+After=network.target ssh.service
+
+[Service]
+Type=notify
+ExecStart=/usr/sbin/sshd -D -p 2222 -o PidFile=/run/sshd-alt.pid -o PasswordAuthentication=no -o KbdInteractiveAuthentication=no -o PermitRootLogin=prohibit-password
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=on-failure
+RestartPreventExitStatus=255
+
+[Install]
+WantedBy=multi-user.target

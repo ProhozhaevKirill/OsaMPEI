@@ -7,6 +7,7 @@ from django.conf import settings
 from create_tests.models import AboutExpressions, AboutTest, PublishedGroup, TypeNormForMatrix
 from users.models import StudentGroup, StudentData, TeacherData
 from .models import StudentResult, StudentTaskAnswer, FreeAnswerGrade
+from .yandex_disk import upload_test_attempt_log
 from logic_of_expression.check_sympy_expr import CheckAnswer
 import numpy as np
 from .decorators import role_required
@@ -274,40 +275,43 @@ def some_test_for_student(request, slug_name):
             'has_free_answers': has_free_answers,
         }
 
+        # Собираем детальную разбивку по вопросам — нужна и для предпросмотра
+        # преподавателя, и для лога попытки, уходящего на Яндекс.Диск
+        detailed_results = []
+        for i, expr_data in enumerate(expressions_data):
+            student_answer = student_answers[i] if i < len(student_answers) else ''
+            if expr_data['exist_select']:
+                available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+                correct_answers_flags = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
+                correct_options = [
+                    available_options[j]
+                    for j, flag in enumerate(correct_answers_flags)
+                    if j < len(available_options) and flag == '1'
+                ]
+                detailed_results.append({
+                    'question_number': i + 1,
+                    'question': expr_data['user_expression'],
+                    'student_answer': student_answer,
+                    'correct_answer': '; '.join(correct_options),
+                    'is_multiple_choice': True,
+                    'options': available_options,
+                    'points': expr_data['points_for_solve'],
+                })
+            else:
+                is_free = expr_data['user_type'] and expr_data['user_type'].type_code == 5
+                detailed_results.append({
+                    'question_number': i + 1,
+                    'question': expr_data['user_expression'],
+                    'student_answer': student_answer,
+                    'correct_answer': None if is_free else expr_data['user_ans'],
+                    'is_multiple_choice': False,
+                    'is_free_answer': is_free,
+                    'options': [],
+                    'points': expr_data['points_for_solve'],
+                })
+
         if is_teacher:
             # Для преподавателя сохраняем детальные результаты в сессии, не пишем в БД
-            detailed_results = []
-            for i, expr_data in enumerate(expressions_data):
-                student_answer = student_answers[i] if i < len(student_answers) else ''
-                if expr_data['exist_select']:
-                    available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
-                    correct_answers_flags = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
-                    correct_options = [
-                        available_options[j]
-                        for j, flag in enumerate(correct_answers_flags)
-                        if j < len(available_options) and flag == '1'
-                    ]
-                    detailed_results.append({
-                        'question_number': i + 1,
-                        'question': expr_data['user_expression'],
-                        'student_answer': student_answer,
-                        'correct_answer': '; '.join(correct_options),
-                        'is_multiple_choice': True,
-                        'options': available_options,
-                        'points': expr_data['points_for_solve'],
-                    })
-                else:
-                    is_free = expr_data['user_type'] and expr_data['user_type'].type_code == 5
-                    detailed_results.append({
-                        'question_number': i + 1,
-                        'question': expr_data['user_expression'],
-                        'student_answer': student_answer,
-                        'correct_answer': None if is_free else expr_data['user_ans'],
-                        'is_multiple_choice': False,
-                        'is_free_answer': is_free,
-                        'options': [],
-                        'points': expr_data['points_for_solve'],
-                    })
             request.session['teacher_detailed_results'] = {
                 'detailed_results': detailed_results,
                 'count': all_points,
@@ -330,6 +334,8 @@ def some_test_for_student(request, slug_name):
                         question_index=i,
                         is_correct=None,
                     )
+
+            upload_test_attempt_log(student_result, detailed_results)
 
         return redirect('solving_tests:show_result', slug_name=slug_name)
 

@@ -31,9 +31,8 @@ def handler500(request):
     """
     Обработчик ошибки 500 (Внутренняя ошибка сервера)
     """
-    context = {
-        'user': request.user,
-        'is_authenticated': request.user.is_authenticated,
-    }
+    from django.http import HttpResponse
+    from django.template.loader import get_template
 
-    return render(request, 'errors/500.html', context, status=500)
+    template = get_template('errors/500.html')
+    return HttpResponse(template.render({}), status=500)

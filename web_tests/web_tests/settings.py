@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+DEBUG = os.getenv('DEBUG', 'False').strip().lower() in {'true', '1', 'yes'}
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
@@ -197,8 +197,3 @@ LOGGING = {
         },
     },
 }
-
-# Обработчики ошибок
-handler403 = 'users.error_handlers.handler403'
-handler404 = 'users.error_handlers.handler404'
-handler500 = 'users.error_handlers.handler500'

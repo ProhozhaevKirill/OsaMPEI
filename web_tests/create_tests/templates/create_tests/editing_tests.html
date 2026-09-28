@@ -12,6 +12,7 @@
 
 {% block extra_js %}
     <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
+    <script src="{% static 'js/editor-validation.js' %}"></script>
     <script src="{% static 'js/editing_tests.js' %}"></script>
     <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
     <script src="{% static 'js/mathJax-rus.js' %}"></script>
@@ -92,7 +93,7 @@
                                                 <select name="user_type" class="type-field" id="type-select" required>
                                                     <option value="" disabled hidden>Тип ответа</option>
                                                     {% for t in all_types_answer %}
-                                                        <option value="{{ t.id }}" {% if t.id == answer.user_type_id %}selected{% endif %}>{{ t.name }}</option>
+                                                        <option data-type-code="{{ t.type_code }}" value="{{ t.id }}" {% if t.id == answer.user_type_id %}selected{% endif %}>{{ t.name }}</option>
                                                     {% endfor %}
                                                 </select>
                                                 <select name="user_norm" class="norm-field" id="norm-select" {% if answer.user_type_id != 4 %}style="display: none;"{% endif %}>
@@ -123,7 +124,7 @@
                                                 <select name="user_type" class="type-field" id="type-select" required>
                                                     <option value="" disabled selected hidden>Тип ответа</option>
                                                     {% for t in all_types_answer %}
-                                                        <option value="{{ t.id }}">{{ t.name }}</option>
+                                                        <option data-type-code="{{ t.type_code }}" value="{{ t.id }}">{{ t.name }}</option>
                                                     {% endfor %}
                                                 </select>
                                                 <select name="user_norm" class="norm-field" id="norm-select" style="display: none;">
@@ -203,7 +204,7 @@
                                                 <select name="user_type" class="type-field" id="type-select" required>
                                                     <option value="" disabled selected hidden>Тип ответа</option>
                                                     {% for t in all_types_answer %}
-                                                        <option value="{{ t.id }}">{{ t.name }}</option>
+                                                        <option data-type-code="{{ t.type_code }}" value="{{ t.id }}">{{ t.name }}</option>
                                                     {% endfor %}
                                                 </select>
                                                 <select name="user_norm" class="norm-field" id="norm-select" style="display: none;">

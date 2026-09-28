@@ -1,3 +1,4 @@
+from create_tests.answer_storage import split_answers, display_answer
 import json
 import logging
 import random
@@ -195,12 +196,12 @@ def some_test_for_student(request, slug_name):
             if expr_data['exist_select']:
                 # Multiple choice question - проверяем правильность выбранных вариантов
                 # Разбираем варианты ответов и правильные ответы
-                available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+                available_options = split_answers(expr_data['user_ans']) if expr_data['user_ans'] else []
                 correct_answers = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
 
                 # Получаем выбранные пользователем варианты
                 if isinstance(user_ans, str):
-                    selected_options = user_ans.split(';') if user_ans else []
+                    selected_options = split_answers(user_ans) if user_ans else []
                 elif isinstance(user_ans, list):
                     selected_options = user_ans
                 else:
@@ -281,7 +282,7 @@ def some_test_for_student(request, slug_name):
         for i, expr_data in enumerate(expressions_data):
             student_answer = student_answers[i] if i < len(student_answers) else ''
             if expr_data['exist_select']:
-                available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+                available_options = split_answers(expr_data['user_ans']) if expr_data['user_ans'] else []
                 correct_answers_flags = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
                 correct_options = [
                     available_options[j]
@@ -291,7 +292,7 @@ def some_test_for_student(request, slug_name):
                 detailed_results.append({
                     'question_number': i + 1,
                     'question': expr_data['user_expression'],
-                    'student_answer': student_answer,
+                    'student_answer': display_answer(student_answer, expr_data['exist_select']),
                     'correct_answer': '; '.join(correct_options),
                     'is_multiple_choice': True,
                     'options': available_options,
@@ -302,7 +303,7 @@ def some_test_for_student(request, slug_name):
                 detailed_results.append({
                     'question_number': i + 1,
                     'question': expr_data['user_expression'],
-                    'student_answer': student_answer,
+                    'student_answer': display_answer(student_answer, expr_data['exist_select']),
                     'correct_answer': None if is_free else expr_data['user_ans'],
                     'is_multiple_choice': False,
                     'is_free_answer': is_free,
@@ -342,7 +343,7 @@ def some_test_for_student(request, slug_name):
     # Подготавливаем данные для отображения
     expressions_with_options = []
     for i, expr_data in enumerate(expressions_data):
-        options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+        options = split_answers(expr_data['user_ans']) if expr_data['user_ans'] else []
         expressions_with_options.append({
             'expression': expr_data,
             'options': options,
@@ -443,7 +444,7 @@ def show_result(request, slug_name):
                 # Получаем правильные ответы
                 if expr_data['exist_select']:
                     # Для вопросов с множественным выбором
-                    available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+                    available_options = split_answers(expr_data['user_ans']) if expr_data['user_ans'] else []
                     correct_answers = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
 
                     correct_options = []
@@ -452,7 +453,7 @@ def show_result(request, slug_name):
                             correct_options.append(available_options[j])
 
                     if isinstance(student_answer, str):
-                        selected_options = student_answer.split(';') if student_answer else []
+                        selected_options = split_answers(student_answer) if student_answer else []
                     elif isinstance(student_answer, list):
                         selected_options = student_answer
                     else:
@@ -462,7 +463,7 @@ def show_result(request, slug_name):
                     detailed_results.append({
                         'question_number': i + 1,
                         'question': expr_data['user_expression'],
-                        'student_answer': student_answer,
+                        'student_answer': display_answer(student_answer, expr_data['exist_select']),
                         'correct_answer': '; '.join(correct_options),
                         'is_multiple_choice': True,
                         'options': available_options,
@@ -489,7 +490,7 @@ def show_result(request, slug_name):
                     detailed_results.append({
                         'question_number': i + 1,
                         'question': expr_data['user_expression'],
-                        'student_answer': student_answer,
+                        'student_answer': display_answer(student_answer, expr_data['exist_select']),
                         'correct_answer': expr_data['user_ans'],
                         'is_multiple_choice': False,
                         'options': [],
@@ -588,7 +589,7 @@ def view_completed_result(request, slug_name):
             student_answer = student_answers[i] if i < len(student_answers) else ''
 
             if expr_data['exist_select']:
-                available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+                available_options = split_answers(expr_data['user_ans']) if expr_data['user_ans'] else []
                 correct_answers = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
 
                 correct_options = []
@@ -597,7 +598,7 @@ def view_completed_result(request, slug_name):
                         correct_options.append(available_options[j])
 
                 if isinstance(student_answer, str):
-                    selected_options = student_answer.split(';') if student_answer else []
+                    selected_options = split_answers(student_answer) if student_answer else []
                 elif isinstance(student_answer, list):
                     selected_options = student_answer
                 else:
@@ -607,7 +608,7 @@ def view_completed_result(request, slug_name):
                 detailed_results.append({
                     'question_number': i + 1,
                     'question': expr_data['user_expression'],
-                    'student_answer': student_answer,
+                    'student_answer': display_answer(student_answer, expr_data['exist_select']),
                     'correct_answer': '; '.join(correct_options),
                     'is_multiple_choice': True,
                     'options': available_options,
@@ -633,7 +634,7 @@ def view_completed_result(request, slug_name):
                 detailed_results.append({
                     'question_number': i + 1,
                     'question': expr_data['user_expression'],
-                    'student_answer': student_answer,
+                    'student_answer': display_answer(student_answer, expr_data['exist_select']),
                     'correct_answer': expr_data['user_ans'],
                     'is_multiple_choice': False,
                     'options': [],

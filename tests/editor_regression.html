@@ -1,0 +1,97 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Editor regression tests</title>
+<script src="../web_tests/static/js/jquery-3.7.1.js"></script>
+<script src="../web_tests/static/libs/mathlive/mathlive.min.js"></script>
+<script src="../web_tests/static/js/editor-validation.js"></script>
+<script src="../web_tests/create_tests/static/js/editing_tests.js"></script>
+<script src="../web_tests/static/js/mathJax-rus.js"></script>
+<div id="taskMapContainer"></div>
+<button id="add-task-group">Add question</button>
+<div id="taskGroupsContainer">
+  <div class="task-group" id="taskGroup1">
+    <input name="group_points" value="1">
+    <div class="task-group-number"><h2></h2></div>
+    <button class="btn-add-variant">Add variant</button>
+    <div class="task-variants-container">
+      <div class="task-variant">
+        <div class="variant-left"><h4></h4></div>
+        <math-field name="user_expression"></math-field>
+        <button class="btn-add-answer">Add answer</button>
+        <div class="answers-container">
+          <div class="answer-row">
+            <math-field class="answer-field"></math-field>
+            <input type="checkbox" class="select-ans" checked>
+            <div class="meta-fields">
+              <input class="accuracy-field" value="0">
+              <select class="type-field"><option value="" disabled>Choose type</option><option value="17" data-type-code="4" selected>Matrix</option></select>
+              <select class="norm-field"><option value="1">Norm</option></select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<input id="hours" value="1"><input id="minutes" value="0"><input id="seconds" value="0">
+<form id="testForm">
+  <input id="hidden_expr1"><input id="hidden_point_solve1"><input id="hidden_ans1">
+  <input id="hidden_eps1"><input id="hidden_type1"><input id="hidden_norm1"><input id="hidden_bool_ans1">
+</form>
+<pre id="result">RUNNING</pre>
+<script>
+const failures = [];
+window.addEventListener('error', event => failures.push(event.message));
+const alerts = [];
+window.alert = message => alerts.push(message);
+// Let the editor's delegated submit handler run without navigating away.
+document.addEventListener('submit', event => event.preventDefault());
+$(function () {
+    setTimeout(async function () {
+        const assert = (condition, message) => { if (!condition) throw new Error(message); };
+        try {
+            const first = document.querySelector('.task-variant');
+            const expression = first.querySelector('[name="user_expression"]');
+            const answer = first.querySelector('.answer-field');
+            expression.value = String.raw`\text{Question; with spaces}`;
+            answer.value = String.raw`\begin{pmatrix}1&2\\3&4\end{pmatrix}`;
+            const originalExpression = expression.value;
+            const originalAnswer = answer.value;
+            answer.dispatchEvent(new Event('input', {bubbles: true}));
+            first.querySelector('.type-field').value = '';
+            first.querySelector('.btn-add-answer').click();
+            assert(first.querySelector('.type-field').value !== '', 'Choice questions need a type even when answers are added first');
+            const secondAnswer = first.querySelectorAll('.answer-field')[1];
+            assert(secondAnswer.value === '', 'Cloned answer must be empty');
+            secondAnswer.value = String.raw`\text{second; answer}`;
+            document.querySelector('.btn-add-variant').click();
+            const secondVariant = document.querySelectorAll('.task-variant')[1];
+            assert(secondVariant.querySelector('[name="user_expression"]').value === '', 'Cloned condition must be empty');
+            secondVariant.querySelector('[name="user_expression"]').value = 'x+1';
+            secondVariant.querySelector('.answer-field').value = '2';
+            document.querySelector('#add-task-group').click();
+            const secondGroup = document.querySelectorAll('.task-group')[1];
+            secondGroup.querySelector('[name="user_expression"]').value = 'y+2';
+            secondGroup.querySelector('.answer-field').value = '3';
+            await new Promise(resolve => setTimeout(resolve, 600));
+            document.querySelector('#testForm').requestSubmit();
+            assert(alerts.length === 0, 'Complete form should save: ' + alerts.join(','));
+            const expressions = JSON.parse(document.querySelector('#hidden_expr1').value);
+            const answers = JSON.parse(document.querySelector('#hidden_ans1').value);
+            assert(expressions.length === 3, 'All questions and variants must be serialized');
+            assert(expressions[0] === originalExpression, 'Original condition changed');
+            const choices = JSON.parse(answers[0].slice('@answers:'.length));
+            assert(choices.length === 2 && choices[0] === originalAnswer, 'Matrix or answer cells changed');
+            assert(choices[1] === secondAnswer.value, 'Semicolon text changed');
+            secondVariant.querySelector('[name="user_expression"]').value = '';
+            document.querySelector('#testForm').requestSubmit();
+            assert(alerts.length === 1, 'An incomplete variant must block saving');
+            assert(JSON.parse(document.querySelector('#hidden_expr1').value).length === 3, 'Validation must not overwrite payload');
+            assert(failures.length === 0, 'Browser errors: ' + failures.join(','));
+            document.querySelector('#result').textContent = 'PASS: matrix, cloning, variants, cells, validation';
+        } catch (error) {
+            document.querySelector('#result').textContent = 'FAIL: ' + error.message;
+        }
+    }, 250);
+});
+</script>

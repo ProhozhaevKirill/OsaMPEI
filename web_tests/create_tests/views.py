@@ -1,3 +1,5 @@
+from create_tests.answer_storage import split_answers, pack_answers, display_answer
+from django.db import transaction
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
@@ -103,235 +105,240 @@ def create_test(request):
             return redirect('create_tests:test_list')
 
         try:
-            logger.info("=== CREATE TEST DEBUG START ===")
-            logger.info(f"POST data keys: {list(request.POST.keys())}")
-            logger.info(f"POST data: {dict(request.POST)}")
+            with transaction.atomic():
+                logger.info("=== CREATE TEST DEBUG START ===")
+                logger.info(f"POST data keys: {list(request.POST.keys())}")
+                logger.info(f"POST data: {dict(request.POST)}")
 
-            test_name = request.POST.get('name_test')
-            time_to_sol_raw = request.POST.get('time_solve')
-            count_attempts = request.POST.get('num_attempts')
-            description_test = request.POST.get('description_test', '')
-            subj_id = request.POST.get('subj_test')
-            result_display_mode = request.POST.get('result_display_mode', 'only_score')
+                test_name = request.POST.get('name_test')
+                time_to_sol_raw = request.POST.get('time_solve')
+                count_attempts = request.POST.get('num_attempts')
+                description_test = request.POST.get('description_test', '')
+                subj_id = request.POST.get('subj_test')
+                result_display_mode = request.POST.get('result_display_mode', 'only_score')
 
-            # Получаем критерии оценивания
-            grade_5_threshold = int(request.POST.get('grade_5_threshold', 80))
-            grade_4_threshold = int(request.POST.get('grade_4_threshold', 60))
-            grade_3_threshold = int(request.POST.get('grade_3_threshold', 35))
+                # Получаем критерии оценивания
+                grade_5_threshold = int(request.POST.get('grade_5_threshold', 80))
+                grade_4_threshold = int(request.POST.get('grade_4_threshold', 60))
+                grade_3_threshold = int(request.POST.get('grade_3_threshold', 35))
 
-            logger.info(f"Basic fields - name: '{test_name}', time: '{time_to_sol_raw}', attempts: '{count_attempts}', subj_id: '{subj_id}'")
+                logger.info(f"Basic fields - name: '{test_name}', time: '{time_to_sol_raw}', attempts: '{count_attempts}', subj_id: '{subj_id}'")
 
-            subj = Subjects.objects.get(id=subj_id)
-            time_to_sol = parse_duration_string(time_to_sol_raw)
+                subj = Subjects.objects.get(id=subj_id)
+                time_to_sol = parse_duration_string(time_to_sol_raw)
 
-            # Проверяем новый формат task_groups_data
-            task_groups_data_raw = request.POST.get('task_groups_data', '[]')
-            logger.info(f"Raw task_groups_data: {task_groups_data_raw}")
+                # Проверяем новый формат task_groups_data
+                task_groups_data_raw = request.POST.get('task_groups_data', '[]')
+                logger.info(f"Raw task_groups_data: {task_groups_data_raw}")
 
-            task_groups_data = json.loads(task_groups_data_raw)
-            logger.info(f"Parsed task_groups_data: {task_groups_data}")
+                task_groups_data = json.loads(task_groups_data_raw)
+                logger.info(f"Parsed task_groups_data: {task_groups_data}")
 
-            # Если есть данные в новом формате, используем их
-            if task_groups_data:
-                # Преобразуем новый формат в старый для совместимости
-                points = []
-                expressions = []
-                answers = []
-                boolAns = []
-                epsilons = []
-                types = []
-                norms = []
-                numbers = []
-                block_nums = []
+                # Если есть данные в новом формате, используем их
+                if task_groups_data:
+                    # Преобразуем новый формат в старый для совместимости
+                    points = []
+                    expressions = []
+                    answers = []
+                    boolAns = []
+                    epsilons = []
+                    types = []
+                    norms = []
+                    numbers = []
+                    block_nums = []
 
-                for group_index, group in enumerate(task_groups_data):
-                    group_points = group.get('points', '1')
-                    variants = group.get('variants', [])
+                    for group_index, group in enumerate(task_groups_data):
+                        group_points = group.get('points', '1')
+                        variants = group.get('variants', [])
 
-                    for variant_index, variant in enumerate(variants):
-                        expressions.append(variant.get('expression', ''))
+                        for variant_index, variant in enumerate(variants):
+                            expressions.append(variant.get('expression', ''))
 
-                        # Обрабатываем варианты ответов
-                        variant_answers = variant.get('answers', '')
-                        variant_epsilons = variant.get('epsilons', '')
-                        variant_boolAnswers = variant.get('boolAnswers', '')
+                            # Обрабатываем варианты ответов
+                            variant_answers = variant.get('answers', '')
+                            variant_epsilons = variant.get('epsilons', '')
+                            variant_boolAnswers = variant.get('boolAnswers', '')
 
-                        # Если это строки с разделителями, то это уже готовые данные
-                        # Если это массивы, то нужно объединить
-                        if isinstance(variant_answers, list):
-                            answers.append(';'.join(str(ans) for ans in variant_answers))
-                        else:
-                            answers.append(str(variant_answers))
-
-                        if isinstance(variant_epsilons, list):
-                            epsilons.append(';'.join(str(eps) for eps in variant_epsilons))
-                        else:
-                            epsilons.append(str(variant_epsilons))
-
-                        # Для правильных ответов нужна особая обработка
-                        if isinstance(variant_boolAnswers, list):
-                            # Преобразуем в бинарную строку: True/1 -> "1", False/0 -> "0"
-                            bool_binary = []
-                            for val in variant_boolAnswers:
-                                if str(val).lower() in ['true', '1', 'yes']:
-                                    bool_binary.append('1')
-                                else:
-                                    bool_binary.append('0')
-                            boolAns.append(';'.join(bool_binary))
-                        else:
-                            # Одиночное значение
-                            if str(variant_boolAnswers).lower() in ['true', '1', 'yes']:
-                                boolAns.append('1')
+                            # Если это строки с разделителями, то это уже готовые данные
+                            # Если это массивы, то нужно объединить
+                            if isinstance(variant_answers, list):
+                                answers.append(pack_answers([str(ans) for ans in variant_answers]) if len(variant_answers) > 1 else str(variant_answers[0]) if variant_answers else '')
                             else:
-                                boolAns.append('0')
+                                answers.append(str(variant_answers))
 
-                        # Проверяем, что типы и нормы не пустые
-                        variant_type = variant.get('types', '')
-                        variant_norm = variant.get('norms', '')
-                        types.append(variant_type if variant_type else None)
-                        norms.append(variant_norm if variant_norm else None)
-                        points.append(group_points)
+                            if isinstance(variant_epsilons, list):
+                                epsilons.append(';'.join(str(eps) for eps in variant_epsilons))
+                            else:
+                                epsilons.append(str(variant_epsilons))
 
-                        # Номер варианта внутри группы (1, 2, 3...)
-                        numbers.append(variant_index + 1)
-                        # Номер группы (блока) заданий (1, 2, 3...)
-                        block_nums.append(group_index + 1)
+                            # Для правильных ответов нужна особая обработка
+                            if isinstance(variant_boolAnswers, list):
+                                # Преобразуем в бинарную строку: True/1 -> "1", False/0 -> "0"
+                                bool_binary = []
+                                for val in variant_boolAnswers:
+                                    if str(val).lower() in ['true', '1', 'yes']:
+                                        bool_binary.append('1')
+                                    else:
+                                        bool_binary.append('0')
+                                boolAns.append(';'.join(bool_binary))
+                            else:
+                                # Одиночное значение
+                                if str(variant_boolAnswers).lower() in ['true', '1', 'yes']:
+                                    boolAns.append('1')
+                                else:
+                                    boolAns.append('0')
 
-                logger.info(f"Converted data - expressions count: {len(expressions)}, answers: {answers}")
-                logger.info(f"boolAns: {boolAns}")
+                            # Проверяем, что типы и нормы не пустые
+                            variant_type = variant.get('types', '')
+                            variant_norm = variant.get('norms', '')
+                            types.append(variant_type if variant_type else None)
+                            norms.append(variant_norm if variant_norm else None)
+                            points.append(group_points)
 
-            else:
-                # Старая система
-                points_raw = request.POST.get('point_solve', '[]')
-                expressions_raw = request.POST.get('user_expression', '[]')
-                answers_raw = request.POST.get('user_ans', '[]')
-                boolAns_raw = request.POST.get('user_bool_ans', '[]')
-                epsilons_raw = request.POST.get('user_eps', '[]')
-                types_raw = request.POST.get('user_type', '[]')
-                norms_raw = request.POST.get('user_norm', '[]')
+                            # Номер варианта внутри группы (1, 2, 3...)
+                            numbers.append(variant_index + 1)
+                            # Номер группы (блока) заданий (1, 2, 3...)
+                            block_nums.append(group_index + 1)
 
-                logger.info(f"Raw data - points: {points_raw}, expressions: {expressions_raw}")
+                    logger.info(f"Converted data - expressions count: {len(expressions)}, answers: {answers}")
+                    logger.info(f"boolAns: {boolAns}")
 
-                points = json.loads(points_raw)
-                expressions = json.loads(expressions_raw)
-                answers = json.loads(answers_raw)
-                boolAns = json.loads(boolAns_raw)
-                epsilons = json.loads(epsilons_raw)
-                types = json.loads(types_raw)
-                norms = json.loads(norms_raw)
+                else:
+                    # Старая система
+                    points_raw = request.POST.get('point_solve', '[]')
+                    expressions_raw = request.POST.get('user_expression', '[]')
+                    answers_raw = request.POST.get('user_ans', '[]')
+                    boolAns_raw = request.POST.get('user_bool_ans', '[]')
+                    epsilons_raw = request.POST.get('user_eps', '[]')
+                    types_raw = request.POST.get('user_type', '[]')
+                    norms_raw = request.POST.get('user_norm', '[]')
 
-            logger.info(f"Parsed data - expressions count: {len(expressions)}, points count: {len(points)}")
+                    logger.info(f"Raw data - points: {points_raw}, expressions: {expressions_raw}")
 
-            # Получаем данные преподавателя
-            teacher = TeacherData.objects.get(data_map=request.user)
+                    points = json.loads(points_raw)
+                    expressions = json.loads(expressions_raw)
+                    answers = json.loads(answers_raw)
+                    boolAns = json.loads(boolAns_raw)
+                    epsilons = json.loads(epsilons_raw)
+                    types = json.loads(types_raw)
+                    norms = json.loads(norms_raw)
 
-            # Сохраняем тест (slug создается автоматически в модели)
-            new_test = AboutTest.objects.create(
-                name_tests=test_name,
-                time_to_solution=time_to_sol,
-                num_of_attempts=count_attempts,
-                subj=subj,
-                description=description_test,
-                creator=teacher,
-                result_display_mode=result_display_mode,
-                grade_5_threshold=grade_5_threshold,
-                grade_4_threshold=grade_4_threshold,
-                grade_3_threshold=grade_3_threshold,
-            )
+                logger.info(f"Parsed data - expressions count: {len(expressions)}, points count: {len(points)}")
 
-            # Проверяем, есть ли хотя бы одно валидное выражение
-            valid_expressions = []
-            for i, (expr, ans, bool_ans, eps, type_id, point, norm_id) in enumerate(zip(expressions, answers, boolAns, epsilons, types, points, norms)):
-                if expr.strip() and type_id and type_id != '' and type_id is not None:  # Проверяем выражение и тип
-                    valid_expressions.append((expr, ans, bool_ans, eps, type_id, point, norm_id))
+                # Получаем данные преподавателя
+                teacher = TeacherData.objects.get(data_map=request.user)
 
-            logger.info(f"Found {len(valid_expressions)} valid expressions out of {len(expressions)}")
+                # Сохраняем тест (slug создается автоматически в модели)
+                new_test = AboutTest.objects.create(
+                    name_tests=test_name,
+                    time_to_solution=time_to_sol,
+                    num_of_attempts=count_attempts,
+                    subj=subj,
+                    description=description_test,
+                    creator=teacher,
+                    result_display_mode=result_display_mode,
+                    grade_5_threshold=grade_5_threshold,
+                    grade_4_threshold=grade_4_threshold,
+                    grade_3_threshold=grade_3_threshold,
+                )
 
-            # Получаем номера блоков и задач из формы (только для старого формата)
-            if not task_groups_data:
-                numbers_raw = request.POST.get('number', '[]')
-                block_nums_raw = request.POST.get('block_expression_num', '[]')
+                # Проверяем, есть ли хотя бы одно валидное выражение
+                if not expressions or any(not isinstance(items, list) or len(items) != len(expressions) for items in (answers, boolAns, epsilons, types, points, norms)):
+                    raise ValueError('Неполные данные заданий. Сохранение отменено.')
+                if any(not expr.strip() or not type_id for expr, type_id in zip(expressions, types)):
+                    raise ValueError('Заполните условие и тип ответа каждого варианта.')
+                valid_expressions = []
+                for i, (expr, ans, bool_ans, eps, type_id, point, norm_id) in enumerate(zip(expressions, answers, boolAns, epsilons, types, points, norms)):
+                    if expr.strip() and type_id and type_id != '' and type_id is not None:  # Проверяем выражение и тип
+                        valid_expressions.append((expr, ans, bool_ans, eps, type_id, point, norm_id))
 
-                logger.info(f"Numbers raw: {numbers_raw}, Block nums raw: {block_nums_raw}")
+                logger.info(f"Found {len(valid_expressions)} valid expressions out of {len(expressions)}")
 
-                try:
-                    numbers = json.loads(numbers_raw)
-                    block_nums = json.loads(block_nums_raw)
-                except json.JSONDecodeError:
-                    numbers = [i+1 for i in range(len(expressions))]  # По умолчанию 1, 2, 3...
-                    block_nums = [1] * len(expressions)  # По умолчанию все в блоке 1
+                # Получаем номера блоков и задач из формы (только для старого формата)
+                if not task_groups_data:
+                    numbers_raw = request.POST.get('number', '[]')
+                    block_nums_raw = request.POST.get('block_expression_num', '[]')
 
-            # Добавляем выражения
-            if valid_expressions:
-                for i, (expr, ans, bool_ans, eps, type_id, point, norm_id) in enumerate(valid_expressions):
+                    logger.info(f"Numbers raw: {numbers_raw}, Block nums raw: {block_nums_raw}")
+
                     try:
-                        logger.info(f"Processing expression {i+1}: {expr[:50]}...")
-                        logger.info(f"Data: ans='{ans}', bool_ans='{bool_ans}', eps='{eps}', type_id='{type_id}', point='{point}', norm_id='{norm_id}'")
+                        numbers = json.loads(numbers_raw)
+                        block_nums = json.loads(block_nums_raw)
+                    except json.JSONDecodeError:
+                        numbers = [i+1 for i in range(len(expressions))]  # По умолчанию 1, 2, 3...
+                        block_nums = [1] * len(expressions)  # По умолчанию все в блоке 1
 
-                        flag_select = ';' in bool_ans
-                        logger.info(f"flag_select = {flag_select}")
-
-                        # Проверяем, что type_id не пустой и не None
-                        if not type_id or type_id == '' or type_id is None:
-                            logger.error(f"Empty type_id for expression {i+1}")
-                            continue
-
+                # Добавляем выражения
+                if valid_expressions:
+                    for i, (expr, ans, bool_ans, eps, type_id, point, norm_id) in enumerate(valid_expressions):
                         try:
-                            type_obj = TypeAnswer.objects.get(id=int(type_id))
-                        except (ValueError, TypeError, TypeAnswer.DoesNotExist):
-                            logger.error(f"Invalid type_id '{type_id}' for expression {i+1}")
-                            continue
-                        logger.info(f"type_obj = {type_obj}")
+                            logger.info(f"Processing expression {i+1}: {expr[:50]}...")
+                            logger.info(f"Data: ans='{ans}', bool_ans='{bool_ans}', eps='{eps}', type_id='{type_id}', point='{point}', norm_id='{norm_id}'")
 
-                        # Получаем номер задания и номер блока
-                        task_number = numbers[i] if i < len(numbers) else i + 1
-                        block_number = block_nums[i] if i < len(block_nums) else 1
+                            flag_select = ';' in bool_ans
+                            logger.info(f"flag_select = {flag_select}")
 
-                        expr_instance = AboutExpressions.objects.create(
-                            user_expression=expr,
-                            user_ans=ans,
-                            true_ans=bool_ans,
-                            user_eps=eps or "0",
-                            user_type=type_obj,
-                            points_for_solve=int(point) if point else 1,
-                            exist_select=flag_select,
-                            number=task_number,
-                            block_expression_num=block_number
-                        )
-                        logger.info(f"Created expression instance: {expr_instance} with number={task_number}, block={block_number}")
+                            # Проверяем, что type_id не пустой и не None
+                            if not type_id or type_id == '' or type_id is None:
+                                logger.error(f"Empty type_id for expression {i+1}")
+                                continue
 
-                        new_test.expressions.add(expr_instance)
-                        logger.info(f"Added expression {i+1} successfully")
-
-                        # Добавляем норму матрицы, если тип ответа - матрицы (type_code = 4) и указана норма
-                        if type_obj.type_code == 4 and norm_id and norm_id != '' and norm_id is not None:
                             try:
-                                norm_obj = TypeNorm.objects.get(id=norm_id)
-                                TypeNormForMatrix.objects.create(
-                                    num_expr=expr_instance,
-                                    matrix_norms=norm_obj
-                                )
-                                logger.info(f"Created norm relation for expression {i+1}")
-                            except (TypeNorm.DoesNotExist, ValueError):
-                                logger.warning(f"Invalid norm ID {norm_id} for expression {i+1}")
-                                pass  # Игнорируем неправильные ID норм
-                    except Exception as e:
-                        logger.error(f"Error processing expression {i+1}: {str(e)}")
-                        raise
-            else:
-                logger.warning("No valid expressions found")
-                # Удаляем тест, если нет валидных выражений
-                new_test.delete()
-                return render(request, 'create_tests/writing_tests.html', {
-                    'all_subj': all_subj,
-                    'all_types_answer': all_types_answer,
-                    'all_norms': all_norms,
-                    'error_msg': 'Не найдено ни одного валидного задания. Проверьте, что все поля заполнены корректно.'
-                })
+                                type_obj = TypeAnswer.objects.get(id=int(type_id))
+                            except (ValueError, TypeError, TypeAnswer.DoesNotExist):
+                                logger.error(f"Invalid type_id '{type_id}' for expression {i+1}")
+                                raise
+                            logger.info(f"type_obj = {type_obj}")
 
-            new_test.save()
-            logger.info("=== CREATE TEST DEBUG END ===")
-            return redirect('create_tests:test_list')
+                            # Получаем номер задания и номер блока
+                            task_number = numbers[i] if i < len(numbers) else i + 1
+                            block_number = block_nums[i] if i < len(block_nums) else 1
+
+                            expr_instance = AboutExpressions.objects.create(
+                                user_expression=expr,
+                                user_ans=ans,
+                                true_ans=bool_ans,
+                                user_eps=eps or "0",
+                                user_type=type_obj,
+                                points_for_solve=int(point) if point else 1,
+                                exist_select=flag_select,
+                                number=task_number,
+                                block_expression_num=block_number
+                            )
+                            logger.info(f"Created expression instance: {expr_instance} with number={task_number}, block={block_number}")
+
+                            new_test.expressions.add(expr_instance)
+                            logger.info(f"Added expression {i+1} successfully")
+
+                            # Добавляем норму матрицы, если тип ответа - матрицы (type_code = 4) и указана норма
+                            if type_obj.type_code == 4 and norm_id and norm_id != '' and norm_id is not None:
+                                try:
+                                    norm_obj = TypeNorm.objects.get(id=norm_id)
+                                    TypeNormForMatrix.objects.create(
+                                        num_expr=expr_instance,
+                                        matrix_norms=norm_obj
+                                    )
+                                    logger.info(f"Created norm relation for expression {i+1}")
+                                except (TypeNorm.DoesNotExist, ValueError):
+                                    logger.warning(f"Invalid norm ID {norm_id} for expression {i+1}")
+                                    pass  # Игнорируем неправильные ID норм
+                        except Exception as e:
+                            logger.error(f"Error processing expression {i+1}: {str(e)}")
+                            raise
+                else:
+                    logger.warning("No valid expressions found")
+                    # Удаляем тест, если нет валидных выражений
+                    new_test.delete()
+                    return render(request, 'create_tests/writing_tests.html', {
+                        'all_subj': all_subj,
+                        'all_types_answer': all_types_answer,
+                        'all_norms': all_norms,
+                        'error_msg': 'Не найдено ни одного валидного задания. Проверьте, что все поля заполнены корректно.'
+                    })
+
+                new_test.save()
+                logger.info("=== CREATE TEST DEBUG END ===")
+                return redirect('create_tests:test_list')
 
         except Exception as e:
             logger.error(f"CREATE TEST ERROR: {str(e)}")
@@ -647,8 +654,10 @@ def create_draft_test(request):
 
 @login_required
 @role_required(['teacher', 'admin'])
+@transaction.atomic
 def edit_test(request, slug_name):
-    test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
+    tests = AboutTest.objects.select_for_update() if request.method == 'POST' else AboutTest.objects
+    test = get_object_or_404(tests, name_slug_tests=slug_name)
     all_subj = Subjects.objects.all()
     all_types_answer = TypeAnswer.objects.all()
     all_norms = TypeNorm.objects.all()
@@ -693,7 +702,7 @@ def edit_test(request, slug_name):
                     variants = group.get('variants', [])
 
                     if not variants:
-                        continue
+                        raise ValueError('Добавьте вариант задания.')
 
                     # Создаем TaskGroup
                     task_group = TaskGroup.objects.create(
@@ -708,7 +717,7 @@ def edit_test(request, slug_name):
                     for variant_index, variant in enumerate(variants):
                         expression = variant.get('expression', '')
                         if not expression.strip():
-                            continue
+                            raise ValueError('Заполните условие каждого варианта.')
 
                         # Обрабатываем варианты ответов
                         variant_answers = variant.get('answers', '')
@@ -717,7 +726,7 @@ def edit_test(request, slug_name):
 
                         # Преобразуем ответы в строки
                         if isinstance(variant_answers, list):
-                            user_ans = ';'.join(str(ans) for ans in variant_answers)
+                            user_ans = pack_answers([str(ans) for ans in variant_answers]) if len(variant_answers) > 1 else str(variant_answers[0]) if variant_answers else ''
                         else:
                             user_ans = str(variant_answers)
 
@@ -745,14 +754,14 @@ def edit_test(request, slug_name):
                         norm_id = variant.get('norms', '')
 
                         if not type_id:
-                            continue
+                            raise ValueError('Выберите тип ответа каждого варианта.')
 
                         flag_select = ';' in true_ans
                         try:
                             type_obj = TypeAnswer.objects.get(id=int(type_id))
                         except (ValueError, TypeError, TypeAnswer.DoesNotExist):
                             logger.error(f"Invalid type_id '{type_id}' for variant {variant_index + 1}")
-                            continue
+                            raise
 
                         # Создаем TaskVariant
                         task_variant = TaskVariant.objects.create(
@@ -810,6 +819,10 @@ def edit_test(request, slug_name):
                 logger.info(f"Parsed data - expressions count: {len(expressions)}, points count: {len(points)}")
 
                 # Проверяем, есть ли хотя бы одно валидное выражение
+                if not expressions or any(not isinstance(items, list) or len(items) != len(expressions) for items in (answers, boolAns, epsilons, types, points, norms)):
+                    raise ValueError('Неполные данные заданий. Сохранение отменено.')
+                if any(not expr.strip() or not type_id for expr, type_id in zip(expressions, types)):
+                    raise ValueError('Заполните условие и тип ответа каждого варианта.')
                 valid_expressions = []
                 for i, (expr, ans, bool_ans, eps, type_id, point, norm_id) in enumerate(zip(expressions, answers, boolAns, epsilons, types, points, norms)):
                     if expr.strip() and type_id:  # Проверяем и выражение, и тип
@@ -837,7 +850,7 @@ def edit_test(request, slug_name):
                                 logger.info(f"type_obj = {type_obj}")
                             except (ValueError, TypeError, TypeAnswer.DoesNotExist):
                                 logger.error(f"Invalid type_id '{type_id}' for expression {i+1}")
-                                continue
+                                raise
 
                             # Получаем номер задания и номер блока
                             task_number = numbers[i] if i < len(numbers) else i + 1
@@ -882,6 +895,7 @@ def edit_test(request, slug_name):
             return redirect('create_tests:test_list')
 
         except Exception as e:
+            transaction.set_rollback(True)
             messages.error(request, f"Ошибка при сохранении: {str(e)}")
             return redirect('create_tests:edit_test', slug_name=slug_name)
 
@@ -891,6 +905,12 @@ def edit_test(request, slug_name):
 
     task_groups_data = []
     expressions_by_block = defaultdict(list)
+
+    for group in test.task_groups.all().order_by('number', 'pk'):
+        for number, variant in enumerate(group.variants.all().order_by('pk'), 1):
+            variant.number = number
+            variant.points_for_solve = group.points_for_solve
+            expressions_by_block[group.number].append(variant)
 
     # Сначала группируем все выражения по номеру блока
     for expr in test.expressions.all().order_by('block_expression_num', 'number'):
@@ -909,17 +929,22 @@ def edit_test(request, slug_name):
         # Обрабатываем каждый вариант в этом блоке
         for expr in block_expressions:
             # Разбираем данные выражения для отображения
-            ans_list = expr.user_ans.split(';') if ';' in expr.user_ans else [expr.user_ans]
+            ans_list = split_answers(expr.user_ans) if expr.exist_select else [expr.user_ans]
             eps_list = expr.user_eps.split(';') if ';' in expr.user_eps else [expr.user_eps]
             bool_list = expr.true_ans.split(';') if ';' in expr.true_ans else [expr.true_ans]
 
             # Получаем норму матрицы для этого выражения
-            norm_for_matrix = TypeNormForMatrix.objects.filter(num_expr=expr).first()
+            if isinstance(expr, TaskVariant):
+                norm_for_matrix = TypeNormForTaskVariant.objects.filter(task_variant=expr).first()
+            else:
+                norm_for_matrix = TypeNormForMatrix.objects.filter(num_expr=expr).first()
             norm_id = norm_for_matrix.matrix_norms.id if norm_for_matrix and norm_for_matrix.matrix_norms else ''
 
             # Подготавливаем список ответов
             answers_data = []
-            for i, (ans, eps, bool_val) in enumerate(zip(ans_list, eps_list, bool_list)):
+            for i, ans in enumerate(ans_list):
+                eps = eps_list[i] if i < len(eps_list) else '0'
+                bool_val = bool_list[i] if i < len(bool_list) else '0'
                 answers_data.append({
                     'user_ans': ans,
                     'user_eps': eps,
@@ -1215,12 +1240,12 @@ def solve_test_teacher(request, slug_name):
             if expr_data['exist_select']:
                 # Multiple choice question - проверяем правильность выбранных вариантов
                 # Разбираем варианты ответов и правильные ответы
-                available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+                available_options = split_answers(expr_data['user_ans']) if expr_data['user_ans'] else []
                 correct_answers = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
 
                 # Получаем выбранные пользователем варианты
                 if isinstance(user_ans, str):
-                    selected_options = user_ans.split(';') if user_ans else []
+                    selected_options = split_answers(user_ans) if user_ans else []
                 elif isinstance(user_ans, list):
                     selected_options = user_ans
                 else:
@@ -1281,7 +1306,7 @@ def solve_test_teacher(request, slug_name):
             teacher_answer = teacher_answers[i] if i < len(teacher_answers) else ''
             is_correct = task_results[i] == 1 if i < len(task_results) else None
             if expr_data['exist_select']:
-                available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+                available_options = split_answers(expr_data['user_ans']) if expr_data['user_ans'] else []
                 correct_answers_flags = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
                 correct_options = [
                     available_options[j]
@@ -1291,7 +1316,7 @@ def solve_test_teacher(request, slug_name):
                 detailed_results.append({
                     'question_number': i + 1,
                     'question': expr_data['user_expression'],
-                    'teacher_answer': teacher_answer,
+                    'teacher_answer': display_answer(teacher_answer, expr_data['exist_select']),
                     'correct_answer': '; '.join(correct_options),
                     'is_multiple_choice': True,
                     'options': available_options,
@@ -1302,7 +1327,7 @@ def solve_test_teacher(request, slug_name):
                 detailed_results.append({
                     'question_number': i + 1,
                     'question': expr_data['user_expression'],
-                    'teacher_answer': teacher_answer,
+                    'teacher_answer': display_answer(teacher_answer, expr_data['exist_select']),
                     'correct_answer': expr_data['user_ans'],
                     'is_multiple_choice': False,
                     'options': [],
@@ -1324,7 +1349,7 @@ def solve_test_teacher(request, slug_name):
     # Подготавливаем данные для отображения
     expressions_with_options = []
     for i, expr_data in enumerate(expressions_data):
-        options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+        options = split_answers(expr_data['user_ans']) if expr_data['user_ans'] else []
         expressions_with_options.append({
             'expression': expr_data,
             'options': options,
@@ -1490,7 +1515,7 @@ def test_results_detail(request, slug_name, student_id):
     for i, expr_data in enumerate(expressions_data):
         student_answer = student_answers[i] if i < len(student_answers) else ''
         if expr_data['exist_select']:
-            available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+            available_options = split_answers(expr_data['user_ans']) if expr_data['user_ans'] else []
             correct_answers_flags = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
             correct_options = [
                 available_options[j]
@@ -1498,7 +1523,7 @@ def test_results_detail(request, slug_name, student_id):
                 if j < len(available_options) and flag == '1'
             ]
             if isinstance(student_answer, str):
-                selected_options = student_answer.split(';') if student_answer else []
+                selected_options = split_answers(student_answer) if student_answer else []
             elif isinstance(student_answer, list):
                 selected_options = student_answer
             else:
@@ -1507,7 +1532,7 @@ def test_results_detail(request, slug_name, student_id):
             detailed_results.append({
                 'question_number': i + 1,
                 'question': expr_data['user_expression'],
-                'student_answer': student_answer,
+                'student_answer': display_answer(student_answer, expr_data['exist_select']),
                 'correct_answer': '; '.join(correct_options),
                 'is_multiple_choice': True,
                 'options': available_options,
@@ -1540,7 +1565,7 @@ def test_results_detail(request, slug_name, student_id):
                 'question_number': i + 1,
                 'question_index': i,
                 'question': expr_data['user_expression'],
-                'student_answer': student_answer,
+                'student_answer': display_answer(student_answer, expr_data['exist_select']),
                 'correct_answer': None if is_free_answer else expr_data['user_ans'],
                 'is_multiple_choice': False,
                 'is_free_answer': is_free_answer,
@@ -1631,12 +1656,12 @@ def grade_free_answer(request, slug_name, student_id):
             if fg and fg.is_correct:
                 result_score += expr_data['points_for_solve']
         elif expr_data['exist_select']:
-            available_options = expr_data['user_ans'].split(';') if expr_data['user_ans'] else []
+            available_options = split_answers(expr_data['user_ans']) if expr_data['user_ans'] else []
             correct_answers = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
             if isinstance(user_ans, list):
                 selected_set = set(user_ans)
             else:
-                selected_set = set(user_ans.split(';') if user_ans else [])
+                selected_set = set(split_answers(user_ans) if user_ans else [])
             should_be_selected = {
                 available_options[j] for j, flag in enumerate(correct_answers)
                 if j < len(available_options) and flag == '1'

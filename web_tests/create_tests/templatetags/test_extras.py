@@ -1,3 +1,4 @@
+from create_tests.answer_storage import split_answers
 from django import template
 
 register = template.Library()
@@ -9,7 +10,7 @@ def split(value, delimiter):
     Использование: {{ "a;b;c"|split:";" }}
     """
     if value:
-        return value.split(delimiter)
+        return split_answers(value) if delimiter == ";" else value.split(delimiter)
     return []
 
 @register.filter

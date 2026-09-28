@@ -42,10 +42,10 @@ class AboutExpressions(models.Model):
     number = models.IntegerField(default=0)
     block_expression_num = models.IntegerField(default=0)
     user_expression = models.TextField(blank=False)
-    user_ans = models.CharField(max_length=150, blank=False)
-    true_ans = models.CharField(max_length=100, default='1')
+    user_ans = models.TextField(blank=False)
+    true_ans = models.TextField(default='1')
     points_for_solve = models.IntegerField(default=1, blank=False)
-    user_eps = models.CharField(max_length=150, default="0", blank=True)
+    user_eps = models.TextField(default="0", blank=True)
     user_type = models.ForeignKey(TypeAnswer, on_delete=models.SET_NULL, null=True)
     exist_select = models.BooleanField(default=False)
 
@@ -84,9 +84,9 @@ class TaskGroup(models.Model):
 class TaskVariant(models.Model):
     task_group = models.ForeignKey(TaskGroup, on_delete=models.CASCADE, related_name='variants')
     user_expression = models.TextField(blank=False)
-    user_ans = models.CharField(max_length=150, blank=False)
-    true_ans = models.CharField(max_length=100, default='1')
-    user_eps = models.CharField(max_length=150, default="0", blank=True)
+    user_ans = models.TextField(blank=False)
+    true_ans = models.TextField(default='1')
+    user_eps = models.TextField(default="0", blank=True)
     user_type = models.ForeignKey(TypeAnswer, on_delete=models.SET_NULL, null=True)
     exist_select = models.BooleanField(default=False)
 

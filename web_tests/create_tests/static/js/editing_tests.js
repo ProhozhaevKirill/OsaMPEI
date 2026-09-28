@@ -1,5 +1,18 @@
 $(document).ready(function () {
     MathfieldElement.locale = 'ru';
+    MathfieldElement.fontsDirectory = '/static/libs/mathlive/fonts/';
+
+    function clearClonedMathFields($clone) {
+        $clone.find('math-field').each(function () {
+            const fresh = document.createElement('math-field');
+            for (const attr of this.attributes) {
+                if (!['id', 'value'].includes(attr.name) && !attr.name.startsWith('data-')) {
+                    fresh.setAttribute(attr.name, attr.value);
+                }
+            }
+            this.replaceWith(fresh);
+        });
+    }
 
     // Инъекция CSS в shadow DOM для ограничения ширины контейнера MathLive
     function injectShadowStyles(mf) {
@@ -18,40 +31,7 @@ $(document).ready(function () {
     // Инициализация MathLive-полей
     function initMathFields() {
         document.querySelectorAll('math-field').forEach(mf => {
-            if (!mf.mathfield) {
-                console.warn("MathLive field not initialized properly");
-            } else {
-                // Настройки для правильного отображения матриц
-                mf.setOptions({
-                    'fontsDirectory': '/static/libs/mathlive/fonts/',
-                    'mathModeSpace': '\\,',
-                    'smartMode': true,
-                    'smartFence': true,
-                    'smartSuperscript': true,
-                    'virtualKeyboardMode': 'manual',
-                    'virtualKeyboard': 'auto',
-                    'locale': 'ru',
-                    // Специальная настройка для матриц
-                    'macros': {
-                        '\\pmatrix': '\\begin{pmatrix}#1\\end{pmatrix}',
-                        '\\bmatrix': '\\begin{bmatrix}#1\\end{bmatrix}',
-                        '\\vmatrix': '\\begin{vmatrix}#1\\end{vmatrix}',
-                        '\\Vmatrix': '\\begin{Vmatrix}#1\\end{Vmatrix}'
-                    }
-                });
-
-                // Фикс для правильного отображения скобок
-                mf.addEventListener('input', function() {
-                    // Принудительно обновляем рендеринг для матриц
-                    const value = mf.getValue();
-                    if (value.includes('\\begin{pmatrix}') || value.includes('\\begin{bmatrix}') ||
-                        value.includes('\\begin{vmatrix}') || value.includes('\\begin{Vmatrix}')) {
-                        setTimeout(() => {
-                            mf.redraw();
-                        }, 50);
-                    }
-                });
-            }
+            customElements.upgrade(mf);
 
             injectShadowStyles(mf);
 
@@ -62,6 +42,7 @@ $(document).ready(function () {
                     mf.setOptions({
                         keybindings: [
                             { key: '[Enter]', ifMode: 'math', command: 'addRowAfter' },
+                            { key: 'shift+[Enter]', ifMode: 'math', command: 'addRowAfter' },
                             ...existing
                         ]
                     });
@@ -94,6 +75,15 @@ $(document).ready(function () {
                 // Скрываем надпись "верный ответ" для единственного ответа
                 $row.find('.correct-label').addClass('hidden');
             } else {
+                const $type = $row.find('.type-field');
+                if (!$type.val() || Number($type.find('option:selected').data('type-code')) === 5) {
+                    const $options = $type.find('option[value!=""]').filter(function () {
+                        return !this.disabled && Number(this.dataset.typeCode) !== 5;
+                    });
+                    $type.val(($options.filter('[data-type-code="3"]').first()[0] || $options[0])?.value || '');
+                }
+                $row.find('.accuracy-field').val($row.find('.accuracy-field').val() || '0');
+                $row.find('.answer-field').show();
                 // Скрываем meta-fields для множественных ответов
                 $row.find('.meta-fields').hide();
                 $row.find('.answer-field').css('width', '100%');
@@ -121,7 +111,7 @@ $(document).ready(function () {
         const $typeField = $answerRow.find('.type-field');
         const $normField = $answerRow.find('.norm-field');
         const $answerField = $answerRow.find('.answer-field');
-        const selectedType = $typeField.val();
+        const selectedType = String($typeField.find('option:selected').data('type-code'));
 
         if (selectedType === '4') { // ID типа "Матрицы"
             $normField.show();
@@ -145,14 +135,14 @@ $(document).ready(function () {
             $(this).attr('id', `taskGroup${groupId}`);
             $(this).attr('data-task-id', groupId);
             $(this).find('.task-group-number h2').attr('id', `groupCount${groupId}`).text(`Задание №${groupId}`);
-            $(this).find('[id^="group_points"]').attr('id', `group_points${groupId}`);
+            $(this).find('input[name="group_points"]').attr('id', `group_points${groupId}`);
 
             // Обновляем нумерацию вариантов внутри группы
             $(this).find('.task-variant').each(function (variantIndex) {
                 const variantId = variantIndex + 1;
                 $(this).attr('id', `variant${groupId}_${variantId}`);
                 $(this).find('.variant-left h4').attr('id', `variantCount${groupId}_${variantId}`).text(`Вариант №${variantId}`);
-                $(this).find('[id^="expr"]').attr('id', `expr${groupId}_${variantId}`);
+                $(this).find('math-field[name="user_expression"]').attr('id', `expr${groupId}_${variantId}`);
             });
         });
     }
@@ -261,9 +251,7 @@ $(document).ready(function () {
     $(document).on('click', '#add-task-group', function () {
         const $clone = $('.task-group').first().clone();
         $clone.find('input').val('');
-        $clone.find('math-field').each(function () {
-            this.value = '';
-        });
+        clearClonedMathFields($clone);
         $clone.find('.task-variant').not(':first').remove();
         $clone.find('.answer-row').not(':first').remove();
         $clone.find('[id]').removeAttr('id');
@@ -287,9 +275,7 @@ $(document).ready(function () {
         const $clone = $taskGroup.find('.task-variant').first().clone();
 
         $clone.find('input').val('');
-        $clone.find('math-field').each(function () {
-            this.value = '';
-        });
+        clearClonedMathFields($clone);
         $clone.find('.answer-row').not(':first').remove();
         $clone.find('[id]').removeAttr('id');
 
@@ -306,9 +292,7 @@ $(document).ready(function () {
         const $clone = $variant.find('.answer-row').first().clone();
 
         $clone.find('input').val('');
-        $clone.find('math-field').each(function () {
-            this.value = '';
-        });
+        clearClonedMathFields($clone);
         $clone.find('.select-ans').prop('checked', false);
 
         // Скрыть поля типа и точности и расширить поле ответа
@@ -391,6 +375,7 @@ $(document).ready(function () {
 
     // Собираем данные перед отправкой (аналогично writing_tests.js)
     function collectTestData() {
+        validateEditorVariants();
         console.log('Начинаю сбор данных...');
         const expressions = [];
         const answers = [];
@@ -439,7 +424,8 @@ $(document).ready(function () {
 
                     // Получаем значение из math-field для ответа
                     const $answerField = $(this).find('.answer-field');
-                    const answerVal = getMathFieldValue($answerField).trim();
+                    const free = Number($(this).find('.type-field option:selected').data('type-code')) === 5;
+                    const answerVal = free ? '__FREE__' : getMathFieldValue($answerField).trim();
 
                     const epsVal = $(this).find('.accuracy-field').val() || '';
                     const typeVal = $(this).find('.type-field').val() || '';
@@ -498,7 +484,7 @@ $(document).ready(function () {
 
                 // Форматируем ответы как в старой системе
                 const exist_select = answerList.length > 1;
-                const ansString = exist_select ? answerList.join(';') : (answerList[0] || '');
+                const ansString = exist_select ? '@answers:' + JSON.stringify(answerList) : (answerList[0] || '');
                 const epsString = exist_select ? epsilonList.join(';') : (epsilonList[0] || '');
                 const boolString = exist_select ? boolList.join(';') : (boolList[0] || '');
 
@@ -583,7 +569,8 @@ $(document).ready(function () {
         .appendTo('head');
 
     // Перед сохранением собираем данные и проверяем время
-    $(document).on('click', '.save-and-go-to-list', function (e) {
+    $(document).on('submit', '#testForm', function (e) {
+        if ($('#hidden_is_draft').val() === 'true') return;
         console.log('Save button clicked!');
 
         if (!isValidTime()) {
@@ -593,7 +580,13 @@ $(document).ready(function () {
         }
 
         console.log('Time validation passed, collecting data...');
-        collectTestData();
+        try {
+            collectTestData();
+        } catch (error) {
+            e.preventDefault();
+            alert(error.message);
+            return;
+        }
 
         console.log('Data collected, checking hidden fields:');
         console.log('user_expression:', $('#hidden_expr1').val());

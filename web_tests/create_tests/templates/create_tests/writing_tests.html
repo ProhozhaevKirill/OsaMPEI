@@ -25,6 +25,7 @@
         try { window.DRAFT_DATA = JSON.parse('{{ draft_data_json|escapejs }}'); } catch(e) {}
         {% endif %}
     </script>
+    <script src="{% static 'js/editor-validation.js' %}"></script>
     <script src="{% static 'js/writing_tests.js' %}"></script>
     <script src="{% static 'js/mathJax-rus.js' %}"></script>
 {% endblock %}

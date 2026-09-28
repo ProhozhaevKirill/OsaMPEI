@@ -1,115 +1,61 @@
+import re
+
 import numpy as np
-import sympy as sp
 
 
 class MasterMatrix:
-    mark = "matrix"
-    lenght = len(mark)
-
     base_norm = {
-        'frobenius': lambda matr: np.sqrt(np.sum(matr ** 2)),
-        'one': lambda matr: np.max(np.sum(np.abs(matr), axis=0)),
-        'inf': lambda matr: np.max(np.sum(np.abs(matr), axis=1))
+        'frobenius': lambda matrix: np.linalg.norm(matrix, 'fro'),
+        'one': lambda matrix: np.linalg.norm(matrix, 1),
+        'inf': lambda matrix: np.linalg.norm(matrix, np.inf),
     }
 
     def __init__(self, all_expr, ans_r, ans_s, type_norm='', eps=0):
         self.all_expr = all_expr
         self.ans_r = ans_r
         self.ans_s = ans_s
-        self.norm = type_norm
-        self.eps = eps
+        code = getattr(type_norm, 'type_code', type_norm)
+        self.norm = {1: 'frobenius', 2: 'one', 3: 'inf', '': 'frobenius'}.get(code, code)
+        self.eps = float(eps or 0)
 
-    def get_tex_matr(self, expr):
-        size = len(expr)
-        bound = np.array([], dtype=int)
-        flag = True
-
-        for i in range(size):
-            if expr[i:i + self.lenght] == self.mark and flag:
-                bound = np.append(bound, i + self.lenght + 1)
-                flag = False
-            elif expr[i:i + self.lenght] == self.mark and not flag:
-                bound = np.append(bound, i - self.lenght)
-
-        # Проверяем, что найдены оба маркера
-        if len(bound) < 2:
-            print(f"Ошибка: не найдены маркеры matrix в выражении: {expr}")
-            return np.array([0, 0])  # Возвращаем безопасные индексы
-
-        try:
-            print(expr[bound[0]:bound[1]])
-        except (IndexError, ValueError) as e:
-            print(f"Ошибка доступа к границам bound: {bound}, expr длина: {len(expr)}, ошибка: {e}")
-            return np.array([0, 0])
-
-        return bound
+    @staticmethod
+    def _number(cell):
+        cell = re.sub(r'\\[,;!]|\\(?:quad|qquad)\b|\s+', '', cell)
+        fraction = re.fullmatch(r'([+-]?)\\(?:d?frac)\{([^{}]+)\}\{([^{}]+)\}', cell)
+        if fraction:
+            sign, numerator, denominator = fraction.groups()
+            return (-1 if sign == '-' else 1) * float(numerator) / float(denominator)
+        return float(cell)
 
     def tex_to_np(self, expr):
-        res = np.array([])
-
-        bound = self.get_tex_matr(expr)
-
-        # Дополнительная проверка
-        if len(bound) < 2 or bound[0] >= bound[1]:
-            print(f"Ошибка: неверные границы для выражения: {expr}")
-            return np.array([[0]])  # Возвращаем матрицу по умолчанию
-
-        matr = expr[bound[0]:bound[1]]
-        matr = matr.replace(' ', '').split('\\\\')
-        print(matr)
-        count_row = len(matr)
-
-        try:
-            for row in matr:
-                numbers = [float(x) for x in row.split('&')]  # строки → float
-                res = np.append(res, numbers)
-            res = res.reshape(count_row, -1)
-        except (ValueError, IndexError) as e:
-            print(f"Ошибка при обработке матрицы: {e}")
-            return np.array([[0]])  # Возвращаем матрицу по умолчанию
-
-        print(res)
-
-        return res
-
-    def meas_laz(self):
-        return 0
-
-    def is_equivalent_by_rows_cols(self, A, B):
-        MA = sp.Matrix(A); rA = MA.rank()
-        MB = sp.Matrix(B); rB = MB.rank()
-
-        if rA != rB:
-            return False
-        else:
-            return self.base_norm[self.norm](np.array(MA - MB)) <= self.eps
+        match = re.search(
+            r'\\begin\{(matrix|pmatrix|bmatrix|Bmatrix|vmatrix|Vmatrix|smallmatrix|array)\}'
+            r'(.*?)\\end\{\1\}', expr, re.DOTALL,
+        )
+        if not match:
+            raise ValueError('Matrix environment is missing')
+        body = match.group(2).strip()
+        if match.group(1) == 'array':
+            body = re.sub(r'^\{[clr| ]+\}', '', body).strip()
+        rows = re.split(r'\\\\(?:\[[^\]]*\])?', body)
+        if rows and not rows[-1].strip():
+            rows.pop()
+        values = [[self._number(cell) for cell in row.split('&')] for row in rows]
+        if not values or not values[0] or any(len(row) != len(values[0]) for row in values):
+            raise ValueError('Matrix rows must have equal length')
+        result = np.array(values, dtype=float)
+        if not np.isfinite(result).all():
+            raise ValueError('Matrix entries must be finite')
+        return result
 
     def get_result(self):
-        # print(self.all_expr, '\n')
-        # print(self.ans_r, '\n')
-        # print(self.ans_s)
-
-
-        all_expr = self.tex_to_np(self.all_expr)
-        ans_r = self.tex_to_np(self.ans_r)
-        ans_s = self.tex_to_np(self.ans_s)
-
-        if self.eps == 0:
-            return np.array_equal(ans_r, ans_s)
-        else:
-            # if np.shape(all_expr) == np.shape(ans_s):
-            #     diff_matr = np.eye(np.shape(ans_s)[0]) -
-            #     mean_same = self.base_norm[self.norm](diff_matr)
-            return self.is_equivalent_by_rows_cols(ans_r, ans_s)
-
-
-# all_ex = " $$ упростите\\;\\begin{pmatrix}1 & 2\\\\ 2 & 5\\end{pmatrix} $$ "
-# ans1 = " $$ \\begin{pmatrix}1 & 2\\\\ 1 & 3\\end{pmatrix} $$ "
-# ans2 = " $$ \\begin{pmatrix}1 & 2\\\\ 1 & 3\\end{pmatrix} $$ "
-# eps = 1
-# norm = 'frobenius'
-# obj = MasterMatrix(all_ex, ans1, ans2, type_norm=norm, eps=eps)
-# result = obj.get_result()
-# print(result)
-# print(result, ans1[result[0]], ans1[result[0]:result[1]])
-
+        try:
+            right = self.tex_to_np(self.ans_r)
+            student = self.tex_to_np(self.ans_s)
+            if right.shape != student.shape:
+                return False
+            if self.eps == 0:
+                return bool(np.array_equal(right, student))
+            return bool(self.base_norm[self.norm](right - student) <= self.eps)
+        except (ValueError, TypeError, KeyError, ZeroDivisionError, OverflowError):
+            return False

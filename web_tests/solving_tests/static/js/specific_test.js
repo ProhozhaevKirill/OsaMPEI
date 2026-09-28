@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const selected = Array.from(checkboxes)
                     .filter(cb => cb.checked)
                     .map(cb => cb.value);
-                results.push(selected.join(";"));
+                results.push('@answers:' + JSON.stringify(selected));
             } else {
                 // Нет checkbox — берём из math-field (обычный или свободный ответ)
                 const mathField = questionCard.querySelector("math-field");

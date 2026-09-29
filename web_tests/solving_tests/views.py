@@ -10,13 +10,24 @@ from users.models import StudentGroup, StudentData, TeacherData
 from .models import StudentResult, StudentTaskAnswer, FreeAnswerGrade
 from .yandex_disk import upload_test_attempt_log
 from logic_of_expression.check_sympy_expr import CheckAnswer
+from logic_of_expression.matrix import empty_matrix_template
 import numpy as np
 from .decorators import role_required
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
+from django.db.models import Q
+from django.utils import timezone
 
 # Настройка логгера
 logger = logging.getLogger(__name__)
+
+
+def _safe_epsilon(value):
+    try:
+        result = float(value or 0)
+        return result if np.isfinite(result) and result >= 0 else 0.0
+    except (TypeError, ValueError, OverflowError):
+        return 0.0
 
 
 @login_required
@@ -42,7 +53,14 @@ def list_test(request):
     try:
         student = StudentData.objects.get(data_map=user)
         student_group = student.group
-        all_tests = AboutTest.objects.filter(publishedgroup__group_name=student_group).distinct()
+        now = timezone.now()
+        all_tests = AboutTest.objects.filter(
+            publishedgroup__group_name=student_group,
+            is_published=1,
+        ).filter(
+            Q(publish_from__isnull=True) | Q(publish_from__lte=now),
+            Q(publish_until__isnull=True) | Q(publish_until__gt=now),
+        ).distinct()
 
         tests_with_status = []
         for test in all_tests:
@@ -50,14 +68,17 @@ def list_test(request):
             remaining_attempts = test.num_of_attempts - attempts
 
             # Получаем лучший результат студента
-            best_result = StudentResult.objects.filter(student=user, test=test).order_by('-result_points').first()
+            result_qs = StudentResult.objects.filter(student=user, test=test)
+            best_result = result_qs.order_by('-result_points', '-attempt_number').first()
+            latest_result = result_qs.order_by('-attempt_number').first()
 
             test_data = {
                 'test': test,
                 'remaining_attempts': remaining_attempts,
-                'is_completed': attempts >= test.num_of_attempts,
+                'is_completed': test.num_of_attempts > 0 and attempts >= test.num_of_attempts,
                 'attempts_count': attempts,
-                'best_result': best_result
+                'best_result': best_result,
+                'latest_result': latest_result,
             }
             tests_with_status.append(test_data)
 
@@ -161,11 +182,18 @@ def get_randomized_test_for_student(test, student_id, attempt_number=1):
 def some_test_for_student(request, slug_name):
     test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
     student = request.user
-    is_teacher = student.role == 'teacher'
+    is_teacher = student.role in ('teacher', 'admin') or student.is_superuser
 
     if not is_teacher:
+        try:
+            student_group = StudentData.objects.get(data_map=student).group
+        except StudentData.DoesNotExist:
+            return redirect('solving_tests:list_test')
+        if not (test.is_available_now() and PublishedGroup.objects.filter(
+                test_name=test, group_name=student_group).exists()):
+            return redirect('solving_tests:list_test')
         attempt_count = StudentResult.objects.filter(student=student, test=test).count()
-        if attempt_count >= test.num_of_attempts:
+        if test.num_of_attempts > 0 and attempt_count >= test.num_of_attempts:
             return redirect('solving_tests:view_completed_result', slug_name=slug_name)
     else:
         attempt_count = 0
@@ -235,18 +263,18 @@ def some_test_for_student(request, slug_name):
                         res = CheckAnswer(expr_data['user_ans'], user_ans, False,
                                         expression=expr_data['user_expression'],
                                         type_ans=expr_data['user_type'].type_code,
-                                        eps=float(expr_data.get('user_eps') or 0),
+                                        eps=_safe_epsilon(expr_data.get('user_eps')),
                                         type_norm=expr_data['matrix_norm']).compare_answer()
                     else:
                         res = CheckAnswer(expr_data['user_ans'], user_ans, False,
                                         expression=expr_data['user_expression'],
                                         type_ans=expr_data['user_type'].type_code,
-                                        eps=float(expr_data.get('user_eps') or 0)).compare_answer()
+                                        eps=_safe_epsilon(expr_data.get('user_eps'))).compare_answer()
                 else:
                     res = CheckAnswer(expr_data['user_ans'], user_ans, False,
                                     expression=expr_data['user_expression'],
                                     type_ans=expr_data['user_type'].type_code,
-                                    eps=float(expr_data.get('user_eps') or 0)).compare_answer()
+                                    eps=_safe_epsilon(expr_data.get('user_eps'))).compare_answer()
 
             result_score += res * expr_data['points_for_solve']
 
@@ -349,7 +377,12 @@ def some_test_for_student(request, slug_name):
             'options': options,
             'exist_select': expr_data['exist_select'],
             'display_number': i + 1,  # Номер для отображения (порядковый)
-            'original_number': expr_data.get('number', i + 1)  # Оригинальный номер из БД
+            'original_number': expr_data.get('number', i + 1),  # Оригинальный номер из БД
+            'matrix_template': (
+                empty_matrix_template(expr_data['user_ans'])
+                if expr_data.get('user_type') and expr_data['user_type'].type_code == 4
+                else ''
+            ),
         })
 
     return render(request, 'solving_tests/specific_test.html', {
@@ -477,13 +510,13 @@ def show_result(request, slug_name):
                             res = CheckAnswer(expr_data['user_ans'], student_answer, False,
                                             expression=expr_data['user_expression'],
                                             type_ans=expr_data['user_type'].type_code,
-                                            eps=float(expr_data.get('user_eps') or 0),
+                                            eps=_safe_epsilon(expr_data.get('user_eps')),
                                             type_norm=expr_data['matrix_norm']).compare_answer()
                         else:
                             res = CheckAnswer(expr_data['user_ans'], student_answer, False,
                                             expression=expr_data['user_expression'],
                                             type_ans=expr_data['user_type'].type_code,
-                                            eps=float(expr_data.get('user_eps') or 0)).compare_answer()
+                                            eps=_safe_epsilon(expr_data.get('user_eps'))).compare_answer()
                         is_correct = res == 1
                     except Exception:
                         is_correct = None
@@ -621,13 +654,13 @@ def view_completed_result(request, slug_name):
                         res = CheckAnswer(expr_data['user_ans'], student_answer, False,
                                         expression=expr_data['user_expression'],
                                         type_ans=expr_data['user_type'].type_code,
-                                        eps=float(expr_data.get('user_eps') or 0),
+                                        eps=_safe_epsilon(expr_data.get('user_eps')),
                                         type_norm=expr_data['matrix_norm']).compare_answer()
                     else:
                         res = CheckAnswer(expr_data['user_ans'], student_answer, False,
                                         expression=expr_data['user_expression'],
                                         type_ans=expr_data['user_type'].type_code,
-                                        eps=float(expr_data.get('user_eps') or 0)).compare_answer()
+                                        eps=_safe_epsilon(expr_data.get('user_eps'))).compare_answer()
                     is_correct = res == 1
                 except Exception:
                     is_correct = None

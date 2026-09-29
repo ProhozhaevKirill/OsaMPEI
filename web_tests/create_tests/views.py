@@ -1,5 +1,7 @@
 from create_tests.answer_storage import split_answers, pack_answers, display_answer
 from django.db import transaction
+from django.utils.dateparse import parse_datetime
+from django.utils import timezone
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
@@ -12,9 +14,26 @@ from .decorators import role_required
 from django.contrib.auth.decorators import login_required
 from datetime import timedelta
 import logging
+import math
+from logic_of_expression.matrix import empty_matrix_template
 
 
 logger = logging.getLogger(__name__)
+
+
+def _safe_epsilon(value):
+    try:
+        result = float(value or 0)
+        return result if math.isfinite(result) and result >= 0 else 0.0
+    except (TypeError, ValueError, OverflowError):
+        return 0.0
+
+
+def _parse_publication_datetime(value):
+    parsed = parse_datetime(value) if value else None
+    if parsed is not None and timezone.is_naive(parsed):
+        parsed = timezone.make_aware(parsed, timezone.get_current_timezone())
+    return parsed
 
 def parse_duration_string(time_str):
     try:
@@ -588,21 +607,34 @@ def publish_test(request, slug_name):
             teacher = get_object_or_404(TeacherData, data_map=request.user)
             data = json.loads(request.body)
             group_ids = data.get('groups', [])
+            publish_from = _parse_publication_datetime(data.get('publish_from'))
+            publish_until = _parse_publication_datetime(data.get('publish_until'))
 
-            # Удаляем предыдущие публикации
-            PublishedGroup.objects.filter(test_name=test).delete()
+            if data.get('publish_from') and publish_from is None:
+                return JsonResponse({'success': False, 'error': 'Некорректное время начала публикации'}, status=400)
+            if data.get('publish_until') and publish_until is None:
+                return JsonResponse({'success': False, 'error': 'Некорректное время окончания публикации'}, status=400)
+            if publish_from and publish_until and publish_from >= publish_until:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Время окончания должно быть позже времени начала публикации',
+                }, status=400)
 
-            # Создаем новые записи публикации
-            for group_id in group_ids:
-                group = get_object_or_404(StudentGroup, id=group_id)
-                PublishedGroup.objects.create(
-                    test_name=test,
-                    teacher_name=teacher,
-                    group_name=group
-                )
+            with transaction.atomic():
+                # Обновляем группы и расписание одной транзакцией.
+                PublishedGroup.objects.filter(test_name=test).delete()
+                groups = StudentGroup.objects.filter(id__in=group_ids)
+                if groups.count() != len(set(map(str, group_ids))):
+                    raise ValueError('Одна или несколько групп не найдены')
+                PublishedGroup.objects.bulk_create([
+                    PublishedGroup(test_name=test, teacher_name=teacher, group_name=group)
+                    for group in groups
+                ])
 
-            test.is_published = 1
-            test.save()
+                test.is_published = 1
+                test.publish_from = publish_from
+                test.publish_until = publish_until
+                test.save(update_fields=['is_published', 'publish_from', 'publish_until'])
             return JsonResponse({'success': True})
 
         except Exception as e:
@@ -620,7 +652,9 @@ def unpublish_test(request, slug_name):
             test = AboutTest.objects.get(name_slug_tests=slug_name)
             PublishedGroup.objects.filter(test_name=test).delete()
             test.is_published = False
-            test.save()
+            test.publish_from = None
+            test.publish_until = None
+            test.save(update_fields=['is_published', 'publish_from', 'publish_until'])
             return JsonResponse({'success': True})
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)}, status=400)
@@ -1273,18 +1307,18 @@ def solve_test_teacher(request, slug_name):
                         res = CheckAnswer(expr_data['user_ans'], user_ans, False,
                                         expression=expr_data['user_expression'],
                                         type_ans=expr_data['user_type'].type_code,
-                                        eps=float(expr_data.get('user_eps') or 0),
+                                        eps=_safe_epsilon(expr_data.get('user_eps')),
                                         type_norm=expr_data['matrix_norm']).compare_answer()
                     else:
                         res = CheckAnswer(expr_data['user_ans'], user_ans, False,
                                         expression=expr_data['user_expression'],
                                         type_ans=expr_data['user_type'].type_code,
-                                        eps=float(expr_data.get('user_eps') or 0)).compare_answer()
+                                        eps=_safe_epsilon(expr_data.get('user_eps'))).compare_answer()
                 else:
                     res = CheckAnswer(expr_data['user_ans'], user_ans, False,
                                     expression=expr_data['user_expression'],
                                     type_ans=expr_data['user_type'].type_code,
-                                    eps=float(expr_data.get('user_eps') or 0)).compare_answer()
+                                    eps=_safe_epsilon(expr_data.get('user_eps'))).compare_answer()
 
             task_results.append(res)
             result_score += res * expr_data['points_for_solve']
@@ -1355,7 +1389,12 @@ def solve_test_teacher(request, slug_name):
             'options': options,
             'exist_select': expr_data['exist_select'],
             'display_number': i + 1,
-            'original_number': expr_data.get('number', i + 1)
+            'original_number': expr_data.get('number', i + 1),
+            'matrix_template': (
+                empty_matrix_template(expr_data['user_ans'])
+                if expr_data.get('user_type') and expr_data['user_type'].type_code == 4
+                else ''
+            ),
         })
 
     return render(request, 'create_tests/solve_test_teacher.html', {
@@ -1551,13 +1590,13 @@ def test_results_detail(request, slug_name, student_id):
                         res = _CheckAnswer(expr_data['user_ans'], student_answer, False,
                                         expression=expr_data['user_expression'],
                                         type_ans=expr_data['user_type'].type_code,
-                                        eps=float(expr_data.get('user_eps') or 0),
+                                        eps=_safe_epsilon(expr_data.get('user_eps')),
                                         type_norm=expr_data['matrix_norm']).compare_answer()
                     else:
                         res = _CheckAnswer(expr_data['user_ans'], student_answer, False,
                                         expression=expr_data['user_expression'],
                                         type_ans=expr_data['user_type'].type_code,
-                                        eps=float(expr_data.get('user_eps') or 0)).compare_answer()
+                                        eps=_safe_epsilon(expr_data.get('user_eps'))).compare_answer()
                     is_correct = res == 1
                 except Exception:
                     is_correct = None
@@ -1674,13 +1713,13 @@ def grade_free_answer(request, slug_name, student_id):
                     res = _CheckAnswer(expr_data['user_ans'], user_ans, False,
                                        expression=expr_data['user_expression'],
                                        type_ans=expr_data['user_type'].type_code,
-                                       eps=float(expr_data.get('user_eps') or 0),
+                                       eps=_safe_epsilon(expr_data.get('user_eps')),
                                        type_norm=expr_data['matrix_norm']).compare_answer()
                 else:
                     res = _CheckAnswer(expr_data['user_ans'], user_ans, False,
                                        expression=expr_data['user_expression'],
                                        type_ans=expr_data['user_type'].type_code,
-                                       eps=float(expr_data.get('user_eps') or 0)).compare_answer()
+                                       eps=_safe_epsilon(expr_data.get('user_eps'))).compare_answer()
                 result_score += res * expr_data['points_for_solve']
             except Exception:
                 pass

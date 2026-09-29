@@ -117,7 +117,7 @@
                                                 Студент вводит свободный ответ. Проверка выполняется преподавателем вручную.
                                             </p>
                                             <div class="meta-fields">
-                                                <input type="text" class="accuracy-field" placeholder="Погрешность">
+                                                <input type="text" class="accuracy-field" placeholder="Погрешность" value="0">
                                                 <select name="user_type" class="type-field" id="type-select" required>
                                                   <option value="" disabled selected hidden>Тип ответа</option>
                                                   {% for t in all_types_answer %}
@@ -221,7 +221,7 @@
 
             <div class="popup_title">Вы уверенны, что хотите сохранить?</div>
             <div class="btn_option">
-                <a href="#header"><button class="changeTest">Нет, продолжить составление</button></a>
+                <a href="#header"><button type="button" class="changeTest">Да, продолжить заполнение</button></a>
                 <div class="save">
                     <form action="{% url 'create_tests:create_test' %}" method="POST" id="testForm">
                         {% csrf_token %}

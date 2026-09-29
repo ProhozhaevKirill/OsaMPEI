@@ -3,6 +3,18 @@ import re
 import numpy as np
 
 
+def empty_matrix_template(answer):
+    """Build an empty MathLive matrix with the same dimensions as the answer."""
+    try:
+        matrix = MasterMatrix('', answer, answer).tex_to_np(answer)
+    except (ValueError, TypeError, KeyError, ZeroDivisionError, OverflowError):
+        return ''
+    rows, columns = matrix.shape
+    placeholder_row = ' & '.join(r'\placeholder{}' for _ in range(columns))
+    body = r' \\ '.join(placeholder_row for _ in range(rows))
+    return rf'\begin{{pmatrix}}{body}\end{{pmatrix}}'
+
+
 class MasterMatrix:
     base_norm = {
         'frobenius': lambda matrix: np.linalg.norm(matrix, 'fro'),

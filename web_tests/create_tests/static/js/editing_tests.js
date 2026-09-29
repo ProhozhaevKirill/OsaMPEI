@@ -111,16 +111,26 @@ $(document).ready(function () {
         const $typeField = $answerRow.find('.type-field');
         const $normField = $answerRow.find('.norm-field');
         const $answerField = $answerRow.find('.answer-field');
+        const $accuracyField = $answerRow.find('.accuracy-field');
         const selectedType = String($typeField.find('option:selected').data('type-code'));
 
         if (selectedType === '4') { // ID типа "Матрицы"
             $normField.show();
+            $accuracyField.val($accuracyField.val() || '0').show();
             $answerField.css({
                 'height': '170px',
                 'min-height': '100px'
             });
+        } else if (selectedType === '3' || selectedType === '5') {
+            $normField.hide();
+            $accuracyField.val('0').hide();
+            $answerField.css({
+                'height': '',
+                'min-height': ''
+            });
         } else {
             $normField.hide();
+            $accuracyField.val($accuracyField.val() || '0').show();
             $answerField.css({
                 'height': '',
                 'min-height': ''
@@ -427,7 +437,7 @@ $(document).ready(function () {
                     const free = Number($(this).find('.type-field option:selected').data('type-code')) === 5;
                     const answerVal = free ? '__FREE__' : getMathFieldValue($answerField).trim();
 
-                    const epsVal = $(this).find('.accuracy-field').val() || '';
+                    const epsVal = $(this).find('.accuracy-field').val() || '0';
                     const typeVal = $(this).find('.type-field').val() || '';
                     const normVal = $(this).find('.norm-field').val() || '';
                     const isTrue = $(this).find('.select-ans').is(':checked') ? '1' : '0';

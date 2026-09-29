@@ -35,29 +35,26 @@ class CheckAnswer:
         if self.is_choice:
             return int(self.teach_raw == self.stud_raw)
 
-        match self.type_ans:
-            case 1:  # число (целое или нецелое)
-                try:
+        try:
+            match self.type_ans:
+                case 1:  # число (целое или нецелое)
                     teach = ts(self.teach_raw).get_result()
                     stud = ts(self.stud_raw).get_result()
                     return self._compare_expr(teach, stud)
-                except ValueError:
-                    return 0
 
-            case 3: # symbolic
-                f_expr = ts(self.teach_raw).get_result()
-                s_expr = ts(self.stud_raw).get_result()
-
-                try:
+                case 3: # symbolic
+                    f_expr = ts(self.teach_raw).get_result()
+                    s_expr = ts(self.stud_raw).get_result()
                     return self._compare_expr(f_expr, s_expr)
-                except ValueError:
+
+                case 4: # matrix
+                    return mm(self.all_expr, self.teach_raw, self.stud_raw, self.type_norm, self.eps).get_result()
+
+                case _:
                     return 0
-
-            case 4: # matrix
-                return mm(self.all_expr, self.teach_raw, self.stud_raw, self.type_norm, self.eps).get_result()
-
-            case _:
-                return 0
+        except (ValueError, TypeError, IndexError, KeyError, ZeroDivisionError, OverflowError):
+            # Неполный или повреждённый LaTeX — неверный ответ, а не ошибка сервера.
+            return 0
 
 
     def _compare_expr(self, f_expr, s_expr):

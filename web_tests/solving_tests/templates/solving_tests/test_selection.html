@@ -74,12 +74,6 @@
                             <span><i class="far fa-clock"></i> Время: {{ test.time_to_solution }}</span>
                             {% if is_teacher %}
                                 <span><i class="fas fa-eye"></i> Режим просмотра</span>
-                            {% elif item.is_completed %}
-                                {% if item.best_result %}
-                                    <span><i class="fas fa-chart-line"></i> Лучший результат: {{ item.best_result.result_points|floatformat:1 }} баллов</span>
-                                {% else %}
-                                    <span><i class="fas fa-chart-line"></i> Результат недоступен</span>
-                                {% endif %}
                             {% else %}
                                 <span><i class="fas fa-redo"></i>
                                     {% if test.num_of_attempts == 0 %}
@@ -88,6 +82,10 @@
                                         Попыток: {{ item.remaining_attempts }}
                                     {% endif %}
                                 </span>
+                                {% if item.latest_result %}
+                                    <span><i class="fas fa-history"></i> Последний: {{ item.latest_result.result_points|floatformat:1 }} из {{ item.latest_result.max_points|floatformat:1 }}</span>
+                                    <span><i class="fas fa-chart-line"></i> Лучший: {{ item.best_result.result_points|floatformat:1 }} из {{ item.best_result.max_points|floatformat:1 }}</span>
+                                {% endif %}
                             {% endif %}
                         </div>
                     </div>

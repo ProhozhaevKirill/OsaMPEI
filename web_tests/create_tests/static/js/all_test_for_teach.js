@@ -39,6 +39,10 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.group-item.selected').forEach(item => {
                 item.classList.remove('selected');
             });
+            const publishFrom = document.getElementById('publishFrom');
+            const publishUntil = document.getElementById('publishUntil');
+            if (publishFrom) publishFrom.value = '';
+            if (publishUntil) publishUntil.value = '';
         }
     }
 
@@ -101,6 +105,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const selectedGroupIds = selectedGroups.map(checkbox => checkbox.value);
         const publishBtn = document.querySelector(`.publish-btn[data-slug="${currentTestSlug}"]`);
         const publishUrl = publishBtn ? publishBtn.dataset.url : null;
+        const publishFromValue = document.getElementById('publishFrom')?.value || '';
+        const publishUntilValue = document.getElementById('publishUntil')?.value || '';
+
+        const toUtcIso = value => value ? new Date(value).toISOString() : null;
+        if (publishFromValue && publishUntilValue && new Date(publishFromValue) >= new Date(publishUntilValue)) {
+            showError(publishModal, 'Время окончания должно быть позже времени начала публикации');
+            return;
+        }
 
         console.log('Current test slug:', currentTestSlug);
         console.log('Selected groups:', selectedGroupIds);
@@ -129,12 +141,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 'X-CSRFToken': getCookie('csrftoken'),
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ groups: selectedGroupIds })
+            body: JSON.stringify({
+                groups: selectedGroupIds,
+                publish_from: toUtcIso(publishFromValue),
+                publish_until: toUtcIso(publishUntilValue)
+            })
         })
-        .then(response => {
+        .then(async response => {
             console.log('Response received:', response.status, response.statusText);
-            if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
-            return response.json();
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || `Ошибка HTTP: ${response.status}`);
+            return data;
         })
         .then(data => {
             console.log('Response data:', data);
@@ -146,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Publish error:', error);
-            showError(publishModal, 'Произошла ошибка при публикации теста');
+            showError(publishModal, error.message || 'Произошла ошибка при публикации теста');
         });
     });
 

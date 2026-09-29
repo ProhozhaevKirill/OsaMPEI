@@ -111,6 +111,9 @@ class StudentData(models.Model):
     group = models.ForeignKey(StudentGroup, on_delete=models.PROTECT)
     data_map = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.last_name} {self.first_name} ({self.group.name})"
+
 
 class WhiteList(models.Model):
     teacher_mail = models.EmailField(unique=True)
@@ -128,3 +131,5 @@ class TeacherData(models.Model):
 
     data_map = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.last_name} {self.first_name} ({self.data_map.email})"

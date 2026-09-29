@@ -128,15 +128,21 @@ $(document).ready(function () {
             $accuracyField.hide();
             $normField.hide();
             $freeNote.show();
+        } else if (selectedTypeCode === 3) { // Символьные выражения проверяются точно
+            $answerField.show();
+            $accuracyField.val('0').hide();
+            $freeNote.hide();
+            $normField.hide();
+            $answerField.css({ 'height': '', 'min-height': '' });
         } else if (selectedTypeCode === 4) { // Матрицы
             $answerField.show();
-            $accuracyField.show();
+            $accuracyField.val($accuracyField.val() || '0').show();
             $freeNote.hide();
             $normField.show();
             $answerField.css({ 'height': '170px', 'min-height': '100px' });
         } else {
             $answerField.show();
-            $accuracyField.show();
+            $accuracyField.val($accuracyField.val() || '0').show();
             $freeNote.hide();
             $normField.hide();
             $answerField.css({ 'height': '', 'min-height': '' });
@@ -435,7 +441,7 @@ $(document).ready(function () {
                     // Для свободного ответа используем плейсхолдер, т.к. поле ответа скрыто
                     const answerVal = isFreeAnswer ? '__FREE__' : getMathFieldValue($answerField).trim();
 
-                    const epsVal = $(this).find('.accuracy-field').val() || '';
+                    const epsVal = $(this).find('.accuracy-field').val() || '0';
                     const normVal = $(this).find('.norm-field').val() || '';
                     const isTrue = $(this).find('.select-ans').is(':checked') ? '1' : '0';
 
@@ -636,7 +642,7 @@ $(document).ready(function () {
             // Проверяем точность (пропускаем для свободного ответа)
             $(this).find('.accuracy-field').each(function() {
                 const typeCode = parseInt($(this).closest('.answer-row').find('.type-field option:selected').data('type-code')) || 0;
-                if (typeCode === 5) return; // свободный ответ — точность не нужна
+                if (typeCode === 3 || typeCode === 5) return;
                 const accuracy = $(this).val().trim();
                 if (!accuracy) {
                     $(this).addClass('invalid');
@@ -787,7 +793,7 @@ $(document).ready(function () {
                     const $ansField = $(this).find('.answer-field');
                     variant.answers.push({
                         value: $ansField[0] ? ($ansField[0].value || '') : '',
-                        epsilon: $(this).find('.accuracy-field').val() || '',
+                        epsilon: $(this).find('.accuracy-field').val() || '0',
                         type: $(this).find('.type-field').val() || '',
                         norm: $(this).find('.norm-field').val() || '',
                         isCorrect: $(this).find('.select-ans').is(':checked')
@@ -876,7 +882,7 @@ $(document).ready(function () {
                     if ($ansField[0] && answerData.value) {
                         mathQueue.push({ el: $ansField[0], val: answerData.value });
                     }
-                    $answer.find('.accuracy-field').val(answerData.epsilon || '');
+                    $answer.find('.accuracy-field').val(answerData.epsilon || '0');
                     $answer.find('.type-field').val(answerData.type || '');
                     $answer.find('.norm-field').val(answerData.norm || '');
                     $answer.find('.select-ans').prop('checked', answerData.isCorrect || false);

@@ -1,14 +1,21 @@
 import json
+from datetime import timedelta
 from types import SimpleNamespace
 from unittest.mock import patch
 
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.test import RequestFactory, TestCase, SimpleTestCase
+from django.urls import reverse
+from django.utils import timezone
 
 from .answer_storage import pack_answers, split_answers
-from .models import AboutExpressions, AboutTest, Subjects, TaskGroup, TaskVariant, TypeAnswer
+from .models import (AboutExpressions, AboutTest, PublishedGroup, Subjects,
+                     TaskGroup, TaskVariant, TypeAnswer)
 from .views import create_test, edit_test
-from logic_of_expression.matrix import MasterMatrix
+from logic_of_expression.matrix import MasterMatrix, empty_matrix_template
+from logic_of_expression.check_sympy_expr import CheckAnswer
+from solving_tests.models import StudentResult
+from users.models import CustomUser, StudentData, StudentGroup, StudentInstitute, TeacherData
 
 
 class AnswerStorageTests(SimpleTestCase):
@@ -25,6 +32,15 @@ class AnswerStorageTests(SimpleTestCase):
                 self.assertTrue(MasterMatrix('', expected, actual).get_result())
         for invalid in ['', 'nonsense', r'\begin{pmatrix}1&2\\3\end{pmatrix}']:
             self.assertFalse(MasterMatrix('', invalid, invalid).get_result())
+
+    def test_vector_and_incomplete_latex_do_not_raise_internal_error(self):
+        vector = r'\begin{pmatrix}1\\2\\3\end{pmatrix}'
+        self.assertTrue(MasterMatrix('', vector, vector).get_result())
+        self.assertEqual(
+            empty_matrix_template(vector),
+            r'\begin{pmatrix}\placeholder{} \\ \placeholder{} \\ \placeholder{}\end{pmatrix}',
+        )
+        self.assertEqual(CheckAnswer('1', r'\frac{1}', False, type_ans=3).compare_answer(), 0)
 
     def test_matrix_norm_model_and_fraction(self):
         norm = SimpleNamespace(type_code=1)
@@ -130,3 +146,90 @@ class EditorSaveTests(TestCase):
         self.assertEqual(response.status_code, 302)
         created = AboutTest.objects.get(name_tests='New test')
         self.assertEqual(list(created.expressions.order_by('number').values_list('number', flat=True)), [1, 2])
+
+
+class PublicationScheduleTests(TestCase):
+    def setUp(self):
+        self.institute = StudentInstitute.objects.create(name='Schedule institute')
+        self.group = StudentGroup.objects.create(name='SCH-01', name_inst=self.institute)
+        self.teacher_user = CustomUser.objects.create_user('teacher@example.com', 'password', role='teacher')
+        self.teacher = TeacherData.objects.create(
+            first_name='Teacher', last_name='Test', middle_name='',
+            institute=self.institute, data_map=self.teacher_user,
+        )
+        self.student_user = CustomUser.objects.create_user('student@example.com', 'password', role='student')
+        StudentData.objects.create(
+            first_name='Student', last_name='Test', institute=self.institute,
+            group=self.group, data_map=self.student_user,
+        )
+        self.subject = Subjects.objects.create(name='Schedule subject')
+        self.test = AboutTest.objects.create(
+            name_tests='Scheduled test', subj=self.subject, creator=self.teacher,
+        )
+
+    def test_publish_endpoint_saves_window_and_groups(self):
+        self.client.force_login(self.teacher_user)
+        start = timezone.now() + timedelta(hours=1)
+        end = start + timedelta(hours=2)
+        response = self.client.post(
+            reverse('create_tests:publish_test', args=[self.test.name_slug_tests]),
+            data=json.dumps({
+                'groups': [self.group.pk],
+                'publish_from': start.isoformat(),
+                'publish_until': end.isoformat(),
+            }),
+            content_type='application/json',
+        )
+        self.assertEqual(response.status_code, 200)
+        self.test.refresh_from_db()
+        self.assertTrue(self.test.is_published)
+        self.assertEqual(self.test.publish_from, start)
+        self.assertEqual(self.test.publish_until, end)
+        self.assertTrue(PublishedGroup.objects.filter(test_name=self.test, group_name=self.group).exists())
+
+    def test_future_test_is_hidden_and_direct_link_is_closed(self):
+        self.test.is_published = 1
+        self.test.publish_from = timezone.now() + timedelta(hours=1)
+        self.test.save()
+        PublishedGroup.objects.create(
+            test_name=self.test, group_name=self.group, teacher_name=self.teacher,
+        )
+        self.client.force_login(self.student_user)
+        list_response = self.client.get(reverse('solving_tests:list_test'))
+        self.assertNotContains(list_response, self.test.name_tests)
+        direct_response = self.client.get(
+            reverse('solving_tests:some_test_for_student', args=[self.test.name_slug_tests])
+        )
+        self.assertRedirects(direct_response, reverse('solving_tests:list_test'))
+
+    def test_active_test_is_visible(self):
+        now = timezone.now()
+        self.test.is_published = 1
+        self.test.publish_from = now - timedelta(minutes=1)
+        self.test.publish_until = now + timedelta(minutes=1)
+        self.test.save()
+        PublishedGroup.objects.create(
+            test_name=self.test, group_name=self.group, teacher_name=self.teacher,
+        )
+        self.client.force_login(self.student_user)
+        response = self.client.get(reverse('solving_tests:list_test'))
+        self.assertContains(response, self.test.name_tests)
+
+    def test_student_list_shows_latest_and_best_results(self):
+        self.test.is_published = 1
+        self.test.save()
+        PublishedGroup.objects.create(
+            test_name=self.test, group_name=self.group, teacher_name=self.teacher,
+        )
+        StudentResult.objects.create(
+            student=self.student_user, test=self.test, attempt_number=1,
+            result_points=9, max_points=10,
+        )
+        StudentResult.objects.create(
+            student=self.student_user, test=self.test, attempt_number=2,
+            result_points=5, max_points=10,
+        )
+        self.client.force_login(self.student_user)
+        response = self.client.get(reverse('solving_tests:list_test'))
+        self.assertContains(response, 'Последний: 5,0 из 10,0')
+        self.assertContains(response, 'Лучший: 9,0 из 10,0')

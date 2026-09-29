@@ -5,6 +5,7 @@ from django.utils.text import slugify
 from unidecode import unidecode
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
+from django.utils import timezone
 from users.models import StudentGroup, TeacherData
 from datetime import timedelta
 
@@ -12,7 +13,7 @@ from datetime import timedelta
 class TypeAnswer(models.Model):
     TYPE_CHOICES = [
         (1, "Число"),
-        (3, "Строки"),
+        (3, "Символьные выражения"),
         (4, "Матрицы"),
         (5, "Свободный ответ"),
     ]
@@ -60,10 +61,16 @@ class TypeNormForMatrix(models.Model):
     num_expr = models.ForeignKey(AboutExpressions, on_delete=models.CASCADE)
     matrix_norms = models.ForeignKey(TypeNorm, on_delete=models.SET_NULL, null=True)
 
+    def __str__(self):
+        return f"{self.num_expr} — {self.matrix_norms or 'без нормы'}"
+
 
 class TypeNormForTaskVariant(models.Model):
     task_variant = models.ForeignKey('TaskVariant', on_delete=models.CASCADE)
     matrix_norms = models.ForeignKey(TypeNorm, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f"{self.task_variant} — {self.matrix_norms or 'без нормы'}"
 
 
 class Subjects(models.Model):
@@ -110,6 +117,8 @@ class AboutTest(models.Model):
     type_of_result = models.IntegerField(blank=True, default=1)  # Тип возвращаемого результата
     description = models.CharField(max_length=150, default="", blank=True)
     is_published = models.IntegerField(default=0)
+    publish_from = models.DateTimeField(null=True, blank=True)
+    publish_until = models.DateTimeField(null=True, blank=True)
     is_done = models.IntegerField(default=1)
     is_draft = models.BooleanField(default=False)
     draft_data = models.TextField(default='', blank=True)
@@ -132,6 +141,15 @@ class AboutTest(models.Model):
     def __str__(self):
         return self.name_tests
 
+    def is_available_now(self, at=None):
+        """Return whether the configured publication window is currently open."""
+        at = at or timezone.now()
+        return bool(
+            self.is_published
+            and (self.publish_from is None or self.publish_from <= at)
+            and (self.publish_until is None or self.publish_until > at)
+        )
+
     def save(self, *args, **kwargs):
         if not self.id:  # Проверка на создание нового объекта
             base_slug = slugify(unidecode(self.name_tests))
@@ -151,6 +169,9 @@ class PublishedGroup(models.Model):
     group_name = ForeignKey(StudentGroup, on_delete=models.PROTECT)
     test_name = ForeignKey(AboutTest, on_delete=models.PROTECT)
     teacher_name = ForeignKey(TeacherData, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f"{self.test_name} — {self.group_name}"
 
 
 class GroupList(models.Model):

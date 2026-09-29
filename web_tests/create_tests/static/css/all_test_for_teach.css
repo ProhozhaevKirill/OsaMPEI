@@ -649,6 +649,19 @@ a {
     box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
 }
 
+.publication-window {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 640px) {
+    .publication-window {
+        grid-template-columns: 1fr;
+    }
+}
+
 .form-text {
     font-size: 12px;
     color: var(--secondary-color);

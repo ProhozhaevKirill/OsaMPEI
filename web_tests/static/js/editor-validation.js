@@ -1,5 +1,6 @@
 // Validate the whole editor before serialization can omit incomplete variants.
 window.validateEditorVariants = function () {
+    document.querySelectorAll('.task-variant .invalid').forEach(el => el.classList.remove('invalid'));
     for (const variant of document.querySelectorAll('.task-variant')) {
         let invalid = null;
         const expression = variant.querySelector('math-field[name="user_expression"]');
@@ -20,3 +21,15 @@ window.validateEditorVariants = function () {
         }
     }
 };
+
+// Clear a previous required-field error as soon as the user fills the field.
+for (const eventName of ['input', 'change']) {
+    document.addEventListener(eventName, function (event) {
+        const field = event.target;
+        if (!field.matches('math-field, input, select')) return;
+        if (String(field.value || '').trim()) field.classList.remove('invalid');
+        if (field.matches('.type-field') && Number(field.selectedOptions[0]?.dataset.typeCode) === 5) {
+            field.closest('.answer-row').querySelector('.answer-field')?.classList.remove('invalid');
+        }
+    });
+}

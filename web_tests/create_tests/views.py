@@ -15,7 +15,6 @@ from django.contrib.auth.decorators import login_required
 from datetime import timedelta
 import logging
 import math
-from logic_of_expression.matrix import empty_matrix_template
 
 
 logger = logging.getLogger(__name__)
@@ -1302,7 +1301,9 @@ def solve_test_teacher(request, slug_name):
                     res = 0
             else:
                 # Single answer question
-                if expr_data['user_type'].type_code == 4:  # Matrix type
+                if expr_data['user_type'].type_code == 5:
+                    res = None  # Свободный ответ проверяется вручную.
+                elif expr_data['user_type'].type_code == 4:  # Matrix type
                     if expr_data['matrix_norm']:
                         res = CheckAnswer(expr_data['user_ans'], user_ans, False,
                                         expression=expr_data['user_expression'],
@@ -1321,7 +1322,7 @@ def solve_test_teacher(request, slug_name):
                                     eps=_safe_epsilon(expr_data.get('user_eps'))).compare_answer()
 
             task_results.append(res)
-            result_score += res * expr_data['points_for_solve']
+            result_score += (res or 0) * expr_data['points_for_solve']
 
         score_in_pr = result_score / all_points * 100 if all_points > 0 else 0
 
@@ -1338,7 +1339,8 @@ def solve_test_teacher(request, slug_name):
         detailed_results = []
         for i, expr_data in enumerate(expressions_data):
             teacher_answer = teacher_answers[i] if i < len(teacher_answers) else ''
-            is_correct = task_results[i] == 1 if i < len(task_results) else None
+            is_free_answer = not expr_data['exist_select'] and expr_data['user_type'].type_code == 5
+            is_correct = None if is_free_answer else (task_results[i] == 1 if i < len(task_results) else None)
             if expr_data['exist_select']:
                 available_options = split_answers(expr_data['user_ans']) if expr_data['user_ans'] else []
                 correct_answers_flags = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
@@ -1362,7 +1364,8 @@ def solve_test_teacher(request, slug_name):
                     'question_number': i + 1,
                     'question': expr_data['user_expression'],
                     'teacher_answer': display_answer(teacher_answer, expr_data['exist_select']),
-                    'correct_answer': expr_data['user_ans'],
+                    'correct_answer': None if is_free_answer else expr_data['user_ans'],
+                    'is_free_answer': is_free_answer,
                     'is_multiple_choice': False,
                     'options': [],
                     'points': expr_data['points_for_solve'],
@@ -1370,6 +1373,7 @@ def solve_test_teacher(request, slug_name):
                 })
 
         request.session['teacher_test_result'] = {
+            'has_free_answers': any(q.get('is_free_answer') for q in detailed_results),
             'result': result_score,
             'score': grade,
             'test_name': test.name_tests,
@@ -1390,11 +1394,6 @@ def solve_test_teacher(request, slug_name):
             'exist_select': expr_data['exist_select'],
             'display_number': i + 1,
             'original_number': expr_data.get('number', i + 1),
-            'matrix_template': (
-                empty_matrix_template(expr_data['user_ans'])
-                if expr_data.get('user_type') and expr_data['user_type'].type_code == 4
-                else ''
-            ),
         })
 
     return render(request, 'create_tests/solve_test_teacher.html', {
@@ -1441,6 +1440,7 @@ def show_result_teacher(request, slug_name):
         'count': count,
         'slug_name': slug_name,
         'detailed_results': test_result.get('detailed_results', []),
+        'has_free_answers': test_result.get('has_free_answers', False),
     })
 
 

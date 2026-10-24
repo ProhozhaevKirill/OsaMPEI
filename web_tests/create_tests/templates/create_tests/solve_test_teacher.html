@@ -13,12 +13,13 @@
 {% block extra_js %}
     <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
     <script src="{% static 'libs/polyfill/polyfill.min.js' %}"></script>
+    <script src="{% static 'js/macros-mathJax.js' %}"></script>
+    <script src="{% static 'js/task-layout.js' %}"></script>
     <script id="MathJax-script" async
             src="{% static 'libs/mathjax/tex-mml-chtml.js' %}"></script>
     <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
 
     <script src="{% static 'js/specific_test.js' %}"></script>
-    <script src="{% static 'js/macros-mathJax.js' %}"></script>
     <script src="{% static 'js/mathJax-rus.js' %}"></script>
 {% endblock %}
 
@@ -40,8 +41,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
         <!-- Основной контент (85%) -->
         <div class="main-content">
             <h1 class="test-title">{{ test.name_tests }}</h1>
@@ -53,8 +52,8 @@
                         <!-- Обёртка вопроса для JS -->
                         <div class="question-card" data-question="{{ forloop.counter }}">
                             <h4 class="number">Номер {{ forloop.counter }}.</h4>
-                            <div class="express" id="task-{{ forloop.counter }}">
-                                <p><li>$$ {{ ex.expression.user_expression }} $$</li></p>
+                            <div class="express" id="task-{{ forloop.counter }}" data-expr="{{ ex.expression.user_expression }}">
+                                \[ {{ ex.expression.user_expression }} \]
                             </div>
                             {% if ex.exist_select %}
                                 <div class="options">
@@ -75,7 +74,9 @@
                             {% else %}
                                 <div class="sec-info">
                                     <li>
-                                        {% if ex.expression.user_eps == '0' or ex.expression.user_eps == '0.0' %}
+                                        {% if ex.expression.user_type.type_code == 5 %}
+                                            Введите свободный ответ. Проверка выполняется преподавателем вручную.
+                                        {% elif ex.expression.user_eps == '0' or ex.expression.user_eps == '0.0' %}
                                             Дать точный ответ.
                                         {% else %}
                                             Дать ответ с точностью до {{ ex.expression.user_eps }}.
@@ -85,7 +86,7 @@
                                 <math-field class="answer"
                                             name="answer_{{ forloop.counter }}"
                                             id="math-field-{{ forloop.counter }}"
-                                            placeholder="Ответ">{{ ex.matrix_template }}</math-field>
+                                            placeholder="Ответ"></math-field>
                             {% endif %}
                             <hr>
                         </div>

@@ -29,7 +29,11 @@
                 <h3>{{ test_name }}</h3>
                 <div class="result-details">
                     <p>Вы получили <strong>{{ result }}</strong> из <strong>{{ count }}</strong> возможных баллов</p>
-                    <p>Ваша оценка: <strong>{{ score }}</strong></p>
+                    {% if has_free_answers %}
+                        <p>Баллы указаны за автоматически проверяемые ответы. Свободные ответы проверяются преподавателем вручную.</p>
+                    {% else %}
+                        <p>Ваша оценка: <strong>{{ score }}</strong></p>
+                    {% endif %}
                 </div>
 
                 {% if detailed_results %}
@@ -63,6 +67,12 @@
                                     {% endif %}
                                 {% endif %}
                             </div>
+                            {% if q.is_free_answer %}
+                            <div class="manual-review-block">
+                                <strong>Свободный ответ</strong>
+                                <span class="answer-text">Проверяется преподавателем вручную. Эталонный ответ не задан.</span>
+                            </div>
+                            {% else %}
                             <div class="correct-answer-block">
                                 <strong>Правильный ответ:</strong>
                                 {% if q.is_multiple_choice %}
@@ -71,6 +81,7 @@
                                     <div class="math-display-block correct-math">\[ {{ q.correct_answer }} \]</div>
                                 {% endif %}
                             </div>
+                            {% endif %}
                         </div>
                         {% if q.is_multiple_choice and q.options %}
                         <div class="options-list">
@@ -277,6 +288,7 @@
         }
 
         .teacher-answer-block,
+        .manual-review-block,
         .correct-answer-block {
             background: white;
             border-radius: 6px;

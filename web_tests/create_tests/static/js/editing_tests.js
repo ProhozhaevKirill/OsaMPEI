@@ -3,6 +3,7 @@ $(document).ready(function () {
     MathfieldElement.fontsDirectory = '/static/libs/mathlive/fonts/';
 
     function clearClonedMathFields($clone) {
+        $clone.find('.invalid').removeClass('invalid');
         $clone.find('math-field').each(function () {
             const fresh = document.createElement('math-field');
             for (const attr of this.attributes) {

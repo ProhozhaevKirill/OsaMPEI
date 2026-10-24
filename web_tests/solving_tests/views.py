@@ -10,7 +10,6 @@ from users.models import StudentGroup, StudentData, TeacherData
 from .models import StudentResult, StudentTaskAnswer, FreeAnswerGrade
 from .yandex_disk import upload_test_attempt_log
 from logic_of_expression.check_sympy_expr import CheckAnswer
-from logic_of_expression.matrix import empty_matrix_template
 import numpy as np
 from .decorators import role_required
 from django.contrib.auth.decorators import login_required
@@ -378,11 +377,6 @@ def some_test_for_student(request, slug_name):
             'exist_select': expr_data['exist_select'],
             'display_number': i + 1,  # Номер для отображения (порядковый)
             'original_number': expr_data.get('number', i + 1),  # Оригинальный номер из БД
-            'matrix_template': (
-                empty_matrix_template(expr_data['user_ans'])
-                if expr_data.get('user_type') and expr_data['user_type'].type_code == 4
-                else ''
-            ),
         })
 
     return render(request, 'solving_tests/specific_test.html', {

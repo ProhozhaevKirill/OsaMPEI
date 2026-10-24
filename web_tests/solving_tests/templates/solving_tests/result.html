@@ -132,6 +132,12 @@
                                             {% endif %}
                                         </div>
 
+                                        {% if question_result.is_free_answer %}
+                                        <div class="manual-review-block">
+                                            <strong>Свободный ответ</strong>
+                                            <span class="answer-text">Проверяется преподавателем вручную. Эталонный ответ не задан.</span>
+                                        </div>
+                                        {% else %}
                                         <div class="correct-answer">
                                             <strong>Правильный ответ:</strong>
                                             {% if question_result.is_multiple_choice %}
@@ -140,6 +146,7 @@
                                                 <div class="math-display-block correct-math">\[ {{ question_result.correct_answer }} \]</div>
                                             {% endif %}
                                         </div>
+                                        {% endif %}
                                     </div>
 
                                     {% if question_result.is_multiple_choice and question_result.options %}

@@ -73,6 +73,8 @@ body {
 
 /* Основной контент (85% ширины) */
 .main-content {
+    box-sizing: border-box;
+    min-width: 0;
     width: 80%;
     margin-left: 15%;
     padding: 20px 40px;
@@ -140,7 +142,7 @@ body {
 .list-expr .express mjx-container {
     display: block;
     max-width: 100%;
-    overflow-x: auto;
+    overflow: visible;
 }
 
 .list-expr .express p {
@@ -194,6 +196,7 @@ body {
 }
 
 math-field.answer {
+  box-sizing: border-box;
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
@@ -227,6 +230,23 @@ math-field.answer {
 
 /* Адаптивность */
 @media (max-width: 768px) {
+  .main-content {
+    width: calc(100% - 80px);
+    margin-left: 80px;
+    padding: 12px;
+  }
+
+  .left-sidebar {
+    box-sizing: border-box;
+    width: 80px;
+    padding: 8px;
+  }
+
+  .sidebar-timer {
+    font-size: 0.8rem;
+    padding: 0;
+    overflow-wrap: anywhere;
+  }
   header.shapka {
     flex-direction: column;
     height: auto;
@@ -239,7 +259,7 @@ math-field.answer {
   }
 
   .list-expr {
-    margin-top: 120px;
+    margin-top: 20px;
   }
 
   .list-expr .express {

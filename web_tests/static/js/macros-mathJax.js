@@ -9,6 +9,7 @@ window.MathJax = {
         }
     },
     output: {
-        linebreaks: { automatic: true, width: "container" }
+        displayOverflow: 'linebreak',
+        linebreaks: { inline: true, width: '100%' }
     }
 };

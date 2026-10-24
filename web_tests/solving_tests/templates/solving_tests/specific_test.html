@@ -14,6 +14,7 @@
     <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
     <script src="{% static 'libs/polyfill/polyfill.min.js' %}"></script>
     <script src="{% static 'js/macros-mathJax.js' %}"></script>
+    <script src="{% static 'js/task-layout.js' %}"></script>
     <script id="MathJax-script" async
             src="{% static 'libs/mathjax/tex-mml-chtml.js' %}"></script>
 
@@ -39,8 +40,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
         <!-- Основной контент (85%) -->
         <div class="main-content">
             <h1 class="test-title">{{ test.name_tests }}</h1>
@@ -52,7 +51,7 @@
                         <div class="question-card" data-question="{{ forloop.counter }}">
                             <h4 class="number">Номер {{ forloop.counter }}.</h4>
                             <div class="express" id="task-{{ forloop.counter }}" data-expr="{{ ex.expression.user_expression }}">
-                                <p><li>$$ {{ ex.expression.user_expression }} $$</li></p>
+                                \[ {{ ex.expression.user_expression }} \]
                             </div>
                             {% if ex.exist_select %}
                                 <div class="options">
@@ -90,7 +89,7 @@
                                 <math-field class="answer"
                                             name="answer_{{ forloop.counter }}"
                                             id="math-field-{{ forloop.counter }}"
-                                            placeholder="Ответ">{{ ex.matrix_template }}</math-field>
+                                            placeholder="Ответ"></math-field>
                             {% endif %}
                             <hr>
                         </div>

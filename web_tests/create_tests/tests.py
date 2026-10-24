@@ -11,7 +11,7 @@ from django.utils import timezone
 from .answer_storage import pack_answers, split_answers
 from .models import (AboutExpressions, AboutTest, PublishedGroup, Subjects,
                      TaskGroup, TaskVariant, TypeAnswer)
-from .views import create_test, edit_test
+from .views import create_test, edit_test, solve_test_teacher, show_result_teacher
 from logic_of_expression.matrix import MasterMatrix, empty_matrix_template
 from logic_of_expression.check_sympy_expr import CheckAnswer
 from solving_tests.models import StudentResult
@@ -98,6 +98,59 @@ class EditorSaveTests(TestCase):
         edit_test(self.request('post', payload), self.test.name_slug_tests)
         answers = self.editor_context()['task_groups_data'][0]['variants'][0]['answers']
         self.assertEqual([a['user_ans'] for a in answers], ['a;b', r'c\;d'])
+
+    def test_matrix_create_edit_and_reopen_preserves_cells_and_norm(self):
+        from .models import TypeNorm, TypeNormForMatrix
+        matrix_type, _ = TypeAnswer.objects.get_or_create(type_code=4, defaults={'name': 'Matrix'})
+        norm, _ = TypeNorm.objects.get_or_create(type_code=1, defaults={'name': 'Euclidean'})
+        matrices = [r'\begin{pmatrix}1&\frac{1}{2}\\3&4\end{pmatrix}', r'\begin{bmatrix}1\\2\\3\end{bmatrix}']
+        payload = self.payload(matrices)
+        payload['user_type'] = json.dumps([matrix_type.pk, matrix_type.pk])
+        payload['user_norm'] = json.dumps([norm.pk, ''])
+        payload.update(name_test='Matrix test', time_solve='01:00:00', num_attempts='1', subj_test=self.subject.pk)
+        with patch('create_tests.views.TeacherData.objects.get', return_value=None):
+            response = create_test(self.request('post', payload))
+        self.assertEqual(response.status_code, 302)
+        created = AboutTest.objects.get(name_tests='Matrix test')
+        created_rows = list(created.expressions.order_by('block_expression_num'))
+        self.assertEqual([row.user_ans for row in created_rows], matrices)
+        self.assertEqual([row.user_type_id for row in created_rows], [matrix_type.pk] * 2)
+        self.assertEqual(TypeNormForMatrix.objects.get(num_expr=created_rows[0]).matrix_norms_id, norm.pk)
+        for test in [created, self.test]:
+            response = edit_test(self.request('post', payload), test.name_slug_tests)
+            self.assertEqual(response.status_code, 302)
+            rows = list(test.expressions.order_by('block_expression_num'))
+            self.assertEqual([row.user_ans for row in rows], matrices)
+            self.assertEqual([row.user_type_id for row in rows], [matrix_type.pk] * 2)
+            self.assertFalse(any(row.exist_select for row in rows))
+            self.assertEqual(TypeNormForMatrix.objects.get(num_expr=rows[0]).matrix_norms_id, norm.pk)
+            self.assertFalse(TypeNormForMatrix.objects.filter(num_expr=rows[1]).exists())
+            with patch('create_tests.views.render', side_effect=lambda request, template, context: context):
+                context = edit_test(self.request('get'), test.name_slug_tests)
+            answers = [group['variants'][0]['answers'][0] for group in context['task_groups_data']]
+            self.assertEqual([answer['user_ans'] for answer in answers], matrices)
+
+    def test_teacher_free_answer_has_manual_review_without_latex_placeholder(self):
+        free, _ = TypeAnswer.objects.get_or_create(type_code=5, defaults={'name': 'Free'})
+        expression = {'user_expression': 'Explain', 'user_ans': 'FREE_ANSWER',
+                      'user_type': free, 'user_eps': '0', 'points_for_solve': 2,
+                      'exist_select': False}
+        for answer in ['', r'\text{Explanation}']:
+            request = self.request('post', {'binaryAnswers': json.dumps([answer])})
+            request.user.id = 1
+            with patch('create_tests.views.get_randomized_test_for_teacher', return_value=[expression]), patch('logic_of_expression.check_sympy_expr.CheckAnswer') as checker:
+                response = solve_test_teacher(request, self.test.name_slug_tests)
+            self.assertEqual(response.status_code, 302)
+            checker.assert_not_called()
+            result = request.session['teacher_test_result']
+            self.assertTrue(result['has_free_answers'])
+            self.assertIsNone(result['detailed_results'][0]['correct_answer'])
+            self.assertIsNone(result['detailed_results'][0]['is_correct'])
+            page = show_result_teacher(request, self.test.name_slug_tests).content.decode()
+            self.assertIn('Проверяется преподавателем вручную', page)
+            self.assertNotIn('FREE_ANSWER', page)
+            self.assertNotIn('question-incorrect"', page)
+            self.assertNotIn('Ваша оценка:', page)
 
     def test_failed_save_restores_original_rows(self):
         payload = self.payload()

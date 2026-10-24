@@ -6,6 +6,7 @@ $(document).ready(function () {
     }
 
     function clearClonedMathFields($clone) {
+        $clone.find('.invalid').removeClass('invalid');
         $clone.find('math-field').each(function () {
             const fresh = document.createElement('math-field');
             for (const attr of this.attributes) {
@@ -581,7 +582,7 @@ $(document).ready(function () {
         let isValid = true;
 
         // Убираем предыдущие ошибки
-        $('.wide-input, .time-input, math-field').removeClass('invalid');
+        $('.wide-input, .time-input, math-field, .type-field, .accuracy-field, input[name="group_points"]').removeClass('invalid');
 
         // Проверяем название теста
         const testName = $('#testNameInput').val().trim();

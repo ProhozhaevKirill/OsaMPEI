@@ -140,7 +140,7 @@ $(document).ready(function () {
             $accuracyField.val($accuracyField.val() || '0').show();
             $freeNote.hide();
             $normField.show();
-            $answerField.css({ 'height': '170px', 'min-height': '100px' });
+            $answerField.css({ 'height': 'auto', 'min-height': '16rem' });
         } else {
             $answerField.show();
             $accuracyField.val($accuracyField.val() || '0').show();

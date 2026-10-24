@@ -119,8 +119,8 @@ $(document).ready(function () {
             $normField.show();
             $accuracyField.val($accuracyField.val() || '0').show();
             $answerField.css({
-                'height': '170px',
-                'min-height': '100px'
+                'height': 'auto',
+                'min-height': '16rem'
             });
         } else if (selectedType === '3' || selectedType === '5') {
             $normField.hide();

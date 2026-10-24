@@ -32,6 +32,11 @@ def _safe_epsilon(value):
 @login_required
 @role_required(['student', 'teacher', 'admin'])
 def list_test(request):
+    from .models import TestAttempt
+    from .attempts import finish_attempt
+    for attempt_id in list(TestAttempt.objects.filter(student=request.user, result__isnull=True,
+            deadline__lte=timezone.now()).values_list('pk', flat=True)):
+        finish_attempt(attempt_id)
     user = request.user
 
     if user.role == 'teacher':
@@ -78,6 +83,7 @@ def list_test(request):
                 'attempts_count': attempts,
                 'best_result': best_result,
                 'latest_result': latest_result,
+                'active_attempt': TestAttempt.objects.filter(student=user, test=test, result__isnull=True).exists(),
             }
             tests_with_status.append(test_data)
 
@@ -105,6 +111,13 @@ def get_randomized_test_for_student(test, student_id, attempt_number=1):
     - Каждая попытка генерирует новый вариант
     """
     # Создаем seed на основе id студента, id теста и номера попытки
+    from .models import TestAttempt
+    snapshot = TestAttempt.objects.filter(test=test, student_id=student_id,
+        attempt_number=attempt_number).values_list('questions', flat=True).first()
+    if snapshot is not None:
+        from .attempts import thaw_questions
+        return thaw_questions(snapshot)
+
     seed = hash(f"{student_id}_{test.id}_{attempt_number}") % (2**32)
     random.seed(seed)
 
@@ -184,21 +197,10 @@ def some_test_for_student(request, slug_name):
     is_teacher = student.role in ('teacher', 'admin') or student.is_superuser
 
     if not is_teacher:
-        try:
-            student_group = StudentData.objects.get(data_map=student).group
-        except StudentData.DoesNotExist:
-            return redirect('solving_tests:list_test')
-        if not (test.is_available_now() and PublishedGroup.objects.filter(
-                test_name=test, group_name=student_group).exists()):
-            return redirect('solving_tests:list_test')
-        attempt_count = StudentResult.objects.filter(student=student, test=test).count()
-        if test.num_of_attempts > 0 and attempt_count >= test.num_of_attempts:
-            return redirect('solving_tests:view_completed_result', slug_name=slug_name)
-    else:
-        attempt_count = 0
+        from .attempt_views import student_attempt
+        return student_attempt(request, test)
+    attempt_count = 0
 
-    # Получаем рандомизированный вариант теста для студента
-    # Номер попытки = количество уже выполненных попыток + 1
     expressions_data = get_randomized_test_for_student(test, student.id, attempt_count + 1)
 
     if request.method == 'POST':
@@ -388,10 +390,16 @@ def some_test_for_student(request, slug_name):
 @login_required
 @role_required(['student', 'teacher', 'admin'])
 def show_result(request, slug_name):
+    from .models import TestAttempt
+    if request.user.role == 'student':
+        latest = TestAttempt.objects.filter(student=request.user,
+            test__name_slug_tests=slug_name).order_by('-attempt_number').first()
+        if latest:
+            return redirect('solving_tests:attempt_result', slug_name=slug_name, attempt_id=latest.pk)
     test_result = request.session.get('test_result')
 
     if not test_result:
-        return redirect('list_test')
+        return redirect('solving_tests:list_test')
 
     test = AboutTest.objects.get(name_slug_tests=slug_name)
     student = request.user
@@ -552,6 +560,10 @@ def view_completed_result(request, slug_name):
 
     # Берем лучший результат
     best_result = results.order_by('-result_points').first()
+    from .models import TestAttempt
+    saved_attempt = TestAttempt.objects.filter(result=best_result).first()
+    if saved_attempt:
+        return redirect('solving_tests:attempt_result', slug_name=slug_name, attempt_id=saved_attempt.pk)
 
     # Используем сохранённые максимальные баллы
     count = best_result.max_points

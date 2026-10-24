@@ -35,12 +35,13 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'django_extensions',
 
     'create_tests',
     'solving_tests',
     'users',
+    # Keep after solving_tests so its runserver wrapper can start the expiry worker.
+    'django.contrib.staticfiles',
 ]
 
 AUTHENTICATION_BACKENDS = [

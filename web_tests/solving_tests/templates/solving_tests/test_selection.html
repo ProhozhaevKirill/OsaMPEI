@@ -94,6 +94,13 @@
                             <a href="{% url 'solving_tests:view_completed_result' slug_name=test.name_slug_tests %}" class="btn start-btn">
                                 <i class="fas fa-chart-bar"></i> Результаты
                             </a>
+                        {% elif not is_teacher %}
+                            <form action="{% url 'solving_tests:new_attempt' test.name_slug_tests %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn start-btn">
+                                    {% if item.active_attempt %}Продолжить{% elif item.latest_result %}Новая попытка{% else %}Начать{% endif %}
+                                </button>
+                            </form>
                         {% else %}
                             <a href="{% url 'solving_tests:some_test_for_student' slug_name=test.name_slug_tests %}" class="btn start-btn">
                                 <i class="fas fa-play"></i> {% if is_teacher %}Пройти{% else %}Начать{% endif %}

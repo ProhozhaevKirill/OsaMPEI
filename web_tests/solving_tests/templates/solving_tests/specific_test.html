@@ -31,6 +31,7 @@
                     <div class="sidebar-timer">
                         <h4>До окончания</h4>
                         <div id="timer">{{ test.time_to_solution }}</div>
+                        {% if attempt %}<p id="saveStatus" class="save-status" role="status" aria-live="polite">Все ответы сохранены</p>{% endif %}
                     </div>
 
                     <div class="navigation-sidebar">
@@ -104,7 +105,11 @@
   {% csrf_token %}
   <input type="hidden" name="binaryAnswers" id="binaryAnswers">
   <button type="submit">Завершить тест</button>
+  {% if attempt %}
+  <input type="hidden" id="attemptApi" value="{% url 'solving_tests:attempt_api' test.name_slug_tests attempt.id %}">
+  {% endif %}
 </form>
+{% if attempt %}{{ attempt_state|json_script:"attemptState" }}{% endif %}
 
 
         </div>

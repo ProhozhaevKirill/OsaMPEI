@@ -12,7 +12,7 @@ class StudentResult(models.Model):
     result_points = models.FloatField()
     max_points = models.FloatField(default=0)  # Максимально возможные баллы
     percentage_score = models.FloatField(default=0)  # Процент выполнения
-    res_answer = models.CharField(max_length=255, blank=True)
+    res_answer = models.TextField(blank=True)
     teacher_expressions = models.ManyToManyField(AboutExpressions, blank=True)
 
     # Дополнительные поля для подробного результата
@@ -81,3 +81,20 @@ class FreeAnswerGrade(models.Model):
 
     def __str__(self):
         return f"Свободный ответ: результат={self.student_result_id}, вопрос={self.question_index}, правильно={self.is_correct}"
+
+
+class TestAttempt(models.Model):
+    student = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    test = models.ForeignKey(AboutTest, on_delete=models.PROTECT)
+    attempt_number = models.PositiveIntegerField()
+    started_at = models.DateTimeField(default=timezone.now)
+    deadline = models.DateTimeField(db_index=True)
+    questions = models.JSONField(default=list)
+    answers = models.JSONField(default=list)
+    revision = models.PositiveIntegerField(default=0)
+    result = models.OneToOneField(StudentResult, null=True, blank=True,
+                                  on_delete=models.PROTECT, related_name='attempt')
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['student', 'test', 'attempt_number'],
+                                               name='unique_student_test_attempt')]

@@ -30,6 +30,13 @@ body {
 }
 
 /* Навигация по заданиям */
+.save-status {
+    font-size: 0.8rem;
+    font-weight: normal;
+    line-height: 1.4;
+    overflow-wrap: break-word;
+}
+
 .navigation-sidebar {
     display: flex;
     flex-direction: column;

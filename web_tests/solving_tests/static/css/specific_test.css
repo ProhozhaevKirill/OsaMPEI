@@ -203,14 +203,22 @@ body {
 }
 
 math-field.answer {
+  display: block;
   box-sizing: border-box;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 1rem;
   background: #fff;
   margin-bottom: 70px;
+}
+
+/* Reserve space for roughly six matrix rows without inserting answer cells. */
+math-field.answer.matrix-answer {
+  min-height: 16rem;
 }
 
 /* Кнопка отправки формы */

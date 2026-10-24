@@ -21,6 +21,7 @@
 
     <script src="{% static 'js/specific_test.js' %}"></script>
     <script src="{% static 'js/mathJax-rus.js' %}"></script>
+    <script src="{% static 'js/answer-layout.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -83,7 +84,7 @@
                                         {% endif %}
                                     </li>
                                 </div>
-                                <math-field class="answer"
+                                <math-field class="answer{% if ex.expression.user_type.type_code == 4 %} matrix-answer{% endif %}"
                                             name="answer_{{ forloop.counter }}"
                                             id="math-field-{{ forloop.counter }}"
                                             placeholder="Ответ"></math-field>

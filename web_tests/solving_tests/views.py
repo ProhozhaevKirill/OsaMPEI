@@ -1,3 +1,4 @@
+from create_tests.question_images import image_data
 from create_tests.answer_storage import split_answers, display_answer
 import json
 import logging
@@ -33,10 +34,10 @@ def _safe_epsilon(value):
 @role_required(['student', 'teacher', 'admin'])
 def list_test(request):
     from .models import TestAttempt
-    from .attempts import finish_attempt
+    from .attempts import submit_attempt
     for attempt_id in list(TestAttempt.objects.filter(student=request.user, result__isnull=True,
             deadline__lte=timezone.now()).values_list('pk', flat=True)):
-        finish_attempt(attempt_id)
+        submit_attempt(attempt_id)
     user = request.user
 
     if user.role == 'teacher':
@@ -141,6 +142,7 @@ def get_randomized_test_for_student(test, student_id, attempt_number=1):
 
                 randomized_expressions.append({
                     'user_expression': selected_variant.user_expression,
+                    'images': image_data(selected_variant),
                     'user_ans': selected_variant.user_ans,
                     'true_ans': selected_variant.true_ans,
                     'user_eps': selected_variant.user_eps,
@@ -175,6 +177,7 @@ def get_randomized_test_for_student(test, student_id, attempt_number=1):
             norm_for_matrix = TypeNormForMatrix.objects.filter(num_expr=ex).first()
             randomized_expressions.append({
                 'user_expression': ex.user_expression,
+                'images': image_data(ex),
                 'user_ans': ex.user_ans,
                 'true_ans': ex.true_ans,
                 'user_eps': ex.user_eps,
@@ -321,6 +324,7 @@ def some_test_for_student(request, slug_name):
                 detailed_results.append({
                     'question_number': i + 1,
                     'question': expr_data['user_expression'],
+                    'images': expr_data.get('images', []),
                     'student_answer': display_answer(student_answer, expr_data['exist_select']),
                     'correct_answer': '; '.join(correct_options),
                     'is_multiple_choice': True,
@@ -332,6 +336,7 @@ def some_test_for_student(request, slug_name):
                 detailed_results.append({
                     'question_number': i + 1,
                     'question': expr_data['user_expression'],
+                    'images': expr_data.get('images', []),
                     'student_answer': display_answer(student_answer, expr_data['exist_select']),
                     'correct_answer': None if is_free else expr_data['user_ans'],
                     'is_multiple_choice': False,
@@ -498,6 +503,7 @@ def show_result(request, slug_name):
                     detailed_results.append({
                         'question_number': i + 1,
                         'question': expr_data['user_expression'],
+                    'images': expr_data.get('images', []),
                         'student_answer': display_answer(student_answer, expr_data['exist_select']),
                         'correct_answer': '; '.join(correct_options),
                         'is_multiple_choice': True,
@@ -525,6 +531,7 @@ def show_result(request, slug_name):
                     detailed_results.append({
                         'question_number': i + 1,
                         'question': expr_data['user_expression'],
+                    'images': expr_data.get('images', []),
                         'student_answer': display_answer(student_answer, expr_data['exist_select']),
                         'correct_answer': expr_data['user_ans'],
                         'is_multiple_choice': False,
@@ -647,6 +654,7 @@ def view_completed_result(request, slug_name):
                 detailed_results.append({
                     'question_number': i + 1,
                     'question': expr_data['user_expression'],
+                    'images': expr_data.get('images', []),
                     'student_answer': display_answer(student_answer, expr_data['exist_select']),
                     'correct_answer': '; '.join(correct_options),
                     'is_multiple_choice': True,
@@ -673,6 +681,7 @@ def view_completed_result(request, slug_name):
                 detailed_results.append({
                     'question_number': i + 1,
                     'question': expr_data['user_expression'],
+                    'images': expr_data.get('images', []),
                     'student_answer': display_answer(student_answer, expr_data['exist_select']),
                     'correct_answer': expr_data['user_ans'],
                     'is_multiple_choice': False,

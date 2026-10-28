@@ -63,6 +63,7 @@
 
                         <div class="variant-content">
                             <p>$$ {{ variant.user_expression }} $$</p>
+                            {% include "create_tests/question_images.html" with images=variant.images %}
 
                             {% if variant.exist_select %}
                                 <!-- Задание с вариантами ответов -->

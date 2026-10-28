@@ -6,6 +6,7 @@ $(document).ready(function () {
     }
 
     function clearClonedMathFields($clone) {
+        $clone.find('.question-images-editor, .question-images-seed').remove();
         $clone.find('.invalid').removeClass('invalid');
         $clone.find('math-field').each(function () {
             const fresh = document.createElement('math-field');
@@ -788,6 +789,7 @@ $(document).ready(function () {
                 const $exprField = $(this).find('math-field[name="user_expression"]');
                 const variant = {
                     expression: $exprField[0] ? ($exprField[0].value || '') : '',
+                    images: window.QuestionImages ? window.QuestionImages.get(this) : [],
                     answers: []
                 };
                 $(this).find('.answer-row').each(function () {
@@ -862,6 +864,7 @@ $(document).ready(function () {
                     return $v;
                 })();
 
+                if (window.QuestionImages) window.QuestionImages.set($variant[0], variantData.images || []);
                 const $exprField = $variant.find('math-field[name="user_expression"]');
                 if ($exprField[0] && variantData.expression) {
                     mathQueue.push({ el: $exprField[0], val: variantData.expression });

@@ -1,0 +1,48 @@
+{% extends 'solving_tests/header.html' %}
+{% load static %}
+{% block title %}Ответы отправлены{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/result.css' %}">
+<link rel="stylesheet" href="{% static 'css/submitted.css' %}">
+{% endblock %}
+{% block content %}
+<main class="main-content">
+    <section class="results-section submitted-section" aria-labelledby="submittedTitle">
+        <div class="results-card submitted-card">
+            <div class="submitted-icon" aria-hidden="true"><i class="fas fa-check"></i></div>
+            <div class="submitted-label">Попытка завершена</div>
+            <h1 id="submittedTitle">Ответы отправлены</h1>
+            <p class="submitted-test">{{ attempt.test.name_tests }}</p>
+
+            <div class="submitted-progress" role="status">
+                <span class="submitted-spinner" aria-hidden="true"></span>
+                <div>
+                    <h2>Проверяем ваши ответы</h2>
+                    <p>Результаты появятся здесь автоматически</p>
+                </div>
+            </div>
+
+            <p class="submitted-note">Все ответы сохранены. Вы можете закрыть страницу<br class="submitted-break"> и вернуться к результатам позже.</p>
+            <p id="checkingStatus" class="submitted-error" role="status"></p>
+            <a href="{% url 'solving_tests:list_test' %}" class="return-link"><i class="fas fa-arrow-left" aria-hidden="true"></i> К списку заданий</a>
+        </div>
+    </section>
+</main>
+<script>
+(() => {
+    const poll = async () => {
+        try {
+            const response = await fetch("{% url 'solving_tests:attempt_api' slug_name attempt.pk %}", {cache: 'no-store', credentials: 'same-origin'});
+            if (!response.ok || !response.headers.get('content-type')?.includes('application/json')) throw Error();
+            const data = await response.json();
+            if (data.completed) { window.location.replace(data.result_url); return; }
+            document.getElementById('checkingStatus').textContent = '';
+        } catch (_) {
+            document.getElementById('checkingStatus').textContent = 'Не удалось получить статус. Повторяем подключение…';
+        }
+        setTimeout(poll, 2000);
+    };
+    poll();
+})();
+</script>
+{% endblock %}

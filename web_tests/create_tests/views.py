@@ -1,4 +1,5 @@
 from create_tests.answer_storage import split_answers, pack_answers, display_answer
+from .question_images import image_data, read_image_data, attach_images
 from django.db import transaction
 from django.utils.dateparse import parse_datetime
 from django.utils import timezone
@@ -286,6 +287,9 @@ def create_test(request):
                         numbers = [i+1 for i in range(len(expressions))]  # По умолчанию 1, 2, 3...
                         block_nums = [1] * len(expressions)  # По умолчанию все в блоке 1
 
+                question_images = read_image_data(request)
+                if question_images is not None and len(question_images) != len(valid_expressions):
+                    raise ValueError('Список изображений не соответствует вариантам заданий.')
                 # Добавляем выражения
                 if valid_expressions:
                     for i, (expr, ans, bool_ans, eps, type_id, point, norm_id) in enumerate(valid_expressions):
@@ -325,6 +329,7 @@ def create_test(request):
                             )
                             logger.info(f"Created expression instance: {expr_instance} with number={task_number}, block={block_number}")
 
+                            attach_images(expr_instance, question_images, i, request.user)
                             new_test.expressions.add(expr_instance)
                             logger.info(f"Added expression {i+1} successfully")
 
@@ -355,6 +360,9 @@ def create_test(request):
                     })
 
                 new_test.save()
+                if request.POST.get('save_action') == 'continue':
+                    messages.success(request, 'Тест сохранён. Можно продолжить редактирование.')
+                    return redirect('create_tests:edit_test', slug_name=new_test.name_slug_tests)
                 logger.info("=== CREATE TEST DEBUG END ===")
                 return redirect('create_tests:test_list')
 
@@ -472,6 +480,7 @@ def some_test(request, slug_name):
                 variants_data.append({
                     'id': variant.id,
                     'user_expression': variant.user_expression,
+                    'images': image_data(variant),
                     'user_ans': variant.user_ans,
                     'true_ans': variant.true_ans,
                     'user_eps': variant.user_eps,
@@ -526,6 +535,7 @@ def some_test(request, slug_name):
                 variants_data.append({
                     'id': expr.id,
                     'user_expression': expr.user_expression,
+                    'images': image_data(expr),
                     'user_ans': expr.user_ans,
                     'true_ans': expr.true_ans,
                     'user_eps': expr.user_eps,
@@ -691,6 +701,10 @@ def create_draft_test(request):
 def edit_test(request, slug_name):
     tests = AboutTest.objects.select_for_update() if request.method == 'POST' else AboutTest.objects
     test = get_object_or_404(tests, name_slug_tests=slug_name)
+    if not request.user.is_superuser and request.user.role != 'admin':
+        if not test.creator_id or test.creator.data_map_id != request.user.pk:
+            from django.core.exceptions import PermissionDenied
+            raise PermissionDenied
     all_subj = Subjects.objects.all()
     all_types_answer = TypeAnswer.objects.all()
     all_norms = TypeNorm.objects.all()
@@ -698,6 +712,8 @@ def edit_test(request, slug_name):
     if request.method == 'POST':
         try:
             logger.info(f"POST data received: {request.POST}")
+            question_images = read_image_data(request, test)
+            image_index = 0
 
             # Обновляем основные поля теста
             test.name_tests = request.POST.get('name_test', test.name_tests)
@@ -807,6 +823,8 @@ def edit_test(request, slug_name):
                             exist_select=flag_select
                         )
 
+                        attach_images(task_variant, question_images, image_index, request.user)
+                        image_index += 1
                         # Добавляем норму матрицы, если нужно
                         if type_obj.type_code == 4 and norm_id:
                             try:
@@ -902,6 +920,7 @@ def edit_test(request, slug_name):
                             )
                             logger.info(f"Created expression instance: {expr_instance} with number={task_number}, block={block_number}")
 
+                            attach_images(expr_instance, question_images, i, request.user)
                             test.expressions.add(expr_instance)
                             logger.info(f"Added expression {i+1} successfully")
 
@@ -923,8 +942,15 @@ def edit_test(request, slug_name):
                 else:
                     logger.warning("No valid expressions found, keeping existing expressions")
 
+            if 'question_images' in request.POST:
+                count = sum(group.variants.count() for group in test.task_groups.all()) if test.task_groups.exists() else test.expressions.count()
+                if len(question_images) != count:
+                    raise ValueError('Список изображений не соответствует вариантам заданий.')
             test.save()
             logger.info("Test saved successfully")
+            if request.POST.get('save_action') == 'continue':
+                messages.success(request, 'Тест сохранён. Можно продолжить редактирование.')
+                return redirect('create_tests:edit_test', slug_name=test.name_slug_tests)
             return redirect('create_tests:test_list')
 
         except Exception as e:
@@ -988,6 +1014,7 @@ def edit_test(request, slug_name):
 
             variants_data.append({
                 'user_expression': expr.user_expression,
+                'images': image_data(expr),
                 'answers': answers_data,
                 'variant_number': expr.number if hasattr(expr, 'number') and expr.number else 1
             })
@@ -1180,6 +1207,7 @@ def get_randomized_test_for_teacher(test, teacher_id, seed=None):
 
                 randomized_expressions.append({
                     'user_expression': selected_variant.user_expression,
+                    'images': image_data(selected_variant),
                     'user_ans': selected_variant.user_ans,
                     'true_ans': selected_variant.true_ans,
                     'user_eps': selected_variant.user_eps,
@@ -1214,6 +1242,7 @@ def get_randomized_test_for_teacher(test, teacher_id, seed=None):
             norm_for_matrix = TypeNormForMatrix.objects.filter(num_expr=ex).first()
             randomized_expressions.append({
                 'user_expression': ex.user_expression,
+                'images': image_data(ex),
                 'user_ans': ex.user_ans,
                 'true_ans': ex.true_ans,
                 'user_eps': ex.user_eps,
@@ -1352,6 +1381,7 @@ def solve_test_teacher(request, slug_name):
                 detailed_results.append({
                     'question_number': i + 1,
                     'question': expr_data['user_expression'],
+                    'images': expr_data.get('images', []),
                     'teacher_answer': display_answer(teacher_answer, expr_data['exist_select']),
                     'correct_answer': '; '.join(correct_options),
                     'is_multiple_choice': True,
@@ -1363,6 +1393,7 @@ def solve_test_teacher(request, slug_name):
                 detailed_results.append({
                     'question_number': i + 1,
                     'question': expr_data['user_expression'],
+                    'images': expr_data.get('images', []),
                     'teacher_answer': display_answer(teacher_answer, expr_data['exist_select']),
                     'correct_answer': None if is_free_answer else expr_data['user_ans'],
                     'is_free_answer': is_free_answer,
@@ -1571,6 +1602,7 @@ def test_results_detail(request, slug_name, student_id):
             detailed_results.append({
                 'question_number': i + 1,
                 'question': expr_data['user_expression'],
+                    'images': expr_data.get('images', []),
                 'student_answer': display_answer(student_answer, expr_data['exist_select']),
                 'correct_answer': '; '.join(correct_options),
                 'is_multiple_choice': True,
@@ -1604,6 +1636,7 @@ def test_results_detail(request, slug_name, student_id):
                 'question_number': i + 1,
                 'question_index': i,
                 'question': expr_data['user_expression'],
+                    'images': expr_data.get('images', []),
                 'student_answer': display_answer(student_answer, expr_data['exist_select']),
                 'correct_answer': None if is_free_answer else expr_data['user_ans'],
                 'is_multiple_choice': False,

@@ -1,0 +1,12 @@
+{% if images %}
+<div class="question-illustrations">
+    {% for image in images %}
+    <figure class="question-illustration">
+        <a href="{{ image.url }}" target="_blank" rel="noopener">
+            <img src="{{ image.url }}" alt="{{ image.caption|default:'Иллюстрация к заданию' }}" loading="lazy">
+        </a>
+        {% if image.caption %}<figcaption>{{ image.caption }}</figcaption>{% endif %}
+    </figure>
+    {% endfor %}
+</div>
+{% endif %}

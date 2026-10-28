@@ -18,7 +18,7 @@
     <script id="MathJax-script" async
             src="{% static 'libs/mathjax/tex-mml-chtml.js' %}"></script>
 
-    <script src="{% static 'js/specific_test.js' %}"></script>
+    <script src="{% static 'js/specific_test.js' %}?v=matrix-images-3"></script>
     <script src="{% static 'js/mathJax-rus.js' %}"></script>
     <script src="{% static 'js/answer-layout.js' %}"></script>
 {% endblock %}
@@ -55,6 +55,7 @@
                             <div class="express" id="task-{{ forloop.counter }}" data-expr="{{ ex.expression.user_expression }}">
                                 \[ {{ ex.expression.user_expression }} \]
                             </div>
+                            {% include "create_tests/question_images.html" with images=ex.expression.images %}
                             {% if ex.exist_select %}
                                 <div class="options">
                                     <p>Выберите правильный вариант:</p>
@@ -90,8 +91,12 @@
                                 </div>
                                 <math-field class="answer{% if ex.expression.user_type.type_code == 4 %} matrix-answer{% endif %}"
                                             name="answer_{{ forloop.counter }}"
+                                            data-answer-template="{{ ex.expression.answer_template }}"
                                             id="math-field-{{ forloop.counter }}"
                                             placeholder="Ответ"></math-field>
+                                {% if ex.expression.answer_template %}
+                                <p class="matrix-template-hint">Заполните ячейки матрицы — её размер уже задан.</p>
+                                {% endif %}
                             {% endif %}
                             <hr>
                         </div>

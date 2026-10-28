@@ -399,6 +399,7 @@
             <div class="question-text">
                 <strong>Вопрос:</strong>
                 <div class="question-mathjax">$$ {{ q.question }} $$</div>
+                {% include "create_tests/question_images.html" with images=q.images %}
             </div>
 
             {% if q.is_free_answer %}

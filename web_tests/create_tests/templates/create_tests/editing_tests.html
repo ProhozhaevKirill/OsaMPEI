@@ -12,8 +12,9 @@
 
 {% block extra_js %}
     <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
+    <script src="{% static 'js/question-images.js' %}" data-question-image-upload="{% url 'create_tests:upload_question_image' %}"></script>
     <script src="{% static 'js/editor-validation.js' %}"></script>
-    <script src="{% static 'js/editing_tests.js' %}"></script>
+    <script src="{% static 'js/editing_tests.js' %}?v=images-1"></script>
     <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
     <script src="{% static 'js/mathJax-rus.js' %}"></script>
     <script src="{% static 'js/answer-layout.js' %}"></script>
@@ -43,6 +44,11 @@
 
         <!-- Правая панель с редактором заданий -->
         <div class="task-editor-panel">
+            {% if messages %}
+            <div class="editor-notices" role="status">
+                {% for message in messages %}<p class="editor-notice {{ message.tags }}">{{ message }}</p>{% endfor %}
+            </div>
+            {% endif %}
             <div class="task-groups-container" id="taskGroupsContainer">
                 {% for task_group in task_groups_data %}
                 <div class="task-group {% if forloop.first %}active{% endif %}" id="taskGroup{{ forloop.counter }}" data-task-id="{{ forloop.counter }}">
@@ -74,6 +80,7 @@
 
                             <div class="expression">
                                 <math-field id="expr{{ forloop.parentloop.counter }}_{{ forloop.counter }}" virtual-keyboard-mode="manual" name="user_expression" lang="ru" placeholder="Задание">{{ variant.user_expression }}</math-field>
+                                <div class="question-images-seed">{{ variant.images|json_script }}</div>
                             </div>
 
                             <div class="answers-container">
@@ -306,7 +313,7 @@
 
             <div class="popup_title">Вы уверенны, что хотите сохранить?</div>
             <div class="btn_option">
-                <a href="#header"><button type="button" class="changeTest">Да, продолжить заполнение</button></a>
+                <button type="submit" form="testForm" name="save_action" value="continue" class="save-and-continue">Да, сохранить и продолжить заполнение</button>
                 <div class="save">
                     <form action="{% url 'create_tests:edit_test' test.name_slug_tests %}" method="POST" id="testForm">
                         {% csrf_token %}
@@ -326,7 +333,7 @@
                         <input type="hidden" name="user_type" id="hidden_type1">
                         <input type="hidden" name="user_norm" id="hidden_norm1">
                         <input type="hidden" name="user_bool_ans" id="hidden_bool_ans1">
-                        <button type="submit" class="save-and-go-to-list">Да, вернуться к списку</button>
+                        <button type="submit" class="save-and-go-to-list" name="save_action" value="list">Да, вернуться к списку</button>
                     </form>
                 </div>
             </div>

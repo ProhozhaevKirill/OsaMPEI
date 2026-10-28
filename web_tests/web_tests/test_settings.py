@@ -1,5 +1,5 @@
-"""Isolated regression tests: never connect to the configured application DB."""
+"""Regression tests use a separate MySQL test database created by Django."""
 from .settings import *  # noqa: F403
 
-DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': ':memory:'}}
 PASSWORD_HASHERS = ['django.contrib.auth.hashers.MD5PasswordHasher']
+YANDEX_DISK_TOKEN = ''

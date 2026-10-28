@@ -91,6 +91,8 @@ class TestAttempt(models.Model):
     deadline = models.DateTimeField(db_index=True)
     questions = models.JSONField(default=list)
     answers = models.JSONField(default=list)
+    submitted_at = models.DateTimeField(null=True, blank=True, db_index=True)
+    grading_details = models.JSONField(null=True, blank=True)
     revision = models.PositiveIntegerField(default=0)
     result = models.OneToOneField(StudentResult, null=True, blank=True,
                                   on_delete=models.PROTECT, related_name='attempt')

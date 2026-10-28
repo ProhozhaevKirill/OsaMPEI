@@ -112,6 +112,7 @@
                                     <div class="question-text">
                                         <strong>Вопрос:</strong>
                                         <div class="math-display-block">\[ {{ question_result.question }} \]</div>
+                {% include "create_tests/question_images.html" with images=question_result.images %}
                                     </div>
 
                                     <div class="answer-comparison">

@@ -1,3 +1,10 @@
+function studentFieldAnswer(field) {
+    if (!field) return '';
+    const value = field.value || '';
+    const template = field.dataset.answerTemplate || '';
+    return template && value.replace(/\s/g, '') === template.replace(/\s/g, '') ? '' : value;
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     const form = document.getElementById('answerForm');
     if (!form) return;
@@ -6,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const collect = () => cards.map(card => {
         const boxes = [...card.querySelectorAll('input[type="checkbox"]')];
         return boxes.length ? '@answers:' + JSON.stringify(boxes.filter(el => el.checked).map(el => el.value))
-            : (card.querySelector('math-field')?.value || '');
+            : studentFieldAnswer(card.querySelector('math-field'));
     });
     const initial = document.getElementById('attemptState');
     if (!initial) {
@@ -60,7 +67,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 boxes.forEach(box => box.checked = selected.includes(box.value));
             } else {
                 const field = card.querySelector('math-field');
-                if (field && field.value !== answer) field.value = answer;
+                const display = answer || field?.dataset.answerTemplate || '';
+                if (field && field.value !== display) field.value = display;
             }
             document.getElementById('nav-' + (index + 1))?.classList.toggle('completed',
                 boxes.length ? boxes.some(box => box.checked) : Boolean(answer.trim()));
@@ -77,7 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         state = data;
         serverTime = data.server_now;
         measuredAt = performance.now();
-        if (data.completed) {
+        if (data.submitted || data.completed) {
             finished = true;
             pending = {};
             cache();
@@ -186,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (checkboxes.length > 0) {
                 filled = Array.from(checkboxes).some(cb => cb.checked);
             } else if (mathField) {
-                filled = mathField.getValue().trim().length > 0;
+                filled = studentFieldAnswer(mathField).trim().length > 0;
             }
 
             if (filled) {

@@ -53,6 +53,7 @@
                         <div class="question-text">
                             <strong>Вопрос:</strong>
                             <div class="math-display-block">\[ {{ q.question }} \]</div>
+                {% include "create_tests/question_images.html" with images=q.images %}
                         </div>
                         <div class="answer-comparison">
                             <div class="teacher-answer-block {% if q.is_correct %}answer-correct{% elif q.is_correct == False %}answer-incorrect{% endif %}">

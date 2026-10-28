@@ -56,6 +56,7 @@
                             <div class="express" id="task-{{ forloop.counter }}" data-expr="{{ ex.expression.user_expression }}">
                                 \[ {{ ex.expression.user_expression }} \]
                             </div>
+                            {% include "create_tests/question_images.html" with images=ex.expression.images %}
                             {% if ex.exist_select %}
                                 <div class="options">
                                     <p>Выберите правильный вариант:</p>

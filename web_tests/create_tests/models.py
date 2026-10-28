@@ -8,6 +8,14 @@ from django.dispatch import receiver
 from django.utils import timezone
 from users.models import StudentGroup, TeacherData
 from datetime import timedelta
+from django.conf import settings
+
+
+class QuestionImage(models.Model):
+    uploader = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='question_images/%Y/%m/')
+    caption = models.CharField(max_length=500, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class TypeAnswer(models.Model):
@@ -40,6 +48,7 @@ class TypeNorm(models.Model):
 
 
 class AboutExpressions(models.Model):
+    images = models.ManyToManyField(QuestionImage, blank=True, related_name='expressions')
     number = models.IntegerField(default=0)
     block_expression_num = models.IntegerField(default=0)
     user_expression = models.TextField(blank=False)
@@ -89,6 +98,7 @@ class TaskGroup(models.Model):
 
 
 class TaskVariant(models.Model):
+    images = models.ManyToManyField(QuestionImage, blank=True, related_name='variants')
     task_group = models.ForeignKey(TaskGroup, on_delete=models.CASCADE, related_name='variants')
     user_expression = models.TextField(blank=False)
     user_ans = models.TextField(blank=False)

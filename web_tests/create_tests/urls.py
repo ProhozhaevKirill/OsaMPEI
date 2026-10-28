@@ -1,9 +1,11 @@
 from django.urls import path
 from . import views
+from .question_images import upload_question_image
 
 app_name = 'create_tests'
 
 urlpatterns = [
+    path('upload-question-image/', upload_question_image, name='upload_question_image'),
     path('', views.create_test, name='create_test'),
     path('listTests/', views.test_list, name='test_list'),
     path('listTests/<slug:slug_name>/', views.some_test, name='some_test'),

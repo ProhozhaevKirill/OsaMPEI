@@ -69,6 +69,8 @@ class AttemptTests(TestCase):
         with patch('solving_tests.attempts.timezone.now', return_value=attempt.deadline + timedelta(seconds=1)):
             done = update_attempt(attempt.pk, 1, {'0': '999'}, finish=True)
         self.assertEqual(done.answers, ['4'])
+        self.assertIsNone(done.result_id)
+        done = finish_attempt(attempt.pk)
         self.assertEqual(done.result.result_points, 2)
         self.assertEqual(done.result.completed_at, attempt.deadline)
         self.assertEqual(done.result.time_spent, timedelta(minutes=10))
@@ -80,6 +82,7 @@ class AttemptTests(TestCase):
                 first = update_attempt(attempt.pk, 0, {'0': '4'}, finish=True)
                 second = finish_attempt(attempt.pk)
             upload.assert_called_once()
+        first.refresh_from_db()
         self.assertEqual(first.result_id, second.result_id)
         self.assertEqual(StudentResult.objects.count(), 1)
         self.assertTrue(first.result.is_completed)
@@ -112,10 +115,17 @@ class AttemptTests(TestCase):
         attempt = start_attempt(self.student, self.test)
         text = r'\text{' + 'long explanation ' * 500 + '}'
         done = update_attempt(attempt.pk, 0, {'0': text}, finish=True)
+        done = finish_attempt(attempt.pk)
         self.assertEqual(json.loads(done.result.res_answer), [text])
         self.assertIsNone(done.result.free_answer_grades.get().is_correct)
         page = self.client.get(reverse('solving_tests:attempt_result', args=[self.test.name_slug_tests, attempt.pk]))
         self.assertTrue(page.context['waiting_for_review'])
+        grade = done.result.free_answer_grades.get()
+        grade.is_correct = True
+        grade.save()
+        page = self.client.get(reverse('solving_tests:attempt_result', args=[self.test.name_slug_tests, attempt.pk]))
+        self.assertFalse(page.context['waiting_for_review'])
+        self.assertTrue(page.context['detailed_results'][0]['is_correct'])
 
     def test_another_student_cannot_access_attempt_or_result(self):
         attempt = start_attempt(self.student, self.test)
@@ -153,3 +163,31 @@ class AttemptTests(TestCase):
     def test_local_runserver_uses_expiry_worker_wrapper(self):
         from django.core.management import get_commands
         self.assertEqual(get_commands()['runserver'], 'solving_tests')
+
+    def test_submission_returns_before_grading_and_worker_publishes_results(self):
+        attempt = start_attempt(self.student, self.test)
+        api = reverse('solving_tests:attempt_api', args=[self.test.name_slug_tests, attempt.pk])
+        url = reverse('solving_tests:attempt_result', args=[self.test.name_slug_tests, attempt.pk])
+        with patch('solving_tests.attempts.evaluate', side_effect=AssertionError('Must not grade in submit')):
+            response = self.client.post(api, json.dumps({'action': 'finish', 'revision': 0, 'changes': {'0': '4'}}), content_type='application/json')
+            self.assertEqual(response.status_code, 200)
+            self.assertTrue(response.json()['submitted'])
+            self.assertFalse(response.json()['completed'])
+            self.assertTemplateUsed(self.client.get(url), 'solving_tests/submitted.html')
+        submitted = TestAttempt.objects.get(pk=attempt.pk)
+        update_attempt(attempt.pk, submitted.revision, {'0': '999'})
+        expire_attempts()
+        attempt.refresh_from_db()
+        self.assertEqual(attempt.answers, ['4'])
+        self.assertEqual(attempt.result.result_points, 2)
+        self.assertEqual(attempt.result.completed_at, submitted.submitted_at)
+        self.assertTrue(self.client.get(api).json()['completed'])
+        with patch('solving_tests.attempt_views.evaluate', side_effect=AssertionError('Must reuse grades')):
+            self.assertTemplateUsed(self.client.get(url), 'solving_tests/result.html')
+
+    def test_submitted_attempt_reopens_waiting_page_and_cannot_restart(self):
+        attempt = start_attempt(self.student, self.test)
+        update_attempt(attempt.pk, 0, {'0': '4'}, finish=True)
+        self.assertEqual(start_attempt(self.student, self.test, new=True).pk, attempt.pk)
+        response = self.client.get(reverse('solving_tests:some_test_for_student', args=[self.test.name_slug_tests]))
+        self.assertRedirects(response, reverse('solving_tests:attempt_result', args=[self.test.name_slug_tests, attempt.pk]))

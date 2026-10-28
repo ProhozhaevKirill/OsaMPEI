@@ -273,11 +273,8 @@ class AttemptLifecycleAudit(StaticLiveServerTestCase):
     def test_real_runserver_finishes_attempt_without_browser(self):
         """Verify command discovery and the real runserver worker, not just its loop."""
         import socket
-        from contextlib import closing
-        import sqlite3
         import subprocess
         import sys
-        import tempfile
         import time
         from pathlib import Path
         from django.db import connection
@@ -286,36 +283,35 @@ class AttemptLifecycleAudit(StaticLiveServerTestCase):
         self.fill_answers()
         self.page.close()
         TestAttempt.objects.update(deadline=timezone.now() + timedelta(seconds=3))
-        with tempfile.TemporaryDirectory(prefix='osampei-worker-') as directory:
-            database = Path(directory) / 'worker.sqlite3'
-            copied = sqlite3.connect(database)
-            connection.connection.backup(copied)
-            copied.close()
-            (Path(directory) / 'worker_check_settings.py').write_text(
-                "from web_tests.test_settings import *\nDATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': "
-                + repr(str(database)) + "}}\n", encoding='utf-8')
-            with socket.socket() as sock:
-                sock.bind(('127.0.0.1', 0))
-                port = sock.getsockname()[1]
-            env = os.environ.copy()
-            env.pop('DJANGO_ALLOW_ASYNC_UNSAFE', None)
-            env['PYTHONPATH'] = directory + os.pathsep + str(Path.cwd())
-            process = subprocess.Popen([sys.executable, 'manage.py', 'runserver',
-                f'127.0.0.1:{port}', '--noreload', '--settings=worker_check_settings'],
-                env=env, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
-            try:
-                end = time.monotonic() + 15
-                completed = False
-                while time.monotonic() < end and process.poll() is None:
-                    with closing(sqlite3.connect(database)) as copied:
-                        completed = copied.execute('SELECT COUNT(*) FROM solving_tests_studentresult').fetchone()[0] == 1
-                    if completed:
-                        break
-                    time.sleep(0.2)
-            finally:
+        database = connection.settings_dict['NAME']
+        self.assertTrue(database.startswith('test_'), 'Only disposable test MySQL is allowed')
+        with socket.socket() as sock:
+            sock.bind(('127.0.0.1', 0))
+            port = sock.getsockname()[1]
+        env = os.environ.copy()
+        env.pop('DJANGO_ALLOW_ASYNC_UNSAFE', None)
+        env['DB_NAME'] = database
+        env['PYTHONPATH'] = str(Path.cwd()) + os.pathsep + env.get('PYTHONPATH', '')
+        process = subprocess.Popen([sys.executable, 'manage.py', 'runserver',
+            f'127.0.0.1:{port}', '--noreload', '--settings=web_tests.test_settings'],
+            env=env, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+        try:
+            end = time.monotonic() + 30
+            completed = False
+            while time.monotonic() < end and process.poll() is None:
+                completed = StudentResult.objects.count() == 1
+                if completed:
+                    break
+                time.sleep(0.2)
+        finally:
+            if os.name == 'nt':
+                # Stop the test server AND its spawned grading processes, which
+                # otherwise keep the inherited stderr pipe open on Windows.
+                subprocess.run(['taskkill', '/PID', str(process.pid), '/T', '/F'],
+                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            else:
                 process.terminate()
-                _, errors = process.communicate(timeout=10)
-            self.assertTrue(completed, 'runserver must start its own expiry worker: ' + errors.decode(errors='replace'))
-            self.assertEqual(StudentResult.objects.count(), 0, 'Only the copied disposable database may change')
+            _, errors = process.communicate(timeout=10)
+        self.assertTrue(completed, 'runserver must start its own worker: ' + errors.decode(errors='replace'))
+        self.assertEqual(StudentResult.objects.count(), 1)
         self.observe(real_runserver_worker=True)
-

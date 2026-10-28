@@ -4,7 +4,7 @@ import logging
 from types import SimpleNamespace
 
 from django.db import transaction
-from django.db.models import Max
+from django.db.models import Max, Q
 from django.urls import reverse
 from django.utils import timezone
 
@@ -49,8 +49,8 @@ def start_attempt(student, test, *, new=False):
     CustomUser.objects.select_for_update().get(pk=student.pk)
     latest = TestAttempt.objects.filter(student=student, test=test).order_by('-attempt_number').first()
     if latest and latest.result_id is None:
-        if latest.deadline <= timezone.now():
-            finish_attempt(latest.pk)
+        if latest.deadline <= timezone.now() and not latest.submitted_at:
+            submit_attempt(latest.pk)
             latest.refresh_from_db()
         return latest
     if latest and not new:
@@ -90,17 +90,18 @@ def evaluate(questions, answers, free_grades=None):
         points += expression['points_for_solve'] if is_correct else 0
         details.append({'question_number': index + 1, 'question': expression['user_expression'],
             'student_answer': display_answer(answer, expression['exist_select']),
+            'images': expression.get('images', []),
             'correct_answer': None if free else ('; '.join(correct) if options else expression['user_ans']),
             'is_multiple_choice': expression['exist_select'], 'is_free_answer': free,
             'options': options, 'points': expression['points_for_solve'], 'is_correct': is_correct})
     return points, details
 
 
-def _finish_locked(attempt, now):
+def _finish_locked(attempt, now, evaluation=None):
     if attempt.result_id:
         return
-    points, details = evaluate(attempt.questions, attempt.answers)
-    completed = min(now, attempt.deadline)
+    points, details = evaluation if evaluation is not None else evaluate(attempt.questions, attempt.answers)
+    completed = min(attempt.submitted_at or now, attempt.deadline)
     result = StudentResult.objects.create(student=attempt.student, test=attempt.test,
         attempt_number=attempt.attempt_number, result_points=points,
         max_points=sum(q['points_for_solve'] for q in attempt.questions),
@@ -109,15 +110,31 @@ def _finish_locked(attempt, now):
     FreeAnswerGrade.objects.bulk_create([FreeAnswerGrade(student_result=result, question_index=index)
         for index, detail in enumerate(details) if detail['is_free_answer']])
     attempt.result = result
-    attempt.save(update_fields=['result'])
+    attempt.grading_details = details
+    attempt.save(update_fields=['result', 'grading_details'])
     from .yandex_disk import upload_test_attempt_log
     transaction.on_commit(lambda: upload_test_attempt_log(result, details))
 
 
 @transaction.atomic
-def finish_attempt(attempt_id):
+def finish_attempt(attempt_id, *, evaluation=None, expected_revision=None):
     attempt = TestAttempt.objects.select_for_update().select_related('student', 'test').get(pk=attempt_id)
-    _finish_locked(attempt, timezone.now())
+    if evaluation is not None and (not attempt.submitted_at or attempt.revision != expected_revision):
+        raise RevisionConflict('Attempt changed while grading.')
+    _finish_locked(attempt, timezone.now(), evaluation)
+    return attempt
+
+
+def _submit_locked(attempt, now):
+    if not attempt.result_id and not attempt.submitted_at:
+        attempt.submitted_at = min(now, attempt.deadline)
+        attempt.save(update_fields=['submitted_at'])
+
+
+@transaction.atomic
+def submit_attempt(attempt_id):
+    attempt = TestAttempt.objects.select_for_update().select_related('test').get(pk=attempt_id)
+    _submit_locked(attempt, timezone.now())
     return attempt
 
 
@@ -138,10 +155,10 @@ def validate_changes(changes, length):
 def update_attempt(attempt_id, revision, changes, *, finish=False):
     attempt = TestAttempt.objects.select_for_update().select_related('student', 'test').get(pk=attempt_id)
     now = timezone.now()
-    if attempt.result_id:
+    if attempt.result_id or attempt.submitted_at:
         return attempt
     if now >= attempt.deadline:
-        _finish_locked(attempt, now)
+        _submit_locked(attempt, now)
         return attempt
     if type(revision) is not int or revision != attempt.revision:
         raise RevisionConflict
@@ -152,19 +169,19 @@ def update_attempt(attempt_id, revision, changes, *, finish=False):
         attempt.revision += 1
         attempt.save(update_fields=['answers', 'revision'])
     if finish:
-        _finish_locked(attempt, now)
+        _submit_locked(attempt, now)
     return attempt
 
 
 def attempt_state(attempt):
     return {'attempt_id': attempt.pk, 'answers': attempt.answers, 'revision': attempt.revision,
         'server_now': timezone.now().timestamp() * 1000, 'deadline': attempt.deadline.timestamp() * 1000,
-        'completed': bool(attempt.result_id), 'result_url': reverse('solving_tests:attempt_result',
+        'submitted': bool(attempt.submitted_at or attempt.result_id), 'completed': bool(attempt.result_id), 'result_url': reverse('solving_tests:attempt_result',
             args=[attempt.test.name_slug_tests, attempt.pk])}
 
 
 def expire_attempts():
-    ids = TestAttempt.objects.filter(result__isnull=True, deadline__lte=timezone.now()).values_list('pk', flat=True)
+    ids = TestAttempt.objects.filter(Q(submitted_at__isnull=False) | Q(deadline__lte=timezone.now()), result__isnull=True).values_list('pk', flat=True)
     for attempt_id in list(ids):
         try:
             finish_attempt(attempt_id)

@@ -1,21 +1,22 @@
 import threading
-from django.core.management.base import BaseCommand
+from django.conf import settings
+from django.core.management.base import BaseCommand, CommandError
 
 
 class Command(BaseCommand):
-    help = 'Finish expired attempts, including when all browser tabs are closed.'
+    help = 'Grade submitted and expired attempts in parallel, including with closed browsers.'
 
     def add_arguments(self, parser):
         parser.add_argument('--watch', action='store_true')
         parser.add_argument('--interval', type=float, default=1)
+        parser.add_argument('--workers', type=int, default=getattr(settings, 'ATTEMPT_GRADING_WORKERS', 2))
 
     def handle(self, *args, **options):
-        if options['watch']:
-            from solving_tests.expiry_worker import run
-            try:
-                run(threading.Event(), max(0.2, options['interval']))
-            except KeyboardInterrupt:
-                pass
-        else:
-            from solving_tests.attempts import expire_attempts
-            expire_attempts()
+        if not 1 <= options['workers'] <= 8:
+            raise CommandError('--workers must be between 1 and 8')
+        from solving_tests.expiry_worker import run
+        try:
+            run(threading.Event(), max(0.2, options['interval']),
+                workers=options['workers'], once=not options['watch'])
+        except KeyboardInterrupt:
+            pass

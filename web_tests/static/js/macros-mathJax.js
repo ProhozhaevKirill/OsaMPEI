@@ -9,7 +9,9 @@ window.MathJax = {
         }
     },
     output: {
+        displayAlign: 'center',
         displayOverflow: 'linebreak',
-        linebreaks: { inline: true, width: '100%' }
+        // A small width reserve avoids overflow from font-metric rounding.
+        linebreaks: { inline: true, width: '98%', lineleading: 0.3 }
     }
 };

@@ -5,14 +5,16 @@
 {% block title %}Результаты решения теста{% endblock %}
 
 {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/math-display.css' %}?v=display1">
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'css/result.css' %}">
     <link rel="stylesheet" href="{% static 'libs/mathlive/mathlive.css' %}">
 {% endblock %}
 
 {% block extra_js %}
+    <script src="{% static 'js/macros-mathJax.js' %}?v=display1"></script>
+    <script src="{% static 'js/task-layout.js' %}?v=display1"></script>
     <script src="{% static 'libs/polyfill/polyfill.min.js' %}"></script>
-    <script src="{% static 'js/macros-mathJax.js' %}"></script>
     <script id="MathJax-script" async src="{% static 'libs/mathjax/tex-mml-chtml.js' %}"></script>
     <script src="{% static 'js/result.js' %}"></script>
 {% endblock %}
@@ -59,7 +61,7 @@
                             <div class="teacher-answer-block {% if q.is_correct %}answer-correct{% elif q.is_correct == False %}answer-incorrect{% endif %}">
                                 <strong>Ваш ответ:</strong>
                                 {% if q.is_multiple_choice %}
-                                    <span class="answer-text">{% if q.teacher_answer %}{{ q.teacher_answer }}{% else %}Не выбрано{% endif %}</span>
+                                    {% if q.teacher_answer %}<div class="math-display-block">\[ {{ q.teacher_answer }} \]</div>{% else %}<span class="answer-text">Не выбрано</span>{% endif %}
                                 {% else %}
                                     {% if q.teacher_answer %}
                                         <div class="math-display-block">\[ {{ q.teacher_answer }} \]</div>
@@ -77,7 +79,7 @@
                             <div class="correct-answer-block">
                                 <strong>Правильный ответ:</strong>
                                 {% if q.is_multiple_choice %}
-                                    <span class="answer-text correct">{{ q.correct_answer }}</span>
+                                    <div class="math-display-block correct-math">\[ {{ q.correct_answer }} \]</div>
                                 {% else %}
                                     <div class="math-display-block correct-math">\[ {{ q.correct_answer }} \]</div>
                                 {% endif %}
@@ -87,7 +89,7 @@
                         {% if q.is_multiple_choice and q.options %}
                         <div class="options-list">
                             <strong>Варианты:</strong>
-                            <ul>{% for opt in q.options %}<li>{{ opt }}</li>{% endfor %}</ul>
+                            <ul>{% for opt in q.options %}<li><div class="math-display-block">\[ {{ opt }} \]</div></li>{% endfor %}</ul>
                         </div>
                         {% endif %}
                     </div>

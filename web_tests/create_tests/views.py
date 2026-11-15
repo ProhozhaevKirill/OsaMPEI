@@ -1483,7 +1483,8 @@ def test_results_list(request, slug_name):
     from users.models import CustomUser
     import datetime
 
-    test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
+    from .result_review import review_test
+    test = review_test(request.user, slug_name)
 
     all_results = StudentResult.objects.filter(test=test).select_related(
         'student', 'student__studentdata', 'student__studentdata__group'
@@ -1556,95 +1557,19 @@ def test_results_list(request, slug_name):
 def test_results_detail(request, slug_name, student_id):
     """Детальные ответы конкретного студента на тест"""
     from solving_tests.models import StudentResult
-    from solving_tests.views import get_randomized_test_for_student
     from users.models import CustomUser
-    import ast
 
-    test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
+    from .result_review import review_test, select_result, review_details
+    test = review_test(request.user, slug_name)
     student = get_object_or_404(CustomUser, id=student_id)
 
-    results = StudentResult.objects.filter(student=student, test=test).order_by('-result_points')
-    best_result = results.first()
+    results = StudentResult.objects.filter(student=student, test=test).order_by('-attempt_number', '-pk')
+    best_result = select_result(results, request.GET.get('result_id'))
 
     if not best_result:
         return redirect('create_tests:test_results_list', slug_name=slug_name)
 
-    expressions_data = get_randomized_test_for_student(test, student.id, best_result.attempt_number)
-
-    try:
-        student_answers = json.loads(best_result.res_answer)
-    except (json.JSONDecodeError, ValueError):
-        try:
-            student_answers = ast.literal_eval(best_result.res_answer)
-        except (ValueError, SyntaxError):
-            student_answers = []
-
-    from logic_of_expression.check_sympy_expr import CheckAnswer as _CheckAnswer
-
-    detailed_results = []
-    for i, expr_data in enumerate(expressions_data):
-        student_answer = student_answers[i] if i < len(student_answers) else ''
-        if expr_data['exist_select']:
-            available_options = split_answers(expr_data['user_ans']) if expr_data['user_ans'] else []
-            correct_answers_flags = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
-            correct_options = [
-                available_options[j]
-                for j, flag in enumerate(correct_answers_flags)
-                if j < len(available_options) and flag == '1'
-            ]
-            if isinstance(student_answer, str):
-                selected_options = split_answers(student_answer) if student_answer else []
-            elif isinstance(student_answer, list):
-                selected_options = student_answer
-            else:
-                selected_options = []
-            is_correct = set(selected_options) == set(correct_options)
-            detailed_results.append({
-                'question_number': i + 1,
-                'question': expr_data['user_expression'],
-                    'images': expr_data.get('images', []),
-                'student_answer': display_answer(student_answer, expr_data['exist_select']),
-                'correct_answer': '; '.join(correct_options),
-                'is_multiple_choice': True,
-                'options': available_options,
-                'points': expr_data['points_for_solve'],
-                'is_correct': is_correct,
-            })
-        else:
-            from solving_tests.models import FreeAnswerGrade
-            is_free_answer = expr_data['user_type'] and expr_data['user_type'].type_code == 5
-            if is_free_answer:
-                fg = FreeAnswerGrade.objects.filter(student_result=best_result, question_index=i).first()
-                is_correct = fg.is_correct if fg else None
-            else:
-                try:
-                    if expr_data['user_type'].type_code == 4 and expr_data.get('matrix_norm'):
-                        res = _CheckAnswer(expr_data['user_ans'], student_answer, False,
-                                        expression=expr_data['user_expression'],
-                                        type_ans=expr_data['user_type'].type_code,
-                                        eps=_safe_epsilon(expr_data.get('user_eps')),
-                                        type_norm=expr_data['matrix_norm']).compare_answer()
-                    else:
-                        res = _CheckAnswer(expr_data['user_ans'], student_answer, False,
-                                        expression=expr_data['user_expression'],
-                                        type_ans=expr_data['user_type'].type_code,
-                                        eps=_safe_epsilon(expr_data.get('user_eps'))).compare_answer()
-                    is_correct = res == 1
-                except Exception:
-                    is_correct = None
-            detailed_results.append({
-                'question_number': i + 1,
-                'question_index': i,
-                'question': expr_data['user_expression'],
-                    'images': expr_data.get('images', []),
-                'student_answer': display_answer(student_answer, expr_data['exist_select']),
-                'correct_answer': None if is_free_answer else expr_data['user_ans'],
-                'is_multiple_choice': False,
-                'is_free_answer': is_free_answer,
-                'options': [],
-                'points': expr_data['points_for_solve'],
-                'is_correct': is_correct,
-            })
+    detailed_results = review_details(best_result)
 
     try:
         sd = student.studentdata
@@ -1678,86 +1603,41 @@ def test_results_detail(request, slug_name, student_id):
 @login_required
 @role_required(['teacher', 'admin'])
 def grade_free_answer(request, slug_name, student_id):
-    """AJAX-эндпоинт: преподаватель ставит оценку на вопрос со свободным ответом"""
     if request.method != 'POST':
         return JsonResponse({'error': 'Method not allowed'}, status=405)
-
     from solving_tests.models import StudentResult, FreeAnswerGrade
-    from solving_tests.views import get_randomized_test_for_student
-    from users.models import CustomUser
-    from logic_of_expression.check_sympy_expr import CheckAnswer as _CheckAnswer
-    import ast
+    from .result_review import review_test, select_result, review_details
 
     try:
         data = json.loads(request.body)
-        question_index = int(data.get('question_index'))
-        is_correct = data.get('is_correct')  # True, False или None
-    except (json.JSONDecodeError, ValueError, TypeError):
+        if not isinstance(data, dict):
+            raise ValueError
+        question_index = data['question_index']
+        is_correct = data['is_correct']
+        if type(question_index) is not int or not (is_correct is None or type(is_correct) is bool):
+            raise ValueError
+        result_id = data.get('result_id')
+        if result_id is not None and (type(result_id) is not int or result_id <= 0):
+            raise ValueError
+    except (ValueError, TypeError, KeyError):
         return JsonResponse({'error': 'Invalid data'}, status=400)
 
-    test = get_object_or_404(AboutTest, name_slug_tests=slug_name)
-    student = get_object_or_404(CustomUser, id=student_id)
-
-    best_result = StudentResult.objects.filter(student=student, test=test).order_by('-result_points').first()
-    if not best_result:
-        return JsonResponse({'error': 'No result found'}, status=404)
-
-    # Сохраняем оценку
-    FreeAnswerGrade.objects.update_or_create(
-        student_result=best_result,
-        question_index=question_index,
-        defaults={'is_correct': is_correct},
-    )
-
-    # Пересчитываем баллы студента
-    expressions_data = get_randomized_test_for_student(test, student.id, best_result.attempt_number)
-    try:
-        student_answers = json.loads(best_result.res_answer)
-    except (json.JSONDecodeError, ValueError):
-        try:
-            student_answers = ast.literal_eval(best_result.res_answer)
-        except (ValueError, SyntaxError):
-            student_answers = []
-
-    result_score = 0.0
-    for i, expr_data in enumerate(expressions_data):
-        user_ans = student_answers[i] if i < len(student_answers) else ''
-
-        if expr_data['user_type'] and expr_data['user_type'].type_code == 5:
-            fg = FreeAnswerGrade.objects.filter(student_result=best_result, question_index=i).first()
-            if fg and fg.is_correct:
-                result_score += expr_data['points_for_solve']
-        elif expr_data['exist_select']:
-            available_options = split_answers(expr_data['user_ans']) if expr_data['user_ans'] else []
-            correct_answers = expr_data['true_ans'].split(';') if expr_data['true_ans'] else []
-            if isinstance(user_ans, list):
-                selected_set = set(user_ans)
-            else:
-                selected_set = set(split_answers(user_ans) if user_ans else [])
-            should_be_selected = {
-                available_options[j] for j, flag in enumerate(correct_answers)
-                if j < len(available_options) and flag == '1'
-            }
-            if selected_set == should_be_selected:
-                result_score += expr_data['points_for_solve']
-        else:
-            try:
-                if expr_data['user_type'].type_code == 4 and expr_data.get('matrix_norm'):
-                    res = _CheckAnswer(expr_data['user_ans'], user_ans, False,
-                                       expression=expr_data['user_expression'],
-                                       type_ans=expr_data['user_type'].type_code,
-                                       eps=_safe_epsilon(expr_data.get('user_eps')),
-                                       type_norm=expr_data['matrix_norm']).compare_answer()
-                else:
-                    res = _CheckAnswer(expr_data['user_ans'], user_ans, False,
-                                       expression=expr_data['user_expression'],
-                                       type_ans=expr_data['user_type'].type_code,
-                                       eps=_safe_epsilon(expr_data.get('user_eps'))).compare_answer()
-                result_score += res * expr_data['points_for_solve']
-            except Exception:
-                pass
-
-    best_result.result_points = result_score
-    best_result.save()
-
-    return JsonResponse({'success': True, 'new_score': result_score, 'max_score': best_result.max_points})
+    test = review_test(request.user, slug_name)
+    with transaction.atomic():
+        results = StudentResult.objects.select_for_update().filter(student_id=student_id, test=test)
+        if result_id is None and results.count() > 1:
+            return JsonResponse({'error': 'Select an attempt before grading.'}, status=400)
+        result = select_result(results, result_id)
+        if result is None:
+            return JsonResponse({'error': 'No result found'}, status=404)
+        details = review_details(result)
+        if not 0 <= question_index < len(details) or not details[question_index]['is_free_answer']:
+            return JsonResponse({'error': 'Not a free-answer question.'}, status=400)
+        FreeAnswerGrade.objects.update_or_create(
+            student_result=result, question_index=question_index, defaults={'is_correct': is_correct})
+        details[question_index]['is_correct'] = is_correct
+        result.result_points = sum(detail['points'] for detail in details if detail['is_correct'])
+        result.save(update_fields=['result_points', 'percentage_score'])
+        remaining = sum(detail['is_free_answer'] and detail['is_correct'] is None for detail in details)
+    return JsonResponse({'success': True, 'result_id': result.pk, 'new_score': result.result_points,
+                         'max_score': result.max_points, 'ungraded_count': remaining})

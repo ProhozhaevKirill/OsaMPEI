@@ -4,6 +4,7 @@
 {% block title %}Ответы: {{ student_name }}{% endblock %}
 
 {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/math-display.css' %}?v=display1">
     <link rel="stylesheet" href="{% static 'libs/mathlive/mathlive.css' %}">
     <link rel="stylesheet" href="{% static 'libs/fontawesome/css/all.min.css' %}">
     <style>
@@ -266,75 +267,19 @@
 {% endblock %}
 
 {% block extra_js %}
+    <script src="{% static 'js/macros-mathJax.js' %}?v=display1"></script>
+    <script src="{% static 'js/task-layout.js' %}?v=display1"></script>
     <script src="{% static 'libs/polyfill/polyfill.min.js' %}"></script>
     <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
-    <script src="{% static 'js/macros-mathJax.js' %}"></script>
     <script>
         MathJax.tex.inlineMath = [['\\(', '\\)']];
         MathJax.tex.displayMath = [['$$', '$$'], ['\\[', '\\]']];
         MathJax.options = { skipHtmlTags: ['script', 'noscript', 'style', 'textarea'] };
     </script>
     <script id="MathJax-script" async src="{% static 'libs/mathjax/tex-mml-chtml.js' %}"></script>
-    <script>
-        function getCsrfToken() {
-            const name = 'csrftoken';
-            const cookies = document.cookie.split(';');
-            for (let c of cookies) {
-                c = c.trim();
-                if (c.startsWith(name + '=')) return decodeURIComponent(c.slice(name.length + 1));
-            }
-            return '';
-        }
-
-        function gradeFreeAnswer(questionIndex, isCorrect, btn) {
-            const card = document.getElementById('question-card-' + questionIndex);
-            const allBtns = card.querySelectorAll('.btn-grade');
-            const answerBlock = document.getElementById('answer-block-' + questionIndex);
-            const badge = document.getElementById('badge-' + questionIndex);
-            const pending = document.getElementById('pending-' + questionIndex);
-            const scoreMsg = document.getElementById('score-msg-' + questionIndex);
-
-            // Снимаем active со всех кнопок в этом вопросе
-            allBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            // Обновляем цвет карточки
-            card.classList.remove('question-correct', 'question-incorrect');
-            answerBlock.classList.remove('answer-correct', 'answer-incorrect');
-            if (isCorrect) {
-                card.classList.add('question-correct');
-                answerBlock.classList.add('answer-correct');
-                badge.innerHTML = '<span class="status-badge correct-badge"><i class="fas fa-check"></i></span>';
-            } else {
-                card.classList.add('question-incorrect');
-                answerBlock.classList.add('answer-incorrect');
-                badge.innerHTML = '<span class="status-badge incorrect-badge"><i class="fas fa-times"></i></span>';
-            }
-            if (pending) pending.style.display = 'none';
-
-            fetch("{% url 'create_tests:grade_free_answer' slug_name=test.name_slug_tests student_id=student_id %}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCsrfToken(),
-                },
-                body: JSON.stringify({ question_index: questionIndex, is_correct: isCorrect }),
-            })
-            .then(r => r.json())
-            .then(data => {
-                if (data.success) {
-                    if (scoreMsg) {
-                        scoreMsg.style.display = 'inline-block';
-                        setTimeout(() => { scoreMsg.style.display = 'none'; }, 2500);
-                    }
-                    // Обновляем отображение общего балла на странице
-                    const scoreEl = document.querySelector('.summary-value[data-score]');
-                    if (scoreEl) scoreEl.textContent = data.new_score.toFixed(1) + ' / ' + data.max_score.toFixed(1);
-                }
-            })
-            .catch(() => {});
-        }
-    </script>
+    <script src="{% static 'js/review-result.js' %}?v=attempt1"
+            data-review-url="{% url 'create_tests:grade_free_answer' slug_name=test.name_slug_tests student_id=student_id %}"
+            data-result-id="{{ best_result.pk }}"></script>
 {% endblock %}
 
 {% block content %}
@@ -366,11 +311,11 @@
             {% endif %}
             {% if free_q_count %}
                 {% if ungraded_count %}
-                    <span style="color:#856404; font-weight:600;">
+                    <span data-review-remaining style="color:#856404; font-weight:600;">
                         <i class="fas fa-hourglass-half"></i> Не проверено: {{ ungraded_count }} из {{ free_q_count }}
                     </span>
                 {% else %}
-                    <span style="color:#155724; font-weight:600;">
+                    <span data-review-remaining style="color:#155724; font-weight:600;">
                         <i class="fas fa-check-double"></i> Все свободные ответы проверены
                     </span>
                 {% endif %}
@@ -379,7 +324,18 @@
     </div>
 
     <div class="detailed-results-section">
-        <h2>Разбор ответов (лучшая попытка)</h2>
+        <h2>Разбор ответов — попытка №{{ best_result.attempt_number }}</h2>
+        {% if all_results|length > 1 %}
+        <label>Попытка:
+            <select aria-label="Выбрать попытку" onchange="window.location.href=this.value">
+                {% for sr in all_results %}
+                <option value="{% url 'create_tests:test_results_detail' test.name_slug_tests student_id %}?result_id={{ sr.pk }}"{% if sr.pk == best_result.pk %} selected{% endif %}>
+                    №{{ sr.attempt_number }} — {{ sr.result_points|floatformat:1 }} / {{ sr.max_points|floatformat:1 }}
+                </option>
+                {% endfor %}
+            </select>
+        </label>
+        {% endif %}
 
         {% for q in detailed_results %}
         <div class="question-result {% if q.is_correct %}question-correct{% elif q.is_correct == False %}question-incorrect{% endif %}"
@@ -437,7 +393,7 @@
                     <div class="student-answer-block {% if q.is_correct %}answer-correct{% elif q.is_correct == False %}answer-incorrect{% endif %}">
                         <div class="answer-label">Ответ студента</div>
                         {% if q.is_multiple_choice %}
-                            <span class="answer-text">{% if q.student_answer %}{{ q.student_answer }}{% else %}Не выбрано{% endif %}</span>
+                            {% if q.student_answer %}<div class="math-display-block">\[ {{ q.student_answer }} \]</div>{% else %}<span class="answer-text">Не выбрано</span>{% endif %}
                         {% else %}
                             {% if q.student_answer %}
                                 <div class="math-display-block">\[ {{ q.student_answer }} \]</div>
@@ -450,7 +406,7 @@
                     <div class="correct-answer-block">
                         <div class="answer-label">Правильный ответ</div>
                         {% if q.is_multiple_choice %}
-                            <span class="answer-text correct">{{ q.correct_answer }}</span>
+                            <div class="math-display-block correct-math">\[ {{ q.correct_answer }} \]</div>
                         {% else %}
                             <div class="math-display-block correct-math">\[ {{ q.correct_answer }} \]</div>
                         {% endif %}
@@ -460,7 +416,7 @@
                 {% if q.is_multiple_choice and q.options %}
                 <div class="options-list">
                     <strong>Варианты:</strong>
-                    <ul>{% for opt in q.options %}<li>{{ opt }}</li>{% endfor %}</ul>
+                    <ul>{% for opt in q.options %}<li><div class="math-display-block">\[ {{ opt }} \]</div></li>{% endfor %}</ul>
                 </div>
                 {% endif %}
             {% endif %}

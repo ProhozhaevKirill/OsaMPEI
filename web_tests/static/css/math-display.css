@@ -1,0 +1,41 @@
+/* Keep each rendered expression constrained to the actual card or answer cell. */
+.express, .math-display-block, .question-mathjax, .question-text,
+.answer-comparison, .student-answer, .student-answer-block, .teacher-answer-block, .correct-answer, .manual-review-block,
+.correct-answer-block, .question-result, .expression-card, .math-expression,
+.answer-options, .options-list {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+.math-view {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    flex: 1 1 0;
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: hidden;
+    text-align: center;
+    word-break: normal;
+    overflow-wrap: normal;
+}
+.math-view mjx-container[display="true"] {
+    display: block !important;
+    max-width: 100%;
+    margin: 0.5em 0;
+    text-align: center !important;
+    word-break: normal;
+    overflow-wrap: normal;
+}
+/* Preserve the size and structure of an indivisible matrix or single atom. */
+.math-view-unbreakable mjx-container[display="true"] {
+    text-align: left !important;
+}
+.options label { min-width: 0; }
+.options label > input { flex-shrink: 0; }
+
+@media (max-width: 600px) {
+    /* Leave enough room for a complete term inside nested answer cards. */
+    .results-card { padding: 16px !important; }
+}

@@ -6,21 +6,22 @@
 {% block title %}{{ test.name_tests }}{% endblock %}
 
 {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/math-display.css' %}?v=display1">
     <link rel="stylesheet" href="{% static 'css/some_test.css' %}">
     <link rel="stylesheet" href="{% static 'libs/mathlive/mathlive.css' %}">
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
 {% endblock %}
 
 {% block extra_js %}
+    <script src="{% static 'js/macros-mathJax.js' %}?v=display1"></script>
+    <script src="{% static 'js/task-layout.js' %}?v=display1"></script>
     <script src="{% static '/js/some_test.js' %}"></script>
     <script src="{% static 'libs/polyfill/polyfill.min.js' %}"></script>
     <script id="MathJax-script" async src="{% static 'libs/mathjax/tex-mml-chtml.js' %}"></script>
     <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
-    <script src="{% static 'js/macros-mathJax.js' %}"></script>
     <script src="{% static 'libs/mathlive/mathlive.min.js' %}"></script>
 
     <script src="{% static 'js/all_test_for_teach.js' %}" defer></script>
-    <script src="{% static 'js/macros-mathJax.js' %}"></script>
 
 {% endblock %}
 

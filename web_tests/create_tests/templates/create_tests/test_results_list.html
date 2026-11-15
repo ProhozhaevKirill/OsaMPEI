@@ -250,7 +250,7 @@
                         {% else %}—{% endif %}
                     </td>
                     <td>
-                        <a href="{% url 'create_tests:test_results_detail' slug_name=test.name_slug_tests student_id=item.student.id %}" class="btn-detail">
+                        <a href="{% url 'create_tests:test_results_detail' slug_name=test.name_slug_tests student_id=item.student.id %}?result_id={{ item.best_result.pk }}" class="btn-detail">
                             <i class="fas fa-eye"></i> Детали
                         </a>
                     </td>

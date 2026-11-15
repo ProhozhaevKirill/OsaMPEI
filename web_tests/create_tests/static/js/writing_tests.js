@@ -19,45 +19,9 @@ $(document).ready(function () {
         });
     }
 
-    // Инъекция CSS в shadow DOM для ограничения ширины контейнера MathLive
-    function injectShadowStyles(mf) {
-        if (mf.dataset.shadowStyled) return;
-        mf.dataset.shadowStyled = 'true';
-        const tryInject = () => {
-            const sr = mf.shadowRoot;
-            if (!sr) { setTimeout(tryInject, 50); return; }
-            const style = document.createElement('style');
-            style.textContent = '.ML__container { max-width: 100% !important; overflow-x: auto !important; box-sizing: border-box !important; }';
-            sr.appendChild(style);
-        };
-        tryInject();
-    }
-
-    // Добавляет Enter как синоним Alt+Enter (addRowAfter) через keybindings MathLive
-    function setEnterKeybinding(mf) {
-        if (mf.dataset.enterInit) return;
-        mf.dataset.enterInit = 'true';
-        setTimeout(() => {
-            const existing = mf.keybindings || [];
-            mf.setOptions({
-                keybindings: [
-                    { key: '[Enter]', ifMode: 'math', command: 'addRowAfter' },
-                            { key: 'shift+[Enter]', ifMode: 'math', command: 'addRowAfter' },
-                    ...existing
-                ]
-            });
-        }, 50);
-    }
-
-    // Инициализация MathLive-полей (как в старой версии)
+    // Shared wrapping and Enter handling live in answer-layout.js.
     function initMathFields() {
-        document.querySelectorAll('math-field').forEach(mf => {
-            if (!mf.mathfield) {
-                customElements.upgrade(mf);  // Простая инициализация
-            }
-            injectShadowStyles(mf);
-            setEnterKeybinding(mf);
-        });
+        document.querySelectorAll('math-field').forEach(mf => customElements.upgrade(mf));
     }
     initMathFields();
 
@@ -380,7 +344,7 @@ $(document).ready(function () {
     function getMathFieldValue(element) {
         const mathField = element[0]; // Получаем DOM элемент
         if (mathField && mathField.value !== undefined) {
-            return mathField.value;
+            return window.MathFieldLayout?.read(mathField) ?? mathField.value;
         }
         return element.val() || '';
     }
@@ -788,14 +752,14 @@ $(document).ready(function () {
             $(this).find('.task-variant').each(function () {
                 const $exprField = $(this).find('math-field[name="user_expression"]');
                 const variant = {
-                    expression: $exprField[0] ? ($exprField[0].value || '') : '',
+                    expression: window.MathFieldLayout?.read($exprField[0]) ?? ($exprField[0]?.value || ''),
                     images: window.QuestionImages ? window.QuestionImages.get(this) : [],
                     answers: []
                 };
                 $(this).find('.answer-row').each(function () {
                     const $ansField = $(this).find('.answer-field');
                     variant.answers.push({
-                        value: $ansField[0] ? ($ansField[0].value || '') : '',
+                        value: window.MathFieldLayout?.read($ansField[0]) ?? ($ansField[0]?.value || ''),
                         epsilon: $(this).find('.accuracy-field').val() || '0',
                         type: $(this).find('.type-field').val() || '',
                         norm: $(this).find('.norm-field').val() || '',
@@ -906,7 +870,7 @@ $(document).ready(function () {
 
         setTimeout(function () {
             mathQueue.forEach(function (item) {
-                try { item.el.value = item.val; } catch (e) {}
+                try { item.el.value = window.MathFieldLayout?.normalizeValue(item.val) ?? item.val; } catch (e) {}
             });
         }, 600);
     }

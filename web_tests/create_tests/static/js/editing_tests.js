@@ -16,41 +16,9 @@ $(document).ready(function () {
         });
     }
 
-    // Инъекция CSS в shadow DOM для ограничения ширины контейнера MathLive
-    function injectShadowStyles(mf) {
-        if (mf.dataset.shadowStyled) return;
-        mf.dataset.shadowStyled = 'true';
-        const tryInject = () => {
-            const sr = mf.shadowRoot;
-            if (!sr) { setTimeout(tryInject, 50); return; }
-            const style = document.createElement('style');
-            style.textContent = '.ML__container { max-width: 100% !important; overflow-x: auto !important; box-sizing: border-box !important; }';
-            sr.appendChild(style);
-        };
-        tryInject();
-    }
-
-    // Инициализация MathLive-полей
+    // Shared wrapping and Enter handling live in answer-layout.js.
     function initMathFields() {
-        document.querySelectorAll('math-field').forEach(mf => {
-            customElements.upgrade(mf);
-
-            injectShadowStyles(mf);
-
-            if (!mf.dataset.enterInit) {
-                mf.dataset.enterInit = 'true';
-                setTimeout(() => {
-                    const existing = mf.keybindings || [];
-                    mf.setOptions({
-                        keybindings: [
-                            { key: '[Enter]', ifMode: 'math', command: 'addRowAfter' },
-                            { key: 'shift+[Enter]', ifMode: 'math', command: 'addRowAfter' },
-                            ...existing
-                        ]
-                    });
-                }, 50);
-            }
-        });
+        document.querySelectorAll('math-field').forEach(mf => customElements.upgrade(mf));
     }
     initMathFields();
 
@@ -380,7 +348,7 @@ $(document).ready(function () {
     function getMathFieldValue(element) {
         const mathField = element[0]; // Получаем DOM элемент
         if (mathField && mathField.value !== undefined) {
-            return mathField.value;
+            return window.MathFieldLayout?.read(mathField) ?? mathField.value;
         }
         return element.val() || '';
     }

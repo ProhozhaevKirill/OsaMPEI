@@ -57,12 +57,13 @@
     <div class="notifications-list">
         {% if pending_results %}
             {% for sr in pending_results %}
-            <a href="{% url 'create_tests:test_results_detail' sr.test.name_slug_tests sr.student.id %}" class="notification-item">
+            <a href="{% url 'create_tests:test_results_detail' sr.test.name_slug_tests sr.student.id %}?result_id={{ sr.pk }}" class="notification-item">
                 <div class="notification-icon">
                     <i class="fas fa-user-edit"></i>
                 </div>
                 <div class="notification-body">
                     <div class="notification-title">{{ sr.test.name_tests }}</div>
+                    <div class="notification-meta">Попытка №{{ sr.attempt_number }}</div>
                     <div class="notification-meta">
                         {% with s=sr.student.studentdata %}
                             {{ s.last_name }} {{ s.first_name }} {{ s.middle_name }}

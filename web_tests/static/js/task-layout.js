@@ -1,44 +1,70 @@
-// Reflow conditions from their original LaTeX when their available width changes.
-window.addEventListener('load', async () => {
-    if (!window.MathJax?.startup) return;
-    await MathJax.startup.promise;
-    const conditions = [...document.querySelectorAll('.express[data-expr]')];
-    // A matrix cannot be split between lines. Fit only remaining indivisible math.
-    const fitConditions = () => {
-        for (const condition of conditions) {
-            const container = condition.querySelector('mjx-container');
-            const math = container?.querySelector('mjx-math');
-            if (!math) continue;
-            math.style.zoom = '';
-            const width = math.getBoundingClientRect().width;
-            if (width > container.clientWidth && container.clientWidth > 0) {
-                math.style.zoom = (container.clientWidth - 1) / width;
-            }
-        }
-    };
-    fitConditions();
-    const widths = new WeakMap();
-    let timer;
-    let pending = Promise.resolve();
-    const observer = new ResizeObserver(entries => {
-        const changed = [];
-        for (const {target, contentRect} of entries) {
-            const previous = widths.get(target);
-            widths.set(target, contentRect.width);
-            if (previous !== undefined && Math.abs(previous - contentRect.width) > 1) changed.push(target);
-        }
-        if (!changed.length) return;
-        clearTimeout(timer);
-        timer = setTimeout(() => {
+// Responsive read-only mathematics. Re-typeset original TeX, never split source strings.
+(() => {
+    const start = async () => {
+        if (!window.MathJax?.startup) return;
+        await MathJax.startup.promise;
+        const entries = new Set();
+        const dirty = new Set();
+        let timer;
+        let pending = Promise.resolve();
+        const fit = entry => {
+            const math = entry.host.querySelector('mjx-math');
+            entry.host.classList.toggle('math-view-unbreakable', Boolean(math &&
+                math.getBoundingClientRect().width > entry.host.clientWidth + 1));
+        };
+        const flush = () => {
+            const changed = [...dirty].filter(entry => entry.host.isConnected && entry.host.clientWidth > 0);
+            dirty.clear();
             pending = pending.then(async () => {
-                MathJax.typesetClear(conditions);
-                for (const condition of conditions) {
-                    condition.textContent = '\\[ ' + condition.dataset.expr + ' \\]';
-                }
-                await MathJax.typesetPromise(conditions);
-                fitConditions();
-            }).catch(error => console.error('Не удалось обновить перенос условий:', error));
-        }, 100);
-    });
-    conditions.forEach(condition => observer.observe(condition));
-});
+                if (!changed.length) return;
+                const hosts = changed.map(entry => entry.host);
+                MathJax.typesetClear(hosts);
+                for (const entry of changed) entry.host.textContent = '\\[ ' + entry.source + ' \\]';
+                await MathJax.typesetPromise(hosts);
+                changed.forEach(fit);
+            }).catch(error => console.error('Unable to reflow displayed mathematics:', error));
+            return pending;
+        };
+        const schedule = () => {
+            clearTimeout(timer);
+            timer = setTimeout(flush, 80);
+        };
+        const observer = new ResizeObserver(records => {
+            for (const {target, contentRect} of records) {
+                const entry = target.mathDisplayEntry;
+                if (Math.abs(entry.width - contentRect.width) <= 1) continue;
+                entry.width = contentRect.width;
+                dirty.add(entry);
+            }
+            if (dirty.size) schedule();
+        });
+        const discover = () => {
+            let added = false;
+            for (const item of MathJax.startup.document.math) {
+                const output = item.typesetRoot;
+                if (!item.display || !output?.isConnected || output.closest('.math-view, math-field')) continue;
+                const host = document.createElement('span');
+                host.className = 'math-view';
+                output.before(host);
+                host.appendChild(output);
+                const entry = {host, source: item.math, width: host.getBoundingClientRect().width};
+                host.mathDisplayEntry = entry;
+                entries.add(entry);
+                observer.observe(host);
+                dirty.add(entry);
+                added = true;
+            }
+            for (const entry of entries) {
+                if (!entry.host.isConnected) { observer.unobserve(entry.host); entries.delete(entry); }
+            }
+            return added;
+        };
+        discover();
+        await flush();
+        // Also cover formula previews or answers inserted and typeset after load.
+        new MutationObserver(() => { if (discover()) schedule(); })
+            .observe(document.body, {childList: true, subtree: true});
+    };
+    window.MathDisplayLayout = {ready: document.readyState === 'complete' ? start() :
+        new Promise((resolve, reject) => window.addEventListener('load', () => start().then(resolve, reject), {once: true}))};
+})();

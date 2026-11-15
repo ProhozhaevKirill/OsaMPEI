@@ -38,6 +38,7 @@ class GetLexeme:
         for i in range(len(replace_of_screen)):
             all_expr = all_expr.replace(replace_of_screen[i][0], replace_of_screen[i][1])
 
+        all_expr = re.sub(r'\\(?:cdot|times)\b', '*', all_expr)
         all_expr = self.remove_backslashes(all_expr)
 
         all_expr = all_expr.replace('dfrac', 'frac')
@@ -252,6 +253,16 @@ class Tex2Sympy(GetLexeme):
 
     # Выставление умножения между цифрой и переменной/функцией/скобкой
     def addit_mult(self, expression):
+
+        # Preserve function calls while accepting implicit multiplication: a(a+b).
+        functions = set(self.MATHFUNC) | {'Abs', 'exp', 'sqrt'}
+        expression = re.sub(
+            r'([a-zA-Z]+)\s*(?=\()',
+            lambda match: match.group(0) if match.group(1) in functions
+            else match.group(1) + '*',
+            expression,
+        )
+        expression = re.sub(r'([)\]])\s*(?=[a-zA-Z(\[])', r'\1*', expression)
 
         el = 0
         while el < len(expression) - 1:

@@ -200,6 +200,64 @@ class EditorSaveTests(TestCase):
         created = AboutTest.objects.get(name_tests='New test')
         self.assertEqual(list(created.expressions.order_by('number').values_list('number', flat=True)), [1, 2])
 
+    def test_publish_draft_reuses_same_test_and_acknowledges_browser_copy(self):
+        self.test.is_draft = True
+        self.test.draft_data = '{"meta": {"name": "Old draft"}}'
+        self.test.save()
+        slug = self.test.name_slug_tests
+        payload = self.payload()
+        payload.update(name_test='Completed draft', time_solve='01:00:00',
+                       num_attempts='1', subj_test=self.subject.pk, draft_slug=slug)
+        with patch('create_tests.views.TeacherData.objects.get', return_value=None):
+            response = create_test(self.request('post', payload))
+        self.assertEqual(response.status_code, 302)
+        self.test.refresh_from_db()
+        self.assertFalse(self.test.is_draft)
+        self.assertEqual(self.test.draft_data, '')
+        self.assertEqual(self.test.name_tests, 'Completed draft')
+        self.assertEqual(AboutTest.objects.count(), 1)
+        self.assertEqual(self.test.expressions.count(), 2)
+        self.assertEqual(response.cookies['completed_test_draft'].value, 'wt_draft_' + slug)
+
+    def test_legacy_draft_saved_in_editor_becomes_regular_test(self):
+        self.test.is_draft = True
+        self.test.draft_data = 'legacy draft'
+        self.test.save()
+        response = edit_test(self.request('post', self.payload()), self.test.name_slug_tests)
+        self.assertEqual(response.status_code, 302)
+        self.test.refresh_from_db()
+        self.assertFalse(self.test.is_draft)
+        self.assertEqual(self.test.draft_data, '')
+        self.assertEqual(response.cookies['completed_test_draft'].value, 'wt_draft_' + self.test.name_slug_tests)
+
+    def test_create_success_acknowledges_new_browser_draft_for_both_redirects(self):
+        for action in ('list', 'continue'):
+            with self.subTest(action=action):
+                payload = self.payload()
+                payload.update(name_test='Saved ' + action, time_solve='01:00:00',
+                               num_attempts='1', subj_test=self.subject.pk, save_action=action)
+                with patch('create_tests.views.TeacherData.objects.get', return_value=None):
+                    response = create_test(self.request('post', payload))
+                self.assertEqual(response.status_code, 302)
+                self.assertEqual(response.cookies['completed_test_draft'].value, 'wt_draft_new')
+
+    def test_failed_draft_publish_preserves_original_draft_and_browser_copy(self):
+        self.test.is_draft = True
+        self.test.draft_data = 'original draft'
+        self.test.save()
+        payload = self.payload()
+        payload.update(name_test='Broken', time_solve='01:00:00', num_attempts='1',
+                       subj_test=self.subject.pk, draft_slug=self.test.name_slug_tests)
+        payload['point_solve'] = json.dumps([1, 'invalid'])
+        with patch('create_tests.views.TeacherData.objects.get', return_value=None):
+            response = create_test(self.request('post', payload))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn('completed_test_draft', response.cookies)
+        self.test.refresh_from_db()
+        self.assertTrue(self.test.is_draft)
+        self.assertEqual(self.test.draft_data, 'original draft')
+        self.assertEqual(list(self.test.expressions.all()), [self.original])
+
 
 class PublicationScheduleTests(TestCase):
     def setUp(self):

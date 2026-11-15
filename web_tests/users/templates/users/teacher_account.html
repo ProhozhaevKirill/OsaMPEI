@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block extra_js %}
-    <script src="{% static 'js/teacher_account.js' %}" defer></script>
+
 {% endblock %}
 
 {% block content %}
@@ -95,7 +95,7 @@
     {% for test in teacher_tests %}
         <tr>
             <td>{{ test.subj.name }}</td>
-            <td>{{ test.name_tests }}</td>
+            <td><a href="{% url 'create_tests:some_test' test.name_slug_tests %}">{{ test.name_tests }}</a></td>
             <td>
                 {% if test.is_published %}
                     Опубликован

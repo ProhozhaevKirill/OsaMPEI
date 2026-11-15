@@ -21,6 +21,14 @@ import math
 logger = logging.getLogger(__name__)
 
 
+def _saved_test_redirect(request, *args, draft_slug=None, **kwargs):
+    response = redirect(*args, **kwargs)
+    slug = request.POST.get('draft_slug', '').strip() if draft_slug is None else draft_slug
+    key = 'wt_draft_' + (slug or 'new')
+    response.set_cookie('completed_test_draft', key, max_age=86400, samesite='Lax')
+    return response
+
+
 def _safe_epsilon(value):
     try:
         result = float(value or 0)
@@ -102,7 +110,7 @@ def create_test(request):
                     draft_test.draft_data = draft_state
                     draft_test.save()
                     logger.info(f"Draft updated: {draft_slug}")
-                    return redirect('create_tests:test_list')
+                    return _saved_test_redirect(request, 'create_tests:test_list')
                 except AboutTest.DoesNotExist:
                     pass  # Fall through to create new
 
@@ -121,7 +129,7 @@ def create_test(request):
                 draft_data=draft_state,
             )
             logger.info(f"Draft created: {draft_test.name_slug_tests}")
-            return redirect('create_tests:test_list')
+            return _saved_test_redirect(request, 'create_tests:test_list')
 
         try:
             with transaction.atomic():
@@ -248,7 +256,7 @@ def create_test(request):
                 teacher = TeacherData.objects.get(data_map=request.user)
 
                 # Сохраняем тест (slug создается автоматически в модели)
-                new_test = AboutTest.objects.create(
+                test_fields = dict(
                     name_tests=test_name,
                     time_to_solution=time_to_sol,
                     num_of_attempts=count_attempts,
@@ -260,6 +268,19 @@ def create_test(request):
                     grade_4_threshold=grade_4_threshold,
                     grade_3_threshold=grade_3_threshold,
                 )
+                draft_slug = request.POST.get('draft_slug', '').strip()
+                if draft_slug:
+                    new_test = AboutTest.objects.select_for_update().get(
+                        name_slug_tests=draft_slug, creator=teacher, is_draft=True)
+                    for field, value in test_fields.items():
+                        setattr(new_test, field, value)
+                    new_test.is_draft = False
+                    new_test.draft_data = ''
+                    new_test.save()
+                    new_test.expressions.clear()
+                    new_test.task_groups.clear()
+                else:
+                    new_test = AboutTest.objects.create(**test_fields)
 
                 # Проверяем, есть ли хотя бы одно валидное выражение
                 if not expressions or any(not isinstance(items, list) or len(items) != len(expressions) for items in (answers, boolAns, epsilons, types, points, norms)):
@@ -362,9 +383,9 @@ def create_test(request):
                 new_test.save()
                 if request.POST.get('save_action') == 'continue':
                     messages.success(request, 'Тест сохранён. Можно продолжить редактирование.')
-                    return redirect('create_tests:edit_test', slug_name=new_test.name_slug_tests)
+                    return _saved_test_redirect(request, 'create_tests:edit_test', slug_name=new_test.name_slug_tests)
                 logger.info("=== CREATE TEST DEBUG END ===")
-                return redirect('create_tests:test_list')
+                return _saved_test_redirect(request, 'create_tests:test_list')
 
         except Exception as e:
             logger.error(f"CREATE TEST ERROR: {str(e)}")
@@ -946,12 +967,14 @@ def edit_test(request, slug_name):
                 count = sum(group.variants.count() for group in test.task_groups.all()) if test.task_groups.exists() else test.expressions.count()
                 if len(question_images) != count:
                     raise ValueError('Список изображений не соответствует вариантам заданий.')
+            test.is_draft = False
+            test.draft_data = ''
             test.save()
             logger.info("Test saved successfully")
             if request.POST.get('save_action') == 'continue':
                 messages.success(request, 'Тест сохранён. Можно продолжить редактирование.')
-                return redirect('create_tests:edit_test', slug_name=test.name_slug_tests)
-            return redirect('create_tests:test_list')
+                return _saved_test_redirect(request, 'create_tests:edit_test', slug_name=test.name_slug_tests, draft_slug=test.name_slug_tests)
+            return _saved_test_redirect(request, 'create_tests:test_list', draft_slug=test.name_slug_tests)
 
         except Exception as e:
             transaction.set_rollback(True)

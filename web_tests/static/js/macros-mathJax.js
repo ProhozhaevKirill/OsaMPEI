@@ -11,7 +11,7 @@ window.MathJax = {
     output: {
         displayAlign: 'center',
         displayOverflow: 'linebreak',
-        // A small width reserve avoids overflow from font-metric rounding.
-        linebreaks: { inline: true, width: '98%', lineleading: 0.3 }
+        // Leave room for italic text ink and font-metric rounding after enrichment.
+        linebreaks: { inline: true, width: '95%', lineleading: 0.3 }
     }
 };

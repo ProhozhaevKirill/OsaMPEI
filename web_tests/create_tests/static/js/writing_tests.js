@@ -918,7 +918,6 @@ $(document).ready(function () {
         $('#hidden_grade_5_threshold').val($('#grade_5_threshold').val() || '80');
         $('#hidden_grade_4_threshold').val($('#grade_4_threshold').val() || '60');
         $('#hidden_grade_3_threshold').val($('#grade_3_threshold').val() || '35');
-        localStorage.removeItem(DRAFT_LS_KEY);
         $('#testForm').submit();
     });
 });

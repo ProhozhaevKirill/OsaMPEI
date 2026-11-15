@@ -5,12 +5,12 @@
 {% block title %}Доступные тесты{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/test_selection.css' %}">
+    <link rel="stylesheet" href="{% static 'css/test_selection.css' %}?v=inline2">
     <link rel="stylesheet" href="{% static 'libs/fontawesome/css/all.min.css' %}">
 {% endblock %}
 
 {% block extra_js %}
-    <script src="{% static 'js/test_selection.js' %}" defer></script>
+    <script src="{% static 'js/test_selection.js' %}?v=inline2" defer></script>
     {% if not is_teacher and pusher_key %}
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     <script>
@@ -46,6 +46,7 @@
             <div class="filter-box">
                 <select id="testFilter">
                     <option value="all">Все тесты</option>
+                    <option value="solved">Есть решения</option>
                     <option value="uncompleted">Не пройденные</option>
                     <option value="completed">Пройденные</option>
                     <option value="new">Новые</option>
@@ -59,6 +60,7 @@
             {% with test=item.test %}
                 <div class="test-card" data-id="{{ test.id }}" data-slug="{{ test.name_slug_tests }}"
                      data-completed="{% if item.is_completed %}true{% else %}false{% endif %}"
+                     data-solved="{% if item.latest_result %}true{% else %}false{% endif %}"
                      data-new="{% if item.attempts_count == 0 %}true{% else %}false{% endif %}">
                     <div class="test-header"></div>
                     <div class="test-body">

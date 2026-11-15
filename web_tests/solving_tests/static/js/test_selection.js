@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const title = card.querySelector('.test-title a').textContent.toLowerCase();
             const isCompleted = card.dataset.completed === 'true';
             const isNew = card.dataset.new === 'true';
+            const isSolved = card.dataset.solved === 'true';
 
             const matchesSearch = title.includes(searchTerm);
             let matchesFilter = true;
@@ -73,6 +74,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (filterValue === 'uncompleted' && isCompleted) {
                 matchesFilter = false;
             } else if (filterValue === 'completed' && !isCompleted) {
+                matchesFilter = false;
+            } else if (filterValue === 'solved' && !isSolved) {
                 matchesFilter = false;
             } else if (filterValue === 'new' && !isNew) {
                 matchesFilter = false;
@@ -90,6 +93,12 @@ document.addEventListener('DOMContentLoaded', function() {
     testFilter.addEventListener('change', function() {
         testSearch.dispatchEvent(new Event('input'));
     });
+
+    const initialFilter = new URLSearchParams(window.location.search).get('filter');
+    if ([...testFilter.options].some(option => option.value === initialFilter)) {
+        testFilter.value = initialFilter;
+        testFilter.dispatchEvent(new Event('change'));
+    }
 
     // Закрытие при нажатии ESC
     document.addEventListener('keydown', function(e) {

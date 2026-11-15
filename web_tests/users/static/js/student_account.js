@@ -1,7 +1,7 @@
 // Простая логика для демонстрации
 document.addEventListener('DOMContentLoaded', function() {
     // Обработчик для кнопки уведомлений
-    document.querySelector('.notifications-btn').addEventListener('click', function() {
+    document.querySelector('.notifications-btn')?.addEventListener('click', function() {
         alert('Здесь будут ваши уведомления');
     });
 

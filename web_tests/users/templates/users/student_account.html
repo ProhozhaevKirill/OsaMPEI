@@ -5,12 +5,12 @@
 {% block title %}АСТРА - Личный кабинет{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/student_account.css' %}">
+    <link rel="stylesheet" href="{% static 'css/student_account.css' %}?v=inline2">
     <link rel="stylesheet" href="{% static 'libs/fontawesome/css/all.min.css' %}">
 {% endblock %}
 
 {% block extra_js %}
-    <script src="{% static 'js/student_account.js' %}" defer></script>
+    <script src="{% static 'js/student_account.js' %}?v=inline2" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -25,7 +25,7 @@
             </section>
 
             <div class="stat-row">
-                <div class="stat-card">
+                <a class="stat-card" href="{% url 'solving_tests:list_test' %}">
                     <div class="stat-icon tests">
                         <i class="fas fa-list"></i>
                     </div>
@@ -33,9 +33,9 @@
                         <div class="stat-title">Всего тестов</div>
                         <div class="stat-value">{{ total_tests }}</div>
                     </div>
-                </div>
+                </a>
 
-                <div class="stat-card">
+                <a class="stat-card" href="{% url 'solving_tests:list_test' %}?filter=solved">
                     <div class="stat-icon results">
                         <i class="fas fa-check-circle"></i>
                     </div>
@@ -43,9 +43,9 @@
                         <div class="stat-title">Решено</div>
                         <div class="stat-value">{{ solved_tests }}</div>
                     </div>
-                </div>
+                </a>
 
-                <div class="stat-card">
+                <a class="stat-card" href="#tests-information">
                     <div class="stat-icon tasks">
                         <i class="fas fa-tasks"></i>
                     </div>
@@ -53,9 +53,9 @@
                         <div class="stat-title">Всего заданий</div>
                         <div class="stat-value">{{ total_tasks }}</div>
                     </div>
-                </div>
+                </a>
 
-                <div class="stat-card">
+                <a class="stat-card" href="#tests-information">
                     <div class="stat-icon time">
                         <i class="fas fa-percentage"></i>
                     </div>
@@ -63,10 +63,10 @@
                         <div class="stat-title">Успеваемость</div>
                         <div class="stat-value">{{ success_rate }}%</div>
                     </div>
-                </div>
+                </a>
             </div>
 
-            <section>
+            <section id="tests-information">
                 <h2 class="section-title">
                     <i class="fas fa-info-circle"></i> Информация о тестах
                 </h2>
@@ -85,7 +85,7 @@
                             {% for test in about_tests %}
                                 <tr>
                                     <td>{{ test.test.subj }}</td>
-                                    <td>{{ test.test.name_tests }}</td>
+                                    <td><a href="{% url 'solving_tests:some_test_for_student' test.test.name_slug_tests %}">{{ test.test.name_tests }}</a></td>
                                     <td>
                                         {% if test.best_result %}
                                             {{ test.type_of_result }}

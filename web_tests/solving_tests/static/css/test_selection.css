@@ -177,6 +177,7 @@
 
 .test-meta {
     display: flex;
+    flex-wrap: wrap;
     gap: 15px;
     font-size: 0.8rem;
     color: var(--secondary-color);
@@ -185,6 +186,11 @@
 
 .test-meta i {
     margin-right: 5px;
+}
+
+.test-meta > span {
+    white-space: nowrap;
+    flex: 0 0 auto;
 }
 
 .test-footer {

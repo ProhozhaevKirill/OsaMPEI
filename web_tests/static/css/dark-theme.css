@@ -3,7 +3,7 @@
 /* Предотвращение белых краев при загрузке */
 html[data-theme="dark"],
 body[data-theme="dark"] {
-    background-color: #1a1a1a !important;
+    background: #1a1a1a !important;
     color: #ffffff !important;
     margin: 0 !important;
     padding: 0 !important;

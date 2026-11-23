@@ -47,16 +47,6 @@
                 </a>
 
                 <a class="stat-card" href="#tests-information">
-                    <div class="stat-icon tasks">
-                        <i class="fas fa-tasks"></i>
-                    </div>
-                    <div class="stat-info">
-                        <div class="stat-title">Всего заданий</div>
-                        <div class="stat-value">{{ total_tasks }}</div>
-                    </div>
-                </a>
-
-                <a class="stat-card" href="#tests-information">
                     <div class="stat-icon time">
                         <i class="fas fa-percentage"></i>
                     </div>
@@ -88,18 +78,10 @@
                                     <td>{{ test.test.subj }}</td>
                                     <td><a class="dashboard-test-link" href="{% url 'solving_tests:some_test_for_student' test.test.name_slug_tests %}">{{ test.test.name_tests }}</a></td>
                                     <td>
-                                        {% if test.best_result %}
-                                            {{ test.type_of_result }}
-                                        {% else %}
-                                            —
-                                        {% endif %}
+                                        {{ test.grade|default_if_none:"—" }}
                                     </td>
                                     <td>
-                                        {% if test.remaining_attempts > 0 %}
-                                            Осталось попыток: {{ test.remaining_attempts }}
-                                        {% else %}
-                                            Завершено
-                                        {% endif %}
+                                        {{ test.status }}
                                     </td>
                                 </tr>
                             {% endfor %}

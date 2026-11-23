@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from django.db.models import Q
+from django.db.models import Exists, OuterRef, Q
+from django.utils import timezone
 from .forms import SignUpForm, EmailAuthenticationForm, ProfileForm, TeacherProfileForm
 from .models import WhiteList, CustomUser, StudentData, TeacherData, StudentGroup, StudentInstitute
-from create_tests.models import AboutTest, PublishedGroup, AboutExpressions, TaskVariant
-from solving_tests.models import StudentResult
+from create_tests.models import AboutTest, PublishedGroup
+from solving_tests.models import FreeAnswerGrade, StudentResult, TestAttempt
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .decorators import role_required, anonymous_required
@@ -258,84 +259,92 @@ def account_view(request):
         else:
             published_tests = AboutTest.objects.none()
 
-        # Получаем все результаты студента
-        student_results = StudentResult.objects.filter(
-            student=user,
-            test__in=published_tests
-        ).order_by('test', '-attempt_number')
+        now = timezone.now()
+        pending_grades = FreeAnswerGrade.objects.filter(
+            student_result_id=OuterRef('pk'), is_correct__isnull=True,
+        )
+        results = StudentResult.objects.filter(student=user, test__in=published_tests).annotate(
+            pending_review=Exists(pending_grades),
+        ).order_by('-percentage_score', '-attempt_number', '-pk')
 
-        # Группируем по тесту: выбираем лучший результат по каждому тесту
         best_results = {}
-        for result in student_results:
-            if result.test_id not in best_results or result.result_points > best_results[result.test_id].result_points:
-                best_results[result.test_id] = result
+        attempt_numbers = {}
+        awaiting_review = set()
+        for result in results:
+            test_id = result.test_id
+            attempt_numbers[test_id] = max(attempt_numbers.get(test_id, 0), result.attempt_number)
+            if result.pending_review:
+                awaiting_review.add(test_id)
+            else:
+                best_results.setdefault(test_id, result)
 
-        # Обогащаем информацией: оставшиеся попытки, статус
+        unfinished = {
+            attempt.test_id: attempt
+            for attempt in TestAttempt.objects.filter(
+                student=user, test__in=published_tests, result__isnull=True,
+            ).order_by('attempt_number')
+        }
+
         active_tests = []
         completed_tests = []
+        performance_scores = []
         for test in published_tests:
-            all_attempts = [res for res in student_results if res.test_id == test.id]
-            max_attempt = max([res.attempt_number for res in all_attempts], default=0)
-            best_result = best_results.get(test.id)
+            best = best_results.get(test.pk)
+            percentage = min(100, max(0, best.percentage_score)) if best else None
+            attempts_used = attempt_numbers.get(test.pk, 0)
+            current_attempt = unfinished.get(test.pk)
+            remaining = max(0, test.num_of_attempts - attempts_used)
+            has_attempts = test.num_of_attempts <= 0 or remaining > 0
+            expired = test.publish_until is not None and test.publish_until <= now
+            waiting = test.pk in awaiting_review or (
+                current_attempt is not None
+                and (current_attempt.submitted_at is not None or current_attempt.deadline <= now)
+            )
+            missed = bool(test.is_published and expired and not attempts_used and current_attempt is None)
 
-            remaining_attempts = test.num_of_attempts - max_attempt
+            grade = None
+            if percentage is not None:
+                grade = (5 if percentage >= test.grade_5_threshold else
+                         4 if percentage >= test.grade_4_threshold else
+                         3 if percentage >= test.grade_3_threshold else 2)
+            elif missed:
+                grade = 0
 
-            test_info = {
-                'test': test,
-                'best_result': best_result,
-                'remaining_attempts': remaining_attempts,
-                'type_of_result': f"{best_result.result_points:.0f}" if best_result else None,
-                'status': '',
-            }
-
-            if remaining_attempts <= 0:
-                test_info['status'] = 'Завершено'
-                completed_tests.append(test_info)
+            if missed:
+                status = 'Пропущен'
+                performance_scores.append(0)
+            elif current_attempt is not None and not waiting:
+                status = 'Начат'
+            elif waiting:
+                status = 'На проверке'
+            elif expired or not has_attempts:
+                status = 'Завершено'
+            elif not test.is_available_now(now):
+                status = 'Пока недоступен'
+            elif test.num_of_attempts <= 0:
+                status = 'Попытки не ограничены'
             else:
-                test_info['status'] = f'Осталось {remaining_attempts} попыток'
-                active_tests.append(test_info)
+                status = f'Осталось попыток: {remaining}'
 
-        # 1. Всего тестов
+            if percentage == 100 or (
+                percentage is not None and current_attempt is None and not waiting
+                and (expired or not has_attempts)
+            ):
+                performance_scores.append(percentage)
+
+            info = {'test': test, 'grade': grade, 'status': status}
+            if status in ('Завершено', 'Пропущен'):
+                completed_tests.append(info)
+            else:
+                active_tests.append(info)
+
         total_tests = len(published_tests)
-
-        # 2. Сколько решено (есть хотя бы одна попытка)
-        solved_tests = len(set(result.test_id for result in student_results))
-
-        # Подсчет общего количества заданий
-        total_tasks = 0
-        for test in published_tests:
-            # Считаем AboutExpressions для каждого теста
-            expressions_count = test.expressions.count()
-            # Считаем TaskVariant для каждого теста через task_groups
-            task_variants_count = TaskVariant.objects.filter(task_group__in=test.task_groups.all()).count()
-            total_tasks += expressions_count + task_variants_count
-
-        # 3. Успеваемость на основе оценок
-        def get_grade_weight(points):
-            if points >= 90:
-                return 1.0
-            elif points >= 75:
-                return 0.75
-            elif points >= 60:
-                return 0.5
-            else:
-                return 0.0
-
-        # Собираем веса за каждый тест (0, если не решён)
-        grade_weights = []
-        for test in published_tests:
-            best_result = best_results.get(test.id)
-            if best_result:
-                grade_weights.append(get_grade_weight(best_result.result_points))
-            else:
-                grade_weights.append(0.0)
-
-        success_rate = int((sum(grade_weights) / total_tests) * 100) if total_tests > 0 else 0
+        solved_tests = len(attempt_numbers)
+        success_rate = round(sum(performance_scores) / len(performance_scores)) if performance_scores else 0
 
         context.update({
             'total_tests': total_tests,
             'solved_tests': solved_tests,
-            'total_tasks': total_tasks,
             'success_rate': success_rate,
             'student_data': student_data,
             'institutes': institutes,

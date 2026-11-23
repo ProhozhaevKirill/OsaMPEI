@@ -52,7 +52,10 @@
                     {% for ex in expressions_with_options %}
                         <!-- Обёртка вопроса для JS -->
                         <div class="question-card" data-question="{{ forloop.counter }}">
-                            <h4 class="number">Номер {{ forloop.counter }}.</h4>
+                            <h4 class="number">
+                                Номер {{ forloop.counter }}.
+                                <small class="question-points">Макс. балл: {{ ex.expression.points_for_solve }}</small>
+                            </h4>
                             <div class="express" id="task-{{ forloop.counter }}" data-expr="{{ ex.expression.user_expression }}">
                                 \[ {{ ex.expression.user_expression }} \]
                             </div>

@@ -6,6 +6,7 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/student_account.css' %}?v=inline2">
+    <link rel="stylesheet" href="{% static 'css/dashboard-test-link.css' %}">
     <link rel="stylesheet" href="{% static 'libs/fontawesome/css/all.min.css' %}">
 {% endblock %}
 
@@ -85,7 +86,7 @@
                             {% for test in about_tests %}
                                 <tr>
                                     <td>{{ test.test.subj }}</td>
-                                    <td><a href="{% url 'solving_tests:some_test_for_student' test.test.name_slug_tests %}">{{ test.test.name_tests }}</a></td>
+                                    <td><a class="dashboard-test-link" href="{% url 'solving_tests:some_test_for_student' test.test.name_slug_tests %}">{{ test.test.name_tests }}</a></td>
                                     <td>
                                         {% if test.best_result %}
                                             {{ test.type_of_result }}

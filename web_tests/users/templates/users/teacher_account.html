@@ -5,7 +5,8 @@
 {% block title %}АСТРА - личный кабинет{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/teacher_account.css' %}">
+    <link rel="stylesheet" href="{% static 'css/teacher_account.css' %}?v=20261123-links1">
+    <link rel="stylesheet" href="{% static 'css/dashboard-test-link.css' %}">
     <link rel="stylesheet" href="{% static 'libs/fontawesome/css/all.min.css' %}">
 {% endblock %}
 
@@ -95,7 +96,11 @@
     {% for test in teacher_tests %}
         <tr>
             <td>{{ test.subj.name }}</td>
-            <td><a href="{% url 'create_tests:some_test' test.name_slug_tests %}">{{ test.name_tests }}</a></td>
+            <td>
+                <a class="dashboard-test-link" href="{% url 'create_tests:some_test' test.name_slug_tests %}">
+                    {{ test.name_tests }}
+                </a>
+            </td>
             <td>
                 {% if test.is_published %}
                     Опубликован

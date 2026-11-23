@@ -245,6 +245,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             .ML__content > .ML__latex > .ML__base > :is(.ML__caret, .ML__text-caret)::after,
             .ML__content > .ML__latex > .ML__mtable > .col-align-l > .ML__vlist-t > .ML__vlist-r > .ML__vlist > span > span > :is(.ML__caret, .ML__text-caret)::after {
                 position: absolute !important;
+                /* Match MathLive's baseline for the 0.76em stroke. The
+                   native bottom offset is for relative positioning. */
+                top: 0.1em;
+                bottom: auto;
             }
             .ML__container {
                 max-width: 100%;

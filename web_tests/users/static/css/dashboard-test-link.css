@@ -1,0 +1,24 @@
+.dashboard-test-link {
+    display: inline-block;
+    max-width: 100%;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.4rem;
+    background: #eaf2fb;
+    color: #24538a;
+    font-size: 0.85rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+    text-decoration: none;
+}
+
+.dashboard-test-link:hover,
+.dashboard-test-link:focus-visible {
+    background: #dbeafe;
+    color: #173e70;
+    text-decoration: underline;
+}
+
+.dashboard-test-link:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}

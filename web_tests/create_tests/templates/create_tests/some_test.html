@@ -27,7 +27,7 @@
 
 {% block content %}
 <div class="inf">
-    <p style="text-align: center; color: black">Общая информация:
+    <p style="text-align: center; color: var(--text-primary, black)">Общая информация:
     </p>
     <p> Описание: {{ test.description }}</p>
     <p> Время на решение: {{ test.time_to_solution }}</p>
@@ -90,7 +90,7 @@
                                 <!-- Свободный ответ — проверяется вручную -->
                                 <div class="sec-info">
                                     <p><strong>Тип ответа:</strong> {{ variant.user_type.name }}</p>
-                                    <p style="color: #6c757d; font-size: 0.9em;">Проверяется преподавателем вручную</p>
+                                    <p style="color: var(--text-secondary, #6c757d); font-size: 0.9em;">Проверяется преподавателем вручную</p>
                                 </div>
                             {% else %}
                                 <!-- Обычное задание -->

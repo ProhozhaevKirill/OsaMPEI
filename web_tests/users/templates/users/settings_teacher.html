@@ -148,7 +148,7 @@
                     <input type="checkbox" name="theme" value="dark" {% if user.theme == 'dark' %}checked{% endif %} onchange="this.form.submit()">
                     <span class="theme-slider"></span>
                 </label>
-                <span style="margin-left: 10px; color: #7f8c8d;">
+                <span style="margin-left: 10px; color: var(--text-secondary, #7f8c8d);">
                     {% if user.theme == 'dark' %}Тёмная тема{% else %}Светлая тема{% endif %}
                 </span>
             </div>

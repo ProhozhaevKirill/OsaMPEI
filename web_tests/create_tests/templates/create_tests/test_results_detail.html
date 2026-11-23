@@ -311,11 +311,11 @@
             {% endif %}
             {% if free_q_count %}
                 {% if ungraded_count %}
-                    <span data-review-remaining style="color:#856404; font-weight:600;">
+                    <span data-review-remaining style="color:var(--pending-text, #856404); font-weight:600;">
                         <i class="fas fa-hourglass-half"></i> Не проверено: {{ ungraded_count }} из {{ free_q_count }}
                     </span>
                 {% else %}
-                    <span data-review-remaining style="color:#155724; font-weight:600;">
+                    <span data-review-remaining style="color:var(--positive-text, #155724); font-weight:600;">
                         <i class="fas fa-check-double"></i> Все свободные ответы проверены
                     </span>
                 {% endif %}

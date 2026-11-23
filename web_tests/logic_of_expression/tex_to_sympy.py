@@ -256,6 +256,20 @@ class Tex2Sympy(GetLexeme):
 
         # Preserve function calls while accepting implicit multiplication: a(a+b).
         functions = set(self.MATHFUNC) | {'Abs', 'exp', 'sqrt'}
+        named_symbols = {
+            'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'varepsilon', 'zeta',
+            'eta', 'theta', 'vartheta', 'iota', 'kappa', 'lambda', 'mu', 'nu',
+            'xi', 'omicron', 'pi', 'varpi', 'rho', 'varrho', 'sigma', 'varsigma',
+            'tau', 'upsilon', 'phi', 'varphi', 'chi', 'psi', 'omega',
+            'oo', 'inf', 'infty', 'nan', 'zoo',
+        }
+        named_tokens = functions | named_symbols
+        expression = re.sub(
+            r'(?<![a-zA-Z_])[a-zA-Z]{2,}(?![a-zA-Z_])',
+            lambda match: match.group() if match.group() in named_tokens
+            else '*'.join(match.group()),
+            expression,
+        )
         expression = re.sub(
             r'([a-zA-Z]+)\s*(?=\()',
             lambda match: match.group(0) if match.group(1) in functions

@@ -52,6 +52,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         let pendingRawDeletion = false;
         let rawRecoveryQueued = false;
         field.addEventListener('keydown', event => {
+            if (field.readOnly || field.mode === 'latex' || event.isComposing ||
+                event.ctrlKey || event.altKey || event.metaKey) return;
+            const russianPeriod = event.code === 'Slash' && event.key === '.';
+            const russianLetter = event.code === 'Quote' && /^[эЭ]$/.test(event.key);
+            if (!russianPeriod && !russianLetter) return;
+            // MathLive binds these physical keys to fractions and mode changes.
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            field.insert(event.key, {format: 'latex', mode: field.mode});
+        }, {capture: true});
+        field.addEventListener('keydown', event => {
             if (['Backspace', 'Delete'].includes(event.key)) {
                 if (clearEntireMultiline(event)) return;
                 pendingRawDeletion = field.mode === 'latex';
@@ -122,8 +133,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // inside fractions, powers and matrices retain structural navigation.
         let verticalX = null;
         let verticalAnchor = null;
-        let verticalOrigin = null;
-        const resetVertical = () => { verticalX = null; verticalAnchor = null; verticalOrigin = null; };
+        const resetVertical = () => { verticalX = null; verticalAnchor = null; };
         field.addEventListener('pointerdown', resetVertical, {capture: true});
         field.addEventListener('input', resetVertical);
         field.addEventListener('keydown', event => {
@@ -143,18 +153,22 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const info = field.getElementInfo(offset);
                 const bounds = info?.bounds;
                 if (info?.depth !== 0 || !bounds?.width || !bounds.height) continue;
-                let row = rows.find(row => Math.abs(row.top - bounds.top) < 3);
-                if (!row) { row = {top: bounds.top, height: bounds.height, stops: []}; rows.push(row); }
+                // Scripts and fractions can start higher than their neighbors
+                // on the same visual line. Group by overlapping vertical spans.
+                let row = rows.at(-1);
+                if (!row || Math.min(row.bottom, bounds.bottom) <= Math.max(row.top, bounds.top)) {
+                    row = {top: bounds.top, bottom: bounds.bottom, stops: []};
+                    rows.push(row);
+                }
+                row.top = Math.min(row.top, bounds.top);
+                row.bottom = Math.max(row.bottom, bounds.bottom);
                 row.stops.push({offset, x: bounds.right});
             }
-            verticalOrigin ??= {offset: field.position, x: rect.left, top: rect.top};
-            if (!rows.some(row => Math.abs(row.top - verticalOrigin.top) < 3)) {
-                rows.push({top: verticalOrigin.top, height: 1, stops: [verticalOrigin]});
-            }
-            if (rows.length < 2) return;
+            const currentRow = rows.find(row => row.stops.some(stop => stop.offset === field.position)) ||
+                rows.find(row => rect.top < row.bottom && rect.bottom > row.top);
+            if (!currentRow || rows.length < 2) return;
             const direction = event.key === 'ArrowUp' ? -1 : 1;
-            const target = rows.filter(row => direction * (row.top - rect.top) > 3)
-                .sort((a, b) => Math.abs(a.top - rect.top) - Math.abs(b.top - rect.top))[0];
+            const target = rows[rows.indexOf(currentRow) + direction];
             event.preventDefault();
             event.stopImmediatePropagation();
             if (!target) return;

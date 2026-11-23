@@ -35,6 +35,9 @@ class CheckAnswer:
         if self.is_choice:
             return int(self.teach_raw == self.stud_raw)
 
+        if self.type_ans in (1, 3, 4) and self.stud_raw and self.teach_raw == self.stud_raw:
+            return 1
+
         try:
             match self.type_ans:
                 case 1:  # число (целое или нецелое)
@@ -72,6 +75,6 @@ class CheckAnswer:
             return int(diff == 0)
         # Сравнение с погрешностью
         try:
-            return int(abs(diff) < self.eps)
+            return int(bool(abs(diff) < self.eps))
         except Exception:
             return 0

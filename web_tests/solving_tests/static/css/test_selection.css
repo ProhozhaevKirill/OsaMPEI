@@ -217,7 +217,9 @@
 .start-btn {
     background-color: var(--primary-color);
     color: white;
-    flex-grow: 1;
+    box-sizing: border-box;
+    min-inline-size: 9rem;
+    line-height: 1.4;
 }
 
 .start-btn:hover {
